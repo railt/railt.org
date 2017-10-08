@@ -1,0 +1,77 @@
+version: "2"
+
+services:
+    php:
+        image: "railt_org"
+        container_name: "railt_org"
+        command: "/laravel.sh"
+        build:
+            context: ./docker/php
+            args:
+                - ENABLE_XDEBUG=true
+                - ENABLE_EV=true
+                - ENABLE_PCNTL=true
+        volumes:
+            - "./:/var/www/railt.org"
+            - "./docker/.mount/profiler:/var/log/profiler"
+        links:
+            - postgres
+            - redis
+        depends_on:
+            - redis
+            - postgres
+
+    nginx:
+        container_name: "railt_org_nginx"
+        build:
+            context: ./docker/nginx
+            args:
+                - PHP_UPSTREAM=php
+        volumes_from: [php]
+        volumes:
+            - ./docker/nginx/sites-available/:/etc/nginx/sites-available
+        ports:
+            - "80:80"
+            - "443:443"
+        links:
+            - php
+
+    postgres:
+        container_name: "railt_org_database"
+        build: ./docker/postgres
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: laravel
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+
+    redis:
+        container_name: "railt_org_redis"
+        build: ./docker/redis
+        volumes:
+            - redis:/data
+        ports:
+            - "6379:6379"
+
+    supervisord:
+        container_name: "railt_org_supervisor"
+        build: ./docker/supervisord
+        volumes:
+            - "./docker/.mount/supervisor/:/var/log/supervisor"
+        volumes_from:
+            - php
+        depends_on:
+            - php
+
+volumes:
+    postgres:
+        driver: "local"
+    sentry:
+        driver: "local"
+    redis:
+        driver: "local"
+    sessions:    ## nothing is connected to this (- ./data/sessions:/sessions)
+        driver: "local"
