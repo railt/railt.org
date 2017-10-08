@@ -10,3 +10,9 @@ declare(strict_types=1);
 
 \shell_exec('cd ../ && git pull origin master');
 \shell_exec('cd ../resources/docs && git pull  origin master');
+
+\header('Content-Type: application/json');
+
+echo \json_encode([
+    'status' => 'OK'
+]);
