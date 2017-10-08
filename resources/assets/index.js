@@ -1,4 +1,3 @@
-
 /**
  * Polyfill
  */
@@ -47,6 +46,6 @@ for (let name of Object.keys(pages)) {
 window.app = new Vue({
     el: 'main',
     mounted: function () {
-        document.body.addClass('loaded');
+        document.body.classList.add('loaded');
     }
 });
