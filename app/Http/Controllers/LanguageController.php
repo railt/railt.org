@@ -26,6 +26,6 @@ class LanguageController
     {
         $language->set($lang);
 
-        return \redirect()->route('home');
+        return \redirect()->back(302, [], \route('home'));
     }
 }

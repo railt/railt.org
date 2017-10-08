@@ -4,7 +4,6 @@
 
 @import "kernel";
 
-
 html,
 body {
   @include font-optimize;
@@ -96,4 +95,9 @@ body {
 
   @import "ui/headings";
   @import "ui/table";
+  @import "ui/prism";
+}
+
+body {
+  overflow: visible;
 }

@@ -16,6 +16,7 @@
             box-sizing: border-box;
             padding: 10px 20px;
             font-size: 14px;
+            box-shadow: -1px 0 0 $color-border;
 
             p {
                 color: $color-light-silver;
@@ -30,7 +31,7 @@
 
             a {
                 font-size: 13px;
-                color: $color-text;
+                color: $color-light-black;
                 text-decoration: none;
                 &:hover {
                     color: $color-main;
@@ -38,12 +39,33 @@
                 }
             }
 
-            ul {
-                margin: 1.2em 0;
-                line-height: 1.7rem;
+            & > ul {
+                & > li {
+                    & > ul {
+                        margin-left: 0;
+                        ul {
+                            margin-left: 30px;
+                            padding: 5px 0 3px 0;
+                            li {
+                                line-height: 14px;
+                                a {
+                                    color: $color-light-black;
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 li {
+                    line-height: 1.7rem;
                     list-style: none;
-                    margin-left: 10px;
+                    margin-bottom: 10px;
+                }
+
+                a {
+                    margin-left: 12px;
+                    font-size: 14px;
                 }
             }
         }
@@ -94,10 +116,12 @@
 
                 h2 {
                     margin: 3.618rem 0 1.309rem 0;
+                    font-size: 1.8rem;
                 }
 
                 h3 {
                     margin: 2.618rem 0 0.809rem 0;
+                    font-size: 1.6rem;
                 }
 
                 h4 {
@@ -106,12 +130,24 @@
                     padding: 0;
                 }
 
+                strong {
+                    font-weight: bold;
+                }
+
+                em {
+                    font-style: italic;
+                }
+
                 ul {
                     margin: 1.2em 0;
                     li {
                         list-style: disc;
                         margin-left: 30px;
                     }
+                }
+
+                p {
+                    margin: 10px 0 20px 0;
                 }
 
                 blockquote {
@@ -125,6 +161,10 @@
                     line-height: 1.6em;
                     box-shadow: 0 0 0 2px $color-extra-light-gray;
                     color: $color-light-black;
+
+                    p {
+                        margin: 0;
+                    }
 
                     @mixin with-dark-bg {
                         a {
@@ -212,6 +252,8 @@
 </template>
 
 <script>
+    import Prism from "kernel/Prism";
+
     export default {
 
     };
