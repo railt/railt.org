@@ -1,0 +1,7 @@
+.idea/
+node_modules/
+vendor/
+docker/.mount/
+npm-debug.log
+yarn-error.log
+.env
