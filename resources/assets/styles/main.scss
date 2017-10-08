@@ -100,4 +100,9 @@ body {
 
 body {
   overflow: visible;
+  opacity: 0;
+  &.loaded {
+    transition: opacity .3s ease;
+    opacity: 1;
+  }
 }

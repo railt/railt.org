@@ -44,4 +44,9 @@ for (let name of Object.keys(pages)) {
     Vue.component(name, require(`./pages/${page}.vue`));
 }
 
-window.app = new Vue({ el: 'main' });
+window.app = new Vue({
+    el: 'main',
+    mounted: function () {
+        document.body.addClass('loaded');
+    }
+});
