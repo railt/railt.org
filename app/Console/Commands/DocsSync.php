@@ -13,6 +13,7 @@ use App\Models\Document;
 use App\Services\Language;
 use GrahamCampbell\GitHub\GitHubManager;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -45,15 +46,49 @@ class DocsSync extends Command
     {
         foreach ($language->all() as $lang => $title) {
             foreach ($this->files($manager, $lang) as $file) {
-                $document = $this->find($file['sha']);
+                $uri = $this->formatUri($lang, $file['path']);
 
-                $document->lang = $lang;
-                $document->uri = $this->formatUri($lang, $file['path']);
+                $document = $this->find($uri, $lang);
+
+                $document->hash             = $file['sha'];
                 $document->content_original = $this->getBody($manager, $file['path']);
 
                 $document->save();
             }
         }
+    }
+
+    /**
+     * @param GitHubManager $manager
+     * @param string $language
+     * @return \Traversable
+     */
+    private function files(GitHubManager $manager, string $language): \Traversable
+    {
+        $files = $manager->repo()
+            ->contents()
+            ->show('railt', 'docs', $language);
+
+        foreach ($files as $file) {
+            if ($file['type'] === 'dir') {
+                yield from $this->files($manager, $file['path']);
+            } else {
+                yield $file;
+            }
+        }
+    }
+
+    /**
+     * @param string $uri
+     * @param string $lang
+     * @return Document|Model
+     */
+    private function find(string $uri, string $lang): Document
+    {
+        return Document::firstOrNew([
+            'uri'  => $uri,
+            'lang' => $lang,
+        ]);
     }
 
     /**
@@ -81,36 +116,5 @@ class DocsSync extends Command
         return $manager->repo()
             ->contents()
             ->download('railt', 'docs', $path);
-    }
-
-    /**
-     * @param string $sha
-     * @return Document
-     */
-    private function find(string $sha): Document
-    {
-        return Document::firstOrNew([
-            'hash' => $sha
-        ]);
-    }
-
-    /**
-     * @param GitHubManager $manager
-     * @param string $language
-     * @return \Traversable
-     */
-    private function files(GitHubManager $manager, string $language): \Traversable
-    {
-        $files = $manager->repo()
-            ->contents()
-            ->show('railt', 'docs', $language);
-
-        foreach ($files as $file) {
-            if ($file['type'] === 'dir') {
-                yield from $this->files($manager, $file['path']);
-            } else {
-                yield $file;
-            }
-        }
     }
 }
