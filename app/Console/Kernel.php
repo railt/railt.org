@@ -23,7 +23,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\DocsSync::class
+        \App\Console\Commands\DocsSync::class,
+        \App\Console\Commands\DocsRender::class
     ];
 
     /**

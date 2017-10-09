@@ -23,9 +23,13 @@
     </partial-header>
 
     <page-docs>
+        @if($nav)
         <template slot="nav">
-            {!! $nav !!}
+            <aside class="nav">
+                {!! $nav->content_rendered !!}
+            </aside>
         </template>
+        @endif
         <template slot="content">
             @if ($content)
                 {!! $content->content_rendered !!}

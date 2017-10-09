@@ -9,14 +9,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Models\Document\ContentObserver;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Document\ContentObserver;
 
 /**
  * Class Document
  */
 class Document extends Model
 {
+    private const SIDEBAR_NAME = '_sidebar';
+    private const URI_DELIMITER = '/';
+
     /**
      * @var string
      */
@@ -39,5 +43,43 @@ class Document extends Model
         static::observe(ContentObserver::class);
 
         parent::boot();
+    }
+
+    /**
+     * @param string $uri
+     * @return void
+     */
+    public function setUriAttribute(string $uri): void
+    {
+        $this->attributes['uri'] = \trim($uri, self::URI_DELIMITER);
+    }
+
+    /**
+     * @return Document|Model|null
+     */
+    public function nav(): ?Document
+    {
+        return static::query()
+            ->where('lang', $this->lang)
+            ->where(function (Builder $query) {
+                foreach ($this->getNavUri() as $i => $uri) {
+                    $query->where('uri', '=', $uri, $i ? 'or' : 'and');
+                }
+                return $query;
+            })
+            ->orderBy('uri', 'desc')
+            ->first();
+    }
+
+    /**
+     * @return iterable|string[]
+     */
+    private function getNavUri(): iterable
+    {
+        $parts = \explode(self::URI_DELIMITER, $this->uri);
+        $parts[\count($parts) - 1] = self::SIDEBAR_NAME;
+
+        yield $this->uri . self::URI_DELIMITER . self::SIDEBAR_NAME;
+        yield \implode(self::URI_DELIMITER, $parts);
     }
 }

@@ -25,11 +25,6 @@ class DocumentationController
     private const DEFAULT_PAGE = 'README';
 
     /**
-     *
-     */
-    private const DEFAULT_NAV_PAGE = '_sidebar';
-
-    /**
      * @param Language $language
      * @param ContentRenderer $renderer
      * @param null|string $page
@@ -46,26 +41,7 @@ class DocumentationController
 
         return \view('pages.docs', [
             'content' => $document,
-            'nav'     => $this->getNavigation($language),
+            'nav'     => $document ? $document->nav() : '',
         ]);
-    }
-
-    /**
-     * @param Language $language
-     * @return string
-     */
-    private function getNavigation(Language $language): string
-    {
-        /** @var Document $result */
-        $result = Document::query()
-            ->where('lang', $language->get())
-            ->where('uri', self::DEFAULT_NAV_PAGE)
-            ->first();
-
-        if ($result === null) {
-            return '';
-        }
-
-        return $result->content_rendered;
     }
 }

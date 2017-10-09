@@ -217,9 +217,12 @@
                 .error-404 {
                     width: 100%;
                     height: 100%;
-                    position: relative;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
 
                     h1 {
+                        margin-top: 100px;
                         text-align: center;
                     }
 
@@ -229,7 +232,6 @@
                         width: 100%;
                         height: 355px;
                         pointer-events: none;
-                        left: -$nav;
                         bottom: 0;
                         position: fixed;
                         background: url(/img/404.png) center bottom no-repeat !important;
@@ -242,9 +244,7 @@
 
 <template>
     <section class="page-docs">
-        <aside class="nav">
-            <slot name="nav"></slot>
-        </aside>
+        <slot name="nav"></slot>
         <section class="content">
             <article class="page">
                 <slot name="content"></slot>
