@@ -159,6 +159,14 @@
                     font-style: italic;
                 }
 
+                abbr {
+                    position: relative;
+                    cursor: help;
+                    &:hover {
+                        color: $color-main;
+                    }
+                }
+
                 ul {
                     margin: 1.2em 0;
                     li {
