@@ -7,8 +7,6 @@
  */
 declare(strict_types=1);
 
-
-\shell_exec('cd ../ && git pull origin master');
 \shell_exec('cd ../ && php artisan docs:sync');
 
 \header('Content-Type: application/json');
