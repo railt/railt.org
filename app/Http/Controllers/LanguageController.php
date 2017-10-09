@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Services\Language;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Str;
 
 /**
  * Class LanguageController
@@ -17,15 +19,22 @@ use App\Services\Language;
 class LanguageController
 {
     /**
+     * @param Redirector $redirector
      * @param Language $language
      * @param string $lang
      * @return \Illuminate\Http\RedirectResponse
      * @throws \InvalidArgumentException
      */
-    public function select(Language $language, string $lang)
+    public function select(Redirector $redirector, Language $language, string $lang)
     {
+        $fallback = \route('home');
+
         $language->set($lang);
 
-        return \redirect()->back(302, [], \route('home'));
+        if (Str::contains($redirector->back($fallback), $fallback)) {
+            return \redirect()->back(302, [], $fallback);
+        }
+
+        return \redirect()->to($fallback);
     }
 }
