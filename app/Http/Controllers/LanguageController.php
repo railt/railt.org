@@ -19,22 +19,25 @@ use Illuminate\Support\Str;
 class LanguageController
 {
     /**
-     * @param Redirector $redirector
+     * @param Redirector $redirect
      * @param Language $language
      * @param string $lang
      * @return \Illuminate\Http\RedirectResponse
      * @throws \InvalidArgumentException
      */
-    public function select(Redirector $redirector, Language $language, string $lang)
+    public function select(Redirector $redirect, Language $language, string $lang)
     {
-        $fallback = \route('home');
-
         $language->set($lang);
 
-        if (Str::contains($redirector->back($fallback), $fallback)) {
-            return \redirect()->back(302, [], $fallback);
+        $urls = $redirect->getUrlGenerator();
+
+        $fallback = $urls->route('home');
+        $previous = $urls->previous($fallback);
+
+        if (Str::contains($previous, $fallback)) {
+            return $redirect->back(302, [], $fallback);
         }
 
-        return \redirect()->to($fallback);
+        return $redirect->to($fallback);
     }
 }
