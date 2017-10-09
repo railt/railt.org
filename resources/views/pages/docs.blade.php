@@ -3,6 +3,8 @@
 @include('partials.language')
 @include('partials.menu')
 
+@push('title', $content ? $content->title . ' &mdash; ' : 'Aaaaargh, 404! &mdash; ')
+
 @section('content')
     <partial-header>
         <a href="{{ route('home') }}" class="logo">
@@ -25,7 +27,11 @@
             {!! $nav !!}
         </template>
         <template slot="content">
-            {!! $content !!}
+            @if ($content)
+                {!! $content->content_rendered !!}
+            @else
+                @include('pages.404')
+            @endif
         </template>
     </page-docs>
 @stop

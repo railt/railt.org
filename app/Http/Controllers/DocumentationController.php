@@ -44,10 +44,8 @@ class DocumentationController
             ->where('uri', $page)
             ->first();
 
-        $content = $document ? $document->content_rendered : \view('pages.404')->render();
-
         return \view('pages.docs', [
-            'content' => $content,
+            'content' => $document,
             'nav'     => $this->getNavigation($language),
         ]);
     }
