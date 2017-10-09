@@ -7,7 +7,12 @@
  */
 declare(strict_types=1);
 
-\shell_exec('cd ../ && php artisan docs:sync');
+\shell_exec(implode(' && ', [
+    'cd ../',
+    'git checkout -f master',
+    'git pull origin master',
+    'php artisan docs:sync'
+]));
 
 \header('Content-Type: application/json');
 
