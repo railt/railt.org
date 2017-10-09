@@ -203,12 +203,14 @@
                 pre {
                     margin: 20px 0;
                     & > code {
-                        border-radius: 3px;
                         white-space: pre;
-                        padding: 20px 30px;
+                        padding: 10px 10px;
                         color: desaturate(darken($color-main, 25%), 30%);
-                        box-shadow: 0 0 0 2px $color-extra-light-gray;
+                        box-shadow:
+                            inset 2px 0 0 $color-extra-light-gray,
+                            0 0 0 1px $color-extra-light-gray;
                         overflow: auto;
+                        background: $color-white;
                     }
                 }
 

@@ -15,11 +15,11 @@ services:
             - "./:/var/www/railt.org"
             - "./docker/.mount/profiler:/var/log/profiler"
         links:
-            - postgres
+            - mysql
             - redis
         depends_on:
             - redis
-            - postgres
+            - mysql
 
     nginx:
         container_name: "railt_org_nginx"
@@ -36,17 +36,23 @@ services:
         links:
             - php
 
-    postgres:
+    mysql:
         container_name: "railt_org_database"
-        build: ./docker/postgres
-        volumes:
-            - postgres:/var/lib/postgresql/data
-        ports:
-            - "5432:5432"
+        build:
+            context: ./docker/mysql
+            args:
+                - MYSQL_VERSION=5.7
         environment:
-            POSTGRES_DB: laravel
-            POSTGRES_USER: root
-            POSTGRES_PASSWORD: root
+            - MYSQL_DATABASE=railt
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_ROOT_PASSWORD=root
+            - TZ=UTC
+        volumes:
+            - mysql:/var/lib/mysql
+            - ./docker/mysql:/docker-entrypoint-initdb.d
+        ports:
+            - "3306:3306"
 
     redis:
         container_name: "railt_org_redis"
@@ -67,7 +73,7 @@ services:
             - php
 
 volumes:
-    postgres:
+    mysql:
         driver: "local"
     sentry:
         driver: "local"

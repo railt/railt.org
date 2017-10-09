@@ -8,7 +8,9 @@
 declare(strict_types=1);
 
 return [
-    'docs' => 'Documentation',
-    'chat' => 'Chat',
+    'search' => 'Search',
+
+    'docs'   => 'Documentation',
+    'chat'   => 'Chat',
     'github' => 'GitHub',
 ];

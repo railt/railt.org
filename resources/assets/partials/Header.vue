@@ -1,9 +1,11 @@
 <style lang="scss" scoped>
     @import "kernel";
 
+    $header:  48px;
+
     header {
         width: 100%;
-        height: 48px;
+        height: $header;
         top: 0;
         left: 0;
         box-sizing: border-box;
@@ -20,9 +22,32 @@
             margin: 0 auto;
             display: flex;
             flex-wrap: nowrap;
-            height: 100%;
+            height: $header;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .search {
+            height: $header;
+            padding-right: 20px;
+            margin-right: 30px;
+            box-shadow: 1px 0 0 $color-border;
+            display: flex;
+            align-items: center;
+
+            & /deep/ .input {
+                .placeholder {
+                    transition:
+                        opacity .3s $ui-animation-swift,
+                        transform .3s $ui-animation-swift;
+                    opacity: 1;
+                }
+
+                &.active .placeholder {
+                    opacity: 0;
+                    transform: translateX(10px);
+                }
+            }
         }
 
         nav {

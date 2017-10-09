@@ -45,7 +45,7 @@ RUN docker-php-ext-configure gd \
 #
 RUN docker-php-ext-install \
         mcrypt \
-        pdo_pgsql \
+        pdo_mysql \
         pdo_sqlite \
         pcntl \
         sockets \
