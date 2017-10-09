@@ -68,6 +68,27 @@
                     font-size: 14px;
                 }
             }
+
+            p > a {
+                margin-left: 0 !important;
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 6px;
+                    height: 6px;
+                    margin-top: 8px;
+                    margin-right: 3px;
+                    float: left;
+                    transform: rotate(45deg);
+                    box-shadow: -2px 2px 0 0 $color-border;
+                }
+
+                &:hover {
+                    &:before {
+                        box-shadow: -2px 2px 0 0 $color-main;
+                    }
+                }
+            }
         }
 
         .content {
