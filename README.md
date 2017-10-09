@@ -11,7 +11,7 @@
 ## Contributing
 
 Thank you for considering contributing to the Railt Framework! 
-The contribution guide can be found in the [documentation](http://railt.org/#/ru/contributions).
+The contribution guide can be found in the [documentation](https://railt.org/docs/contributions).
 
 ## Security Vulnerabilities
 
