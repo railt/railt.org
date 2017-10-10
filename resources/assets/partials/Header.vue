@@ -165,7 +165,7 @@
         }
 
         .aside {
-            padding-left: 30px;
+            padding: 0 9px 0 21px;
             margin-left: 30px;
             width: 200px;
             box-shadow: -1px 0 0 rgba(#000, .1);
