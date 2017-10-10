@@ -33,12 +33,12 @@ $color-white:               #fff    !default;
  *  Semantic color names
  * --------------------------------------------------------------------------------------
  */
-$color-bg:            $color-dark-white;              // UI background support color
-$color-text:          $color-extra-light-black;       // Main text color
-$color-description:   $color-light-silver;            // Main description color
-$color-border:        $color-light-gray;              // Elements border color
-$color-border-hover:  $color-gray;                    // Element border color while element is hovered
-$color-border-focus:  $color-orange;                  // Element border color while element is focused
+$color-bg:            $color-dark-white;                    // UI background support color
+$color-text:          $color-extra-light-black;             // Main text color
+$color-description:   desaturate($color-light-silver, 10%); // Main description color
+$color-border:        $color-light-gray;                    // Elements border color
+$color-border-hover:  $color-gray;                          // Element border color while element is hovered
+$color-border-focus:  $color-orange;                        // Element border color while element is focused
 
 //
 // Disabled components

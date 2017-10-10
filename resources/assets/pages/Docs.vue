@@ -10,11 +10,11 @@
         .nav {
             width: $nav;
             position: absolute;
-            top: 68px;
+            top: 48px;
             right: 0;
             min-height: 100vh;
             box-sizing: border-box;
-            padding: 10px 20px;
+            padding: 20px 0 10px 20px;
             font-size: 14px;
             box-shadow: -1px 0 0 $color-border;
 
@@ -274,6 +274,7 @@
 <template>
     <section class="page-docs">
         <slot name="nav"></slot>
+
         <section class="content">
             <article class="page">
                 <slot name="content"></slot>

@@ -6,14 +6,10 @@
 @push('title', $content ? $content->title . ' &mdash; ' : 'Aaaaargh, 404! &mdash; ')
 
 @section('content')
-    <partial-header>
+    <partial-header :search-enable="true" search-placeholder="@lang('nav.search')">
         <a href="{{ route('home') }}" class="logo">
             <img src="/img/logo-dark.svg" alt="logo" />
         </a>
-
-        <div class="search">
-            <ui-text view="flat" placeholder="@lang('nav.search')"></ui-text>
-        </div>
 
         @yield('menu')
 

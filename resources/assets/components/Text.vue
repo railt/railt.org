@@ -286,12 +286,12 @@
         },
         methods: {
             onFocus(event) {
-                this.$emit('focus', event);
+                this.$parent.$emit('focus', event);
 
                 this.isFocus = true;
             },
             onBlur(event) {
-                this.$emit('blur', event);
+                this.$parent.$emit('blur', event);
 
                 if (this.internalValue.trim().length !== this.internalValue.length) {
                     this.internalValue = this.internalValue.trim();
@@ -302,7 +302,7 @@
                 this.wasChanged = true;
             },
             onInput(event) {
-                this.$emit('input', this.internalValue);
+                this.$parent.$emit('input', this.internalValue);
 
                 this.isActive = this.internalValue.trim().length !== 0;
             }

@@ -33,8 +33,10 @@
         "webpack": "^3.2.0"
     },
     "dependencies": {
+        "axios": "^0.16",
         "babel-polyfill": "^6.26",
         "reset-css": "^2.2",
+        "vue-axios": "^2.0",
         "vue": "^2.3"
     }
 }
