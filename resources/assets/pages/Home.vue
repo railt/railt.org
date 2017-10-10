@@ -41,13 +41,25 @@
             .section-column {
                 float: left;
                 width: 50%;
-                display: block;
                 box-sizing: border-box;
                 padding: 0 50px;
+                display: block;
 
                 img {
                     width: 80%;
                     margin: 0 10%;
+                }
+
+                .button {
+                    display: block;
+                    width: 140px;
+                    margin: 0 auto;
+                }
+            }
+
+            &.github {
+                .section-column {
+                    float: right;
                 }
             }
         }
@@ -66,66 +78,37 @@
     <section class="page-home">
         <page-home-splash :about="about" :variants="variants">
             <slot name="header"></slot>
-
             <template slot="lang">
                 <slot name="lang"></slot>
             </template>
         </page-home-splash>
 
-        <section class="section">
+        <section class="section main">
             <div class="section-body">
                 <h2>GraphQL</h2>
-                <h3>Язык запросов для вашего API</h3>
-
-                <p>
-                    GraphQL - это язык запросов для API и среда выполнения для выполнения
-                    этих запросов с вашими существующими данными.
-                    GraphQL предоставляет полное и понятное описание данных в
-                    вашем API, дает клиентам возможность запрашивать именно то,
-                    что им нужно, и не более того, упрощает разработку API
-                    с течением времени и дает мощные инструменты для разработчиков.
-                </p>
+                <slot name="main"></slot>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section docs">
             <div class="section-body">
                 <aside class="section-column">
                     <img src="/img/preview/docs.png" alt="Documentation" />
                 </aside>
                 <article class="section-column">
-                    <h3>Документация</h3>
-
-                    <p>
-                        Воспользуйтесь документацией для изучения
-                        основ или закрепления знаний. Это поможет
-                        вам в разработке более элегантных и
-                        качественных решений.
-                    </p>
-
-                    <ui-button view="simple">Открыть</ui-button>
+                    <slot name="docs"></slot>
                 </article>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section github">
             <div class="section-body">
-                <article class="section-column">
-                    <h3>GitHub</h3>
-
-                    <p>
-                        Исходный код полностью открыт и располагается
-                        на страницах
-                        <a href="https://github.com/railt/railt" target="_blank">GitHub</a>.
-                        Фреймворк распространяется под лицензией MIT.
-                    </p>
-
-                    <ui-button href="https://github.com/railt/railt" target="blank"
-                               view="simple">Исходный код</ui-button>
-                </article>
                 <aside class="section-column">
                     <img src="/img/preview/github.png" alt="GitHub" />
                 </aside>
+                <article class="section-column">
+                    <slot name="github"></slot>
+                </article>
             </div>
         </section>
     </section>
@@ -134,12 +117,8 @@
 <script>
     export default {
         props: {
-            about: {
-                required: true
-            },
-            variants: {
-                required: true
-            }
+            about:         { required: true },
+            variants:      { required: true },
         },
     };
 </script>
