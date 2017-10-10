@@ -22,7 +22,23 @@
         @if($nav)
         <template slot="nav">
             <aside class="nav">
-                {!! $nav->content_rendered !!}
+                @if($childNav)
+                    <div class="menu">
+                        {!! $renderActiveLink($childNav->content_rendered) !!}
+                    </div>
+                    <div class="menu child-menu">
+                        {!! $renderActiveLink($nav->content_rendered) !!}
+                    </div>
+                @else
+                    <div class="menu">
+                        {!! $renderActiveLink($nav->content_rendered) !!}
+                    </div>
+                    @if($parentNav)
+                        <div class="menu child-menu">
+                            {!! $renderActiveLink($parentNav->content_rendered) !!}
+                        </div>
+                    @endif
+                @endif
             </aside>
         </template>
         @endif

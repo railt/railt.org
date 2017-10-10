@@ -14,7 +14,7 @@
             right: 0;
             min-height: 100vh;
             box-sizing: border-box;
-            padding: 20px 0 10px 20px;
+            padding: 0;
             font-size: 14px;
             box-shadow: -1px 0 0 $color-border;
 
@@ -32,14 +32,35 @@
             a {
                 font-size: 13px;
                 color: $color-light-black;
+                box-sizing: border-box;
                 text-decoration: none;
+                display: block;
+                position: relative;
+
                 &:hover {
                     color: $color-main;
                     text-decoration: underline;
                 }
+
+                &[data-active="true"] {
+                    border-radius: 2px;
+                    background: desaturate($color-main, 15%);
+                    color: lighten($color-main, 45%);
+                    text-decoration: none;
+                    padding: 4px 0 4px 10px;
+                    left: -10px;
+                }
             }
 
-            & > ul {
+            .menu {
+                padding: 5px 20px 15px 20px;
+
+                &.child-menu {
+                    background: $color-bg;
+                }
+            }
+
+            .menu > ul {
                 & > li {
                     & > ul {
                         margin-left: 0;

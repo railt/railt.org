@@ -11,8 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use App\Services\Language;
-use App\Services\Renderer\ContentRenderer;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * Class DocumentationController
@@ -26,12 +25,11 @@ class DocumentationController
 
     /**
      * @param Language $language
-     * @param ContentRenderer $renderer
+     * @param Request $request
      * @param null|string $page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
      */
-    public function show(Language $language, ContentRenderer $renderer, ?string $page = self::DEFAULT_PAGE)
+    public function show(Language $language, Request $request, ?string $page = self::DEFAULT_PAGE)
     {
         /** @var Document $document */
         $document = Document::query()
@@ -40,8 +38,21 @@ class DocumentationController
             ->first();
 
         return \view('pages.docs', [
-            'content' => $document,
-            'nav'     => $document ? $document->nav() : '',
+            'content'   => $document,
+            'nav'       => $document ? $document->nav() : null,
+            'childNav'  => $document ? $document->childNav() : null,
+            'parentNav' => $document ? $document->parentNav() : null,
+
+            'renderActiveLink' => function (string $content) use ($request): string {
+                $regex = \preg_quote($request->getPathInfo(), '/');
+                $regex = \sprintf('/href="(%s)"/isu', $regex);
+
+                return \preg_replace_callback($regex, function (array $param) {
+                    return 'href="' . $param[1] . '" data-active="true"';
+                }, $content);
+
+                return $content;
+            },
         ]);
     }
 }

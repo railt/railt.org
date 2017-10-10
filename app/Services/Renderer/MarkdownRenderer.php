@@ -42,8 +42,20 @@ class MarkdownRenderer implements ContentRenderer
 
         $result = $this->parseLinks($result);
         $result = $this->parseQuotes($result);
+        $result = $this->parseListImprovements($result);
 
         return $result;
+    }
+
+    /**
+     * @param string $body
+     * @return string
+     */
+    private function parseListImprovements(string $body): string
+    {
+        $pattern = '/<li>(?!<)(.*?)<ul>/isu';
+
+        return \preg_replace($pattern, '<p>$1</p>', $body);
     }
 
     /**
@@ -56,7 +68,7 @@ class MarkdownRenderer implements ContentRenderer
     {
         $pattern = '/(\s*)([\!\?])>/iu';
 
-        return preg_replace_callback($pattern, function (array $params): string {
+        return \preg_replace_callback($pattern, function (array $params): string {
             [$body, $space, $char] = $params;
 
             [$prefix, $suffix] = [$char, ''];

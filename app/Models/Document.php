@@ -59,27 +59,46 @@ class Document extends Model
      */
     public function nav(): ?Document
     {
+        $parts = \explode(self::URI_DELIMITER, $this->uri);
+        $parts[\count($parts) - 1] = self::SIDEBAR_NAME;
+
         return static::query()
             ->where('lang', $this->lang)
-            ->where(function (Builder $query) {
-                foreach ($this->getNavUri() as $i => $uri) {
-                    $query->where('uri', '=', $uri, $i ? 'or' : 'and');
-                }
-                return $query;
-            })
+            ->where('uri', '=', \implode(self::URI_DELIMITER, $parts))
             ->orderBy('uri', 'desc')
             ->first();
     }
 
     /**
-     * @return iterable|string[]
+     * @return Document|Model|null
      */
-    private function getNavUri(): iterable
+    public function childNav(): ?Document
+    {
+        return static::query()
+            ->where('lang', $this->lang)
+            ->where('uri', '=', $this->uri . self::URI_DELIMITER . self::SIDEBAR_NAME)
+            ->orderBy('uri', 'desc')
+            ->first();
+    }
+
+    /**
+     * @return Document|Model|null
+     */
+    public function parentNav(): ?Document
     {
         $parts = \explode(self::URI_DELIMITER, $this->uri);
+
+        if (\count($parts) < 2) {
+            return null;
+        }
+
+        \array_pop($parts);
         $parts[\count($parts) - 1] = self::SIDEBAR_NAME;
 
-        yield $this->uri . self::URI_DELIMITER . self::SIDEBAR_NAME;
-        yield \implode(self::URI_DELIMITER, $parts);
+        return static::query()
+            ->where('lang', $this->lang)
+            ->where('uri', '=', \implode(self::URI_DELIMITER, $parts))
+            ->orderBy('uri', 'desc')
+            ->first();
     }
 }
