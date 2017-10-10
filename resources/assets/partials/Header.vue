@@ -128,7 +128,7 @@
                         color: $color-description;
 
                         & /deep/ .highlight {
-                            background: $color-bg !important;
+                            background: lighten($color-yellow, 40%) !important;
                             color: $color-text;
                             padding: 0 1px;
                             border-radius: 2px;
