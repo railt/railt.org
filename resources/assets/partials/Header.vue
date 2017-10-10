@@ -193,10 +193,7 @@
                 </template>
 
                 <div class="search" v-if="searchEnable">
-                    <ui-text view="flat"
-                             :placeholder="searchPlaceholder"
-                             :loading="searchLoading"
-                    ></ui-text>
+                    <ui-text view="flat" :placeholder="searchPlaceholder"></ui-text>
 
                     <div class="search-results" :class="{
                         visible: (typeof searchResults !== 'boolean')
@@ -242,8 +239,7 @@
         data() {
             return {
                 searchText: '',
-                searchResults: false,
-                searchLoading: false
+                searchResults: false
             }
         },
         mounted: function () {
@@ -277,8 +273,6 @@
                 }, 200);
             },
             doSearch(value) {
-                this.searchLoading = true;
-
                 let query = { query: value };
 
                 this.$http.post('/search', query)
@@ -287,10 +281,8 @@
                             result.content = this.highlight(value, result.content);
                             return result;
                         });
-                        this.searchLoading = false;
                         this.found = true;
-                    })
-                    .catch(error => this.searchLoading = false);
+                    });
             },
             highlight(q, content) {
                 if (content.length > SEARCH_DESCRIPTION_LENGTH) {
