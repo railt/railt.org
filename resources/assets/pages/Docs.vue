@@ -36,6 +36,8 @@
                 text-decoration: none;
                 display: block;
                 position: relative;
+                padding: 2px 0 2px 10px;
+                left: -10px;
 
                 &:hover {
                     color: $color-main;
@@ -44,11 +46,10 @@
 
                 &[data-active="true"] {
                     border-radius: 2px;
-                    background: desaturate($color-main, 15%);
-                    color: lighten($color-main, 50%);
+                    background: $color-border;
+                    color: $color-text;
+                    cursor: default;
                     text-decoration: none;
-                    padding: 4px 0 4px 10px;
-                    left: -10px;
                 }
             }
 
