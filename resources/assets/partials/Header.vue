@@ -295,7 +295,10 @@
                 return content;
             },
             shift(query, content) {
-                let shift = content.search(query);
+                let shift = content.toString()
+                    .toLowerCase()
+                    .search(query.toString().toLowerCase());
+
                 shift = shift > 30 ? shift - 30 : shift;
                 return shift <= 0 ? 0 : shift;
             }
