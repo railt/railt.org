@@ -102,7 +102,7 @@ body {
   overflow: visible;
   opacity: 0;
   &.loaded {
-    transition: opacity .3s ease;
+    transition: opacity .05s ease;
     opacity: 1;
   }
 }
