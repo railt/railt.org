@@ -54,7 +54,7 @@
 
             <input type="hidden" name="receiver" :value="receiver" />
             <input type="hidden" name="formcomment" :value="dest" />
-            <input type="hidden" name="short-dest" :value="dest" />
+            <input type="hidden" name="short-dest" value="Nesmeyanov Kirill" />
             <input type="hidden" name="label" :value="label" />
             <input type="hidden" name="quickpay-form" value="donate" />
             <input type="hidden" name="targets" value="Railt Donate" />
