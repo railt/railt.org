@@ -16,17 +16,17 @@ $color-pink:    #ba6380 !default;
  *  Grayscale colors list
  * --------------------------------------------------------------------------------------
  */
-$color-black:               #201f3d !default;
-$color-light-black:         #353157 !default;
-$color-extra-light-black:   #494769 !default;
-$color-silver:              #8785a6 !default;
-$color-light-silver:        #9c99bf !default;
-$color-extra-light-silver:  #bfbfd9 !default;
-$color-gray:                #d4d3e5 !default;
-$color-light-gray:          #e9e6f2 !default;
-$color-extra-light-gray:    #f1f0f7 !default;
-$color-dark-white:          #fafafc !default;
-$color-white:               #fff    !default;
+$color-black:               desaturate(#201f3d, 10%) !default;
+$color-light-black:         desaturate(#353157, 10%) !default;
+$color-extra-light-black:   desaturate(#494769, 10%) !default;
+$color-silver:              desaturate(#8785a6, 10%) !default;
+$color-light-silver:        desaturate(#9c99bf, 10%) !default;
+$color-extra-light-silver:  desaturate(#bfbfd9, 10%) !default;
+$color-gray:                desaturate(#d4d3e5, 10%) !default;
+$color-light-gray:          desaturate(#e9e6f2, 10%) !default;
+$color-extra-light-gray:    desaturate(#f1f0f7, 10%) !default;
+$color-dark-white:          desaturate(#fafafc, 10%) !default;
+$color-white:               desaturate(#fff   , 10%) !default;
 
 /**
  * --------------------------------------------------------------------------------------

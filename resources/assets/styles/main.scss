@@ -105,4 +105,60 @@ body {
     transition: opacity .05s ease;
     opacity: 1;
   }
+
+  footer {
+    position: relative;
+    z-index: 3;
+    background: #171e26;
+    box-shadow: inset 0 1px 0 #000;
+
+    .footer-content {
+      box-sizing: border-box;
+      width: $ui-width;
+      margin: 0 auto;
+      padding: 40px 0;
+      color: $color-extra-light-black;
+
+      .lists {
+        @include clear;
+        margin: 0 auto 40px auto;
+
+        & > ul {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          & > li {
+            display: block;
+            margin: 0 40px;
+          }
+
+          li {
+            list-style: none;
+            padding: 3px 0;
+
+            p {
+              font-size: 16px;
+              padding: 5px 0 15px 0;
+            }
+
+            a {
+              text-decoration: none;
+              color: $color-extra-light-gray;
+
+              &:hover {
+                color: $color-main;
+              }
+            }
+          }
+        }
+      }
+
+      .copy {
+        display: block;
+        font-size: 12px;
+        text-align: center;
+      }
+    }
+  }
 }

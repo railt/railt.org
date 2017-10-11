@@ -29,6 +29,18 @@
 <body>
     <main id="main">
         @yield('content')
+
+        <footer>
+            <section class="footer-content">
+                <div class="lists">
+                    {!! $footer->content_rendered !!}
+                </div>
+
+                <span class="copy">
+                    Copyright &copy;2017 SerafimArts. The contents of this page are licensed MIT.
+                </span>
+            </section>
+        </footer>
     </main>
 </body>
 </html>

@@ -21,7 +21,7 @@
                 max-width: $ui-width;
                 margin: 0 auto;
                 box-sizing: border-box;
-                padding: 100px 0;
+                padding: 200px 0;
                 @include clear;
 
                 & > p {
@@ -52,9 +52,13 @@
 
                 .button {
                     display: block;
-                    width: 140px;
+                    width: 150px;
                     margin: 0 auto;
                 }
+            }
+
+            &.docs {
+                background: $color-bg;
             }
 
             &.github {

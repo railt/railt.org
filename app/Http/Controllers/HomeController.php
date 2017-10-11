@@ -8,6 +8,8 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
+use App\Models\Document;
+use App\Services\Language;
 
 /**
  * Class HomeController
@@ -15,9 +17,10 @@ namespace App\Http\Controllers;
 class HomeController
 {
     /**
+     * @param Language $language
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Language $language)
     {
         return \view('pages.home');
     }

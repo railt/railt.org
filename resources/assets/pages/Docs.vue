@@ -117,7 +117,7 @@
             margin-right: $nav;
             box-sizing: border-box;
             width: $ui-width - $nav;
-            padding: 55px 125px 50px 0;
+            padding: 55px 125px 100px 0;
 
             h1 {
                 & + ul {
@@ -149,7 +149,7 @@
                 max-width: $ui-width;
                 width: 100%;
                 line-height: 1.8rem;
-                font-size: 14px;
+                font-size: 15px;
 
                 a {
                     &:hover {
@@ -246,7 +246,7 @@
 
                 code {
                     color: darken(desaturate($color-main, 20%), 10%);
-                    font-size: 12px;
+                    font-size: 13px;
                     white-space: nowrap;
                     background: $color-dark-white;
                 }
@@ -266,27 +266,18 @@
                 }
 
                 .error-404 {
+                    $nav-div-2: $nav / 2;
+
                     width: 100%;
-                    height: 100%;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
+                    height: 80vh;
+                    background: url(/img/404.png) center bottom no-repeat !important;
+                    margin: 0 (-$nav-div-2) (-100px) $nav-div-2;
 
                     h1 {
                         margin-top: 100px;
                         text-align: center;
                     }
 
-                    &:after {
-                        content: '';
-                        box-sizing: border-box;
-                        width: 100%;
-                        height: 355px;
-                        pointer-events: none;
-                        bottom: 0;
-                        position: fixed;
-                        background: url(/img/404.png) center bottom no-repeat !important;
-                    }
                 }
             }
         }

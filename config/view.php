@@ -34,6 +34,7 @@ return [
      *
      */
     'composers' => [
-        \App\View\Composers\LanguageComposer::class => '*'
+        \App\View\Composers\LanguageComposer::class => '*',
+        \App\View\Composers\FooterComposer::class => 'layout.master',
     ]
 ];

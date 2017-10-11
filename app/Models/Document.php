@@ -18,7 +18,7 @@ use App\Models\Document\ContentObserver;
  */
 class Document extends Model
 {
-    private const SIDEBAR_NAME = '_sidebar';
+    public const SIDEBAR_NAME = '_sidebar';
     private const URI_DELIMITER = '/';
 
     /**
