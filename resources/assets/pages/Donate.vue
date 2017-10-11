@@ -58,7 +58,7 @@
             <input type="hidden" name="label" :value="label" />
             <input type="hidden" name="quickpay-form" value="donate" />
             <input type="hidden" name="targets" value="Railt Donate" />
-            <input type="hidden" name="need-fio" value="true" />
+            <input type="hidden" name="need-fio" value="false" />
             <input type="hidden" name="need-email" value="true" />
             <input type="hidden" name="need-phone" value="false" />
             <input type="hidden" name="need-address" value="false" />
