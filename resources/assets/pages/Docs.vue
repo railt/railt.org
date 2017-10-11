@@ -6,12 +6,13 @@
         max-width: $ui-width;
         margin: 0 auto;
         position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
 
         .nav {
             width: $nav;
-            position: absolute;
-            top: 48px;
-            right: 0;
+            margin-top: 48px;
             min-height: 100vh;
             box-sizing: border-box;
             padding: 0;
@@ -114,7 +115,6 @@
         }
 
         .content {
-            margin-right: $nav;
             box-sizing: border-box;
             width: $ui-width - $nav;
             padding: 55px 125px 100px 0;
@@ -286,13 +286,13 @@
 
 <template>
     <section class="page-docs">
-        <slot name="nav"></slot>
-
         <section class="content">
             <article class="page">
                 <slot name="content"></slot>
             </article>
         </section>
+
+        <slot name="nav"></slot>
     </section>
 </template>
 
