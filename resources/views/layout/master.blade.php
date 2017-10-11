@@ -37,7 +37,7 @@
                 </div>
 
                 <span class="copy">
-                    Copyright &copy;2017 SerafimArts. The contents of this page are licensed MIT.
+                    Copyright &copy;2017 Nesmeyanov Kirill. The contents of this page are licensed MIT.
                 </span>
             </section>
         </footer>
