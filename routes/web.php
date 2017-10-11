@@ -18,3 +18,6 @@ Route::get('/{lang}', 'LanguageController@select')
 Route::get('/docs/{page?}', 'DocumentationController@show')
     ->name('docs')
     ->where('page', '[a-zA-Z0-9\-\/]+');
+
+Route::get('/donate', 'DonateController@show')
+    ->name('donate');

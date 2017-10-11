@@ -8,4 +8,7 @@
     <a href="https://github.com/railt/railt" target="_blank">
         @lang('nav.github')
     </a>
+    <a href="{{ \route('donate') }}">
+        @lang('nav.donate')
+    </a>
 @stop

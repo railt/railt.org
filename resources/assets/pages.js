@@ -8,4 +8,7 @@ export default {
 
     //
     'page-docs':            'Docs',
+
+    //
+    'page-donate':          'Donate',
 }

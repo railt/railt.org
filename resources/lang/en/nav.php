@@ -13,4 +13,6 @@ return [
     'docs'   => 'Documentation',
     'chat'   => 'Chat',
     'github' => 'GitHub',
+
+    'donate' => 'Donate',
 ];

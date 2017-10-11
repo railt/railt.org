@@ -40,6 +40,7 @@
                 font-size: 13px;
                 display: inline-block;
                 text-decoration: none;
+                white-space: nowrap;
 
                 img {
                     display: block;
@@ -55,8 +56,9 @@
             width: 100%;
 
             & /deep/ .input {
-                min-width: 330px;
+                min-width: 200px;
                 width: 100%;
+
 
                 .container {
                     background: none !important;
