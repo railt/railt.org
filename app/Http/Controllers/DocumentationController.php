@@ -39,20 +39,9 @@ class DocumentationController
 
         return \view('pages.docs', [
             'content'   => $document,
-            'nav'       => $document ? $document->nav() : null,
-            'childNav'  => $document ? $document->childNav() : null,
-            'parentNav' => $document ? $document->parentNav() : null,
-
-            'renderActiveLink' => function (string $content) use ($request): string {
-                $regex = \preg_quote($request->getPathInfo(), '/');
-                $regex = \sprintf('/href="(%s)"/isu', $regex);
-
-                return \preg_replace_callback($regex, function (array $param) {
-                    return 'href="' . $param[1] . '" data-active="true"';
-                }, $content);
-
-                return $content;
-            },
+            'nav'       => \optional(\optional($document)->nav())->content_rendered,
+            'childNav'  => \optional(\optional($document)->childNav())->content_rendered,
+            'parentNav' => \optional(\optional($document)->parentNav())->content_rendered,
         ]);
     }
 }

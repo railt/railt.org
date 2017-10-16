@@ -22,27 +22,17 @@
         @if($nav)
         <template slot="nav">
             <aside class="nav">
-                @if($childNav)
-                    <div class="menu">
-                        {!! $renderActiveLink($childNav->content_rendered) !!}
-                    </div>
-                    <div class="menu child-menu">
-                        {!! $renderActiveLink($nav->content_rendered) !!}
-                    </div>
-                @else
-                    <div class="menu">
-                        {!! $renderActiveLink($nav->content_rendered) !!}
-                    </div>
-                    @if($parentNav)
-                        <div class="menu child-menu">
-                            {!! $renderActiveLink($parentNav->content_rendered) !!}
-                        </div>
-                    @endif
-                @endif
+
+                <div class="menu">
+                    @menu($nav, $childNav)
+                </div>
             </aside>
         </template>
         @endif
         <template slot="content">
+            <nav class="breadcrumbs">
+                @nav('<a href="%s">%s</a>', '<span data-uri="%s">%s</span>')
+            </nav>
             @if ($content)
                 {!! $content->content_rendered !!}
             @else

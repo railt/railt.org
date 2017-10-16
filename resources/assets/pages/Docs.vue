@@ -119,6 +119,33 @@
             width: $ui-width - $nav;
             padding: 55px 125px 100px 0;
 
+            .breadcrumbs {
+                margin: 30px 0 -30px 0;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                a {
+                    margin-right: 25px;
+                    position: relative;
+
+                    &:after {
+                        cursor: default;
+                        content: '▹';
+                        display: block;
+                        position: absolute;
+                        right: -20px;
+                        top: 0;
+                        color: $color-silver;
+                    }
+                }
+
+                span {
+                    color: $color-silver;
+                    font-weight: bold;
+                }
+            }
+
             h1 {
                 & + ul {
                     line-height: 1.3em;
