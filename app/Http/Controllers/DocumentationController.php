@@ -41,7 +41,6 @@ class DocumentationController
             'content'   => $document,
             'nav'       => \optional(\optional($document)->nav())->content_rendered,
             'childNav'  => \optional(\optional($document)->childNav())->content_rendered,
-            'parentNav' => \optional(\optional($document)->parentNav())->content_rendered,
         ]);
     }
 }
