@@ -13,20 +13,11 @@
         background: rgba($color-white, .98);
         box-shadow: 0 1px 0 $color-border;
         z-index: 97;
-
-        .header-content {
-            width: 100%;
-            max-width: $ui-width;
-            box-sizing: border-box;
-            padding: 0 20px;
-            margin: 0 auto;
-            position: relative;
-            display: flex;
-            flex-wrap: nowrap;
-            height: $header;
-            align-items: center;
-            justify-content: space-between;
-        }
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
 
         nav {
             width: 100%;
@@ -88,8 +79,9 @@
             .search-results {
                 position: absolute;
                 top: $header;
-                left: 0;
-                width: $ui-width - 251px;
+                left: 50%;
+                width: $ui-width;
+                margin-left: -$ui-width/2;
                 background: $color-white;
                 border-radius: 1px;
                 box-sizing: border-box;
@@ -170,7 +162,6 @@
             padding: 0 9px 0 21px;
             margin-left: 30px;
             width: 200px;
-            box-shadow: -1px 0 0 rgba(#000, .1);
             height: $header;
             display: flex;
             align-items: center;
@@ -179,7 +170,7 @@
                 & /deep/ .current,
                 & /deep/ .dropdown,
                 & /deep/ .value {
-                    min-width: 138px !important;
+                    min-width: 98px !important;
                 }
             }
         }
@@ -188,37 +179,35 @@
 
 <template>
     <header>
-        <section class="header-content">
-            <nav>
-                <template v-if="searchText.length === 0">
-                    <slot></slot>
-                </template>
+        <nav>
+            <template>
+                <slot></slot>
+            </template>
 
-                <div class="search" v-if="searchEnable">
-                    <ui-text view="flat" :placeholder="searchPlaceholder"></ui-text>
+            <div class="search" v-if="searchEnable">
+                <ui-text view="flat" :placeholder="searchPlaceholder"></ui-text>
 
-                    <div class="search-results" :class="{
-                        visible: (typeof searchResults !== 'boolean')
-                    }">
-                        <template v-for="result in searchResults">
-                            <a :href="result.route">
-                                <h4>{{ result.title }}</h4>
-                                <span v-html="result.content"></span>
-                            </a>
-                        </template>
-                        <template v-if="searchResults.length === 0">
-                            <h3>Not Found</h3>
-                        </template>
-                    </div>
+                <div class="search-results" :class="{
+                    visible: (typeof searchResults !== 'boolean')
+                }">
+                    <template v-for="result in searchResults">
+                        <a :href="result.route">
+                            <h4>{{ result.title }}</h4>
+                            <span v-html="result.content"></span>
+                        </a>
+                    </template>
+                    <template v-if="searchResults.length === 0">
+                        <h3>Not Found</h3>
+                    </template>
                 </div>
-            </nav>
-
-            <div class="aside">
-                <ui-select class="language" placeholder="Язык">
-                    <slot name="lang"></slot>
-                </ui-select>
             </div>
-        </section>
+        </nav>
+
+        <div class="aside">
+            <ui-select class="language" placeholder="Язык">
+                <slot name="lang"></slot>
+            </ui-select>
+        </div>
     </header>
 </template>
 

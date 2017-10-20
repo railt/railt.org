@@ -57,7 +57,7 @@ class SearchController
             ->get();
 
         $additional = (clone $builder)
-            ->whereNotIn('id', $result->pluck('id'))
+            ->whereNotIn('id', $result->pluck('id')->toArray())
             ->where('content_original', 'LIKE', '%' . $query . '%')
             ->get();
 

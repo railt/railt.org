@@ -44,6 +44,8 @@ class DocsSync extends Command
      */
     public function handle(Language $language, GitHubManager $manager)
     {
+        Document::query()->truncate();
+
         foreach ($language->all() as $lang => $title) {
             foreach ($this->files($manager, $lang) as $file) {
                 $uri = $this->formatUri($lang, $file['path']);
