@@ -10,6 +10,7 @@
     <meta name="description" content="@stack('description')" />
     <meta name="theme-color" content="#65429a" />
     <meta name="csrf-token" content="{{ \csrf_token() }}"/>
+    <meta name="yandex-verification" content="a7ce25d8efc91870" />
 
     <title>@stack('title'){{ \config('app.name') }}</title>
 
