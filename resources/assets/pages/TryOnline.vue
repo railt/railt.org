@@ -80,6 +80,7 @@
 
             .code-value-error {
                 color: $color-white;
+                white-space: pre-wrap;
                 border-radius: 3px;
                 background: $color-red !important;
                 font-size: 15px;
