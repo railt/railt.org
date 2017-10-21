@@ -131,11 +131,13 @@
 
                     &:after {
                         cursor: default;
-                        content: '▹';
+                        content: '›';
                         display: block;
                         position: absolute;
-                        right: -20px;
-                        top: 0;
+                        right: -15px;
+                        top: -1px;
+                        font-size: 20px;
+                        font-weight: bold;
                         color: $color-silver;
                     }
                 }

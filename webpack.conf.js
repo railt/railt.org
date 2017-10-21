@@ -12,7 +12,7 @@ module.exports = require('./webpack.base.js')({
         `${__dirname}/resources/assets/styles`,
     ],
     alias:   {
-        vue: 'vue/dist/vue.js'
+        vue: 'vue/dist/vue.min.js'
     },
     plugins: [
         new webpack.DefinePlugin({

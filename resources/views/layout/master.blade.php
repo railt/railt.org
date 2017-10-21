@@ -31,6 +31,7 @@
     <main id="main">
         @yield('content')
 
+        @section('footer')
         <footer>
             <section class="footer-content">
                 <div class="lists">
@@ -42,6 +43,7 @@
                 </span>
             </section>
         </footer>
+        @show
     </main>
 </body>
 </html>

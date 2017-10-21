@@ -251,7 +251,6 @@
         },
         methods: {
             search(value) {
-                this.searchError = false;
                 this.searchResults = false;
 
                 if (throttling !== null) {

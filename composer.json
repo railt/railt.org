@@ -15,7 +15,8 @@
         "barryvdh/laravel-debugbar": "~3.1",
         "cebe/markdown": "~1.1",
         "graham-campbell/github": "~6.0",
-        "php-http/guzzle6-adapter": "~1.1"
+        "php-http/guzzle6-adapter": "~1.1",
+        "railt/railt": "dev-master@dev"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

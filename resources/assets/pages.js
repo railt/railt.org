@@ -11,4 +11,7 @@ export default {
 
     //
     'page-donate':          'Donate',
+
+    //
+    'page-try-online':          'TryOnline',
 }

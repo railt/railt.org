@@ -21,3 +21,6 @@ Route::get('/docs/{page?}', 'DocumentationController@show')
 
 Route::get('/donate', 'DonateController@show')
     ->name('donate');
+
+Route::get('/try-online', 'TryOnlineController@show')
+    ->name('try-online');

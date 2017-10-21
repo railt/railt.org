@@ -12,5 +12,6 @@ return [
     'chat'   => 'Чат',
     'github' => 'GitHub',
     'donate' => 'Поддержать',
+    'try-it' => 'Попробовать',
     'search' => 'Поиск',
 ];

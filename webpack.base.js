@@ -82,6 +82,7 @@ module.exports = (config) => {
         },
         plugins: config.plugins.concat([
             new ExtractTextPlugin((config.out.file || 'index') + '.css'),
+            new webpack.optimize.UglifyJsPlugin(),
             new webpack.optimize.ModuleConcatenationPlugin(),
         ])
     }

@@ -22,7 +22,12 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: #7D8B99;
+    color: #b1babf;
+    font-weight: 100;
+}
+
+.token.whitespace {
+    color: #c8d7e5;
 }
 
 .token.punctuation {

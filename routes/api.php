@@ -9,3 +9,6 @@ declare(strict_types=1);
 
 Route::post('/search', 'SearchController@search')
     ->name('search');
+
+
+Route::post('/try-online', 'TryOnlineController@parse');

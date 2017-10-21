@@ -3,7 +3,7 @@
 @include('partials.language')
 @include('partials.menu')
 
-@push('title', 'Donate &mdash; ')
+@push('title', \trans('nav.donate') . ' &mdash; ')
 
 @section('content')
     <partial-header :search-enable="true" search-placeholder="@lang('nav.search')">
