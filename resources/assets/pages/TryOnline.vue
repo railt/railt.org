@@ -52,7 +52,8 @@
             .code-block-render {
                 position: relative;
                 pointer-events: none;
-                z-index: 99;
+                z-index: 16;
+
                 .code-block {
                     box-shadow: none;
                     position: absolute;
