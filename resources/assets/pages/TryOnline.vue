@@ -178,7 +178,7 @@ type Project {}`;
     export default {
         data() {
             return {
-                content: document.location.hash.substr(1) || DEFAULT_CODE_EXAMPLE,
+                content: decodeURIComponent(document.location.hash.substr(1)) || DEFAULT_CODE_EXAMPLE,
                 result: '',
                 error: '',
                 loading: false,
