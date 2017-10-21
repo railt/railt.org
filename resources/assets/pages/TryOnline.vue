@@ -178,7 +178,7 @@ type Project {}`;
     export default {
         data() {
             return {
-                content: DEFAULT_CODE_EXAMPLE,
+                content: document.location.hash.substr(1) || DEFAULT_CODE_EXAMPLE,
                 result: '',
                 error: '',
                 loading: false,
@@ -212,7 +212,9 @@ type Project {}`;
                 this.scrollTop = -event.target.scrollTop;
             },
             onNewChar(event) {
-                let prefix = this.getPrefix(event);
+                document.location = '#' + encodeURIComponent(this.content);
+
+                //let prefix = this.getPrefix(event);
 
                 //if (prefix.match(/{$/)) {
                 //    this.render(event, "\n    ", "\n}");
