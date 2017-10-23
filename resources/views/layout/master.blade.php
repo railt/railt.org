@@ -28,6 +28,7 @@
     <script async="async" src="{{ \asset_ts('app.min.js') }}"></script>
 </head>
 <body>
+    @include('partials.metrika')
     <main id="main">
         @yield('content')
 
