@@ -18,9 +18,7 @@
         </template>
     </partial-header>
 
-    <page-try-online>
-        Test
-    </page-try-online>
+    <page-try-online version="{{ $version }}"></page-try-online>
 @stop
 
 @section('footer', '')

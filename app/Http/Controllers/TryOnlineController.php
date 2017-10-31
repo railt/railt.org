@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CodeRequest;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Monolog\Handler\BufferHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
@@ -27,7 +29,24 @@ class TryOnlineController
      */
     public function show(): View
     {
-        return \view('pages.editor');
+        return \view('pages.editor', [
+            'version' => $this->getCompilerVersion()
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    private function getCompilerVersion(): string
+    {
+        $content = \file_get_contents(\base_path('composer.lock'));
+        $content = \collect(\json_decode($content, true)['packages']);
+
+        $package = $content->where('name', 'railt/railt')->first();
+
+        return $package['version'] . '@' .
+            Str::substr($package['source']['reference'], 0, 7) .
+            ' (' . Carbon::parse($package['time'])->toDateTimeString() . ')';
     }
 
     /**

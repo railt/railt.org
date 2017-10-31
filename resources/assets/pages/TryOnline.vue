@@ -83,6 +83,14 @@
                         padding: 0 10px;
                     }
                 }
+
+                .version {
+                    margin: 0 30px 0 10px;
+                    font-size: 11px;
+                    line-height: 11px;
+                    color: $color-silver;
+                    justify-self: flex-end;
+                }
             }
 
             .editor {
@@ -204,6 +212,7 @@
     <section class="page-try-online">
         <section class="layout">
             <header class="header">
+                <span class="version">{{ version }}</span>
                 <div class="tab">example.graphqls</div>
                 <ui-button @click="exec">►</ui-button>
             </header>
@@ -259,6 +268,11 @@
                 error: '',
                 trace: []
             };
+        },
+        props: {
+            version: {
+                type: String
+            }
         },
         computed: {
             renderedContent: function() {
