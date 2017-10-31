@@ -11,9 +11,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CodeRequest;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Railt\Reflection\Compiler;
-use Railt\Support\Filesystem\File;
+use Monolog\Handler\BufferHandler;
+use Monolog\Handler\NullHandler;
+use Monolog\Logger;
+use Railt\Compiler\Compiler;
+use Railt\Compiler\Filesystem\File;
 
 /**
  * Class TryOnlineController
@@ -31,26 +33,43 @@ class TryOnlineController
     /**
      * @param CodeRequest $request
      * @return array
-     * @throws \Railt\Reflection\Exceptions\TypeNotFoundException
-     * @throws \Railt\Reflection\Exceptions\TypeConflictException
-     * @throws \Railt\Parser\Exceptions\UnrecognizedTokenException
-     * @throws \Railt\Parser\Exceptions\UnexpectedTokenException
-     * @throws \Railt\Parser\Exceptions\CompilerException
-     * @throws \Railt\Parser\Exceptions\InitializationException
+     * @throws \Railt\Compiler\Exceptions\UnrecognizedTokenException
+     * @throws \Railt\Compiler\Exceptions\UnexpectedTokenException
+     * @throws \Railt\Compiler\Exceptions\TypeNotFoundException
+     * @throws \Railt\Compiler\Exceptions\TypeConflictException
+     * @throws \Railt\Compiler\Exceptions\CompilerException
+     * @throws \Railt\Compiler\Exceptions\InitializationException
      */
     public function parse(CodeRequest $request): array
     {
+        $trace = new class(new NullHandler(), 2048) extends BufferHandler
+        {
+            public $buffer = [];
+        };
+
+        $logger = new Logger('Backtrace', [$trace]);
+
+        $result = [];
+        $error  = '';
+
         try {
             $content = $request->get('content');
-            $result = (new Compiler())->compile(File::fromSources($content, 'OnlineEditor'));
+            $sources = File::fromSources($content, 'example.graphqls');
 
-            return [
-                'result' => json_encode($result, JSON_PRETTY_PRINT)
-            ];
+            $compiler = new Compiler(null, $logger);
+            $document = $compiler->compile($sources);
+
+            foreach ($document->getDefinitions() as $definition) {
+                $result[] = $definition;
+            }
         } catch (\Throwable $e) {
-            return [
-                'error' => $e->getMessage()
-            ];
+            $error = $e->getMessage();
         }
+
+        return [
+            'result' => \json_encode($result, JSON_PRETTY_PRINT),
+            'trace'  => $trace->buffer,
+            'error'  => $error,
+        ];
     }
 }

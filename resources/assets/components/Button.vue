@@ -28,36 +28,31 @@
             letter-spacing: 1px;
             white-space: nowrap;
             text-overflow: ellipsis;
-            box-shadow: 0 0 0 1px darken($color-main-text, 10%);
             font: {
                 size: $font-size - 1px;
                 family: $font-family;
             }
             transition:
                 color .3s $ui-animation-swift,
-                box-shadow .3s $ui-animation-swift,
                 background .3s $ui-animation-swift;
-            will-change: color, box-shadow, background;
+            will-change: color, background;
 
             &[href="#"] {
                 cursor: default;
             }
 
             &:hover {
-                box-shadow: 0 0 0 1px $color-main-text;
                 background: $color-main-hover;
             }
 
             &:active {
                 transition: none !important;
-                box-shadow: 0 0 0 1px desaturate(darken($color-main, 30%), 15%);
                 background: desaturate(darken($color-main, 10%), 30%);
             }
 
             &[disabled],
             &:disabled {
                 cursor: default;
-                box-shadow: 0 0 0 1px $color-disabled-filled-border;
                 background: $color-disabled-filled-bg;
                 color: $color-disabled-filled-body;
             }
@@ -74,24 +69,20 @@
         &[data-view="simple"] {
             a, button {
                 border-radius: 3px;
-                box-shadow: 0 0 0 1px $color-border;
                 color: $color-text;
                 background: $color-white;
 
                 &:hover {
-                    box-shadow: 0 0 0 1px $color-border-hover;
                     background: $color-bg;
                 }
 
                 &:active {
                     transition: none !important;
-                    box-shadow: 0 0 0 1px $color-main;
                 }
 
                 &[disabled],
                 &:disabled {
                     cursor: default;
-                    box-shadow: 0 0 0 1px $color-disabled-border;
                     background: $color-disabled-bg;
                     color: $color-disabled-body;
                 }
@@ -101,24 +92,20 @@
         &[data-view="flat"] {
             a, button {
                 border-radius: 3px;
-                box-shadow: 0 0 0 1px rgba($color-bg, 0);
                 color: $color-text;
                 background: $color-white;
 
                 &:hover {
-                    box-shadow: 0 0 0 1px $color-bg;
                     background: $color-bg;
                 }
 
                 &:active {
                     transition: none !important;
-                    box-shadow: 0 0 0 1px $color-border-hover;
                 }
 
                 &[disabled],
                 &:disabled {
                     cursor: default;
-                    box-shadow: 0 0 0 1px rgba($color-disabled-bg, 0);
                     background: rgba($color-disabled-bg, 0);
                     color: $color-disabled-body;
                 }
@@ -188,6 +175,7 @@
         },
         methods: {
             onClick(event) {
+                this.$parent.$emit('click', event);
                 this.$emit('click', event);
             }
         }

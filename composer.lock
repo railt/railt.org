@@ -2228,16 +2228,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.18",
+            "version": "v5.5.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21"
+                "reference": "c678100e84934ec85c9f8bc26bd0a60222682719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1cc21baac11551377734b8c17ead17db4c34fe21",
-                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c678100e84934ec85c9f8bc26bd0a60222682719",
+                "reference": "c678100e84934ec85c9f8bc26bd0a60222682719",
                 "shasum": ""
             },
             "require": {
@@ -2355,7 +2355,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-10-19T12:50:26+00:00"
+            "time": "2017-10-25T19:10:45+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -3675,18 +3675,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/railt/railt.git",
-                "reference": "77aa9b14090f557fe17e3c5f529affd7c5b339f9"
+                "reference": "1612a1d6968fee62e85739ff0e7a3af83b7cf7c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railt/railt/zipball/77aa9b14090f557fe17e3c5f529affd7c5b339f9",
-                "reference": "77aa9b14090f557fe17e3c5f529affd7c5b339f9",
+                "url": "https://api.github.com/repos/railt/railt/zipball/1612a1d6968fee62e85739ff0e7a3af83b7cf7c8",
+                "reference": "1612a1d6968fee62e85739ff0e7a3af83b7cf7c8",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "hoa/compiler": "~3.17",
-                "illuminate/support": "~5.1",
+                "illuminate/support": "~5.5",
                 "php": ">=7.1",
                 "psr/cache": "~1.0",
                 "psr/container": "~1.0",
@@ -3694,19 +3694,18 @@
                 "psr/simple-cache": "~1.0"
             },
             "replace": {
+                "railt/compiler": "self.version",
                 "railt/container": "self.version",
                 "railt/events": "self.version",
                 "railt/http": "self.version",
-                "railt/parser": "self.version",
-                "railt/reflection": "self.version",
-                "railt/routing": "self.version",
-                "railt/support": "self.version"
+                "railt/routing": "self.version"
             },
             "require-dev": {
                 "cache/filesystem-adapter": "~1.0",
                 "monolog/monolog": "~1.9",
                 "phpunit/phpunit": "~6.1",
                 "railt/webonyx-adapter": "self.version",
+                "railt/youshido-adapter": "self.version",
                 "symfony/finder": "~3.0"
             },
             "suggest": {
@@ -3719,10 +3718,7 @@
             "autoload": {
                 "psr-4": {
                     "Railt\\": "src/Railt/"
-                },
-                "files": [
-                    "src/Railt/Support/helpers.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3745,7 +3741,7 @@
                 "otd",
                 "railt"
             ],
-            "time": "2017-10-21T01:01:47+00:00"
+            "time": "2017-10-31T23:25:28+00:00"
         },
         {
             "name": "ramsey/uuid",

@@ -1,97 +1,200 @@
 <style lang="scss" scoped>
     @import "kernel";
 
-    .page-try-online {
-        height: 100vh;
-        width: 100vw;
-        background: $color-bg;
-        display: flex;
+    @mixin selection {
+        &::-moz-selection { @content }
+        &::selection { @content }
+    }
 
-        .column {
-            width: 50%;
+    @mixin scrollbars {
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #232733;
+            box-shadow: inset 0 1px 1px rgba(#000, .5);
+            border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background: #464d5e;
+            box-shadow: inset 0 0 0 1px #232733;
+        }
+    }
+
+    .page-try-online {
+        width: 100vw;
+        display: flex;
+        height: 100vh;
+        background: #3d4456;
+        box-sizing: border-box;
+        padding-top: 48px;
+
+        .layout {
+            width: 100%;
             height: 100%;
             box-sizing: border-box;
-            position: relative;
-            padding: 68px 20px 20px 20px;
+            display: flex;
+            align-items: stretch;
+            flex-direction: column;
+            color: $color-dark-white;
+
+            $height: 36px;
+
+            .header {
+                height: $height;
+                padding: 0 10px;
+                width: 100%;
+                background: #232733;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                box-shadow: inset 0 -1px 0 rgba(#000, .1);
+
+                .tab {
+                    cursor: default;
+                    top: 6px;
+                    height: 32px;
+                    position: relative;
+                    box-shadow: inset 0 1px 0 rgba(#fff, .1);
+                    background: #3d4456;
+                    background: linear-gradient(to bottom, lighten(#3d4456, 5%) 0, #3d4456 100%);
+                    display: flex;
+                    font-size: 12px;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0 20px;
+                    margin-right: 8px;
+                    color: $color-light-silver;
+                    border-radius: 2px 2px 0 0;
+                }
+
+                & /deep/ .button {
+                    position: relative;
+                    top: 1px;
+                    a, button {
+                        box-shadow:
+                            0 0 1px rgba(#000, .1),
+                            inset 0 0 1px rgba(#fff, .1);
+                        height: 22px;
+                        line-height: 22px;
+                        padding: 0 10px;
+                    }
+                }
+            }
 
             .editor {
-                overflow: hidden;
-                height: 100%;
                 width: 100%;
-                padding: 1px;
+                height: 95%;
+                height: calc(100% - #{$height});
+                background: #3d4456;
+                box-shadow: inset 0 1px 0 rgba(#fff, .05);
+                flex-shrink: 1;
                 box-sizing: border-box;
-            }
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 20px;
 
-            .code-block {
-                background: $color-white;
-                width: 100%;
-                height: 100%;
-                box-shadow:
-                    0 0 0 1px $color-border;
-                border-radius: 3px;
-                border: none;
-                outline: none;
-                box-sizing: border-box;
-                font-size: 16px;
-                line-height: 24px;
-                margin: 0;
-                white-space: pre;
-                padding: 20px 15px;
-                color: lighten(desaturate($color-main, 20%), 10%);
-                font-family: $font-mono;
-                resize: none;
-                overflow: visible;
+                .editor-result {
+                    height: 100%;
+                    overflow-y: scroll;
+                    width: 50%;
+                    position: relative;
+                    left: 10px;
+                    border-radius: 3px;
+                    font-family: $font-mono;
+                    font-size: 12px;
+                    @include scrollbars;
 
-                &:focus {
-                    box-shadow:
-                        inset 0 2px 3px rgba($color-border, .4),
-                        0 0 0 1px $color-gray;
+                    .error {
+                        border-radius: 3px 3px 0 0;
+                        color: rgba($color-white, .8);
+                        background: rgba($color-red, .9);
+                        padding: 15px 25px;
+                        box-shadow: 0 1px 0 rgba(#000, .1);
+                        white-space: pre;
+                        word-break: keep-all;
+                    }
+
+                    .trace {
+                        .trace-title {
+                            padding: 5px 15px;
+                            text-transform: uppercase;
+                            background: rgba(#fff, .1);
+                            margin: 15px 0 5px 0;
+                        }
+
+                        .trace-item {
+                            display: block;
+                            box-sizing: border-box;
+                            padding: 0 15px;
+                            width: 100%;
+                            font-size: 12px;
+                            line-height: 18px;
+                            color: #c5c9d3;
+                            white-space: pre;
+                            word-break: keep-all;
+
+                            &:nth-child(2n + 1) {
+                                background: rgba(#fff, .02);
+                            }
+                        }
+                    }
                 }
-            }
 
-            .code-block-render {
-                position: relative;
-                pointer-events: none;
-                z-index: 16;
+                .editor-code {
+                    box-sizing: border-box;
+                    padding-left: 20px;
+                    height: 100%;
+                    width: 50%;
+                    position: relative;
+                    overflow: hidden;
+                }
 
-                .code-block {
-                    box-shadow: none;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
+                .code {
+                    white-space: pre;
+                    word-break: keep-all;
+                    border: none;
                     background: none;
-                    color: darken(desaturate($color-main, 20%), 10%);
+                    resize: none;
+                    width: 100%;
+                    min-height: 100%;
+                    position: absolute;
+                    color: $color-gray;
+                    line-height: 20px;
+                    overflow: visible;
+                    font-family: $font-mono;
+                    font-size: 14px;
+                    z-index: 8;
+                    outline: none;
+                    tab-size: 4;
+                    hyphens: none;
+                    caret-color: $color-gray;
+                    left: 0;
+                    top: 0;
+                    margin: 0;
+                    padding: 0;
+
+                    @include selection {
+                        background: #6a637a;
+                    }
+
+                    &.highlight {
+                        z-index: 9;
+                        pointer-events: none;
+                        overflow: visible !important;
+                    }
+
+                    &.text {
+                        color: #3d4456;
+                        overflow-y: scroll;
+                        scroll-behavior: smooth;
+                        @include scrollbars;
+                    }
                 }
-            }
-
-            .code-value-error,
-            .code-value {
-                font-family: $font-mono;
-                white-space: pre;
-                font-size: 11px;
-                line-height: 14px;
-                overflow: auto;
-                max-height: 100%;
-                display: block;
-                box-sizing: border-box;
-                height: auto !important;
-                background: none !important;
-            }
-
-            .code-value-error {
-                color: $color-white;
-                white-space: pre-wrap;
-                border-radius: 3px;
-                background: $color-red !important;
-                font-size: 15px;
-                line-height: 18px;
-                padding: 10px 15px;
-            }
-
-            & /deep/ .loader {
-                background: rgba($color-bg, .6);
-                top: 0;
-                position: absolute;
             }
         }
     }
@@ -99,90 +202,62 @@
 
 <template>
     <section class="page-try-online">
-        <article class="column">
+        <section class="layout">
+            <header class="header">
+                <div class="tab">example.graphqls</div>
+                <ui-button @click="exec">►</ui-button>
+            </header>
             <div class="editor">
-                <div class="code-block-render" :style="{top: scrollTop + 'px'}">
-                    <div class="code-block" v-html="renderedContent"></div>
-                </div>
-                <textarea v-model="content"
+                <div class="editor-code">
+                    <textarea class="code text"
+                          v-model="content"
                           @scroll="onScroll"
-                          @keydown="checkButton"
-                          @input="onNewChar"
-                          class="code-block"></textarea>
+                          @keydown="onKey"
+                          @input="onInput"></textarea>
+                    <div class="code highlight"
+                         :style="{top: scrollTop + 'px', left: scrollLeft + 'px'}"
+                         v-html="renderedContent"></div>
+                </div>
+
+                <aside class="editor-result">
+                    <div class="error" v-if="error">{{ error }}</div>
+
+                    <div class="trace">
+                        <header class="trace-title">Compilation result</header>
+                        <div class="trace-item" v-html="result"></div>
+                    </div>
+
+                    <div class="trace">
+                        <header class="trace-title">Compilation backtrace</header>
+                        <div class="trace-item" v-for="i in trace">{{ i.message }}</div>
+                    </div>
+                </aside>
             </div>
-        </article>
-        <aside class="column">
-            <ui-loading v-if="loading"></ui-loading>
-            <output class="code-value-error" v-if="error">{{ error }}</output>
-            <code class="code-value" v-else="error" v-html="result"></code>
-        </aside>
+        </section>
     </section>
 </template>
 
 <script>
     import Prism from "kernel/Prism";
 
-    let throttling = null;
+    /**
+     * @type {{TAB: number}}
+     */
+    const KEY = {
+        TAB: 9
+    };
 
-    const DEFAULT_CODE_EXAMPLE = `schema {
-    query: Railt
-}
-
-"""
-# The root object of the railt.org website API.
-"""
-type Railt {
-    """
-    # Returns a list of projects with documentation.
-    """
-    projects(
-        """
-        # Returns a list of projects that have been
-        # updated after the specified date.
-        """
-        newer: String
-    ): [Project]!
-
-    """
-    # Returns one Documentation Project.
-    """
-    project(
-        """
-        # Select one Project by primary ID.
-        """
-        id: ID,
-        """
-        # Select one Project by slug.
-        """
-        slug: String
-    ): Project
-}
-
-type Project {}`;
-
-    const KEYWORDS = [
-        'query', 'fragment', 'mutation',
-        'type', 'implements', 'enum',
-        'union', 'interface', 'schema',
-        'scalar', 'directive', 'input',
-        'extend',
-
-        'true', 'false', 'null',
-
-        'ID', 'Int', 'Float', 'String',
-        'Boolean', 'Any', 'DateTime'
-    ];
-
-    const KEY_TAB = 9;
-    
     export default {
         data() {
             return {
-                content: decodeURIComponent(document.location.hash.substr(1)) || DEFAULT_CODE_EXAMPLE,
-                result: '',
-                error: '',
-                loading: false,
                 scrollTop: 0,
+                scrollLeft: 0,
+
+                content: decodeURIComponent(document.location.hash.substr(1)) || '',
+
+                result: [],
+                error: '',
+                trace: []
             };
         },
         computed: {
@@ -195,76 +270,69 @@ type Project {}`;
             }
         },
         mounted() {
-            this.$nextTick(() => { this.doExec(); });
+            this.$nextTick(() => { this.exec(); });
         },
         methods: {
-            /** @param {Event} event */
-            checkButton(event) {
-                if (event.keyCode === KEY_TAB) {
+            /**
+             * @param {Event} event
+             */
+            onKey(event) {
+                if (event.keyCode === KEY.TAB) {
                     this.render(event, '    ');
                     event.preventDefault();
                     event.stopPropagation();
-
                     return false;
                 }
             },
+
+            /**
+             * @param {Event} event
+             */
             onScroll(event) {
                 this.scrollTop = -event.target.scrollTop;
-            },
-            onNewChar(event) {
-                document.location = '#' + encodeURIComponent(this.content);
-
-                //let prefix = this.getPrefix(event);
-
-                //if (prefix.match(/{$/)) {
-                //    this.render(event, "\n    ", "\n}");
-                //}
-
-                //for(let keyword of KEYWORDS) {
-                //    let regex = new RegExp(`${keyword.substr(0, 3)}$`);
-                //    if (prefix.match(regex)) {
-                //        this.render(event, keyword.substr(3));
-                //        break;
-                //    }
-                //}
-
-                if (throttling !== null) {
-                    throttling = clearTimeout(throttling);
-                }
-                throttling = setTimeout(() => {
-                    throttling = null;
-                    this.doExec();
-                }, 500);
+                this.scrollLeft = -event.target.scrollLeft;
             },
 
-            doExec() {
-                this.loading = true;
+            /**
+             * @param {Event} event
+             */
+            onInput(event) {
+                document.location = `#${encodeURIComponent(this.content)}`;
+            },
+
+            exec() {
+                console.log(23);
                 this.$http.post('/try-online', {
                     content: this.content
                 }).then(response => {
-                    this.loading = false;
-                    if (response.data.result) {
-                        this.error = '';
-                        this.result = Prism.highlight(response.data.result, Prism.languages.json);
-                    } else {
-                        this.result = '';
-                        this.error = response.data.error;
-                    }
+                    this.fill(response.data);
                 }).catch(error => {
-                    this.loading = false;
-                    this.result = '';
-                    this.error = error.message;
+                    this.fill(error.response.data);
                 });
             },
 
-            getPrefix(event) {
-                return this.content.substr(0, event.target.selectionStart);
+            fill(data) {
+                if (data.errors) {
+                    this.error = (data.errors || {}).content[0];
+                } else {
+                    this.error = data.error || data.message || '';
+                }
+
+                this.result = Prism.highlight(data.result || '', Prism.languages.json);
+                this.trace  = data.trace || [];
             },
 
+            /**
+             * @param {Event} event
+             * @param {String} prefix
+             * @param {String} suffix
+             * @return {methods}
+             */
             render(event, prefix = '', suffix = '') {
-                let contentBefore = this.getPrefix(event);
+                let contentBefore = this.content.substr(0, event.target.selectionStart);
                 let contentAfter = this.content.substr(contentBefore.length);
                 let before = contentBefore + prefix;
+
                 this.content = before + contentAfter + suffix;
 
                 setTimeout(i => {
