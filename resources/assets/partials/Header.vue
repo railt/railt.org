@@ -32,9 +32,30 @@
                 display: inline-block;
                 text-decoration: none;
                 white-space: nowrap;
+                position: relative;
 
+                .icon,
                 img {
                     display: block;
+                    position: relative;
+                    fill: $color-extra-light-black;
+
+                    &.discord {
+                        height: 22px;
+                    }
+
+                    &.yandex {
+                        height: 18px;
+                        top: -2px;
+                    }
+
+                    &.github {
+                        height: 18px;
+                        top: -1px;
+                    }
+                }
+
+                &.logo img {
                     height: 38px;
                 }
             }

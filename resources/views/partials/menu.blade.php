@@ -5,13 +5,16 @@
     <a href="{{ \route('try-online') }}">
         @lang('nav.try-it')
     </a>
-    <a href="https://github.com/railt/railt" target="_blank">
-        @lang('nav.github')
+    <a href="{{ \route('chat') }}">
+        <ui-tooltip direction="bottom">@lang('nav.chat')</ui-tooltip>
+        @include('icons.discord')
     </a>
-    <a href="https://discord.gg/ND7SpD4" target="_blank">
-        @lang('nav.chat')
+    <a href="https://github.com/railt/railt" target="_blank">
+        <ui-tooltip direction="bottom">@lang('nav.github')</ui-tooltip>
+        @include('icons.github')
     </a>
     <a href="{{ \route('donate') }}">
-        @lang('nav.donate')
+        <ui-tooltip>@lang('nav.donate')</ui-tooltip>
+        @include('icons.yandex')
     </a>
 @stop

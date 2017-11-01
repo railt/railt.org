@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4306cc213cbcfac138757d5b51240864",
+    "content-hash": "b2054448518958baba72e76e7befd180",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1290,16 +1290,16 @@
         },
         {
             "name": "hoa/compiler",
-            "version": "3.17.08.08",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hoaproject/Compiler.git",
-                "reference": "aa09caf0bf28adae6654ca6ee415ee2f522672de"
+                "reference": "6cbc1ea6081b5966183312117677882af5734c27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Compiler/zipball/aa09caf0bf28adae6654ca6ee415ee2f522672de",
-                "reference": "aa09caf0bf28adae6654ca6ee415ee2f522672de",
+                "url": "https://api.github.com/repos/hoaproject/Compiler/zipball/6cbc1ea6081b5966183312117677882af5734c27",
+                "reference": "6cbc1ea6081b5966183312117677882af5734c27",
                 "shasum": ""
             },
             "require": {
@@ -1310,7 +1310,8 @@
                 "hoa/math": "~1.0",
                 "hoa/protocol": "~1.0",
                 "hoa/regex": "~1.0",
-                "hoa/visitor": "~2.0"
+                "hoa/visitor": "~2.0",
+                "php": ">=5.5.0"
             },
             "require-dev": {
                 "hoa/json": "~2.0",
@@ -1368,7 +1369,7 @@
                 "trace",
                 "uniform"
             ],
-            "time": "2017-08-08T07:44:07+00:00"
+            "time": "2017-10-27T09:40:05+00:00"
         },
         {
             "name": "hoa/consistency",
@@ -2644,7 +2645,7 @@
         },
         {
             "name": "mtdowling/cron-expression",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mtdowling/cron-expression.git",
@@ -3675,17 +3676,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/railt/railt.git",
-                "reference": "1612a1d6968fee62e85739ff0e7a3af83b7cf7c8"
+                "reference": "129a9ebfc61c12eef21094a17f3ce3be896b230c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railt/railt/zipball/1612a1d6968fee62e85739ff0e7a3af83b7cf7c8",
-                "reference": "1612a1d6968fee62e85739ff0e7a3af83b7cf7c8",
+                "url": "https://api.github.com/repos/railt/railt/zipball/129a9ebfc61c12eef21094a17f3ce3be896b230c",
+                "reference": "129a9ebfc61c12eef21094a17f3ce3be896b230c",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "hoa/compiler": "~3.17",
+                "hoa/compiler": "dev-master@dev",
                 "illuminate/support": "~5.5",
                 "php": ">=7.1",
                 "psr/cache": "~1.0",
@@ -3741,7 +3742,7 @@
                 "otd",
                 "railt"
             ],
-            "time": "2017-10-31T23:25:28+00:00"
+            "time": "2017-11-01T02:35:09+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -6518,7 +6519,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0.0"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }

@@ -19,6 +19,9 @@ Route::get('/docs/{page?}', 'DocumentationController@show')
     ->name('docs')
     ->where('page', '[a-zA-Z0-9\-\/]+');
 
+Route::get('/chat', 'ChatController@show')
+    ->name('chat');
+
 Route::get('/donate', 'DonateController@show')
     ->name('donate');
 
