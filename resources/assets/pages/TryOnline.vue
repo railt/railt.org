@@ -249,6 +249,13 @@
 <script>
     import Prism from "kernel/Prism";
 
+    const DEFAULT_EXAMPLE = `"""
+This is an example type
+"""
+type Example {
+    field: String
+}`;
+
     /**
      * @type {{TAB: number}}
      */
@@ -262,7 +269,7 @@
                 scrollTop: 0,
                 scrollLeft: 0,
 
-                content: decodeURIComponent(document.location.hash.substr(1)) || '',
+                content: decodeURIComponent(document.location.hash.substr(1)) || DEFAULT_EXAMPLE,
 
                 result: [],
                 error: '',
