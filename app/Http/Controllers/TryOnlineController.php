@@ -82,7 +82,7 @@ class TryOnlineController
                 $result[] = $definition;
             }
         } catch (SchemaException $e) {
-            $error = (string)$e;
+            $error = \str_replace(\base_path('vendor/railt/railt'), '', (string)$e);
             $trace = \collect($e->getCompilerTrace())
                 ->map(function(array $data) {
                     return [
