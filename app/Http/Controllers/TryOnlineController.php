@@ -67,10 +67,11 @@ class TryOnlineController
         $error  = '';
 
         $content = $request->get('content');
-        $sources = File::fromSources($content, 'example.graphqls');
-
-        $sub = function(int $line) use ($sources): int {
-            return $line - $sources->getDefinitionLine() + 1;
+        $sources = new class($content, 'example.graphqls', true) extends File {
+            public function __construct(string $sources, ?string $name, bool $virtual = true) {
+                parent::__construct($sources, $name, $virtual);
+                $this->definitionLine = 0;
+            }
         };
 
         try {
@@ -81,11 +82,11 @@ class TryOnlineController
                 $result[] = $definition;
             }
         } catch (SchemaException $e) {
-            $error = $e->getInfo();
+            $error = (string)$e;
             $trace = \collect($e->getCompilerTrace())
-                ->map(function(array $data) use ($sub) {
+                ->map(function(array $data) {
                     return [
-                        'message' => $data['file'] . ':' . $sub($data['line']) . ':' . $data['column']
+                        'message' => $data['file'] . ':' . $data['line'] . ':' . $data['column']
                     ];
                 })->toArray();
         } catch (\Throwable $e) {
