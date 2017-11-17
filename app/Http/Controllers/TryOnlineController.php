@@ -17,6 +17,7 @@ use Monolog\Handler\BufferHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use Railt\Compiler\Compiler;
+use Railt\Compiler\Exceptions\SchemaException;
 use Railt\Reflection\Filesystem\File;
 
 /**
@@ -61,33 +62,30 @@ class TryOnlineController
      */
     public function parse(CodeRequest $request): array
     {
-        $trace = new class(new NullHandler(), 2048) extends BufferHandler
-        {
-            public $buffer = [];
-        };
-
-        $logger = new Logger('Backtrace', [$trace]);
-
         $result = [];
+        $trace  = [];
         $error  = '';
 
         try {
             $content = $request->get('content');
             $sources = File::fromSources($content, 'example.graphqls');
 
-            $compiler = new Compiler(null, $logger);
+            $compiler = new Compiler(null);
             $document = $compiler->compile($sources);
 
             foreach ($document->getDefinitions() as $definition) {
                 $result[] = $definition;
             }
+        } catch (SchemaException $e) {
+            $error = $e->getMessage();
+            $trace = $e->getCompilerTrace();
         } catch (\Throwable $e) {
             $error = $e->getMessage();
         }
 
         return [
             'result' => \json_encode($result, JSON_PRETTY_PRINT),
-            'trace'  => $trace->buffer,
+            'trace'  => $trace,
             'error'  => $error,
         ];
     }

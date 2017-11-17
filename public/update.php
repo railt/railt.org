@@ -11,6 +11,7 @@ declare(strict_types=1);
     'cd ../',
     'git checkout -f master',
     'git pull origin master',
+    'composer install',
     'php artisan docs:sync'
 ]));
 
