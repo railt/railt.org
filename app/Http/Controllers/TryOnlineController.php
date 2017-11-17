@@ -70,7 +70,7 @@ class TryOnlineController
         $sources = new class($content, 'example.graphqls', true) extends File {
             public function __construct(string $sources, ?string $name, bool $virtual = true) {
                 parent::__construct($sources, $name, $virtual);
-                $this->definitionLine = 0;
+                $this->definitionLine = 1;
             }
         };
 
