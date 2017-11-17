@@ -90,7 +90,7 @@ class TryOnlineController
                 \base_path(''),
             ], '', (string)$e);
 
-            $error = \str_replace('):', ')' . "\n    > " . ':', $error);
+            $error = \str_replace('):', '):' . "\n    ", $error);
 
             $trace = \collect($e->getCompilerTrace())
                 ->map(function(array $data) {
