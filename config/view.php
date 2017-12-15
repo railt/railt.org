@@ -30,19 +30,4 @@ return [
 
     'compiled' => realpath(storage_path('framework/views')),
 
-    /**
-     *
-     */
-    'composers' => [
-        \App\View\Composers\LanguageComposer::class => '*',
-        \App\View\Composers\FooterComposer::class => 'layout.master',
-    ],
-
-    /**
-     *
-     */
-    'directives' => [
-        \App\View\Directives\MenuDirective::class => 'menu',
-        \App\View\Directives\NavDirective::class  => 'nav',
-    ],
 ];

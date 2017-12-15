@@ -4,26 +4,26 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @var string $domain
+ * @var \App\Providers\RouteServiceProvider $this
  */
 declare(strict_types=1);
 
 
-Route::get('/', 'HomeController@index')
-    ->name('home');
+Route::pattern('lang', '\w{2}');
 
-Route::get('/{lang}', 'LanguageController@select')
-    ->name('language')
-    ->where('lang', '\w{2}');
 
-Route::get('/docs/{page?}', 'DocumentationController@show')
-    ->name('docs')
-    ->where('page', '[a-zA-Z0-9\-\/]+');
+Route::domain('{lang}.' . $domain)->group(function () {
+    Route::get('docs/{path?}', 'DocsController@show')
+        ->where('path', '[\w\-/]+')
+        ->name('docs');
 
-Route::get('/chat', 'ChatController@show')
-    ->name('chat');
+    Route::get('/', 'HomeController@show')->name('home');
+});
 
-Route::get('/donate', 'DonateController@show')
-    ->name('donate');
 
-Route::get('/try-online', 'TryOnlineController@show')
-    ->name('try-online');
+Route::domain($domain)->group(function () {
+    Route::get('/{path?}', 'HomeController@index')
+        ->where('path', '.*?');
+});

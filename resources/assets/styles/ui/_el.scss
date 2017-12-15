@@ -1,0 +1,33 @@
+button,
+.el-button {
+  font-weight: 400;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-family: $font-family;
+  border: none;
+  text-decoration: none !important;
+}
+
+.el-card {
+  box-shadow: $ui-box-shadow;
+}
+
+.el-tabs__active-bar {
+  transition:
+        width .4s ease,
+        transform .3s $ui-animation-swift .2s !important;
+}
+
+.el-dropdown {
+  outline: none;
+}
+
+.el-dropdown-menu {
+  min-width: 100px;
+
+  a {
+    display: block;
+    min-width: 100px;
+    text-decoration: none;
+  }
+}

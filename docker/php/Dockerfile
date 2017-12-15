@@ -1,7 +1,10 @@
 
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 RUN DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -my wget gnupg
 
 # Install dotdeb repo
 RUN echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list \
@@ -11,7 +14,6 @@ RUN echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/d
 # Install required libs
 RUN apt-get update && \
     apt-get install -y \
-        sudo \
         git \
         unzip \
         libcurl4-openssl-dev \
@@ -23,7 +25,7 @@ RUN apt-get update && \
         libz-dev \
         libpq-dev \
         libjpeg-dev \
-        libpng12-dev \
+        libpng-dev \
         libfreetype6-dev \
         libssl-dev \
         libmcrypt-dev \
@@ -44,9 +46,7 @@ RUN docker-php-ext-configure gd \
 # Install extensions
 #
 RUN docker-php-ext-install \
-        mcrypt \
         pdo_mysql \
-        pdo_sqlite \
         pcntl \
         sockets \
         bcmath \
@@ -56,7 +56,7 @@ RUN docker-php-ext-install \
         gd
 
 #####################################
-# PCNTL EXTENSION:
+#          PCNTL EXTENSION:
 #####################################
 
 ARG ENABLE_PCNTL=false
@@ -65,7 +65,7 @@ RUN if [ ${ENABLE_PCNTL} = true ]; then \
 ;fi
 
 #####################################
-# EV EXTENSION:
+#           EV EXTENSION:
 #####################################
 
 ARG ENABLE_EV=false
@@ -76,14 +76,19 @@ RUN if [ ${ENABLE_EV} = true ]; then \
 ;fi
 
 #####################################
-# XDEBUG EXTENSION:
+#         XDEBUG EXTENSION:
 #####################################
 
 ARG ENABLE_XDEBUG=false
 RUN if [ ${ENABLE_XDEBUG} = true ]; then \
     # Install the xdebug extension
-    pecl install xdebug && \
-    docker-php-ext-enable xdebug \
+    git clone https://github.com/xdebug/xdebug.git /tmp/xdebug \
+        && cd /tmp/xdebug \
+        && phpize \
+        && ./configure \
+        && make \
+        && make install \
+        && rm -rf /tmp/xdebug \
 ;fi
 
 
@@ -92,11 +97,46 @@ ENV XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
 COPY ./xdebug.ini $XDEBUGINI_PATH
 RUN echo "xdebug.remote_host="`/sbin/ip route|awk '/default/ { print $3 }'` >> $XDEBUGINI_PATH
 
-#
-# Export configs
-#
+#####################################
+#        OPCACHE EXTENSION:
+#####################################
+
+ARG INSTALL_OPCACHE=false
+RUN if [ ${INSTALL_OPCACHE} = true ]; then \
+    docker-php-ext-install opcache \
+;fi
+
+# Copy opcache configration
 COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-RUN docker-php-ext-enable opcache
+
+
+#####################################
+#           INTL EXTENSION:
+#####################################
+
+ARG INSTALL_INTL=false
+RUN if [ ${INSTALL_INTL} = true ]; then \
+    # Install intl and requirements
+    apt-get update -yqq && \
+    apt-get install -y zlib1g-dev libicu-dev g++ && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl \
+;fi
+
+#####################################
+#       ImageMagick EXTENSION:
+#####################################
+
+USER root
+ARG INSTALL_IMAGEMAGICK=false
+ENV INSTALL_IMAGEMAGICK ${INSTALL_IMAGEMAGICK}
+RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    apt-get update -y && \
+    apt-get install -y libmagickwand-dev imagemagick && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick \
+;fi
+
 
 #
 #--------------------------------------------------------------------------

@@ -1,42 +1,84 @@
 @extends('layout.master')
 
-@include('partials.language')
-@include('partials.menu')
+@push('title', 'The GraphQL Framework')
 
 @section('content')
-    @include('partials.header')
-
-    <page-home
-        about="@lang('splash.this')"
-        :variants='@json(__("splash.about"))'
-    >
-        <template slot="header">
-            @yield('menu')
+    <app-splash>
+        <template slot="frontend">
+            @include('icons.angular')
+            @include('icons.apollo')
+            @include('icons.react')
+            @include('icons.relay')
+            @include('icons.vue')
         </template>
 
-        <template slot="main">
-            <h3>@lang('home.main.title')</h3>
-            <p>@lang('home.main.content')</p>
+        <template slot="backend">
+            @include('icons.php')
+            @include('icons.laravel')
+            @include('icons.symfony')
+        </template>
+    </app-splash>
+
+
+    <app-home>
+        <template slot="versions">
+            <el-tabs tab-position="top">
+                <?php /** @var \App\Entity\Component[] $components */ ?>
+                @foreach($components as $component)
+                    @php
+                        $release = $component->getLatestRelease();
+                    @endphp
+
+                    <el-tab-pane>
+                        <template slot="label">
+                            {{ $component->getTitle() }}
+                            @if($release)
+                                <el-tag type="success" size="mini">{{ $release->getVersion() }}</el-tag>
+                            @else
+                                <el-tag type="danger" size="mini">master</el-tag>
+                            @endif
+                        </template>
+
+                        <section>
+                            @if($release)
+                                @include('pages.home.release', [
+                                    'title' => 'Актуальная версия',
+                                    'release' => $release
+                                ])
+                            @else
+                                @include('pages.home.no-release', [
+                                    'title' => 'Актуальная версия',
+                                ])
+                            @endif
+                        </section>
+
+                        <section>
+                            @if($component->hasPenultimateRelease())
+                                @include('pages.home.release', [
+                                    'title' => 'Предыдущая версия',
+                                    'release' => $component->getPenultimateRelease()
+                                ])
+                            @else
+                                @include('pages.home.no-release', [
+                                    'title' => 'Предыдущая версия',
+                                ])
+                            @endif
+                        </section>
+                    </el-tab-pane>
+                @endforeach
+            </el-tabs>
         </template>
 
-        <template slot="docs">
-            <h3>@lang('home.docs.title')</h3>
-            <p>@lang('home.docs.content')</p>
-            <ui-button href="{{ \route('docs') }}" target="blank" view="simple">
-                @lang('home.docs.button')
-            </ui-button>
+        <template slot="activity">
+            @include('pages.home.activity', \compact($issues))
         </template>
 
-        <template slot="github">
-            <h3>@lang('home.github.title')</h3>
-            <p>@lang('home.github.content')</p>
-            <ui-button href="https://github.com/railt/railt" target="blank" view="simple">
-                @lang('home.github.button')
-            </ui-button>
+        <template slot="contributors">
+            @include('pages.home.contributors', \compact($contributors))
         </template>
 
-        <template slot="lang">
-            @yield('lang')
+        <template slot="trustedBy">
+            @include('pages.home.trusted-by')
         </template>
-    </page-home>
+    </app-home>
 @stop

@@ -11,6 +11,9 @@ services:
                 - ENABLE_XDEBUG=true
                 - ENABLE_EV=true
                 - ENABLE_PCNTL=true
+                - INSTALL_OPCACHE=true
+                - INSTALL_INTL=true
+                - INSTALL_IMAGEMAGICK=true
         volumes:
             - "./:/var/www/railt.org"
             - "./docker/.mount/profiler:/var/log/profiler"
@@ -31,8 +34,8 @@ services:
         volumes:
             - ./docker/nginx/sites-available/:/etc/nginx/sites-available
         ports:
-            - "80:80"
-            - "443:443"
+            # - "80:80"
+            - "444:443"
         links:
             - php
 
@@ -52,7 +55,7 @@ services:
             - mysql:/var/lib/mysql
             - ./docker/mysql:/docker-entrypoint-initdb.d
         ports:
-            - "3306:3306"
+            - "3308:3306"
 
     redis:
         container_name: "railt_org_redis"
@@ -60,7 +63,7 @@ services:
         volumes:
             - redis:/data
         ports:
-            - "6379:6379"
+            - "6380:6379"
 
     supervisord:
         container_name: "railt_org_supervisor"

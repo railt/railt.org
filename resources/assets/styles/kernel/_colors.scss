@@ -3,88 +3,67 @@
  *  Main named colors
  * --------------------------------------------------------------------------------------
  */
-$color-red:     #ff4a22 !default;
-$color-orange:  #f4645f !default;
-$color-yellow:  #d9a910 !default;
-$color-green:   #24a235 !default;
-$color-blue:    #64b5f6 !default;
-$color-purple:  #6f4ca5 !default;
-$color-pink:    #ba6380 !default;
+$color-red: #fa5555 !default;
+$color-orange: #f4645f !default;
+$color-yellow: #e09205 !default;
+$color-green: #67c23a !default;
+$color-blue: #64b5f6 !default;
+$color-purple: #6f4ca5 !default;
+$color-pink: #ba6380 !default;
 
 /**
  * --------------------------------------------------------------------------------------
- *  Grayscale colors list
+ *  Main colors list
  * --------------------------------------------------------------------------------------
  */
-$color-black:               desaturate(#201f3d, 10%) !default;
-$color-light-black:         desaturate(#353157, 10%) !default;
-$color-extra-light-black:   desaturate(#494769, 10%) !default;
-$color-silver:              desaturate(#8785a6, 10%) !default;
-$color-light-silver:        desaturate(#9c99bf, 10%) !default;
-$color-extra-light-silver:  desaturate(#bfbfd9, 10%) !default;
-$color-gray:                desaturate(#d4d3e5, 10%) !default;
-$color-light-gray:          desaturate(#e9e6f2, 10%) !default;
-$color-extra-light-gray:    desaturate(#f1f0f7, 10%) !default;
-$color-dark-white:          desaturate(#fafafc, 10%) !default;
-$color-white:               desaturate(#fff   , 10%) !default;
+
+// Text
+$color-text-primary: #2d2f33;
+$color-text: rgba($color-text-primary, .8);
+
+$color-text-regular: #5a5e66;
+$color-text-secondary: #878d99;
+$color-text-placeholder: #b4bccc;
+
+// Text inverse
+$color-inv-text-primary: #edf2fc;
+$color-inv-text: $color-text-primary;
+
+$color-inv-text-regular: #e6ebf5;
+$color-inv-text-secondary: #dfe4ed;
+$color-inv-text-placeholder: #d8dce5;
+
+// Borders
+$color-border-primary: #d8dce5;
+$color-border: $color-border-primary;
+
+$color-border-regular: #dfe4ed;
+$color-border-secondary: #e6ebf5;
+$color-border-lighten: #edf2fc;
+
+// Links and active elements
+$color-link: $color-purple;
+$color-link-active: darken($color-purple, 20%);
 
 /**
  * --------------------------------------------------------------------------------------
- *  Semantic color names
+ *  Semantic
  * --------------------------------------------------------------------------------------
  */
-$color-bg:            $color-dark-white;                    // UI background support color
-$color-text:          $color-extra-light-black;             // Main text color
-$color-description:   desaturate($color-light-silver, 10%); // Main description color
-$color-border:        $color-light-gray;                    // Elements border color
-$color-border-hover:  $color-gray;                          // Element border color while element is hovered
-$color-border-focus:  $color-orange;                        // Element border color while element is focused
+$color-bg: #f7f7f8;
+$color-bg-dark: #171e26;
+$color-bg-dark-alter: #2a2e38;
 
 //
-// Disabled components
-//
-$color-disabled-border: $color-extra-light-silver;    // Borders color
-$color-disabled-body:   $color-light-silver;          // Text inside disabled element
-$color-disabled-bg:     $color-light-gray;            // Background color of disabled element
-$color-disabled-text:   $color-extra-light-silver;    // Text outside disabled element
+$color-main: $color-purple;
+$color-success: $color-green;
+$color-warning: $color-yellow;
+$color-error: $color-red;
 
-//
-// Disabled "filled" components
-//
-$color-disabled-filled-border: $color-light-silver;        // Borders color
-$color-disabled-filled-body:   $color-dark-white;          // Text inside disabled element
-$color-disabled-filled-bg:     $color-light-silver;        // Background color of disabled element
-$color-disabled-filled-text:   $color-extra-light-silver;  // Text outside disabled element
-
-//
-// Main color
-//
-$color-main: $color-purple !default;
-$color-main-hover: lighten($color-purple, 2%) !default;
-$color-main-text: desaturate(darken($color-purple, 20%), 20%) !default;
-
-//
-// Color for "danger" elements, like "Alert Label"
-//
-$color-alert: $color-red !default;
-$color-alert-hover: lighten($color-red, 2%) !default;
-$color-alert-text: desaturate(darken($color-red, 5%), 15%) !default;
-
-//
-// Color for warnings
-//
-$color-warning: $color-yellow !default;
-$color-warning-hover: lighten($color-yellow, 2%) !default;
-$color-warning-text: desaturate(darken($color-yellow, 5%), 15%) !default;
-
-//
-// Color for successful notifications
-//
-$color-success: $color-green !default;
-$color-success-hover: lighten($color-green, 2%) !default;
-$color-success-text: desaturate(darken($color-green, 5%), 15%) !default;
-
-//
-// Shadows
-//
-$ui-box-shadow: 0 5px 13px rgba($color-black, .1) !default;
+/**
+ * --------------------------------------------------------------------------------------
+ *  Shadows
+ * --------------------------------------------------------------------------------------
+ */
+$ui-box-shadow: 0 5px 13px rgba($color-bg-dark, .1) !default;
+$ui-box-shadow-dark: 0 5px 13px rgba(#000, .1) !default;

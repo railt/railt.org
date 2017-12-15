@@ -3,10 +3,10 @@
  * Font size variables
  */
 
-$h1-size: 4.236rem;
-$h2-size: 2.618rem;
-$h3-size: 1.618rem;
-$h4-size: 14px;
+$h1-size: 40px;
+$h2-size: 32px;
+$h3-size: 27px;
+$h4-size: 16px;
 
 $h5-size: $font-size;
 $h6-size: $font-size;
@@ -20,10 +20,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $font-family-headings;
   font-weight: 400;
   line-height: 1.4;
-  padding: 0 5px;
   display: block;
   width: 100%;
   box-sizing: border-box;
+  color: $color-text-primary;
 
   &.underline {
     box-shadow: 0 1px 0 $color-border;

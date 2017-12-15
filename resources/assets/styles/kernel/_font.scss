@@ -1,25 +1,17 @@
 /**
  * Fonts Variables
  */
-$font-size: 14px;
+$font-size: 16px;
 
-$font-family: 'Roboto', Helvetica, sans-serif !default;
-$font-family-headings: 'Roboto', Helvetica, sans-serif !default;
-$font-mono: 'Roboto Mono', Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family: 'Open Sans', 'Roboto', Helvetica, sans-serif !default;
+$font-family-headings: 'Open Sans', 'Roboto', Helvetica, sans-serif !default;
+$font-mono: 'Fira Mono', Menlo, Monaco, Consolas, 'Courier New', monospace !default;
 
-
-@mixin font-fractions {
-  -moz-font-feature-settings: "frac=1";
-  font-feature-settings: "frac" 1;
-}
-
-@mixin font-ligatures {
-  -moz-font-feature-settings: "kern=1,liga=1,calt=1";
-  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-}
 
 @mixin font-optimize {
-  @include font-ligatures;
+  -moz-font-feature-settings: 'kern=1,liga=1,calt=1';
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

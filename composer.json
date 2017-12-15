@@ -1,27 +1,35 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Website of The Railt GraphQL Framework",
+    "keywords": [
+        "framework",
+        "railt.org",
+        "graphql"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "predis/predis": "~1.1",
-        "doctrine/dbal": "~2.2",
         "barryvdh/laravel-ide-helper": "~2.4",
-        "barryvdh/laravel-debugbar": "~3.1",
-        "cebe/markdown": "~1.1",
+        "serafim/hydrogen": "dev-master@dev",
+        "railt/railt": "dev-master@dev",
+        "doctrine/dbal": "~2.6",
+        "laravel-doctrine/orm": "~1.4",
+        "itsgoingd/clockwork": "~2.0",
+        "erusev/parsedown": "~1.6",
         "graham-campbell/github": "~6.0",
         "php-http/guzzle6-adapter": "~1.1",
-        "railt/railt": "dev-master@dev"
+        "beberlei/DoctrineExtensions": "~1.0",
+        "serafim/laravel-annotations": "~1.0",
+        "commerceguys/enum": "~1.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
+        "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0"
     },
     "autoload": {

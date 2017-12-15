@@ -1,0 +1,11 @@
+.outdated__stripe {
+  &, &__button-wrap {
+    box-shadow:
+            inset 0 -1px 0 0 rgba(#fff, .3);
+  }
+
+  &__button,
+  &__txt {
+    font-family: $font-family !important;
+  }
+}

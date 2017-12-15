@@ -8,10 +8,10 @@
 declare(strict_types=1);
 
 return [
-    'docs'   => 'Документация',
-    'chat'   => 'Чат',
-    'github' => 'GitHub',
-    'donate' => 'Поддержать',
-    'try-it' => 'Попробовать',
-    'search' => 'Поиск',
+    'docs'    => 'Документация',
+    'chat'    => 'Чат',
+    'github'  => 'GitHub',
+    'donate'  => 'Поддержать',
+    'console' => 'Консоль',
+    'search'  => 'Поиск',
 ];

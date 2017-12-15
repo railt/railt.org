@@ -2,49 +2,43 @@
 <html lang="{{ $lang }}">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="viewport" content="width=320,initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta http-equiv="X-DNS-Prefetch-Control" content="on" />
     <meta name="keywords" content="@stack('keywords')" />
     <meta name="description" content="@stack('description')" />
     <meta name="theme-color" content="#65429a" />
     <meta name="csrf-token" content="{{ \csrf_token() }}"/>
-    <meta name="yandex-verification" content="a7ce25d8efc91870" />
+    <title>@stack('title') | {{ \config('app.name') }}</title>
+    @include('layout.partials.prefetch')
+    @include('layout.partials.icons')
 
-    <title>@stack('title'){{ \config('app.name') }}</title>
-
-    <link rel="dns-prefetch" href="{{ \config('app.url') }}" />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-
-    <link rel="shortcut icon" href="/x32.png" />
-    <link rel="apple-touch-icon" sizes="32x32" href="/x32.png" />
-    <link rel="apple-touch-icon" sizes="64x64" href="/x64.png" />
-    <link rel="apple-touch-icon" sizes="128x128" href="/x128.png" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,400i,700,700i&subset=cyrillic" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i" />
-
-    <link rel="stylesheet" href="{{ \asset_ts('app.min.css') }}" />
-    <script async="async" src="{{ \asset_ts('app.min.js') }}"></script>
+    @env('production')
+        <link rel="stylesheet" href="{{ \asset_ts('app.min.css') }}" />
+        @include('partials.metrika')
+    @else
+        <link rel="stylesheet" href="{{ \asset_ts('app.dev.css') }}" />
+    @endenv
 </head>
 <body>
-    @include('partials.metrika')
     <main id="main">
+        @section('header')
+            <app-header :logo="false">
+                @include('partials.header')
+            </app-header>
+        @show
+
         @yield('content')
 
         @section('footer')
-        <footer>
-            <section class="footer-content">
-                <div class="lists">
-                    {!! $footer->content_rendered !!}
-                </div>
-
-                <span class="copy">
-                    Copyright &copy;2017 Nesmeyanov Kirill. The contents of this page are licensed MIT.
-                </span>
-            </section>
-        </footer>
+            @include('partials.footer')
         @show
     </main>
+
+    @env('production')
+        @include('partials.browser')
+        <script src="{{ \asset_ts('app.min.js') }}"></script>
+    @else
+        <script async="async" src="{{ \asset_ts('app.dev.js') }}"></script>
+    @endenv
 </body>
 </html>

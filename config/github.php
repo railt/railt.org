@@ -40,8 +40,9 @@ return [
 
     'connections' => [
         'main' => [
-            'token'      => \env('GITHUB_TOKEN', 'your-token'),
-            'method'     => 'token',
+            'token'  => \env('GITHUB_TOKEN', 'secret'),
+            'method' => 'token',
         ],
     ],
+
 ];

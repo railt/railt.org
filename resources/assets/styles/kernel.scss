@@ -9,6 +9,16 @@
 @import "kernel/colors";
 
 /**
+ * ELUI Variables
+ */
+$--color-primary: $color-purple;
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--tooltip-fill: $color-bg-dark-alter;
+
+@import "~element-ui/packages/theme-chalk/src/common/var";
+
+
+/**
  * Font variables and mixins
  */
 @import "kernel/font";

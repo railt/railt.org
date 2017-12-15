@@ -1,43 +1,37 @@
 @extends('layout.master')
 
-@include('partials.language')
-@include('partials.menu')
+<?php /** @var \App\Entity\Page $page */ ?>
 
-@push('title', $content ? $content->title . ' &mdash; ' : 'Aaaaargh, 404! &mdash; ')
+@push('title', $page->getTitle())
+
+@section('header')
+    <app-header :logo="true">
+        @include('partials.header')
+    </app-header>
+@stop
 
 @section('content')
-    <partial-header :search-enable="true" search-placeholder="@lang('nav.search')">
-        <a href="{{ route('home') }}" class="logo">
-            <img src="/img/logo-dark.svg" alt="logo" />
-        </a>
-
-        @yield('menu')
-
-        <template slot="lang">
-            @yield('lang')
+    <app-docs>
+        <template slot="menu">
+            {!! $menu->getContent() !!}
         </template>
-    </partial-header>
 
-    <page-docs>
-        @if($nav)
-        <template slot="nav">
-            <aside class="nav">
-
-                <div class="menu">
-                    @menu($nav, $childNav)
-                </div>
-            </aside>
+        @if(\count($pages) > 1)
+        <template slot="breadcrumbs">
+            <?php /** @var \App\Entity\Page[] $pages */ ?>
+            @foreach($pages as $page)
+                @unless ($loop->last)
+                    <a href="{{ $page->getRoute('docs', $lang) }}">{{ $page->getTitle() }}</a>
+                    <span class="delimiter">/</span>
+                @else
+                    <span>{{ $page->getTitle() }}</span>
+                @endunless
+            @endforeach
         </template>
         @endif
+
         <template slot="content">
-            <nav class="breadcrumbs">
-                @nav('<a href="%s">%s</a>', '<span data-uri="%s">%s</span>')
-            </nav>
-            @if ($content)
-                {!! $content->content_rendered !!}
-            @else
-                @include('pages.404')
-            @endif
+            {!! $page->getContent() !!}
         </template>
-    </page-docs>
+    </app-docs>
 @stop

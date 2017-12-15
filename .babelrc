@@ -1,9 +1,14 @@
 {
     "presets": [
-        "es2015",
+        "env",
         "stage-0"
     ],
     "plugins": [
-        "transform-runtime"
+        [
+            "transform-runtime",
+            {
+                "polyfill": false
+            }
+        ]
     ]
 }

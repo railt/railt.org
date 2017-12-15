@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace App\View\Composers;
 
-use App\Services\Language;
+use App\Entity\Language;
+use App\Repository\LanguagesRepository;
 use Illuminate\Contracts\View\View;
+use Serafim\Hydrogen\Collection;
 
 /**
  * Class LanguageComposer
@@ -23,21 +25,28 @@ class LanguageComposer
     private $language;
 
     /**
+     * @var Language[]|Collection
+     */
+    private $languages;
+
+    /**
      * LanguageComposer constructor.
      * @param Language $language
+     * @param LanguagesRepository $languages
      */
-    public function __construct(Language $language)
+    public function __construct(Language $language, LanguagesRepository $languages)
     {
-        $this->language = $language;
+        $this->language  = $language;
+        $this->languages = $languages->findAll();
     }
 
     /**
      * @param View $view
      * @return void
      */
-    public function compose(View $view)
+    public function compose(View $view): void
     {
-        $view->with('lang', $this->language->get())
-            ->with('languages', $this->language->all());
+        $view->with('lang', $this->language->getCode());
+        $view->with('languages', $this->languages);
     }
 }

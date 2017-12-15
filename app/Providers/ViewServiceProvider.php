@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\View\Factory;
+use App\View\Composers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
-use Illuminate\View\Engines\CompilerEngine;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 
 /**
  * Class ViewServiceProvider
@@ -21,48 +21,50 @@ use Illuminate\View\Engines\CompilerEngine;
 class ViewServiceProvider extends ServiceProvider
 {
     /**
+     * @var array
+     */
+    private $composers = [
+        Composers\LanguageComposer::class => '*',
+    ];
+
+    /**
+     * @param Factory $views
+     * @return void
      * @throws \InvalidArgumentException
      */
-    public function boot(): void
+    public function boot(Factory $views): void
     {
-        /** @var Factory|\Illuminate\View\Factory $factory */
-        $factory = $this->app->make(Factory::class);
+        /** @var BladeCompiler $blade */
+        $blade = $views->getEngineResolver()->resolve('blade')->getCompiler();
 
-        /** @var Repository $configs */
-        $configs = $this->app->make(Repository::class);
-
-        $this->bootViewComposers($configs, $factory);
-        $this->bootViewDirectives($configs, $factory->getEngineResolver()->resolve('blade'));
+        $this->directives($blade);
+        $this->composers($views, $this->composers);
     }
 
     /**
-     * @param Repository $configs
-     * @param Factory $factory
+     * @param BladeCompiler $blade
      * @return void
      */
-    private function bootViewComposers(Repository $configs, Factory $factory): void
+    private function directives(BladeCompiler $blade): void
     {
-        foreach ((array)$configs->get('view.composers') as $cls => $views) {
-            $this->app->singleton($cls);
-
-            $factory->composer($views, $cls);
-        }
+        $blade->if('env', function ($environment) {
+            return app()->environment($environment);
+        });
     }
 
     /**
-     * @param Repository $configs
-     * @param CompilerEngine $engine
+     * @param Factory $views
+     * @param array $composers
      * @return void
      */
-    private function bootViewDirectives(Repository $configs, CompilerEngine $engine): void
+    private function composers(Factory $views, array $composers): void
     {
-        /** @var BladeCompiler $compiler */
-        $compiler = $engine->getCompiler();
+        foreach ($composers as $class => $patterns) {
+            $this->app->singleton($class, $class);
 
-        foreach ((array)$configs->get('view.directives') as $cls => $directive) {
-            $this->app->singleton($cls);
-
-            $compiler->directive($directive, $this->app->make($cls));
+            $views->composer($patterns, function(View $view) use ($class) {
+                return $this->app->make($class)->compose($view);
+            });
         }
     }
 }

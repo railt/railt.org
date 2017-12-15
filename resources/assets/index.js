@@ -1,13 +1,12 @@
-/**
- * Polyfill
- */
-import "babel-polyfill";
 
 /**
- * Styles
+ * This file is part of railt.org package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
-import "main.scss";
 
+import "vendor/prism";
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -50,40 +49,31 @@ if (csrf) {
 import Vue from "vue";
 
 /**
+ * Main UI
+ */
+import Element from "element-ui";
+import locale from "element-ui/lib/locale/lang/en";
+
+import "main.scss";
+
+Vue.use(Element, { locale });
+
+
+/**
  * Vue Axios plugin
  */
 import VueAxios from "vue-axios";
 
 Vue.use(VueAxios, Axios);
 
+
 /**
- * Components
+ * Load components
  */
-import components from "./components";
+const components = require("./components.coffee").default;
 
 for (let name of Object.keys(components)) {
-    let component = components[name];
-    Vue.component(name, require(`./components/${component}.vue`));
-}
-
-/**
- * Partials
- */
-import partials from "./partials";
-
-for (let name of Object.keys(partials)) {
-    let partial = partials[name];
-    Vue.component(name, require(`./partials/${partial}.vue`));
-}
-
-/**
- * Pages
- */
-import pages from "./pages";
-
-for (let name of Object.keys(pages)) {
-    let page = pages[name];
-    Vue.component(name, require(`./pages/${page}.vue`));
+    Vue.component(name, require(`./${components[name]}.vue`));
 }
 
 window.app = new Vue({

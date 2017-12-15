@@ -9,9 +9,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Services\Language;
-use App\Services\Renderer\ContentRenderer;
-use App\Services\Renderer\MarkdownRenderer;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -21,9 +18,10 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
+     *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         //
     }
@@ -33,9 +31,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register(): void
+    public function register()
     {
-        $this->app->singleton(Language::class);
-        $this->app->singleton(ContentRenderer::class, MarkdownRenderer::class);
+        //
     }
 }

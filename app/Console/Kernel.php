@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\Console\Commands;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -23,29 +24,35 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\DocsSync::class,
-        \App\Console\Commands\DocsRender::class
+        Commands\BootCommand::class,
+        Commands\SyncDocsCommand::class,
+        Commands\SyncComponentsCommand::class,
+        Commands\SyncIssuesCommand::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param Schedule $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('sync:components')
+                 ->hourly();
+        //$schedule->command('')
     }
 
     /**
      * Register the commands for the application.
+     *
      * @return void
      * @throws \InvalidArgumentException
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
+
+        require \base_path('routes/console.php');
     }
 }
