@@ -12,7 +12,10 @@ declare(strict_types=1);
     'git checkout -f master',
     'git pull origin master',
     'composer update',
-    'php artisan docs:sync'
+    'php artisan sync:docs',
+    'php artisan sync:components',
+    'php artisan sync:issues',
+    'php artisan sync:contributors',
 ]));
 
 \header('Content-Type: application/json');
