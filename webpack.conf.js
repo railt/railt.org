@@ -1,10 +1,9 @@
 const webpack = require('webpack');
-const prod    = (process.env.NODE_ENV === 'production');
+const prod    = (process.env.BABEL_ENV === 'production');
 
 module.exports = require('./webpack.base.js')({
     devtool: 'cheap-module-source-map',
     entry:   [
-        'babel-polyfill',
         `${__dirname}/resources/assets/index`
     ],
     out:     {
@@ -16,14 +15,10 @@ module.exports = require('./webpack.base.js')({
         `${__dirname}/resources/assets/styles`,
     ],
     alias:   {
-        vue: `vue/dist/vue.${prod ?'.min' : ''}js`
+        vue: `vue/dist/vue${prod?'.min':''}.js`
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        })
+        new webpack.optimize.UglifyJsPlugin()
     ],
     rules: []
 });

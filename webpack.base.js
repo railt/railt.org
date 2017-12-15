@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const prod    = (process.env.NODE_ENV === 'production');
+const prod    = (process.env.BABEL_ENV === 'production');
 
 module.exports = (config) => {
     const JsLoader = [
@@ -105,7 +105,7 @@ module.exports = (config) => {
         },
         plugins: config.plugins.concat([
             new ExtractTextPlugin((config.out.file || 'index') + '.css'),
-            //new webpack.optimize.ModuleConcatenationPlugin(),
+            new webpack.optimize.ModuleConcatenationPlugin(),
         ])
     }
 };
