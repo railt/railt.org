@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 \shell_exec(implode(' && ', [
     'cd ../',
-    'git checkout -f master',
     'git pull origin master',
     'composer update',
     'php artisan sync:docs',
