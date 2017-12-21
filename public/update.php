@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-$result = \shell_exec(\implode(' && ', [
+$result = \system(\implode(' && ', [
     'cd ../',
     'git pull origin master',
     'composer update',
@@ -17,9 +17,4 @@ $result = \shell_exec(\implode(' && ', [
     'php artisan sync:contributors',
 ]));
 
-\header('Content-Type: application/json');
-
-echo \json_encode([
-    'status' => 'OK',
-    'result' => $result
-]);
+\var_dump($result);
