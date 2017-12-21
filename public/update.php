@@ -7,6 +7,7 @@
  */
 declare(strict_types=1);
 
+\set_time_limit(720);
 \define('ROOT_DIR', \dirname(__DIR__) . '/');
 
 function run(string $cmd, string $path = '')
