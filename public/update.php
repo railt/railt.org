@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-\shell_exec(implode(' && ', [
+$result = \shell_exec(\implode(' && ', [
     'cd ../',
     'git pull origin master',
     'composer update',
@@ -20,5 +20,6 @@ declare(strict_types=1);
 \header('Content-Type: application/json');
 
 echo \json_encode([
-    'status' => 'OK'
+    'status' => 'OK',
+    'result' => $result
 ]);
