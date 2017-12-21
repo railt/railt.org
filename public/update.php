@@ -7,11 +7,12 @@
  */
 declare(strict_types=1);
 
-require __DIR__ . '/../vendor/autoload.php';
+\define('ROOT_DIR', \dirname(__DIR__) . '/');
 
 function run(string $cmd, string $path = '')
 {
-    \system('cd ' . \base_path($path) . ' && ' . $cmd);
+    echo 'cd ' . ROOT_DIR. ' && ' . $cmd . "\n";
+    \system('cd ' . ROOT_DIR . $path. ' && ' . $cmd);
 }
 
 $commands = [
