@@ -11,6 +11,7 @@ namespace App\Repository\GitHub;
 
 use App\Entity\Issue;
 use App\Repository\IssuesRepository;
+use Carbon\Carbon;
 
 /**
  * Class Issues
@@ -48,11 +49,13 @@ class Issues extends GitHubRepository implements IssuesRepository
 
         foreach ($issues as $data) {
             yield [
-                'number' => $data['number'],
-                'title'  => $data['title'],
-                'author' => Issue\Author::fromArray($data['user'])->toJson(),
-                'url'    => $data['html_url'],
-                'labels' => \collect((array)$data['labels'])->map->name->toArray(),
+                'number'     => $data['number'],
+                'title'      => $data['title'],
+                'author'     => Issue\Author::fromArray($data['user'])->toJson(),
+                'url'        => $data['html_url'],
+                'labels'     => \collect((array)$data['labels'])->map->name->toArray(),
+                'created_at' => Carbon::parse($data['created_at']),
+                'updated_at' => Carbon::parse($data['updated_at']),
             ];
         }
     }
