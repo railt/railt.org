@@ -7,14 +7,22 @@
  */
 declare(strict_types=1);
 
-$result = \system(\implode(' && ', [
-    'cd ../',
+require __DIR__ . '/../vendor/autoload.php';
+
+function run(string $cmd, string $path = '')
+{
+    \system('cd ' . \base_path($path) . ' && ' . $cmd);
+}
+
+$commands = [
     'git pull origin master',
-    'composer update',
+    'composer install',
     'php artisan sync:docs',
     'php artisan sync:components',
     'php artisan sync:issues',
     'php artisan sync:contributors',
-]));
+];
 
-\var_dump($result);
+foreach ($commands as $command) {
+    \run($command);
+}
