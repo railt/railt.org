@@ -13,7 +13,6 @@ use Illuminate\Console\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\GitHub\Issues as External;
 use App\Repository\Database\Issues as Internal;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * Class SyncIssuesCommand
@@ -35,25 +34,14 @@ class SyncIssuesCommand extends Command
     protected $description = 'Sync an issues';
 
     /**
-     * @var External
+     * @return array
      */
-    private $external;
-
-    /**
-     * @var Internal
-     */
-    private $internal;
-
-    /**
-     * ComponentsSyncCommand constructor.
-     * @param External $external
-     * @param Internal $internal
-     * @throws \Symfony\Component\Console\Exception\LogicException
-     */
-    public function __construct(External $external, Internal $internal)
+    private function getRepositories(): array
     {
-        [$this->external, $this->internal] = [$external, $internal];
-        parent::__construct();
+        return [
+            $this->getLaravel()->make(External::class),
+            $this->getLaravel()->make(Internal::class),
+        ];
     }
 
     /**
@@ -65,10 +53,16 @@ class SyncIssuesCommand extends Command
      */
     public function handle(EntityManagerInterface $em): void
     {
+        /**
+         * @var External $external
+         * @var Internal $internal
+         */
+        [$external, $internal] = $this->getRepositories();
+
         $this->getOutput()->write('<info>Issues:</info>');
 
-        foreach ($this->external->findAll() as $issue) {
-            $found = $this->internal->findOneByUrl($issue->getUrl());
+        foreach ($external->findAll() as $issue) {
+            $found = $internal->findOneByUrl($issue->getUrl());
 
             if ($found !== null) {
                 $found->update($issue);

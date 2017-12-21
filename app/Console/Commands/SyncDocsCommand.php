@@ -15,7 +15,6 @@ use App\Repository\DocsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\GitHub\Pages as External;
 use App\Repository\Database\Pages as Internal;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * Class DocsSyncCommand
@@ -37,25 +36,14 @@ class SyncDocsCommand extends Command
     protected $description = 'Sync documentation';
 
     /**
-     * @var External
+     * @return array
      */
-    private $external;
-
-    /**
-     * @var Internal
-     */
-    private $internal;
-
-    /**
-     * ComponentsSyncCommand constructor.
-     * @param External $external
-     * @param Internal $internal
-     * @throws \Symfony\Component\Console\Exception\LogicException
-     */
-    public function __construct(External $external, Internal $internal)
+    private function getRepositories(): array
     {
-        [$this->external, $this->internal] = [$external, $internal];
-        parent::__construct();
+        return [
+            $this->getLaravel()->make(External::class),
+            $this->getLaravel()->make(Internal::class),
+        ];
     }
 
     /**
@@ -68,20 +56,48 @@ class SyncDocsCommand extends Command
      */
     public function handle(DocsRepository $docs, EntityManagerInterface $em): void
     {
+        /**
+         * @var External $external
+         * @var Internal $internal
+         */
+        [$external, $internal] = $this->getRepositories();
+
         foreach ($docs->findAll() as $document) {
-            $this->getOutput()->write('<info>Page:</info> ' . $document);
+            $this->line('<info>Page:</info> ' . $document);
+            $pages = [];
 
             // Find all new pages
-            foreach ($this->external->findAllByDocument($document) as $page) {
-                $exists = $this->internal->findOneByPath($document, $page->getPath());
+            foreach ($external->findAllByDocument($document) as $page) {
+                $pages[] = $page->getPath();
+                $exists = $internal->findOneByPath($document, $page->getPath());
 
-                if ($page->compare($exists) === Page\Status::OBSOLETE) {
-                    $em->persist($page);
+                switch ($page->compare($exists)) {
+                    case Page\Status::NOT_FOUND:
+                        $this->line(' ├┈ <info>✚ Create:</info> ' . $page->getTitle());
+                        $em->persist($page);
+                        break;
+                    case Page\Status::OBSOLETE:
+                        $this->line(' ├┈ <info>⟷ Update:</info> ' . $page->getTitle());
+                        $exists->updateBy($page);
+                        $em->persist($exists);
+                        break;
+                    default:
+                        $this->line(' ├┈ <comment>✔ Actual:</comment> ' . $page->getTitle());
                 }
             }
 
+            $deleted = $internal->query
+                ->where('document', $document)
+                ->whereNotIn('path', $pages)
+                ->get();
+
+            foreach ($deleted as $page) {
+                $this->line(' ├┈<error>✖ Deleted:</error> ' . $page->getTitle());
+                $em->remove($page);
+            }
+
             $em->flush();
-            $this->info(' OK');
+            $this->info('----- Completed -----');
         }
     }
 }

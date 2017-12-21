@@ -15,7 +15,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ComponentsRepository;
 use App\Repository\GitHub\Releases as External;
 use App\Repository\Database\Releases as Internal;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * Class ComponentsSyncCommand
@@ -37,25 +36,14 @@ class SyncComponentsCommand extends Command
     protected $description = 'Sync components list, releases and commits';
 
     /**
-     * @var External
+     * @return array
      */
-    private $external;
-
-    /**
-     * @var Internal
-     */
-    private $internal;
-
-    /**
-     * ComponentsSyncCommand constructor.
-     * @param External $external
-     * @param Internal $internal
-     * @throws \Symfony\Component\Console\Exception\LogicException
-     */
-    public function __construct(External $external, Internal $internal)
+    private function getRepositories(): array
     {
-        [$this->external, $this->internal] = [$external, $internal];
-        parent::__construct();
+        return [
+            $this->getLaravel()->make(External::class),
+            $this->getLaravel()->make(Internal::class),
+        ];
     }
 
     /**
@@ -66,12 +54,18 @@ class SyncComponentsCommand extends Command
      */
     public function handle(ComponentsRepository $components, EntityManagerInterface $em): void
     {
+        /**
+         * @var External $external
+         * @var Internal $internal
+         */
+        [$external, $internal] = $this->getRepositories();
+
         /** @var Component $component */
         foreach ($components->findAll() as $component) {
             $this->getOutput()->write('<info>Component:</info> ' . $component);
 
-            foreach ($this->external->findByComponent($component) as $release) {
-                $saved = $this->internal->findOneByVersion($component, $release->getVersion());
+            foreach ($external->findByComponent($component) as $release) {
+                $saved = $internal->findOneByVersion($component, $release->getVersion());
 
                 if ($saved === null) {
                     $em->persist($release);

@@ -27,5 +27,5 @@ class Status
     /**
      *
      */
-    public const INCOMPATIBLE = 8;
+    public const NOT_FOUND = 8;
 }

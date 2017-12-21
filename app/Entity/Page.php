@@ -237,17 +237,29 @@ class Page implements Renderable
      */
     public function compare(?Page $page): int
     {
-        if ($page !== null) {
-            if ($page->getDocument()->getId() !== $this->getDocument()->getId()) {
-                return Status::INCOMPATIBLE;
-            }
-
+        if ($page !== null && $page->isExisting()) {
             if ($page->getHash() === $this->getHash()) {
                 return Status::ACTUAL;
             }
+
+            return Status::OBSOLETE;
         }
 
-        return Status::OBSOLETE;
+        return Status::NOT_FOUND;
+    }
+
+    /**
+     * @param Page $page
+     * @return $this|Page
+     */
+    public function updateBy(Page $page): self
+    {
+        $this->title = $page->getTitle();
+        $this->content = $page->getContent();
+        $this->hash = $page->getHash();
+        $this->type = $page->getType();
+
+        return $this;
     }
 
     /**

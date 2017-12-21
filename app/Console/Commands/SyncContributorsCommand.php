@@ -14,7 +14,6 @@ use App\Repository\Database\Contributors as Internal;
 use App\Repository\GitHub\Contributors as External;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * Class SyncContributorsCommand
@@ -36,25 +35,14 @@ class SyncContributorsCommand extends Command
     protected $description = 'Sync contributors';
 
     /**
-     * @var External
+     * @return array
      */
-    private $external;
-
-    /**
-     * @var Internal
-     */
-    private $internal;
-
-    /**
-     * ComponentsSyncCommand constructor.
-     * @param External $external
-     * @param Internal $internal
-     * @throws \Symfony\Component\Console\Exception\LogicException
-     */
-    public function __construct(External $external, Internal $internal)
+    private function getRepositories(): array
     {
-        [$this->external, $this->internal] = [$external, $internal];
-        parent::__construct();
+        return [
+            $this->getLaravel()->make(External::class),
+            $this->getLaravel()->make(Internal::class),
+        ];
     }
 
     /**
@@ -66,11 +54,17 @@ class SyncContributorsCommand extends Command
      */
     public function handle(EntityManagerInterface $em): void
     {
+        /**
+         * @var External $external
+         * @var Internal $internal
+         */
+        [$external, $internal] = $this->getRepositories();
+
         $this->getOutput()->write('<info>Contributors:</info>');
 
         /** @var Contributor $new */
-        foreach ($this->external->findAll() as $new) {
-            $found = $this->internal->findOneByGitHubId($new->getGitHubId());
+        foreach ($external->findAll() as $new) {
+            $found = $internal->findOneByGitHubId($new->getGitHubId());
 
             if ($found !== null) {
                 $found->update($new);
