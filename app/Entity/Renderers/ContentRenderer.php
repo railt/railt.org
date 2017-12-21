@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Renderers;
 
+use Illuminate\Support\Str;
+
 /**
  * Class PageRenderer
  */
@@ -23,8 +25,39 @@ class ContentRenderer extends MarkdownRenderer
         $before = $this->normalizeQuotes($before);
         $after  = parent::render($before);
         $after  = $this->applyQuoteClasses($after);
+        $after  = $this->fixLinks($after);
 
         return $after;
+    }
+
+    /**
+     * @param string $content
+     * @return string
+     */
+    private function fixLinks(string $content): string
+    {
+        $pattern = '/<a\s+href="(.*?)"\s*>\s*(.*?)\s*<\/a>/isu';
+
+        return \preg_replace_callback($pattern, function(array $found): string {
+            [$link, $title] = \array_splice($found, 1);
+
+            if (Str::startsWith($link, ['//', 'https://', 'http://'])) {
+                return \vsprintf(
+                    '<el-tooltip content="%s" placement="bottom" :open-delay="300" :enterable="false">' .
+                        '<a href="%s" target="_blank" class="external-link">%s</a>' .
+                    '</el-tooltip>',
+                    [
+                        $link,
+                        $link,
+                        $title
+                    ]);
+            }
+
+            return \vsprintf('<a href="/docs/%s">%s</a>', [
+                \ltrim($link, '/'),
+                $title
+            ]);
+        }, $content);
     }
 
     /**

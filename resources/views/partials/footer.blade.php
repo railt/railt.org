@@ -21,7 +21,7 @@
                 @include('icons.laravel')
             </a>
         </el-tooltip>
-        <el-tooltip content="Оторбажается с помощью Vue.js 2.5.9" placement="top">
+        <el-tooltip content="Отображается с помощью Vue.js 2.5.9" placement="top">
             <a href="https://vuejs.org" target="_blank">
                 <span>Визуализируется</span>
                 @include('icons.vue')

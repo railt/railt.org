@@ -116,6 +116,20 @@
                 }
             }
 
+            & /deep/ {
+                a[href^="http:"],
+                a[href^="https:"] {
+                    &:after {
+                        @include fa-icon;
+                        content: $fa-var-external-link;
+                        position: relative;
+                        top: -4px;
+                        margin-left: 3px;
+                        font-size: 9px;
+                    }
+                }
+            }
+
             blockquote {
                 border-radius: 2px;
                 box-shadow: 0 0 0 2px $color-border-regular;
@@ -245,6 +259,7 @@
         },
         methods: {
             toggleMenu() {
+                //
                 this.menu = !this.menu;
             }
         }

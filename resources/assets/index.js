@@ -12,7 +12,12 @@ import "babel-polyfill";
  * file that was distributed with this source code.
  */
 
-import "vendor/prism";
+import "prismjs/prism";
+import "./highlight/json";
+import "./highlight/pp";
+import "./highlight/accord";
+import "./highlight/php";
+import "./highlight/graphql";
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

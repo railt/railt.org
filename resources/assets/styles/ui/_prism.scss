@@ -1,15 +1,22 @@
 .token.comment,
 .token.prolog,
-.token.doctype,
 .token.whitespace,
 .token.cdata {
     color: $color-text-placeholder;
+}
+
+
+.token.doctype,
+.token.docblock {
+    color: $color-text-secondary;
 }
 
 .token.tag,
 .token.number {
     color: $color-pink;
 }
+
+
 
 .token.operator {
     color: inherit !important;

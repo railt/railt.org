@@ -71,15 +71,15 @@ class SyncDocsCommand extends Command
                 $pages[] = $page->getPath();
                 $exists = $internal->findOneByPath($document, $page->getPath());
 
+                $exists->updateBy($page);
+                $em->persist($exists);
+
                 switch ($page->compare($exists)) {
                     case Page\Status::NOT_FOUND:
                         $this->line(' ├┈ <info>✚ Create:</info> ' . $page->getTitle());
-                        $em->persist($page);
                         break;
                     case Page\Status::OBSOLETE:
                         $this->line(' ├┈ <info>⟷ Update:</info> ' . $page->getTitle());
-                        $exists->updateBy($page);
-                        $em->persist($exists);
                         break;
                     default:
                         $this->line(' ├┈ <comment>✔ Actual:</comment> ' . $page->getTitle());
@@ -92,7 +92,7 @@ class SyncDocsCommand extends Command
                 ->get();
 
             foreach ($deleted as $page) {
-                $this->line(' ├┈<error>✖ Deleted:</error> ' . $page->getTitle());
+                $this->line(' ├┈ <error>✖ Deleted:</error> ' . $page->getTitle());
                 $em->remove($page);
             }
 
