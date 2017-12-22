@@ -4,7 +4,7 @@
     {{ $title or 'Latest Release' }}: {{ $release->getVersion() }}
 </h3>
 
-<a class="announcements-link" href="#">
+<a class="announcements-link" target="_blank" href="{{ $release->getUrl() }}">
     Read Announcement<i class="el-icon-arrow-right"></i>
 </a>
 

@@ -53,6 +53,17 @@ class Release implements Renderable
     }
 
     /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return \vsprintf('https://github.com/railt/%s/releases/tag/%s', [
+            $this->getComponent()->getSource()->getName(),
+            $this->getVersion()
+        ]);
+    }
+
+    /**
      * @return Component
      */
     public function getComponent(): Component
