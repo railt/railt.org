@@ -17,12 +17,12 @@ function run(string $cmd, string $path = '')
 }
 
 $commands = [
-    'git pull origin master',
-    'composer install',
+    //'git pull origin master',
+    //'composer install',
     'php artisan sync:docs',
-    'php artisan sync:components',
-    'php artisan sync:issues',
-    'php artisan sync:contributors',
+    //'php artisan sync:components',
+    //'php artisan sync:issues',
+    //'php artisan sync:contributors',
 ];
 
 foreach ($commands as $command) {
