@@ -62,7 +62,8 @@ class LoadSources extends Seeder
                 return Type::PACKAGE;
             case 'routing':
             case 'reflection':
-            case 'parser':
+            case 'graphql':
+            case 'io':
             case 'http':
             case 'events':
             case 'container':
