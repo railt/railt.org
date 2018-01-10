@@ -60,7 +60,6 @@ class LoadSources extends Seeder
             case 'webonyx-adapter':
             case 'youshido-adapter':
                 return Type::PACKAGE;
-            case 'routing':
             case 'reflection':
             case 'graphql':
             case 'io':
