@@ -57,16 +57,17 @@ class LoadSources extends Seeder
         switch ($name) {
             case 'symfony-bundle':
             case 'laravel-provider':
-            case 'webonyx-adapter':
-            case 'youshido-adapter':
                 return Type::PACKAGE;
             case 'reflection':
-            case 'graphql':
+            case 'sdl':
+            case 'storage':
             case 'io':
             case 'http':
             case 'events':
             case 'container':
             case 'compiler':
+            case 'webonyx-adapter':
+            case 'youshido-adapter':
                 return Type::COMPONENT;
         }
 
