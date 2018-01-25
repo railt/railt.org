@@ -8,10 +8,15 @@
 declare(strict_types=1);
 
 return [
-    'docs'   => 'Documentation',
-    'chat'   => 'Chat',
-    'github' => 'GitHub',
-    'donate' => 'Donate',
-    'try-it' => 'Try it out',
-    'search' => 'Search',
+    'docs'    => 'Documentation',
+    'eco'     => 'Ecosystem',
+        'github'  => 'GitHub',
+        'chat'    => 'Chat',
+    'language'=> 'Language',
+    'donate'  => 'Donate',
+    'console' => 'Console',
+    'search'  => 'Search',
+
+    'compatible' => 'Compatible with',
+    'works' => 'Works on',
 ];

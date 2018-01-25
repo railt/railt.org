@@ -9,9 +9,14 @@ declare(strict_types=1);
 
 return [
     'docs'    => 'Документация',
-    'chat'    => 'Чат',
-    'github'  => 'GitHub',
+    'eco'     => 'Экосистема',
+        'github'  => 'GitHub',
+        'chat'    => 'Чат',
+    'language'=> 'Язык',
     'donate'  => 'Поддержать',
     'console' => 'Консоль',
     'search'  => 'Поиск',
+
+    'compatible' => 'Совместимо с',
+    'works' => 'Работает на',
 ];

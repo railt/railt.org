@@ -292,10 +292,7 @@
         <section class="section">
             <div class="content components">
                 <div class="min">
-                    <h2>Слабая связанность</h2>
-                    <span class="description">
-                        Railt изначально позиционируется, как набор независимых компонентов.
-                    </span>
+                    <slot name="components"></slot>
                 </div>
 
                 <main>

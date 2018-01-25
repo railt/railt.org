@@ -4,7 +4,7 @@
 
 <el-dropdown :show-timeout="50" :hide-timeout="500">
     <span class="el-dropdown-link">
-        Экосистема<i class="el-icon-arrow-down el-icon--right"></i>
+        @lang('nav.eco')<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
 
     <el-dropdown-menu slot="dropdown">
@@ -23,7 +23,7 @@
 
 <el-dropdown :show-timeout="50" :hide-timeout="500">
     <span class="el-dropdown-link">
-        Язык<i class="el-icon-arrow-down el-icon--right"></i>
+        @lang('nav.language')<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
 
     <el-dropdown-menu slot="dropdown">
@@ -35,7 +35,8 @@
     </el-dropdown-menu>
 </el-dropdown>
 
-
+{{--
 <a href="#" class="console">
     <i class="el-icon-news">&nbsp;&nbsp;&nbsp;</i>@lang('nav.console')
 </a>
+--}}

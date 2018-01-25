@@ -245,11 +245,11 @@
         <footer>
             <div class="content">
                 <aside class="frontend">
-                    <span class="title">Совместимо с</span>
+                    <span class="title">{{ compatible }}</span>
                     <slot name="frontend"></slot>
                 </aside>
                 <aside class="backend">
-                    <span class="title">Работает на</span>
+                    <span class="title">{{ works }}</span>
                     <slot name="backend"></slot>
                 </aside>
             </div>
@@ -259,6 +259,16 @@
 
 <script>
     export default {
+        props: {
+            works: {
+                type: String,
+                default: '',
+            },
+            compatible: {
+                type: String,
+                default: '',
+            }
+        },
         data() {
             return {
                 loaded: false,

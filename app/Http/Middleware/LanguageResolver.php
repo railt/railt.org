@@ -58,7 +58,12 @@ class LanguageResolver
     public function handle(Request $request, \Closure $then): Response
     {
         $this->app->singleton(Language::class, function() use ($request) {
-            return $this->getCurrentLanguage($request);
+            $lang = $this->getCurrentLanguage($request);
+
+            $this->app->setLocale($lang->getCode());
+
+            return $lang;
+
         });
 
         return $then($request);

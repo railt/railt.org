@@ -3,7 +3,7 @@
 @push('title', 'The GraphQL Framework')
 
 @section('content')
-    <app-splash>
+    <app-splash works="@lang('nav.works')" compatible="@lang('nav.compatible')">
         <template slot="frontend">
             @include('icons.angular')
             @include('icons.apollo')
@@ -21,6 +21,12 @@
 
 
     <app-home>
+        <template slot="components">
+            <h2>@lang('home.components.title')</h2>
+            <span class="description">
+                @lang('home.components.description')
+            </span>
+        </template>
         <template slot="versions">
             <el-tabs tab-position="top">
                 <?php /** @var \App\Entity\Component[] $components */ ?>
@@ -42,12 +48,12 @@
                         <section>
                             @if($release)
                                 @include('pages.home.release', [
-                                    'title' => 'Актуальная версия',
+                                    'title' => __('home.versions.actual'),
                                     'release' => $release
                                 ])
                             @else
                                 @include('pages.home.no-release', [
-                                    'title' => 'Актуальная версия',
+                                    'title' => __('home.versions.actual'),
                                 ])
                             @endif
                         </section>
@@ -55,12 +61,12 @@
                         <section>
                             @if($component->hasPenultimateRelease())
                                 @include('pages.home.release', [
-                                    'title' => 'Предыдущая версия',
+                                    'title' => __('home.versions.prev'),
                                     'release' => $component->getPenultimateRelease()
                                 ])
                             @else
                                 @include('pages.home.no-release', [
-                                    'title' => 'Предыдущая версия',
+                                    'title' => __('home.versions.actual'),
                                 ])
                             @endif
                         </section>
