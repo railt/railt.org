@@ -178,6 +178,7 @@ return [
         App\Providers\RepositoriesServiceProvider::class,
         App\Providers\RenderersServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        App\Providers\RailtServiceProvider::class,
     ],
 
     /*

@@ -1,0 +1,12 @@
+type Documentation {
+    page(id: ID, name: String): Page
+        @route(action: "App\\Http\\Controllers\\Api\\PageController@getPage")
+
+    pages: [Page!]!
+        @route(action: "App\\Http\\Controllers\\Api\\PageController@getPages")
+
+    nav(in: String!): Page
+        @route(action: "App\\Http\\Controllers\\Api\\PageController@getNavigation")
+}
+
+

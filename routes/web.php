@@ -10,9 +10,7 @@
  */
 declare(strict_types=1);
 
-
 Route::pattern('lang', '\w{2}');
-
 
 Route::domain('{lang}.' . $domain)->group(function () {
     Route::get('docs/{path?}', 'DocsController@show')
@@ -21,7 +19,6 @@ Route::domain('{lang}.' . $domain)->group(function () {
 
     Route::get('/', 'HomeController@show')->name('home');
 });
-
 
 Route::domain($domain)->group(function () {
     Route::get('/{path?}', 'HomeController@index')

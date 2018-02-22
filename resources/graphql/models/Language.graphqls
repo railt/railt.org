@@ -1,0 +1,14 @@
+"""
+#Documentation language
+"""
+type Language {
+    """
+    # Two-chars language code
+    """
+    code: String!
+
+    """
+    # The title
+    """
+    title: String!
+}

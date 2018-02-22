@@ -90,8 +90,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(Router $router, string $namespace)
     {
-        $router->prefix('api')
-            ->middleware('api')
+        $router->middleware('api')
             ->namespace($namespace)
             ->group(function() {
                 $domain = $this->domain;

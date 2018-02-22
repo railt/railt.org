@@ -1,0 +1,5 @@
+
+directive @import(
+    from: String!,
+    types: [String!]! = []
+) on DOCUMENT

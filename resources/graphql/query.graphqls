@@ -1,0 +1,21 @@
+@import(from: "models")
+
+"""
+# Railt Documentation root API
+"""
+type Railt {
+    """
+    # The Railt documentation API
+    """
+    docs(
+        """Select documentation by language code"""
+        language: String = NULL
+    ): Documentation!
+        @route(action: "App\\Http\\Controllers\\Api\\LanguageController@resolve")
+
+    """
+    # A list of documentation languages
+    """
+    languages: [Language!]!
+        @route(action: "App\\Http\\Controllers\\Api\\LanguageController@all")
+}

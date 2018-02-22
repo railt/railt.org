@@ -44,6 +44,15 @@ class Pages extends DatabaseRepository implements PagesRepositoryInterface
 
     /**
      * @param Language $language
+     * @return Collection
+     */
+    public function findAllByLanguage(Language $language): Collection
+    {
+        return $this->query->whereLanguage($language)->get();
+    }
+
+    /**
+     * @param Language $language
      * @param string $slug
      * @return Collection
      * @throws \LogicException

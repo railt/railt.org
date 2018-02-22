@@ -4,22 +4,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @var string $domain
+ * @var \App\Providers\RouteServiceProvider $this
  */
 declare(strict_types=1);
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::group(['prefix' => '{lang}'], function () {
-    Route::group(['prefix' => 'docs'], function () {
-
-    });
+Route::domain('{lang}.' . $domain)->group(function () {
+    Route::any('/api', 'ApiController@handle');
 });

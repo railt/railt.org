@@ -1,0 +1,6 @@
+@import(from: "models")
+@import(types: ["Railt"], from: "query")
+
+schema {
+    query: Railt
+}
