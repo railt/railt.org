@@ -175,10 +175,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\RepositoriesServiceProvider::class,
-        App\Providers\RenderersServiceProvider::class,
-        App\Providers\ViewServiceProvider::class,
-        App\Providers\RailtServiceProvider::class,
+        App\Providers\RepositoriesProvider::class,
     ],
 
     /*

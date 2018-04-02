@@ -9,25 +9,25 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Renderers\Renderer;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class Content
  * @ORM\Embeddable()
  */
 class Content
 {
     /**
      * @var string
-     * @ORM\Column(name="original", type="text")
+     * @ORM\Column(name="rendered", type="text")
      */
-    private $original;
+    protected $rendered;
 
     /**
      * @var string
-     * @ORM\Column(name="rendered", type="text")
+     * @ORM\Column(name="original", type="text")
      */
-    private $rendered;
+    protected $original;
 
     /**
      * Content constructor.
@@ -49,30 +49,35 @@ class Content
     /**
      * @return string
      */
-    public function getRendered(): string
+    public function __toString(): string
     {
-        return $this->rendered;
-    }
-
-    /**
-     * @param Renderer $renderer
-     * @param string $content
-     * @return void
-     */
-    public function update(Renderer $renderer, string $content = null): void
-    {
-        if ($content !== null) {
-            $this->original = $content;
-        }
-
-        $this->rendered = $renderer->render($this->original);
+        return $this->toHtml();
     }
 
     /**
      * @return string
      */
-    public function __toString(): string
+    public function toHtml(): string
     {
-        return $this->getRendered();
+        return $this->rendered;
+    }
+
+    /**
+     * @param string $original
+     * @return Content
+     */
+    public function update(string $original): Content
+    {
+        $this->rendered = $this->original = $original;
+
+        return $this;
+    }
+
+    /**
+     * @param Renderer $renderer
+     */
+    public function render(Renderer $renderer): void
+    {
+        $this->rendered = $renderer->render($this->original);
     }
 }

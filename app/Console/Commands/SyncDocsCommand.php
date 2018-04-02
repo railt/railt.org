@@ -9,15 +9,18 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Entity\Page;
-use Illuminate\Console\Command;
-use App\Repository\DocsRepository;
+use App\Entity\Language;
+use App\Entity\Language\Reader as LanguageReader;
+use App\Entity\Documentation\Reader as DocumentationReader;
+use App\Entity\Repository\ProvidesDocumentation;
+use App\Entity\Repository\ProvidesLanguage;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\GitHub\Pages as External;
-use App\Repository\Database\Pages as Internal;
+use Illuminate\Console\Command;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
- * Class DocsSyncCommand
+ * Class SyncDocsCommand
  */
 class SyncDocsCommand extends Command
 {
@@ -26,78 +29,46 @@ class SyncDocsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'sync:docs';
+    protected $signature = 'docs:sync';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync documentation';
-
-    /**
-     * @return array
-     */
-    private function getRepositories(): array
-    {
-        return [
-            $this->getLaravel()->make(External::class),
-            $this->getLaravel()->make(Internal::class),
-        ];
-    }
+    protected $description = 'Sync documentation pages from the resources directory';
 
     /**
      * Execute the console command.
      *
-     * @param DocsRepository $docs
+     * @param ProvidesLanguage $languages
+     * @param ProvidesDocumentation $docs
      * @param EntityManagerInterface $em
      * @return void
-     * @throws \Exception
      */
-    public function handle(DocsRepository $docs, EntityManagerInterface $em): void
+    public function handle(ProvidesLanguage $languages, ProvidesDocumentation $docs, EntityManagerInterface $em): void
     {
-        /**
-         * @var External $external
-         * @var Internal $internal
-         */
-        [$external, $internal] = $this->getRepositories();
+        foreach ($this->files() as $file) {
+            $language = LanguageReader::fromSplFileInfo($languages, $file)->toLanguage();
 
-        foreach ($docs->findAll() as $document) {
-            $this->line('<info>Page:</info> ' . $document);
-            $pages = [];
+            $documentation = DocumentationReader::fromSplFileInfo($docs, $file)
+                ->toDocumentation()
+                ->withLanguage($language);
 
-            // Find all new pages
-            foreach ($external->findAllByDocument($document) as $page) {
-                $pages[] = $page->getPath();
-                $exists = $internal->findOneByPath($document, $page->getPath());
-
-                $exists->updateBy($page);
-                $em->persist($exists);
-
-                switch ($page->compare($exists)) {
-                    case Page\Status::NOT_FOUND:
-                        $this->line(' ├┈ <info>✚ Create:</info> ' . $page->getTitle());
-                        break;
-                    case Page\Status::OBSOLETE:
-                        $this->line(' ├┈ <info>⟷ Update:</info> ' . $page->getTitle());
-                        break;
-                    default:
-                        $this->line(' ├┈ <comment>✔ Actual:</comment> ' . $page->getTitle());
-                }
-            }
-
-            $deleted = $internal->query
-                ->where('document', $document)
-                ->whereNotIn('path', $pages)
-                ->get();
-
-            foreach ($deleted as $page) {
-                $this->line(' ├┈ <error>✖ Deleted:</error> ' . $page->getTitle());
-                $em->remove($page);
-            }
-
-            $em->flush();
-            $this->info('----- Completed -----');
+            $em->persist($documentation);
         }
+
+        $em->flush();
+    }
+
+    /**
+     * @return \Traversable|SplFileInfo[]
+     */
+    private function files(): \Traversable
+    {
+        yield from (new Finder())
+            ->files()
+            ->name('*.md')
+            ->in(\resource_path('docs'));
     }
 }

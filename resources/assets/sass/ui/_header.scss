@@ -1,0 +1,82 @@
+.header {
+    $height: 44px;
+
+    height: $height;
+    line-height: $height;
+    padding: 20px 0;
+
+    .logo {
+        width: 115px;
+        height: inherit;
+        display: block;
+        text-decoration: none;
+        background: url(/img/logo-dark.svg) 50% no-repeat;
+        background-size: 115px $height;
+        float: left;
+    }
+
+    .container {
+        display: block;
+        max-width: $ui-width;
+        margin: 0 auto;
+        height: inherit;
+        line-height: inherit;
+        box-sizing: border-box;
+        padding: 0 20px;
+
+        .menu {
+            height: inherit;
+            line-height: inherit;
+            float: right;
+            display: flex;
+            flex-wrap: nowrap;
+
+            a, .dropdown {
+                margin-left: 25px;
+            }
+
+            .dropdown {
+                width: 115px;
+
+            }
+
+            a {
+                color: $color-text-secondary;
+                font-size: 14px;
+                transition: color .2s $ui-animation-swift;
+                text-decoration: none;
+                font-weight: 700;
+                display: inline-block;
+                text-transform: uppercase;
+                position: relative;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 2px;
+                    bottom: 8px;
+                    background: $color-main;
+                    left: 0;
+                    opacity: 0;
+                    transform: translateX(-100%) scaleX(0);
+                    transition:
+                        opacity .3s $ui-animation-swift,
+                        transform .5s $ui-animation-bounce;
+                }
+
+                &:hover {
+                    color: $color-text !important;
+                }
+
+                &.router-link-active {
+                    color: $color-main !important;
+                    &:after {
+                        transform: translateX(0) scaleX(1);
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}

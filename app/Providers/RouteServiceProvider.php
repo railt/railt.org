@@ -9,22 +9,22 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 /**
  * Class RouteServiceProvider
  */
-class RouteServiceProvider extends ServiceProvider
+final class RouteServiceProvider extends ServiceProvider
 {
-    private const WEB_NAMESPACE = 'App\Http\Controllers';
-    private const API_NAMESPACE = 'App\Http\Controllers\Api';
-
     /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
      * @var string
      */
-    private $domain;
+    protected $namespace = 'App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -33,31 +33,23 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //
+
         parent::boot();
     }
 
     /**
      * Define the routes for the application.
      *
-     * @param Router $router
-     * @param Repository $config
      * @return void
      */
-    public function map(Router $router, Repository $config): void
+    public function map()
     {
-        $this->domain = $this->getDomain($config);
+        $this->mapApiRoutes();
 
-        $this->mapApiRoutes($router, self::API_NAMESPACE);
-        $this->mapWebRoutes($router, self::WEB_NAMESPACE);
-    }
+        $this->mapWebRoutes();
 
-    /**
-     * @param Repository $config
-     * @return string
-     */
-    private function getDomain(Repository $config): string
-    {
-        return \pathinfo($config->get('app.url'), \PATHINFO_BASENAME);
+        //
     }
 
     /**
@@ -65,18 +57,13 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param Router $router
-     * @param string $namespace
      * @return void
      */
-    protected function mapWebRoutes(Router $router, string $namespace): void
+    protected function mapWebRoutes()
     {
-        $router->middleware('web')
-            ->namespace($namespace)
-            ->group(function() use ($router) {
-                $domain = $this->domain;
-                require_once base_path('routes/web.php');
-            });
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -84,17 +71,13 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes are typically stateless.
      *
-     * @param Router $router
-     * @param string $namespace
      * @return void
      */
-    protected function mapApiRoutes(Router $router, string $namespace)
+    protected function mapApiRoutes()
     {
-        $router->middleware('api')
-            ->namespace($namespace)
-            ->group(function() {
-                $domain = $this->domain;
-                require_once base_path('routes/api.php');
-            });
+        Route::prefix('api')
+             ->middleware('api')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/api.php'));
     }
 }

@@ -9,62 +9,71 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Common\Identifiable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Illuminate\Support\Str;
+use App\Entity\Common\Identifier;
+use App\Entity\Common\Identifiable;
+use App\Entity\Repository\LanguageRepository;
 
 /**
- * @ORM\Entity()
+ * Class Language
+ * @ORM\Entity(repositoryClass=LanguageRepository::class)
  * @ORM\Table(name="languages")
  * @ORM\HasLifecycleCallbacks()
  */
-class Language
+class Language implements Identifiable
 {
-    use Identifiable;
+    use Identifier;
 
     /**
+     * @ORM\Column(name="name")
+     *
      * @var string
-     * @ORM\Column(name="code", type="string")
      */
-    private $code;
+    protected $name;
 
     /**
+     * @ORM\Column(name="title")
+     *
      * @var string
-     * @ORM\Column(name="title", type="string")
      */
-    private $title;
+    protected $title;
 
     /**
-     * @var bool
-     * @ORM\Column(name="is_default", type="boolean")
+     * @ORM\OneToMany(targetEntity=Documentation::class, mappedBy="language", cascade={"persist"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="language_id")
+     *
+     * @var Documentation[]|Collection
      */
-    private $default = false;
+    protected $docs;
 
     /**
      * Language constructor.
-     * @param string $code
-     * @param string|null $title
+     * @param string $name
+     * @param string $title
      */
-    public function __construct(string $code, string $title = null)
+    public function __construct(string $name, string $title)
     {
-        $this->code = $code;
-        $this->title = $title ?? Str::title($code);
+        $this->docs = new ArrayCollection();
+        $this->name = $name;
+        $this->title = $title;
     }
 
     /**
-     * @return bool
+     * @return Collection|Documentation[]
      */
-    public function isDefault(): bool
+    public function getDocumentations(): Collection
     {
-        return $this->default;
+        return $this->docs;
     }
 
-    /***
+    /**
      * @return string
      */
-    public function getCode(): string
+    public function getNameIdentifier(): string
     {
-        return $this->code;
+        return $this->name;
     }
 
     /**
@@ -76,10 +85,18 @@ class Language
     }
 
     /**
-     * @return string
+     * @param string $title
      */
-    public function __toString(): string
+    public function rename(string $title): void
     {
-        return (string)$this->title;
+        $this->title = $title;
+    }
+
+    /**
+     * @param string $newName
+     */
+    public function move(string $newName): void
+    {
+        $this->id = $newName;
     }
 }

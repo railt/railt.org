@@ -1,15 +1,18 @@
 <?php
-/**
- * This file is part of railt.org package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @var string $domain
- * @var \App\Providers\RouteServiceProvider $this
- */
-declare(strict_types=1);
 
-Route::domain('{lang}.' . $domain)->group(function () {
-    Route::any('/api', 'ApiController@handle');
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });

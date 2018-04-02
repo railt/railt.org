@@ -1,6 +1,42 @@
-@import(from: "models")
-@import(types: ["Railt"], from: "query")
+@use(class: "App\\GraphQL\\Controllers\\DocumentationController")
+@use(class: "App\\GraphQL\\Out\\DocumentationPresenter")
 
 schema {
-    query: Railt
+    query: Query
+}
+
+type Query {
+    docs(path: String): Documentation
+        @route(action: "DocumentationController@findByUrn")
+}
+
+#
+# ==================================================================
+#   Inputs
+# ==================================================================
+#
+
+input DocumentationInput {}
+
+#
+# ==================================================================
+#   Models
+# ==================================================================
+#
+
+type Documentation @out(action: "DocumentationPresenter@documentToArray") {
+    id: ID!
+    url: String!
+    urn: String!
+    title: String!
+    content: String!
+    updatedAt: String!
+    updatedAtForHumans: String!
+    nav: [DocumentationNavigation!]!
+}
+
+type DocumentationNavigation @out(action: "DocumentationPresenter@navToArray") {
+    slug: String!
+    level: Int!
+    title: String!
 }

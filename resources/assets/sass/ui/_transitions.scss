@@ -1,0 +1,47 @@
+/**
+ * <transition name="fade">
+ */
+.fade {
+    &-enter-active,
+    &-leave-active {
+        opacity: 1;
+        transition: opacity .5s;
+    }
+
+    &-enter,
+    &-leave-to {
+        opacity: 0;
+    }
+}
+
+
+
+/**
+ * <transition name="page-loading">
+ */
+
+.page {
+}
+
+.page-loading {
+    &-enter-active,
+    &-leave-active {
+        opacity: 1;
+        transform: scale(1);
+        transition: transform .5s, opacity .5s;
+    }
+
+    &-leave-to,
+    &-enter {
+        opacity: 0 !important;
+        position: absolute;
+    }
+
+    &-enter {
+        transform: scale(1.1);
+    }
+
+    &-leave-to {
+        transform: scale(.98);
+    }
+}

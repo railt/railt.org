@@ -1,9 +1,0 @@
-type Page {
-    id: ID!
-    name: String!
-    title: String!
-    hash: String!
-    content: String!
-    created: String!
-    updated: String!
-}

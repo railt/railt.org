@@ -1,0 +1,24 @@
+@mixin scrollbar {
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+
+        &-track {
+            background: $scroll-bg;
+        }
+
+        &-thumb {
+            border-radius: 2px;
+            box-shadow: inset 0 0 0 1px $scroll-bg;
+            background: $scroll-track;
+
+            &:hover {
+                background: $scroll-track-active;
+            }
+
+            &:window-inactive {
+                background: $scroll-track-inactive;
+            }
+        }
+    }
+}

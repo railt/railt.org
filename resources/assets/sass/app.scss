@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400,700&subset=cyrillic');
+@import "~normalize-scss/sass/normalize";
+@import "kernel";
+@import "kernel/font-awesome/font-awesome";
+
+body {
+    overflow-x: hidden;
+}
+
+html,
+body {
+    @include font-optimize;
+    color: $color-text;
+    line-height: $ui-min-height;
+    width: 100%;
+    min-width: 360px;
+    min-height: 100vh;
+    font-size: $font-size;
+    font-family: $font-family;
+    hyphens: auto;
+    padding: 0;
+    margin: 0;
+
+    .layout {
+        width: 100vw;
+        display: block;
+        overflow: visible;
+    }
+
+    .page {
+        max-width: $ui-width;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+        overflow: visible;
+    }
+
+    @import "ui/links";
+    @import "ui/header";
+    @import "ui/headings";
+    @import "ui/transitions";
+}

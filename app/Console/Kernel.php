@@ -24,35 +24,30 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\BootCommand::class,
         Commands\SyncDocsCommand::class,
-        Commands\SyncComponentsCommand::class,
-        Commands\SyncIssuesCommand::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sync:components')
-                 ->hourly();
-        //$schedule->command('')
+        // $schedule->command('inspire')
+        //          ->hourly();
     }
 
     /**
      * Register the commands for the application.
      *
      * @return void
-     * @throws \InvalidArgumentException
      */
-    protected function commands(): void
+    protected function commands()
     {
         $this->load(__DIR__.'/Commands');
 
-        require \base_path('routes/console.php');
+        require base_path('routes/console.php');
     }
 }

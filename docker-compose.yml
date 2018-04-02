@@ -34,8 +34,8 @@ services:
         volumes:
             - ./docker/nginx/sites-available/:/etc/nginx/sites-available
         ports:
-            # - "80:80"
-            - "444:443"
+            - "80:80"
+            - "443:443"
         links:
             - php
 
