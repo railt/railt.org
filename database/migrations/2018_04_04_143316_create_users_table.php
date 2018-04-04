@@ -1,9 +1,18 @@
 <?php
+/**
+ * This file is part of railt.org package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+declare(strict_types=1);
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateUsersTable
+ */
 class CreateUsersTable extends Migration
 {
     /**
@@ -11,10 +20,16 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('login')->unique();
+            $table->string('email')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('password');
+            $table->json('roles');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -24,7 +39,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }

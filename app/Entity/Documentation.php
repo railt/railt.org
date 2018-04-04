@@ -29,7 +29,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\EntityListeners({ ContentRendererListener::class, NavigationExtractorListener::class })
  * @ORM\HasLifecycleCallbacks()
  */
-class Documentation implements Identifiable, Timestampable, HasContent, ContainsNavigation
+class Documentation implements
+    HasContent,
+    Identifiable,
+    Timestampable,
+    ContainsNavigation
 {
     use Identifier;
     use Timestamps;

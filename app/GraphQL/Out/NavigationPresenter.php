@@ -18,14 +18,12 @@ class NavigationPresenter
 {
     /**
      * @param Link $nav
-     * @return array
+     * @return iterable
      */
-    public function toArray(Link $nav): array
+    public function fromEntity(Link $nav): iterable
     {
-        return [
-            'slug'  => $nav->getSlug(),
-            'level' => $nav->getLevel(),
-            'title' => $nav->getTitle(),
-        ];
+        yield 'slug' => $nav->getSlug();
+        yield 'level' => $nav->getLevel();
+        yield 'title' => $nav->getTitle();
     }
 }

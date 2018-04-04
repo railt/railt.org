@@ -1,0 +1,37 @@
+
+@use(class: "App\\GraphQL\\Extensions\\Carbon\\Controller")
+@use(class: "App\\GraphQL\\Extensions\\Carbon\\Presenter")
+
+interface Updatable {
+    updatedAt: Carbon
+}
+
+interface Creatable {
+    createdAt: Carbon!
+}
+
+type Carbon
+    @out(action: "Presenter@toArray")
+{
+    format(type: CarbonFormat = RFC3339): DateTime!
+        @route(action: "Controller@format")
+
+    diffForHumans: String!
+        @route(action: "Controller@diffForHumans")
+}
+
+enum CarbonFormat {
+    ATOM
+    COOKIE
+    ISO8601
+    RFC822
+    RFC850
+    RFC1036
+    RFC1123
+    RFC2822
+    RFC3339
+    RFC3339_EXTENDED
+    RFC7231
+    RSS
+    W3C
+}

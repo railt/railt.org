@@ -7,24 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\Language;
 
 use App\Entity\Language;
-use Serafim\Hydrogen\Collection;
 
 /**
- * Interface ProvidesLanguage
+ * Interface FindableByName
  */
-interface ProvidesLanguage
+interface FindableByName
 {
     /**
      * @param string $name
      * @return Language|null
      */
     public function findByName(string $name): ?Language;
-
-    /**
-     * @return Collection|Language[]
-     */
-    public function findAll(): Collection;
 }

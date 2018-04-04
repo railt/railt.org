@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace App\GraphQL\Controllers;
 
 use App\Entity\Menu;
-use App\Entity\Repository\ProvidesMenuTree;
 use Railt\Http\InputInterface;
 
 /**
@@ -19,21 +18,33 @@ use Railt\Http\InputInterface;
 class MenuController
 {
     /**
-     * @param ProvidesMenuTree $menus
-     * @return \Traversable|Menu[]
+     * @var Menu\FindableByParents
      */
-    public function findRootItems(ProvidesMenuTree $menus): \Traversable
+    private $menus;
+
+    /**
+     * MenuController constructor.
+     * @param Menu\FindableByParents $menus
+     */
+    public function __construct(Menu\FindableByParents $menus)
     {
-        return $menus->findByParents();
+        $this->menus = $menus;
+    }
+
+    /**
+     * @return \Traversable
+     */
+    public function findRootItems(): \Traversable
+    {
+        return $this->menus->findByParents();
     }
 
     /**
      * @param InputInterface $input
-     * @param ProvidesMenuTree $menus
-     * @return \Traversable|Menu[]
+     * @return \Traversable
      */
-    public function findChildren(InputInterface $input, ProvidesMenuTree $menus): \Traversable
+    public function findChildren(InputInterface $input): \Traversable
     {
-        return $menus->findByParents(...$input->getParent());
+        return $this->menus->findByParents(...$input->getParent());
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Entity\User;
+
 return [
 
     /*
@@ -66,14 +68,9 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
+            'driver' => 'doctrine',
+            'model' => User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

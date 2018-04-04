@@ -10,16 +10,18 @@ declare(strict_types=1);
 namespace App\Entity\Repository;
 
 use App\Entity\Documentation;
+use Serafim\Hydrogen\Collection;
 use Serafim\Hydrogen\Query\Builder;
 use Serafim\Hydrogen\Repository\DatabaseRepository;
 
 /**
  * Class DocumentationRepository
  */
-class DocumentationRepository extends DatabaseRepository implements ProvidesDocumentation
+class DocumentationRepository extends DatabaseRepository implements
+    Documentation\ContainsDocumentationPages,
+    Documentation\FindableByPath,
+    Documentation\FindableByUrn
 {
-    use FirstOrFail;
-
     /**
      * @param Builder $builder
      * @return Builder
@@ -27,6 +29,14 @@ class DocumentationRepository extends DatabaseRepository implements ProvidesDocu
     public function scope(Builder $builder): Builder
     {
         return $builder->with('language');
+    }
+
+    /**
+     * @return \Traversable|Collection|Documentation[]
+     */
+    public function getDocumentationPages(): \Traversable
+    {
+        return $this->findAll();
     }
 
     /**

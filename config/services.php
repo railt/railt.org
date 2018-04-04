@@ -15,24 +15,15 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+        'domain' => \env('MAILGUN_DOMAIN'),
+        'secret' => \env('MAILGUN_SECRET'),
     ],
 
-    'ses' => [
-        'key' => env('SES_KEY'),
-        'secret' => env('SES_SECRET'),
-        'region' => 'us-east-1',
+    'github' => [
+        'client_id'     => \env('GITHUB_CLIENT_ID', 'id'),
+        'client_secret' => \env('GITHUB_CLIENT_SECRET', 'secret'),
+        'redirect'      => \vsprintf('%s/oauth/github/callback', [
+            \env('APP_URL', 'http://localhost'),
+        ]),
     ],
-
-    'sparkpost' => [
-        'secret' => env('SPARKPOST_SECRET'),
-    ],
-
-    'stripe' => [
-        'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-    ],
-
 ];

@@ -18,19 +18,25 @@ class MenuPresenter
 {
     /**
      * @param Menu $menu
-     * @return array
+     * @return iterable
      */
-    public function toArray(Menu $menu): array
+    public function fromEntity(Menu $menu): iterable
     {
-        return [
-            'id'       => $menu->getId(),
-            'urn'      => $menu->hasDocumentation() ? $menu->getUrn() : null,
-            'orderId'  => $menu->getOrderId(),
-            'title'    => $menu->getTitle(),
-            'type'     => $menu->isTab() ? 'TAB' : 'DOCUMENTATION_PAGE',
+        yield 'id'       => $menu->getId();
+        yield 'urn'      => $menu->hasDocumentation() ? $menu->getUrn() : null;
+        yield 'orderId'  => $menu->getOrderId();
+        yield 'title'    => $menu->getTitle();
+        yield 'type'     => $menu->isTab() ? 'TAB' : 'DOCUMENTATION_PAGE';
 
-            // Route relation
-            'parentId' => $menu->getParentId(),
-        ];
+        yield from $this->withRelationKeys($menu);
+    }
+
+    /**
+     * @param Menu $menu
+     * @return \Generator
+     */
+    private function withRelationKeys(Menu $menu): \Generator
+    {
+        yield 'parentId' => $menu->getParentId();
     }
 }

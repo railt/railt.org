@@ -11,7 +11,6 @@ namespace App\Entity\Menu;
 
 use App\Entity\Documentation;
 use App\Entity\Menu;
-use App\Entity\Repository\ProvidesMenu;
 use Illuminate\Support\Str;
 
 /**
@@ -30,31 +29,48 @@ class Reader
     private $urn;
 
     /**
-     * @var ProvidesMenu
+     * @var FindableByUrn
      */
     private $menus;
-
-    /**
-     * @param ProvidesMenu $menu
-     * @param Documentation $documentation
-     * @return Reader
-     */
-    public static function fromDocumentation(ProvidesMenu $menu, Documentation $documentation): Reader
-    {
-        return new static($documentation->getTitle(), $documentation->getUrn(), $menu);
-    }
 
     /**
      * Reader constructor.
      * @param string $title
      * @param string $urn
-     * @param ProvidesMenu $menu
+     * @param FindableByUrn $menu
      */
-    public function __construct(string $title, string $urn, ProvidesMenu $menu)
+    public function __construct(string $title, string $urn, FindableByUrn $menu)
     {
         $this->title = $title;
-        $this->urn = $urn;
+        $this->urn   = $urn;
         $this->menus = $menu;
+    }
+
+    /**
+     * @param FindableByUrn $menu
+     * @param Documentation $documentation
+     * @return Reader
+     */
+    public static function fromDocumentation(FindableByUrn $menu, Documentation $documentation): Reader
+    {
+        return new static($documentation->getTitle(), $documentation->getUrn(), $menu);
+    }
+
+    /**
+     * @return Menu[]|\Traversable
+     */
+    public function toMenus(): \Traversable
+    {
+        $parent = null;
+        $urn    = $this->urn;
+
+        while (\trim($urn)) {
+            yield $parent = $this->get($urn, $parent);
+
+            $parts = \explode('/', $urn);
+            \array_pop($parts);
+            $urn = \implode('/', $parts);
+        }
     }
 
     /**
@@ -72,22 +88,5 @@ class Reader
         }
 
         return $result;
-    }
-
-    /**
-     * @return Menu[]|\Traversable
-     */
-    public function toMenus(): \Traversable
-    {
-        $parent = null;
-        $urn = $this->urn;
-
-        while (\trim($urn)) {
-            yield $parent = $this->get($urn, $parent);
-
-            $parts = \explode('/', $urn);
-            \array_pop($parts);
-            $urn = \implode('/', $parts);
-        }
     }
 }

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace App\Entity\Language;
 
 use App\Entity\Language;
-use App\Entity\Repository\ProvidesLanguage;
 
 /**
  * Class Reader
@@ -23,7 +22,7 @@ class Reader
     private $name;
 
     /**
-     * @var ProvidesLanguage
+     * @var FindableByName
      */
     private $languages;
 
@@ -33,11 +32,11 @@ class Reader
     private static $identity = [];
 
     /**
-     * @param ProvidesLanguage $languages
+     * @param FindableByName $languages
      * @param \SplFileInfo $file
      * @return Reader
      */
-    public static function fromSplFileInfo(ProvidesLanguage $languages, \SplFileInfo $file): Reader
+    public static function fromSplFileInfo(FindableByName $languages, \SplFileInfo $file): Reader
     {
         $pathInfo = \pathinfo($file->getBasename('.md'));
 
@@ -56,10 +55,10 @@ class Reader
 
     /**
      * Reader constructor.
-     * @param ProvidesLanguage $languages
+     * @param FindableByName $languages
      * @param string $name
      */
-    public function __construct(ProvidesLanguage $languages, string $name)
+    public function __construct(FindableByName $languages, string $name)
     {
         $this->name = $name;
         $this->languages = $languages;

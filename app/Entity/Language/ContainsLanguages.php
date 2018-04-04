@@ -7,19 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\Language;
 
-use App\Entity\Menu;
-use Serafim\Hydrogen\Collection;
+use App\Entity\Language;
 
 /**
- * Interface ProvidesMenu
+ * Interface ContainsLanguages
  */
-interface ProvidesMenu
+interface ContainsLanguages
 {
     /**
-     * @param string $urn
-     * @return Menu|null
+     * @return \Traversable|Language[]
      */
-    public function findByUrn(string $urn): ?Menu;
+    public function getLanguages(): \Traversable;
 }

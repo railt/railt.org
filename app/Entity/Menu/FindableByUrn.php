@@ -7,19 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\Menu;
 
 use App\Entity\Menu;
-use Serafim\Hydrogen\Collection;
 
 /**
- * Interface ProvidesMenuTree
+ * Interface FindableByUrn
  */
-interface ProvidesMenuTree
+interface FindableByUrn
 {
     /**
-     * @param Menu[] $parents
-     * @return Collection
+     * @param string $urn
+     * @return Menu|null
      */
-    public function findByParents(Menu ...$parents): Collection;
+    public function findByUrn(string $urn): ?Menu;
 }

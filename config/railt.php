@@ -7,6 +7,7 @@
  */
 declare(strict_types=1);
 
+use App\GraphQL\Extensions;
 use Railt\LaravelProvider\Controllers\GraphQLController;
 
 return [
@@ -71,6 +72,7 @@ return [
              * A list of extensions.
              */
             'extensions' => [
+                Extensions\Carbon\Extension::class,
             ],
         ],
     ],

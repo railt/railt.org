@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace App\Entity\Documentation;
 
 use App\Entity\Documentation;
-use App\Entity\Repository\ProvidesDocumentation;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -23,7 +22,7 @@ class Reader
     private const PATTERN_TITLE = '/^#([^\n]+)$/ium';
 
     /**
-     * @var ProvidesDocumentation
+     * @var FindableByPath
      */
     private $docs;
 
@@ -49,11 +48,11 @@ class Reader
 
     /**
      * Reader constructor.
-     * @param ProvidesDocumentation $docs
+     * @param FindableByPath $docs
      * @param string $path
      * @param string $content
      */
-    public function __construct(ProvidesDocumentation $docs, string $path, string $content)
+    public function __construct(FindableByPath $docs, string $path, string $content)
     {
         $this->path = $path;
         $this->docs = $docs;
@@ -99,11 +98,11 @@ class Reader
     }
 
     /**
-     * @param ProvidesDocumentation $docs
+     * @param FindableByPath $docs
      * @param SplFileInfo $info
      * @return Reader
      */
-    public static function fromSplFileInfo(ProvidesDocumentation $docs, SplFileInfo $info): Reader
+    public static function fromSplFileInfo(FindableByPath $docs, SplFileInfo $info): Reader
     {
         $path = $info->getRelativePathname();
 

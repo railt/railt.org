@@ -45,29 +45,30 @@ input DocumentationInput {}
 # ==================================================================
 #
 
-type Documentation
-    @out(action: "DocumentationPresenter@toArray")
+type Documentation implements Updatable
+    @out(action: "DocumentationPresenter@fromEntity")
 {
     id: ID!
     url: String!
     urn: String!
     title: String!
     content: String!
-    updatedAt: String!
-    updatedAtForHumans: String!
     nav: [DocumentationNavigation!]!
+    updatedAt: Carbon!
 }
 
+
 type DocumentationNavigation
-    @out(action: "NavigationPresenter@toArray")
+    @out(action: "NavigationPresenter@fromEntity")
 {
     slug: String!
     level: Int!
     title: String!
 }
 
+
 type Menu
-    @out(action: "MenuPresenter@toArray")
+    @out(action: "MenuPresenter@fromEntity")
 {
     id: ID!
     urn: String
@@ -78,7 +79,4 @@ type Menu
         @route(action: "MenuController@findChildren", relation: { child: "parentId" })
 }
 
-enum MenuType {
-    TAB,
-    DOCUMENTATION_PAGE
-}
+enum MenuType { TAB, DOCUMENTATION_PAGE }

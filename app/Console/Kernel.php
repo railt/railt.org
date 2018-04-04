@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\DocsSyncCommand::class,
+        Commands\SyncCommand::class,
+        Commands\SyncDocsCommand::class,
+        Commands\SyncMenuCommand::class,
     ];
 
     /**
@@ -35,8 +37,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('docs:sync')
-            ->everyMinute();
+
     }
 
     /**

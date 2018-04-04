@@ -3,16 +3,18 @@
 
     const DOCUMENTATION_PAGE = gql`query LoadDocumentation($path: String) {
         docs(path: $path) {
-            id,
-            urn,
-            url,
-            title,
-            content,
-            updatedAt,
-            updatedAtForHumans,
+            id
+            urn
+            url
+            title
+            content
+            updatedAt {
+                date: format(type: RFC3339)
+                asString: diffForHumans
+            }
             nav {
-                slug,
-                level,
+                slug
+                level
                 title
             }
         }
@@ -101,9 +103,9 @@
                     <h1 v-if="$apollo.loading" class="placeholder">&nbsp;</h1>
 
                     <aside class="sub">
-                        <time :datetime="page.updatedAt">
+                        <time :datetime="page.updatedAt.date">
                             Обновлено
-                            <span v-if="! $apollo.loading">{{ page.updatedAtForHumans }}</span>
+                            <span v-if="! $apollo.loading">{{ page.updatedAt.asString }}</span>
                             <span v-if="$apollo.loading" class="placeholder">&nbsp;</span>
                         </time>
 

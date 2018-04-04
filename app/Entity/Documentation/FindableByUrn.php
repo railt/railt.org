@@ -9,13 +9,16 @@ declare(strict_types=1);
 
 namespace App\Entity\Documentation;
 
-/**
- * Interface ContainsNavigation
+use App\Entity\Documentation;
+
+/***
+ * Interface FindableByUrn
  */
-interface ContainsNavigation
+interface FindableByUrn
 {
     /**
-     * @return Navigation
+     * @param string|null $urn
+     * @return Documentation|null
      */
-    public function getNavigation(): Navigation;
+    public function findByUrn(?string $urn): ?Documentation;
 }

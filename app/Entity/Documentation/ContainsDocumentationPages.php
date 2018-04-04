@@ -9,13 +9,15 @@ declare(strict_types=1);
 
 namespace App\Entity\Documentation;
 
+use App\Entity\Documentation;
+
 /**
- * Interface ContainsNavigation
+ * Interface ContainsDocumentationPages
  */
-interface ContainsNavigation
+interface ContainsDocumentationPages
 {
     /**
-     * @return Navigation
+     * @return \Traversable|Documentation[]
      */
-    public function getNavigation(): Navigation;
+    public function getDocumentationPages(): \Traversable;
 }

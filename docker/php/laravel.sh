@@ -33,7 +33,8 @@ usermod -u 1000 www-data
 composer install
 
 php ./artisan key:generate
-php ./artisan migrate:refresh
-php ./artisan docs:sync
+php ./artisan migrate:fresh
+php ./artisan migrate:fresh
+php ./artisan sync
 
 php-fpm

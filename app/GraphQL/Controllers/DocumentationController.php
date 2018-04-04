@@ -10,9 +10,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Controllers;
 
 use App\Entity\Documentation;
-use DebugBar\DebugBar;
 use Railt\Http\InputInterface;
-use App\Entity\Repository\ProvidesDocumentation;
 
 /**
  * Class DocumentationController
@@ -20,12 +18,25 @@ use App\Entity\Repository\ProvidesDocumentation;
 class DocumentationController
 {
     /**
+     * @var Documentation\FindableByUrn
+     */
+    private $docs;
+
+    /**
+     * DocumentationController constructor.
+     * @param Documentation\FindableByUrn $docs
+     */
+    public function __construct(Documentation\FindableByUrn $docs)
+    {
+        $this->docs = $docs;
+    }
+
+    /**
      * @param InputInterface $input
-     * @param ProvidesDocumentation $docs
      * @return Documentation|null
      */
-    public function findByUrn(InputInterface $input, ProvidesDocumentation $docs): ?Documentation
+    public function findByUrn(InputInterface $input): ?Documentation
     {
-        return $docs->findByUrn($input->get('path'));
+        return $this->docs->findByUrn($input->get('path'));
     }
 }

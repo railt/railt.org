@@ -7,30 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\Documentation;
 
 use App\Entity\Documentation;
-use Serafim\Hydrogen\Collection;
 
 /**
- * Interface ProvidesDocumentation
+ * Interface FindableByPath
  */
-interface ProvidesDocumentation
+interface FindableByPath
 {
-    /**
-     * @param string|null $urn
-     * @return Documentation|null
-     */
-    public function findByUrn(?string $urn): ?Documentation;
-
     /**
      * @param null|string $path
      * @return Documentation|null
      */
     public function findByPath(string $path): ?Documentation;
-
-    /**
-     * @return Collection|Documentation[]
-     */
-    public function findAll(): Collection;
 }

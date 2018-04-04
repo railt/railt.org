@@ -19,22 +19,19 @@ class DocumentationPresenter
 {
     /**
      * @param Documentation $docs
-     * @return array
+     * @return iterable
      */
-    public function toArray(Documentation $docs): array
+    public function fromEntity(Documentation $docs): iterable
     {
-        /** @var Carbon $updated */
-        $updated = $docs->updatedAt() ?? $docs->createdAt();
+        yield 'id' => $docs->getId();
+        yield 'title' => $docs->getTitle();
+        yield 'content' => $docs->getContent()->toHtml();
 
-        return [
-            'id'                 => $docs->getId(),
-            'urn'                => $docs->getUrn(),
-            'url'                => \sprintf('https://github.com/railt/docs/%s', $docs->getPath()),
-            'title'              => $docs->getTitle(),
-            'content'            => $docs->getContent()->toHtml(),
-            'updatedAt'          => $updated->toRfc3339String(),
-            'updatedAtForHumans' => $updated->diffForHumans(),
-            'nav'                => \iterator_to_array($docs->getNavigation()),
-        ];
+        yield 'urn' => $docs->getUrn();
+        yield 'url' => \sprintf('https://github.com/railt/docs/%s', $docs->getPath());
+
+        yield 'updatedAt' => $docs->updatedAt() ?? $docs->createdAt();
+
+        yield 'nav' => $docs->getNavigation();
     }
 }

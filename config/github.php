@@ -40,7 +40,7 @@ return [
 
     'connections' => [
         'main' => [
-            'token'  => \env('GITHUB_TOKEN', 'secret'),
+            'token'  => \env('GITHUB_API_SECRET', 'secret'),
             'method' => 'token',
         ],
     ],

@@ -16,14 +16,16 @@ use Serafim\Hydrogen\Repository\DatabaseRepository;
 /**
  * Class MenuRepository
  */
-class MenuRepository extends DatabaseRepository implements ProvidesMenu, ProvidesMenuTree
+class MenuRepository extends DatabaseRepository implements
+    Menu\FindableByUrn,
+    Menu\FindableByParents
 {
     /**
      * @param Menu ...$parents
-     * @return Collection
+     * @return Collection|Menu[]
      * @throws \LogicException
      */
-    public function findByParents(Menu ...$parents): Collection
+    public function findByParents(Menu ...$parents): \Traversable
     {
         $query = $this->query;
 
@@ -34,6 +36,23 @@ class MenuRepository extends DatabaseRepository implements ProvidesMenu, Provide
         }
 
         return $query->get();
+    }
+
+    /**
+     * @param Menu|null $parent
+     * @return Menu|null|object
+     */
+    public function findByParent(?Menu $parent): ?Menu
+    {
+        $query = $this->query;
+
+        if ($parent) {
+            $query->where('parent', $parent);
+        } else {
+            $query->whereNull('parent');
+        }
+
+        return $query->first();
     }
 
     /**

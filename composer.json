@@ -19,6 +19,7 @@
         "itsgoingd/clockwork": "~2.0",
         "laravel-doctrine/orm": "~1.4",
         "laravel/framework": "5.5.*",
+        "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "lcobucci/jwt": "^3.2",
         "php-http/guzzle6-adapter": "~1.1",
