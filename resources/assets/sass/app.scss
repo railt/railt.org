@@ -26,11 +26,15 @@ body {
 
     .layout {
         width: 100vw;
-        display: block;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
         overflow: visible;
+        justify-content: stretch;
     }
 
     .page {
+        width: 100%;
         max-width: $ui-width;
         margin: 0 auto;
         display: flex;
@@ -38,6 +42,8 @@ body {
         justify-content: flex-start;
         align-items: stretch;
         overflow: visible;
+        order: 2;
+        flex-basis: 100%;
     }
 
     @import "ui/links";

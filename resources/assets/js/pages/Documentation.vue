@@ -23,6 +23,7 @@
             return {
                 loaded: false,
                 page: {},
+                content: '',
                 query: {},
                 placeholders: []
             }
@@ -33,6 +34,23 @@
             }
         },
         methods: {
+            formatLinks(content) {
+                return content.replace(/<a\s+href="\/(.*?)"(.*?)>(.*?)<\/a>/g, (link, route, attributes, title) => {
+                    let uri = this.$router.resolve({
+                        name: 'docs',
+                        params: { path: route }
+                    });
+
+                    return `<a href="${uri}" ${attributes} data-route="inner">${title}</a>`;
+                });
+            },
+            setContent(data) {
+                let content = (data.docs || {}).content || '';
+
+                content = this.formatLinks(content);
+
+                this.content = content;
+            },
             setTitle(title) {
                 document.title = `${title} &mdash; Railt`;
             }
@@ -47,7 +65,11 @@
                 },
                 result({data}) {
                     this.page = data.docs;
-                    document.title = `${data.docs.title} — Railt`;
+                    this.setContent(data);
+                    document.title = `${(data.docs || {title: '404'}).title} — Railt`;
+                },
+                error() {
+                    this.page = null;
                 }
             }
         }
@@ -65,59 +87,67 @@
                 <loading v-if="$apollo.loading"></loading>
             </transition>
 
-            <header class="documentation-header">
-                <h1 v-if="! $apollo.loading">{{ page.title }}</h1>
-                <h1 v-if="$apollo.loading" class="placeholder">&nbsp;</h1>
+            <template v-if="page === null">
+                <header class="documentation-header" style="width: 100vw">
+                    <h1>Whoops!</h1>
+                </header>
 
-                <input-text placeholder="Поиск..."></input-text>
+                <not-found></not-found>
+            </template>
 
-                <aside class="sub">
-                    <time :datetime="page.updatedAt">
-                        Обновлено
-                        <span v-if="! $apollo.loading">{{ page.updatedAtForHumans }}</span>
-                        <span v-if="$apollo.loading" class="placeholder">&nbsp;</span>
-                    </time>
+            <template v-else>
+                <header class="documentation-header">
+                    <h1 v-if="! $apollo.loading">{{ page.title }}</h1>
+                    <h1 v-if="$apollo.loading" class="placeholder">&nbsp;</h1>
 
-                    <a :href="page.url" class="edit" target="_blank">Редактировать</a>
-                </aside>
-            </header>
+                    <aside class="sub">
+                        <time :datetime="page.updatedAt">
+                            Обновлено
+                            <span v-if="! $apollo.loading">{{ page.updatedAtForHumans }}</span>
+                            <span v-if="$apollo.loading" class="placeholder">&nbsp;</span>
+                        </time>
 
-            <div class="delimiter">
-                <span>Содержание</span>
-            </div>
+                        <a :href="page.url" class="edit" target="_blank">Редактировать</a>
+                    </aside>
+                </header>
 
-            <nav class="table-of-contents" v-if="! $apollo.loading">
-                <a :href="'#' + link.slug" :class="'level-' + link.level" v-for="link in docs.nav">
-                    {{ link.title }}
-                </a>
-            </nav>
-
-            <nav class="table-of-contents" v-if="$apollo.loading">
-                <div class="placeholder">&nbsp;</div>
-            </nav>
-
-            <div class="delimiter"></div>
-
-            <article v-if="! $apollo.loading" v-html="docs.content"
-                     class="documentation-body"></article>
-
-            <div class="documentation-body" v-if="$apollo.loading">
-                <div v-for="placeholder in placeholders" class="placeholder"
-                     :style="{'width': placeholder + 'px'}">&nbsp;
+                <div class="delimiter">
+                    <span>Содержание</span>
                 </div>
-            </div>
+
+                <nav class="table-of-contents" v-if="! $apollo.loading">
+                    <a :href="'#' + link.slug" :class="'level-' + link.level" v-for="link in docs.nav">
+                        {{ link.title }}
+                    </a>
+                </nav>
+
+                <nav class="table-of-contents" v-if="$apollo.loading">
+                    <div class="placeholder">&nbsp;</div>
+                </nav>
+
+                <div class="delimiter"></div>
+
+                <article v-if="! $apollo.loading" v-html="content"
+                         class="documentation-body"></article>
+
+                <div class="documentation-body" v-if="$apollo.loading">
+                    <div v-for="placeholder in placeholders" class="placeholder"
+                         :style="{'width': placeholder + 'px'}">&nbsp;
+                    </div>
+                </div>
+            </template>
         </section>
     </section>
 </template>
 
 <style lang="scss" scoped>
-    @import "../../sass/app";
+    @import "../../sass/kernel";
 
     $menu-width: 250px;
 
     .nav {
-        order: 1;
         width: $menu-width;
+        order: 1;
         flex-shrink: 0;
         font-size: 14px;
         padding: 20px 15px 20px 0;
@@ -303,30 +333,41 @@
                         padding: 0 !important;
                     }
 
-                    &.warn {
+                    &.warn,
+                    &.info {
                         &:before {
                             @include fa-icon;
-                            content: $fa-var-warning;
                             font-size: 24px;
                             padding-right: 10px;
+                        }
+
+                        a {
+                            color: #fff;
+                            text-decoration: underline;
+                            &:hover {
+                                color: $color-border-regular;
+                            }
+                        }
+
+                        color: #fff;
+                    }
+
+                    &.warn {
+                        &:before {
+                            content: $fa-var-warning;
                         }
 
                         background: $color-red;
                         box-shadow: 0 0 0 2px $color-red;
-                        color: #fff;
                     }
 
                     &.info {
                         &:before {
-                            @include fa-icon;
                             content: $fa-var-info;
-                            font-size: 24px;
-                            padding-right: 10px;
                         }
 
                         background: $color-blue;
                         box-shadow: 0 0 0 2px $color-blue;
-                        color: #fff;
                     }
                 }
 

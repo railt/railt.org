@@ -14,7 +14,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "/../../sass/app";
+    @import "/../../sass/kernel";
 
     @keyframes bounce {
         0%, 100% {

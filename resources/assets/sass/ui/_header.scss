@@ -4,6 +4,10 @@
     height: $height;
     line-height: $height;
     padding: 20px 0;
+    position: relative;
+    order: 1;
+    flex-shrink: 0;
+    z-index: 99999;
 
     .logo {
         width: 115px;

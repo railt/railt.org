@@ -3155,12 +3155,23 @@ body {
 html .layout,
 body .layout {
   width: 100vw;
-  display: block;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   overflow: visible;
+  -webkit-box-pack: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
 }
 
 html .page,
 body .page {
+  width: 100%;
   max-width: 1080px;
   margin: 0 auto;
   display: -webkit-box;
@@ -3177,6 +3188,11 @@ body .page {
       -ms-flex-align: stretch;
           align-items: stretch;
   overflow: visible;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
 }
 
 html a,
@@ -3216,6 +3232,13 @@ body .header {
   height: 44px;
   line-height: 44px;
   padding: 20px 0;
+  position: relative;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  z-index: 99999;
 }
 
 html .header .logo,
@@ -3452,8 +3475,8 @@ html .fade-leave-active,
 body .fade-enter-active,
 body .fade-leave-active {
   opacity: 1;
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
+  -webkit-transition: .5s opacity .5s;
+  transition: .5s opacity .5s;
 }
 
 html .fade-enter,

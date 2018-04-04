@@ -5,7 +5,7 @@
     &-enter-active,
     &-leave-active {
         opacity: 1;
-        transition: opacity .5s;
+        transition: .5s opacity .5s;
     }
 
     &-enter,

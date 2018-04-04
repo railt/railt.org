@@ -13,11 +13,14 @@ Vue.component('dropdown', require('./components/Dropdown.vue'));
 Vue.component('dropdown-item', require('./components/DropdownItem.vue'));
 Vue.component('input-text', require('./components/InputText.vue'));
 
+Vue.component('not-found', require('./components/NotFound.vue'));
+
 Vue.component('documentation-menu', require('./components/Menu.vue'));
 Vue.component('documentation-menu-items', require('./components/Menu/MenuCollection.vue'));
 
 
 import Home from './pages/Home';
+import NotFound from './components/NotFound';
 import Documentation from './pages/Documentation';
 
 const router = new VueRouter({
@@ -39,6 +42,10 @@ const router = new VueRouter({
                 }
             ]
         },
+        {
+            path: '*',
+            component: NotFound
+        }
     ]
 });
 

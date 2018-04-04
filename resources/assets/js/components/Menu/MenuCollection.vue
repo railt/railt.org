@@ -42,14 +42,10 @@
                 this.collapsed = this.collapsed === item.id ? 0 : item.id;
 
                 if (item.type === 'DOCUMENTATION_PAGE') {
-                    let path = {
+                    this.$router.push({
                         name: 'docs',
                         params: { path: item.urn }
-                    };
-
-                    let url = this.$router.resolve(path, this.$route, false);
-
-                    this.$router.push(url.location);
+                    });
                 }
             },
             sort(items) {
