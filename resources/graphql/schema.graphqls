@@ -21,6 +21,7 @@
 
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Query {
@@ -31,31 +32,51 @@ type Query {
         @route(action: "MenuController@findRootItems")
 }
 
+type Mutation {
+    nothing: String
+        @guest
+
+    documentation: DocumentationMutation!
+        @can(ability: "process")
+
+    menu: MenuMutation!
+        @can(ability: "process")
+}
+
 #
 # ==================================================================
-#   Inputs
+#   Documentation
 # ==================================================================
 #
 
-input DocumentationInput {}
+type DocumentationMutation {
+    create(data: DocumentationInput!): Documentation!
+    @can(ability: "create")
 
-#
-# ==================================================================
-#   Models
-# ==================================================================
-#
+    update(id: ID!, data: DocumentationInput!): Boolean
+    @can(ability: "update")
 
-type Documentation implements Updatable
-    @out(action: "DocumentationPresenter@fromEntity")
-{
-    id: ID!
-    url: String!
+    remove(id: ID!): Boolean
+    @can(ability: "delete")
+}
+
+input DocumentationInput {
     urn: String!
     title: String!
     content: String!
-    nav: [DocumentationNavigation!]!
-    updatedAt: Carbon!
 }
+
+type Documentation implements Updatable
+    @out(action: "DocumentationPresenter@fromEntity")
+    {
+        id: ID!
+        url: String!
+        urn: String!
+        title: String!
+        content: String!
+        nav: [DocumentationNavigation!]!
+        updatedAt: Carbon!
+    }
 
 
 type DocumentationNavigation
@@ -67,6 +88,46 @@ type DocumentationNavigation
 }
 
 
+#
+# ==================================================================
+#   Menu
+# ==================================================================
+#
+
+enum MenuMoveDirection {
+    UP,
+    DOWN
+}
+
+enum MenuType {
+    TAB,
+    DOCUMENTATION_PAGE
+}
+
+type MenuMutation {
+    create(data: MenuInput!): Menu!
+        @can(ability: "create")
+
+    update(id: ID!, data: MenuInput!): Boolean
+        @can(ability: "update")
+
+    remove(id: ID!): Boolean
+        @can(ability: "delete")
+
+    move(id: ID!, direction: MenuMoveDirection): Boolean
+        @can(ability: "update")
+
+    attach(parent: ID!, children: [ID!]!): Menu
+        @can(ability: "update")
+}
+
+input MenuInput {
+    urn: String!
+    title: String!
+    type: MenuType!
+    orderId: Int! = 0
+}
+
 type Menu
     @out(action: "MenuPresenter@fromEntity")
 {
@@ -76,7 +137,6 @@ type Menu
     title: String!
     type: MenuType!
     children: [Menu!]!
-        @route(action: "MenuController@findChildren", relation: { child: "parentId" })
+    @route(action: "MenuController@findChildren", relation: { child: "parentId" })
 }
 
-enum MenuType { TAB, DOCUMENTATION_PAGE }

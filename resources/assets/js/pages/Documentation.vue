@@ -103,9 +103,9 @@
                     <h1 v-if="$apollo.loading" class="placeholder">&nbsp;</h1>
 
                     <aside class="sub">
-                        <time :datetime="page.updatedAt.date">
+                        <time :datetime="(page.updatedAt || {}).date">
                             Обновлено
-                            <span v-if="! $apollo.loading">{{ page.updatedAt.asString }}</span>
+                            <span v-if="! $apollo.loading">{{ (page.updatedAt || {}).asString }}</span>
                             <span v-if="$apollo.loading" class="placeholder">&nbsp;</span>
                         </time>
 

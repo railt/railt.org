@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use App\GraphQL\Extensions;
 use Railt\LaravelProvider\Controllers\GraphQLController;
+use Serafim\RailtAuthorization\AuthorizationExtension;
 
 return [
 
@@ -73,6 +74,8 @@ return [
              */
             'extensions' => [
                 Extensions\Carbon\Extension::class,
+                Extensions\Import\Extension::class,
+                Extensions\Auth\Extension::class,
             ],
         ],
     ],

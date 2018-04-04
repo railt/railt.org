@@ -3423,12 +3423,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/railt/railt.git",
-                "reference": "4e8bcda401f56f262296b4e61f2da5572ed19d21"
+                "reference": "f439dcec052454c70754c6e41c8b1ed170ebbf7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railt/railt/zipball/4e8bcda401f56f262296b4e61f2da5572ed19d21",
-                "reference": "4e8bcda401f56f262296b4e61f2da5572ed19d21",
+                "url": "https://api.github.com/repos/railt/railt/zipball/f439dcec052454c70754c6e41c8b1ed170ebbf7a",
+                "reference": "f439dcec052454c70754c6e41c8b1ed170ebbf7a",
                 "shasum": ""
             },
             "require": {
@@ -3505,7 +3505,7 @@
                 "reflection",
                 "sdl"
             ],
-            "time": "2018-04-03T22:07:44+00:00"
+            "time": "2018-04-04T19:43:05+00:00"
         },
         {
             "name": "ramsey/uuid",
