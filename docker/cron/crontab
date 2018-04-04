@@ -1,0 +1,4 @@
+
+* * * * * echo 'Schedule invoked' >> /var/www/railt.org/storage/logs/schedule.log 2>&1
+
+* * * * * www-data /usr/bin/php /var/www/railt.org/artisan schedule:run >> /dev/null 2>&1

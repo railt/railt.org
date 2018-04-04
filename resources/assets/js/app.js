@@ -4,19 +4,21 @@ import VueApollo from 'vue-apollo';
 import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-import Home from './pages/Home';
-import Documentation from './pages/Documentation';
-
 
 Vue.use(VueApollo);
 Vue.use(VueRouter);
-
 
 Vue.component('loading', require('./components/Loading.vue'));
 Vue.component('dropdown', require('./components/Dropdown.vue'));
 Vue.component('dropdown-item', require('./components/DropdownItem.vue'));
 Vue.component('input-text', require('./components/InputText.vue'));
 
+Vue.component('documentation-menu', require('./components/Menu.vue'));
+Vue.component('documentation-menu-items', require('./components/Menu/MenuCollection.vue'));
+
+
+import Home from './pages/Home';
+import Documentation from './pages/Documentation';
 
 const router = new VueRouter({
     mode: 'history',
@@ -45,19 +47,17 @@ const http = new HttpLink({
 });
 
 const client = new ApolloClient({
-    link: new HttpLink({
-        uri: process.env.MIX_GRAPHQL_URI
-    }),
+    link: http,
     cache: new InMemoryCache(),
     defaultOptions: {
-        watchQuery: {
+       /* watchQuery: {
             fetchPolicy: 'network-only',
             errorPolicy: 'ignore',
         },
         query: {
             fetchPolicy: 'network-only',
             errorPolicy: 'all',
-        },
+        },*/
     },
     connectToDevTools: true,
 });

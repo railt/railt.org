@@ -17,6 +17,9 @@ use Doctrine\DBAL\Types\Type;
  */
 abstract class BaseEnum extends Type
 {
+    /**
+     * @var array[]
+     */
     private $constants;
 
     /**

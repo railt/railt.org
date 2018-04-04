@@ -9,22 +9,17 @@ declare(strict_types=1);
 
 namespace App\Entity\Repository;
 
-use App\Entity\Language;
+use App\Entity\Menu;
 use Serafim\Hydrogen\Collection;
 
 /**
- * Interface ProvidesLanguage
+ * Interface ProvidesMenuTree
  */
-interface ProvidesLanguage
+interface ProvidesMenuTree
 {
     /**
-     * @param string $name
-     * @return Language|null
+     * @param Menu[] $parents
+     * @return Collection
      */
-    public function findByName(string $name): ?Language;
-
-    /**
-     * @return Collection|Language[]
-     */
-    public function findAll(): Collection;
+    public function findByParents(Menu ...$parents): Collection;
 }

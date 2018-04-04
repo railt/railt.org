@@ -11,10 +11,14 @@ namespace App\Providers;
 
 use App\Entity\Documentation;
 use App\Entity\Language;
+use App\Entity\Menu;
 use App\Entity\Repository\DocumentationRepository;
 use App\Entity\Repository\LanguageRepository;
+use App\Entity\Repository\MenuRepository;
 use App\Entity\Repository\ProvidesDocumentation;
 use App\Entity\Repository\ProvidesLanguage;
+use App\Entity\Repository\ProvidesMenu;
+use App\Entity\Repository\ProvidesMenuTree;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,6 +38,10 @@ final class RepositoriesProvider extends ServiceProvider
         Documentation::class => [
             self::REPOSITORY         => DocumentationRepository::class,
             self::REPOSITORY_ALIASES => ProvidesDocumentation::class,
+        ],
+        Menu::class => [
+            self::REPOSITORY         => MenuRepository::class,
+            self::REPOSITORY_ALIASES => [ProvidesMenu::class, ProvidesMenuTree::class]
         ],
     ];
 

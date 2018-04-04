@@ -106,6 +106,14 @@ class Documentation implements Identifiable, Timestampable, HasContent, Contains
     }
 
     /**
+     * @return bool
+     */
+    public function isRoot(): bool
+    {
+        return $this->urn === '';
+    }
+
+    /**
      * @return Navigation
      */
     public function getNavigation(): Navigation

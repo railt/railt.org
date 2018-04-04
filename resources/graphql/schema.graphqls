@@ -1,5 +1,23 @@
+#
+# Controllers
+#
+
+@use(class: "App\\GraphQL\\Controllers\\MenuController")
 @use(class: "App\\GraphQL\\Controllers\\DocumentationController")
+
+#
+# Presenters
+#
+
+@use(class: "App\\GraphQL\\Out\\MenuPresenter")
+@use(class: "App\\GraphQL\\Out\\NavigationPresenter")
 @use(class: "App\\GraphQL\\Out\\DocumentationPresenter")
+
+#
+# ==================================================================
+#   Application
+# ==================================================================
+#
 
 schema {
     query: Query
@@ -8,6 +26,9 @@ schema {
 type Query {
     docs(path: String): Documentation
         @route(action: "DocumentationController@findByUrn")
+
+    menu: [Menu!]!
+        @route(action: "MenuController@findRootItems")
 }
 
 #
@@ -24,7 +45,9 @@ input DocumentationInput {}
 # ==================================================================
 #
 
-type Documentation @out(action: "DocumentationPresenter@documentToArray") {
+type Documentation
+    @out(action: "DocumentationPresenter@toArray")
+{
     id: ID!
     url: String!
     urn: String!
@@ -35,8 +58,27 @@ type Documentation @out(action: "DocumentationPresenter@documentToArray") {
     nav: [DocumentationNavigation!]!
 }
 
-type DocumentationNavigation @out(action: "DocumentationPresenter@navToArray") {
+type DocumentationNavigation
+    @out(action: "NavigationPresenter@toArray")
+{
     slug: String!
     level: Int!
     title: String!
+}
+
+type Menu
+    @out(action: "MenuPresenter@toArray")
+{
+    id: ID!
+    urn: String
+    orderId: Int!
+    title: String!
+    type: MenuType!
+    children: [Menu!]!
+        @route(action: "MenuController@findChildren", relation: { child: "parentId" })
+}
+
+enum MenuType {
+    TAB,
+    DOCUMENTATION_PAGE
 }

@@ -112,11 +112,12 @@ return [
     |--------------------------------------------------------------------------
     */
     'custom_types'               => [
-        'json'   => LaravelDoctrine\ORM\Types\Json::class,
-        'carbon' => DoctrineExtensions\Types\CarbonDateTimeType::class,
+        'json'                                => LaravelDoctrine\ORM\Types\Json::class,
+        'carbon'                              => DoctrineExtensions\Types\CarbonDateTimeType::class,
 
         // Enumse
         \App\Entity\Documentation\Type::class => \App\Entity\Documentation\Type::class,
+        \App\Entity\Menu\Type::class          => \App\Entity\Menu\Type::class,
     ],
 
     /*

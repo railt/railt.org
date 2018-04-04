@@ -71,8 +71,6 @@ return [
              * A list of extensions.
              */
             'extensions' => [
-                \Railt\Routing\RouterExtension::class,
-                \Railt\Mapper\MapperExtension::class,
             ],
         ],
     ],

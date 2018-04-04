@@ -6,11 +6,11 @@ cd /var/www
 #   Set permissions for web site
 # =====================================================
 
-chown www-data:www-data ./railt.org/storage -R
-chmod 0777 ./railt.org/storage
+chown www-data:www-data /var/www/railt.org/storage -R
+chmod 0777 /var/www/railt.org/storage
 
-chown www-data:www-data ./railt.org/bootstrap/cache -R
-chmod 0777 ./railt.org/bootstrap/cache
+chown www-data:www-data /var/www/railt.org/bootstrap/cache -R
+chmod 0777 /var/www/railt.org/bootstrap/cache
 
 mkdir -p /var/www/.composer
 chmod 0777 /var/www/.composer
@@ -33,6 +33,7 @@ usermod -u 1000 www-data
 composer install
 
 php ./artisan key:generate
-php ./artisan app:fresh
+php ./artisan migrate:refresh
+php ./artisan docs:sync
 
 php-fpm

@@ -35,11 +35,42 @@ class Markdown implements Renderer
      * @param string $content
      * @return string
      */
+    private function preFormatBlockQuotes(string $content): string
+    {
+        return \preg_replace_callback('/^(\!|\?)>(.*?)$/sum', function(array $d) {
+            return '>' . $d[1] . ' ' . $d[2];
+        }, $content) ?? $content;
+    }
+
+    /**
+     * @param string $content
+     * @return string
+     */
+    private function formatBlockQuotes(string $content): string
+    {
+        return \preg_replace_callback('/<blockquote>.*?<p>(\!|\?)(.*?)<\/p>.*?<\/blockquote>/sum', function(array $d) {
+            $class = function(string $char): string {
+                switch ($char) {
+                    case '!': return 'warn';
+                    case '?': return 'info';
+                    default: return 'default';
+                }
+            };
+
+            return \sprintf('<blockquote class="%s">', $class($d[1]))
+                . '<p>' . $d[2] . '</p></blockquote>';
+        }, $content);
+    }
+
+    /**
+     * @param string $content
+     * @return string
+     */
     private function formatHeaders(string $content): string
     {
         return \preg_replace_callback('/<h(\d+)>(.*?)<\/h\d+>/isum', function(array $d) {
             [$data, $heading, $title] = $d;
-            $slug = Str::slug($title);
+            $slug = Str::slug(\strip_tags($title));
 
             return \vsprintf('<h%d><a href="#%s" name="%2$s" class="header-link">#</a>%s</h%1$d>', [
                 $heading,
@@ -55,8 +86,11 @@ class Markdown implements Renderer
      */
     public function render(string $content): string
     {
+        $content = $this->preFormatBlockQuotes($content);
+
         $content = $this->pd->parse($content);
 
+        $content = $this->formatBlockQuotes($content);
         $content = $this->formatHeaders($content);
 
         return $content;

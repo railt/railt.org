@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Entity\Repository;
 
 use App\Entity\Documentation;
+use Serafim\Hydrogen\Query\Builder;
 use Serafim\Hydrogen\Repository\DatabaseRepository;
 
 /**
@@ -20,15 +21,22 @@ class DocumentationRepository extends DatabaseRepository implements ProvidesDocu
     use FirstOrFail;
 
     /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scope(Builder $builder): Builder
+    {
+        return $builder->with('language');
+    }
+
+    /**
      * @param string $urn
      * @return Documentation|object|null
      * @throws \LogicException
      */
     public function findByUrn(?string $urn): ?Documentation
     {
-        return $this->query->with('language')
-            ->where('urn', (string)$urn)
-            ->first();
+        return $this->query->where('urn', (string)$urn)->first();
     }
 
     /**

@@ -16,13 +16,22 @@ services:
                 - INSTALL_IMAGEMAGICK=true
         volumes:
             - "./:/var/www/railt.org"
-            - "./docker/.mount/profiler:/var/log/profiler"
         links:
             - mysql
             - redis
         depends_on:
             - redis
             - mysql
+
+    cron:
+        image: "railt_org_cron"
+        container_name: "railt_org_cron"
+        build:
+            context: ./docker/cron
+        volumes_from:
+            - php
+        depends_on:
+            - php
 
     nginx:
         container_name: "railt_org_nginx"
@@ -34,8 +43,8 @@ services:
         volumes:
             - ./docker/nginx/sites-available/:/etc/nginx/sites-available
         ports:
-            - "80:80"
-            - "443:443"
+            - "81:80"
+            - "444:443"
         links:
             - php
 
@@ -43,8 +52,6 @@ services:
         container_name: "railt_org_database"
         build:
             context: ./docker/mysql
-            args:
-                - MYSQL_VERSION=5.7
         environment:
             - MYSQL_DATABASE=railt
             - MYSQL_USER=root
@@ -68,8 +75,6 @@ services:
     supervisord:
         container_name: "railt_org_supervisor"
         build: ./docker/supervisord
-        volumes:
-            - "./docker/.mount/supervisor/:/var/log/supervisor"
         volumes_from:
             - php
         depends_on:

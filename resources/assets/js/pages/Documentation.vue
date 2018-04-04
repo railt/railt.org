@@ -45,12 +45,9 @@
                         path: this.$route.params.path || null
                     };
                 },
-                result({data, loader, networkStatus}) {
+                result({data}) {
                     this.page = data.docs;
                     document.title = `${data.docs.title} — Railt`;
-                },
-                error(error) {
-                    console.error('We\'ve got an error!', error)
                 }
             }
         }
@@ -60,11 +57,7 @@
 <template>
     <section class="page">
         <aside class="nav">
-            <nav class="menu">
-                <router-link to="/docs/lang/common">Язык</router-link>
-                <router-link to="/docs/lang/syntax">Синтаксис</router-link>
-                <router-link to="/docs/lang/types">Типы</router-link>
-            </nav>
+            <documentation-menu></documentation-menu>
         </aside>
 
         <section class="body">
@@ -120,28 +113,18 @@
 <style lang="scss" scoped>
     @import "../../sass/app";
 
+    $menu-width: 250px;
+
     .nav {
         order: 1;
-        width: 200px;
+        width: $menu-width;
         flex-shrink: 0;
         font-size: 14px;
-        padding: 20px 0;
+        padding: 20px 15px 20px 0;
+        box-sizing: border-box;
         margin: 20px 0;
         box-shadow: 1px 0 0 $color-border;
         position: relative;
-
-        a {
-            display: block;
-            width: 100%;
-            white-space: nowrap;
-            padding: 6px 0;
-
-            &.router-link-active {
-                text-decoration: none;
-                color: $color-text;
-                font-weight: bold !important;
-            }
-        }
     }
 
     .body {
@@ -150,7 +133,7 @@
         font-size: 16px;
         line-height: 26px;
         position: relative;
-        max-width: $ui-width - 200px;
+        max-width: $ui-width - $menu-width;
 
         .table-of-contents {
             padding-left: 65px;
@@ -246,6 +229,7 @@
         .documentation-body {
             position: relative;
             overflow: hidden;
+            padding-top: 10px;
             padding-bottom: 100px;
 
             .placeholder {
@@ -305,31 +289,70 @@
                     margin: 0;
                     padding: 10px 20px;
                     line-height: 20px;
+                    @include clear();
+
+                    &:before {
+                        display: block;
+                        float: left;
+                        color: #fff;
+                        margin-left: -10px;
+                    }
 
                     p {
                         margin: 0 !important;
                         padding: 0 !important;
                     }
+
+                    &.warn {
+                        &:before {
+                            @include fa-icon;
+                            content: $fa-var-warning;
+                            font-size: 24px;
+                            padding-right: 10px;
+                        }
+
+                        background: $color-red;
+                        box-shadow: 0 0 0 2px $color-red;
+                        color: #fff;
+                    }
+
+                    &.info {
+                        &:before {
+                            @include fa-icon;
+                            content: $fa-var-info;
+                            font-size: 24px;
+                            padding-right: 10px;
+                        }
+
+                        background: $color-blue;
+                        box-shadow: 0 0 0 2px $color-blue;
+                        color: #fff;
+                    }
                 }
 
                 code {
-                    background: rgba(#0f202d, .01);
+                    background: $color-bg;
                     color: desaturate($color-main, 25%);
                     padding: 2px 5px;
                     border-radius: 2px;
                     font-family: $font-mono;
-                    font-size: $font-size;
+                    font-size: inherit;
+                }
+
+                & > code,
+                & > pre {
+                    font-size: 14px;
                 }
 
                 pre {
                     display: block;
                     box-sizing: border-box;
                     padding: 10px 15px;
-                    border-radius: 2px;
-                    box-shadow: 0 0 0 1px $color-border;
-                    background: rgba(#0f202d, .01);
+                    border-radius: 3px;
+                    background: $color-bg;
                     overflow-x: auto;
                     width: 100%;
+                    box-shadow: 0 2px 1px rgba(#001, .1);
                     @include scrollbar;
 
                     code {
@@ -338,6 +361,8 @@
                         padding: 0;
                     }
                 }
+
+
 
                 table {
                     width: 100%;

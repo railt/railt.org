@@ -31,7 +31,8 @@ RUN apt-get update && \
         libmcrypt-dev \
         libjudydebian1 \
         libjudy-dev \
-        cron \
+        nano \
+        procps \
     && apt-get clean
 
 #
@@ -152,12 +153,6 @@ RUN rm -rf /tmp/pear
 
 
 #####################################
-# Crontab
-#####################################
-COPY ./crontab /var/spool/cron/crontabs
-
-
-#####################################
 # Composer:
 #####################################
 
@@ -169,12 +164,11 @@ RUN echo "" >> ~/.bashrc && \
 ADD ./laravel.sh /laravel.sh
 RUN chmod 0755 /laravel.sh
 
-WORKDIR /var/www/railt.org
-
 RUN chmod -R 0777 /var/www
 
+WORKDIR /var/www/railt.org
+
 RUN usermod -u 1000 www-data
-USER www-data
 
 EXPOSE 9000
 

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace App\GraphQL\Out;
 
 use App\Entity\Documentation;
-use App\Entity\Documentation\Link;
 use Carbon\Carbon;
 
 /**
@@ -22,7 +21,7 @@ class DocumentationPresenter
      * @param Documentation $docs
      * @return array
      */
-    public function documentToArray(Documentation $docs): array
+    public function toArray(Documentation $docs): array
     {
         /** @var Carbon $updated */
         $updated = $docs->updatedAt() ?? $docs->createdAt();
@@ -36,19 +35,6 @@ class DocumentationPresenter
             'updatedAt'          => $updated->toRfc3339String(),
             'updatedAtForHumans' => $updated->diffForHumans(),
             'nav'                => \iterator_to_array($docs->getNavigation()),
-        ];
-    }
-
-    /**
-     * @param Link $nav
-     * @return array
-     */
-    public function navToArray(Link $nav): array
-    {
-        return [
-            'slug'  => $nav->getSlug(),
-            'level' => $nav->getLevel(),
-            'title' => $nav->getTitle(),
         ];
     }
 }
