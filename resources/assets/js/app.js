@@ -32,15 +32,9 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/docs',
+            path: '/docs/?:path*',
+            name: 'docs',
             component: Documentation,
-            children: [
-                {
-                    path: ':path*',
-                    name: 'docs',
-                    component: Documentation,
-                }
-            ]
         },
         {
             path: '*',
