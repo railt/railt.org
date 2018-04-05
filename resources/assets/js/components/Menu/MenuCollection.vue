@@ -22,6 +22,7 @@
 
 <script>
     export default {
+        name: 'documentation-menu-items',
         props: {
             menu: {
                 type: Array

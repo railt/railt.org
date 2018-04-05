@@ -1,13 +1,15 @@
 @charset "utf-8";
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i&subset=cyrillic');
-@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400,700&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i|Fira+Mono:400,700&subset=cyrillic');
+
 @import "~normalize-scss/sass/normalize";
+
 @import "kernel";
 @import "kernel/font-awesome/font-awesome";
 
 body {
     overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 html,
@@ -26,24 +28,33 @@ body {
 
     .layout {
         width: 100vw;
+        max-width: $ui-width;
         min-height: 100vh;
+        margin: 0 auto;
+        position: relative;
         display: flex;
         flex-direction: column;
         overflow: visible;
         justify-content: stretch;
     }
 
-    .page {
+    .page-container {
+        position: relative;
         width: 100%;
-        max-width: $ui-width;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: stretch;
-        overflow: visible;
+        height: 100%;
         order: 2;
         flex-basis: 100%;
+
+        .page {
+            width: 100%;
+            max-width: $ui-width;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: stretch;
+            overflow: visible;
+        }
     }
 
     @import "ui/links";

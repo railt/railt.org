@@ -6,6 +6,7 @@
 
 <script>
     export default {
+        name: 'dropdown-item',
         props: {
             name: String,
             default: {type: Boolean, default: false}
@@ -64,7 +65,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "/../../sass/kernel";
+    @import "/../../../sass/kernel";
 
     $arrow-size: 15px;
     $item-padding: 10px;

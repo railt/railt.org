@@ -1,7 +1,7 @@
 {
   "schema": {
     "request": {
-      "url" : "http://localhost/api",
+      "url" : "http://railt.localhost:81/api",
       "method" : "POST",
       "postIntrospectionQuery" : true,
       "options" : {
@@ -13,8 +13,17 @@
   },
   "endpoints" : [
     {
-      "name": "Default",
-      "url" : "http://localhost/api",
+      "name": "Local",
+      "url" : "http://railt.localhost:81/api",
+      "options" : {
+        "headers": {
+          "user-agent" : "JS GraphQL"
+        }
+      }
+    },
+    {
+      "name": "Production",
+      "url" : "https://ru.railt.org/api",
       "options" : {
         "headers": {
           "user-agent" : "JS GraphQL"

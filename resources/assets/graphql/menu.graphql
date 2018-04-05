@@ -1,0 +1,17 @@
+query LoadMenu {
+    menu { ...MenuBody,
+        children { ...MenuBody,
+            children { ...MenuBody,
+                children { ...MenuBody }
+            }
+        }
+    }
+}
+
+fragment MenuBody on Menu {
+    id,
+    urn,
+    type,
+    title,
+    orderId
+}

@@ -20,14 +20,11 @@
  * <transition name="page-loading">
  */
 
-.page {
-}
-
 .page-loading {
     &-enter-active,
     &-leave-active {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
         transition: transform .5s, opacity .5s;
     }
 
@@ -38,10 +35,10 @@
     }
 
     &-enter {
-        transform: scale(1.1);
+        transform: translateY(-20px);
     }
 
     &-leave-to {
-        transform: scale(.98);
+        transform: translateY(100px);
     }
 }

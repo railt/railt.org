@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 
-Route::group(['prefix' => 'oauth'], function() {
+Route::group(['prefix' => 'auth'], function() {
     $providers = \implode('|', AuthController::getProviders());
 
     Route::get('{provider}', 'AuthController@redirect')

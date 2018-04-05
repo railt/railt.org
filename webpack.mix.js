@@ -14,6 +14,18 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/dist')
    .sass('resources/assets/sass/app.scss', 'public/dist');
 
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.(graphql|gql)$/,
+                exclude: /node_modules/,
+                loader: 'graphql-tag/loader'
+            }
+        ]
+    }
+});
+
 if (mix.inProduction()) {
     mix.version();
 } else {

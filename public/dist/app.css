@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i&subset=cyrillic);@import url(https://fonts.googleapis.com/css?family=Fira+Mono:400,700&subset=cyrillic);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i|Fira+Mono:400,700&subset=cyrillic);@charset "UTF-8";
 
 /**
  * Base variables list
@@ -72,8 +72,8 @@
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url("/fonts//fontawesome-webfont.eot?v=4.7.0");
-  src: url("/fonts//fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("/fonts//fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("/fonts//fontawesome-webfont.woff?v=4.7.0") format("woff"), url("/fonts//fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("/fonts//fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
+  src: url("/fonts/fontawesome-webfont.eot?v=4.7.0");
+  src: url("/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("/fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("/fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -3117,6 +3117,7 @@
 
 body {
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 html,
@@ -3155,7 +3156,10 @@ body {
 html .layout,
 body .layout {
   width: 100vw;
+  max-width: 1080px;
   min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3169,8 +3173,20 @@ body .layout {
           justify-content: stretch;
 }
 
-html .page,
-body .page {
+html .page-container,
+body .page-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+}
+
+html .page-container .page,
+body .page-container .page {
   width: 100%;
   max-width: 1080px;
   margin: 0 auto;
@@ -3188,11 +3204,6 @@ body .page {
       -ms-flex-align: stretch;
           align-items: stretch;
   overflow: visible;
-  -webkit-box-ordinal-group: 3;
-      -ms-flex-order: 2;
-          order: 2;
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
 }
 
 html a,
@@ -3247,7 +3258,7 @@ body .header .logo {
   height: inherit;
   display: block;
   text-decoration: none;
-  background: url(/img/logo-dark.svg) 50% no-repeat;
+  background: url(/images/logo-dark.svg?42a503fe81bbed80fe28e0606a3bae11) 50% no-repeat;
   background-size: 115px 44px;
   float: left;
 }
@@ -3491,8 +3502,8 @@ html .page-loading-leave-active,
 body .page-loading-enter-active,
 body .page-loading-leave-active {
   opacity: 1;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
   -webkit-transition: opacity .5s, -webkit-transform .5s;
   transition: opacity .5s, -webkit-transform .5s;
   transition: transform .5s, opacity .5s;
@@ -3509,13 +3520,13 @@ body .page-loading-enter {
 
 html .page-loading-enter,
 body .page-loading-enter {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
 }
 
 html .page-loading-leave-to,
 body .page-loading-leave-to {
-  -webkit-transform: scale(0.98);
-          transform: scale(0.98);
+  -webkit-transform: translateY(100px);
+          transform: translateY(100px);
 }
 

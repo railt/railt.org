@@ -1,0 +1,18 @@
+query LoadDocumentation($path: String) {
+    docs(path: $path) {
+        id
+        urn
+        url
+        title
+        content
+        updatedAt {
+            date: format(type: RFC3339)
+            asString: diffForHumans
+        }
+        nav {
+            slug
+            level
+            title
+        }
+    }
+}

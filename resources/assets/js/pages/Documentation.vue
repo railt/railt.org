@@ -1,24 +1,5 @@
 <script>
-    import gql from 'graphql-tag';
-
-    const DOCUMENTATION_PAGE = gql`query LoadDocumentation($path: String) {
-        docs(path: $path) {
-            id
-            urn
-            url
-            title
-            content
-            updatedAt {
-                date: format(type: RFC3339)
-                asString: diffForHumans
-            }
-            nav {
-                slug
-                level
-                title
-            }
-        }
-    }`;
+    import LoadDocumentation from './../../graphql/documentation.graphql';
 
     export default {
         data() {
@@ -59,7 +40,7 @@
         },
         apollo: {
             docs: {
-                query: DOCUMENTATION_PAGE,
+                query: LoadDocumentation,
                 variables() {
                     return {
                         path: this.$route.params.path || null
@@ -113,15 +94,17 @@
                     </aside>
                 </header>
 
-                <div class="delimiter">
-                    <span>Содержание</span>
-                </div>
+                <template v-if="! $apollo.loading && docs.nav.length > 1">
+                    <div class="delimiter">
+                        <span>Содержание</span>
+                    </div>
 
-                <nav class="table-of-contents" v-if="! $apollo.loading">
-                    <a :href="'#' + link.slug" :class="'level-' + link.level" v-for="link in docs.nav">
-                        {{ link.title }}
-                    </a>
-                </nav>
+                    <nav class="table-of-contents" v-if="! $apollo.loading">
+                        <a :href="'#' + link.slug" :class="'level-' + link.level" v-for="link in docs.nav">
+                            {{ link.title }}
+                        </a>
+                    </nav>
+                </template>
 
                 <nav class="table-of-contents" v-if="$apollo.loading">
                     <div class="placeholder">&nbsp;</div>

@@ -5,23 +5,20 @@ import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 
+import {Home, Documentation} from './pages/default';
+import {NotFound, Loading, InputText, Menu, MenuCollection, Dropdown, DropdownItem, Header} from './components/default';
+
 Vue.use(VueApollo);
 Vue.use(VueRouter);
 
-Vue.component('loading', require('./components/Loading.vue'));
-Vue.component('dropdown', require('./components/Dropdown.vue'));
-Vue.component('dropdown-item', require('./components/DropdownItem.vue'));
-Vue.component('input-text', require('./components/InputText.vue'));
-
-Vue.component('not-found', require('./components/NotFound.vue'));
-
-Vue.component('documentation-menu', require('./components/Menu.vue'));
-Vue.component('documentation-menu-items', require('./components/Menu/MenuCollection.vue'));
-
-
-import Home from './pages/Home';
-import NotFound from './components/NotFound';
-import Documentation from './pages/Documentation';
+Vue.component('loading', Loading);
+Vue.component('dropdown', Dropdown);
+Vue.component('dropdown-item', DropdownItem);
+Vue.component('input-text', InputText);
+Vue.component('not-found', NotFound);
+Vue.component('documentation-menu', Menu);
+Vue.component('documentation-menu-items', MenuCollection);
+Vue.component('header-item', Header);
 
 const router = new VueRouter({
     mode: 'history',

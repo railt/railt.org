@@ -46,10 +46,31 @@ class Http2Push
         $headers = [];
 
         foreach ($links as $link) {
-            $headers[] = '<' . (string)\mix($link) . '>; rel=preload; ' . $this->as($link);
+            $url = $this->linkToUrl($link);
+
+            $headers[] = '<'  . $url . '>; rel=preload; ' . $this->as($link);
         }
 
         $response->headers->set('link', $headers);
+    }
+
+    /**
+     * @param string $link
+     * @return string
+     * @throws \Exception
+     */
+    private function linkToUrl(string $link): string
+    {
+        $url = (string)\mix($link);
+
+        if (! Str::startsWith($url, ['http:', 'https:'])) {
+            $domain = \config('app.url');
+            $domain .= Str::startsWith($url, '/') ? '' : '/';
+
+            return $domain . $url;
+        }
+
+        return $url;
     }
 
     /**

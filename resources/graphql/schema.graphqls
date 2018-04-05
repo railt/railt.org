@@ -1,17 +1,6 @@
-#
-# Controllers
-#
+@import(from: "models/menu" types: ["Menu", "MenuMutation"])
+@import(from: "models/documentation" types: ["Documentation", "DocumentationMutation"])
 
-@use(class: "App\\GraphQL\\Controllers\\MenuController")
-@use(class: "App\\GraphQL\\Controllers\\DocumentationController")
-
-#
-# Presenters
-#
-
-@use(class: "App\\GraphQL\\Out\\MenuPresenter")
-@use(class: "App\\GraphQL\\Out\\NavigationPresenter")
-@use(class: "App\\GraphQL\\Out\\DocumentationPresenter")
 
 #
 # ==================================================================
@@ -24,119 +13,17 @@ schema {
     mutation: Mutation
 }
 
-type Query {
-    docs(path: String): Documentation
-        @route(action: "DocumentationController@findByUrn")
+"""
+# Тип всех корневых запросов
+"""
+type Query {}
 
-    menu: [Menu!]!
-        @route(action: "MenuController@findRootItems")
-}
-
+"""
+# Тип всех корневых мутаций
+"""
 type Mutation {
-    nothing: String
-        @guest
+    nothing: String @guest
 
-    documentation: DocumentationMutation!
-        @can(ability: "process")
-
-    menu: MenuMutation!
-        @can(ability: "process")
+    documentation: DocumentationMutation! @can(ability: "process")
+    menu: MenuMutation! @can(ability: "process")
 }
-
-#
-# ==================================================================
-#   Documentation
-# ==================================================================
-#
-
-type DocumentationMutation {
-    create(data: DocumentationInput!): Documentation!
-    @can(ability: "create")
-
-    update(id: ID!, data: DocumentationInput!): Boolean
-    @can(ability: "update")
-
-    remove(id: ID!): Boolean
-    @can(ability: "delete")
-}
-
-input DocumentationInput {
-    urn: String!
-    title: String!
-    content: String!
-}
-
-type Documentation implements Updatable
-    @out(action: "DocumentationPresenter@fromEntity")
-    {
-        id: ID!
-        url: String!
-        urn: String!
-        title: String!
-        content: String!
-        nav: [DocumentationNavigation!]!
-        updatedAt: Carbon!
-    }
-
-
-type DocumentationNavigation
-    @out(action: "NavigationPresenter@fromEntity")
-{
-    slug: String!
-    level: Int!
-    title: String!
-}
-
-
-#
-# ==================================================================
-#   Menu
-# ==================================================================
-#
-
-enum MenuMoveDirection {
-    UP,
-    DOWN
-}
-
-enum MenuType {
-    TAB,
-    DOCUMENTATION_PAGE
-}
-
-type MenuMutation {
-    create(data: MenuInput!): Menu!
-        @can(ability: "create")
-
-    update(id: ID!, data: MenuInput!): Boolean
-        @can(ability: "update")
-
-    remove(id: ID!): Boolean
-        @can(ability: "delete")
-
-    move(id: ID!, direction: MenuMoveDirection): Boolean
-        @can(ability: "update")
-
-    attach(parent: ID!, children: [ID!]!): Menu
-        @can(ability: "update")
-}
-
-input MenuInput {
-    urn: String!
-    title: String!
-    type: MenuType!
-    orderId: Int! = 0
-}
-
-type Menu
-    @out(action: "MenuPresenter@fromEntity")
-{
-    id: ID!
-    urn: String
-    orderId: Int!
-    title: String!
-    type: MenuType!
-    children: [Menu!]!
-    @route(action: "MenuController@findChildren", relation: { child: "parentId" })
-}
-
