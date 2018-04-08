@@ -4,14 +4,20 @@
             <div class="circle">
                 <div class="inner"></div>
             </div>
-            <span class="loading-text">Loading</span>
+            <span class="loading-text">{{ title }}</span>
         </div>
     </section>
 </template>
 
 <script>
     export default {
-        name: 'loading'
+        name: 'loading',
+        props: {
+            title: {
+                type: String,
+                default: 'Loading'
+            }
+        }
     }
 </script>
 
@@ -51,7 +57,7 @@
     $inner-circle: 24px;
 
     .preloader {
-        z-index: 99999;
+        z-index: 999;
         padding: 100px 0;
         background: rgba(#fff, .6);
         position: absolute;
@@ -111,6 +117,4 @@
             letter-spacing: .1em;
         }
     }
-
-
 </style>

@@ -11,9 +11,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateUsersTable
+ * Class CreateUserAuthentificationsTable
  */
-class CreateUsersTable extends Migration
+class CreateUserAuthentificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -22,15 +22,18 @@ class CreateUsersTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_authentifications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('login');
-            $table->string('email')->unique()->nullable();
-            $table->string('avatar')->nullable();
-            $table->string('password');
-            $table->json('roles');
-            $table->rememberToken();
+            $table->unsignedInteger('user_id');
+            $table->string('service');
+            $table->string('user_service_id');
             $table->timestamps();
+
+            $table->index(['service', 'user_service_id']);
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 
@@ -41,6 +44,6 @@ class CreateUsersTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_authentifications');
     }
 }

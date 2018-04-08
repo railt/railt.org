@@ -6,7 +6,11 @@ import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import {Home, Documentation} from './pages/default';
-import {NotFound, Loading, InputText, Menu, MenuCollection, Dropdown, DropdownItem, Header} from './components/default';
+import {
+    NotFound, Loading, InputText, Menu,
+    MenuCollection, Dropdown, DropdownItem,
+    Header, Modal, Button
+} from './components/default';
 
 Vue.use(VueApollo);
 Vue.use(VueRouter);
@@ -19,6 +23,8 @@ Vue.component('not-found', NotFound);
 Vue.component('documentation-menu', Menu);
 Vue.component('documentation-menu-items', MenuCollection);
 Vue.component('header-item', Header);
+Vue.component('modal', Modal);
+Vue.component('btn', Button);
 
 const router = new VueRouter({
     mode: 'history',

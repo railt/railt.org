@@ -22,7 +22,7 @@ return [
     'github' => [
         'client_id'     => \env('GITHUB_CLIENT_ID', 'id'),
         'client_secret' => \env('GITHUB_CLIENT_SECRET', 'secret'),
-        'redirect'      => \vsprintf('%s/oauth/github/callback', [
+        'redirect'      => \vsprintf('%s/auth/github/callback', [
             \env('APP_URL', 'http://localhost'),
         ]),
     ],

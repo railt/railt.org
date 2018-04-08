@@ -28,7 +28,6 @@ body {
 
     .layout {
         width: 100vw;
-        max-width: $ui-width;
         min-height: 100vh;
         margin: 0 auto;
         position: relative;
@@ -41,13 +40,17 @@ body {
     .page-container {
         position: relative;
         width: 100%;
-        height: 100%;
+        max-width: $ui-width;
+        min-height: 100vh;
+        margin: -60px auto 0 auto;
         order: 2;
         flex-basis: 100%;
+        align-self: right;
 
         .page {
+            box-sizing: border-box;
+            padding-top: 60px;
             width: 100%;
-            max-width: $ui-width;
             margin: 0 auto;
             display: flex;
             flex-direction: row;
@@ -58,7 +61,6 @@ body {
     }
 
     @import "ui/links";
-    @import "ui/header";
     @import "ui/headings";
     @import "ui/transitions";
 }

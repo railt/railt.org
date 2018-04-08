@@ -18,13 +18,16 @@ use App\Entity\User\Authorization;
 use App\Entity\User\Avatar;
 use App\Entity\User\Credentials;
 use App\Entity\User\Email;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable;
+use App\Entity\Repository\UsersRepository;
 
 /**
  * Class User
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -57,13 +60,13 @@ class User implements Identifiable, Timestampable, Authenticatable, Authorizable
      * @ORM\Column(name="roles", type="json")
      * @var array
      */
-    protected $roles = [];
+    protected $abilities = [];
 
     /**
-     * @ORM\Column(name="remember_token", type="string", length=100)
-     * @var string|null
+     * @ORM\OneToMany(targetEntity=AuthenticationService::class, mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @var Collection|AuthenticationService[]
      */
-    private $rememberToken;
+    protected $services = [];
 
     /**
      * User constructor.
@@ -76,15 +79,35 @@ class User implements Identifiable, Timestampable, Authenticatable, Authorizable
         $this->avatar = new Avatar();
 
         $this->credentials = new Credentials($login, $password);
+        $this->services = new ArrayCollection();
     }
 
     /**
      * @param string $name
      * @return $this
      */
-    public function addRole(string $name): self
+    public function addAbility(string $name): self
     {
-        $this->roles[] = $name;
+        $this->abilities[] = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function getAbilities(): array
+    {
+        return $this->abilities;
+    }
+
+    /**
+     * @param AuthenticationService $service
+     * @return $this
+     */
+    public function authBy(AuthenticationService $service): self
+    {
+        $this->services->add($service);
 
         return $this;
     }

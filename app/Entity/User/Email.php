@@ -21,7 +21,7 @@ class Email
      * @ORM\Column(name="email", type="string", nullable=true)
      * @var string|null
      */
-    private $email;
+    private $value;
 
     /**
      * Email constructor.
@@ -29,7 +29,7 @@ class Email
      */
     public function __construct(string $email = null)
     {
-        $this->email = $email;
+        $this->value = $email;
     }
 
     /**
@@ -37,7 +37,7 @@ class Email
      */
     public function exists(): bool
     {
-        return $this->email !== null;
+        return $this->value !== null;
     }
 
     /**
@@ -46,7 +46,7 @@ class Email
      */
     public function update(string $email): self
     {
-        $this->email = $email;
+        $this->value = $email;
 
         return $this;
     }
@@ -56,7 +56,7 @@ class Email
      */
     public function remove(): self
     {
-        $this->email = null;
+        $this->value = null;
 
         return $this;
     }
@@ -66,6 +66,6 @@ class Email
      */
     public function __toString(): string
     {
-        return $this->email ?? '';
+        return $this->value ?? '';
     }
 }

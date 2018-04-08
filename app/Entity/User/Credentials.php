@@ -36,7 +36,7 @@ class Credentials
      */
     public function __construct(string $login, string $password)
     {
-        $this->login = $this->rename($login);
+        $this->login = $login;
         $this->password = $this->updatePassword($password);
     }
 
@@ -85,5 +85,13 @@ class Credentials
     public function getHashedPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string 
+    {
+        return $this->getLogin();
     }
 }

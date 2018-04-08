@@ -1,0 +1,50 @@
+<template>
+    <a :href="href" :target="target" class="button" @click="$emit('click')">
+        <slot></slot>
+    </a>
+</template>
+
+<script>
+    export default {
+        name: "btn",
+        props: {
+            href: {
+                type: String,
+                default: '#'
+            },
+            target: {
+                type: String,
+                default: '_self'
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    @import "./../../sass/kernel";
+
+    .button {
+        height: $ui-height;
+        line-height: $ui-height - 2px;
+        display: inline-block;
+        outline: none;
+        padding: 0 15px;
+        border-radius: 2px;
+        background: $color-main;
+        color: #fff !important;
+        transition: .2s $ui-animation-swift;
+
+        svg {
+            width: 20px;
+            height: 20px;
+            float: left;
+            margin: 6px 8px 6px -6px;
+            fill: #fff;
+        }
+
+        &:hover {
+            background: lighten($color-main, 10%);
+            color: #fff !important;
+        }
+    }
+</style>

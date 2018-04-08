@@ -9,11 +9,20 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Trait Authentication
+ * @ORM\HasLifecycleCallbacks()
  */
 trait Authentication
 {
+    /**
+     * @ORM\Column(name="remember_token", type="string", length=100)
+     * @var string|null
+     */
+    protected $rememberToken;
+
     /**
      * @return string
      */

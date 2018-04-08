@@ -17,6 +17,7 @@ Route::group(['prefix' => 'auth'], function() {
 
 
 Route::group(['middleware' => 'prefetch:dist/app.css,dist/app.js'], function () {
-    Route::get('{any}', 'HomeController@index')
+    Route::get('{any?}', 'HomeController@index')
+        ->name('home')
         ->where('any', '.*?');
 });

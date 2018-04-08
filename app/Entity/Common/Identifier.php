@@ -38,7 +38,7 @@ trait Identifier
      */
     public function isNew(): bool
     {
-        return $this->id !== null;
+        return $this->id === null;
     }
 
     /**

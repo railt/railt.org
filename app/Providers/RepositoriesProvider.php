@@ -9,15 +9,16 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Entity\AuthenticationService;
 use App\Entity\Documentation;
 use App\Entity\Language;
 use App\Entity\Menu;
+use App\Entity\Repository\AuthenticationServiceRepository;
 use App\Entity\Repository\DocumentationRepository;
 use App\Entity\Repository\LanguageRepository;
 use App\Entity\Repository\MenuRepository;
-use App\Entity\Repository\ProvidesLanguage;
-use App\Entity\Repository\ProvidesMenu;
-use App\Entity\Repository\ProvidesMenuTree;
+use App\Entity\Repository\UsersRepository;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,14 +31,14 @@ final class RepositoriesProvider extends ServiceProvider
     private const REPOSITORY_ALIASES = 0x01;
 
     private const REPOSITORIES_MAP = [
-        Language::class      => [
+        Language::class              => [
             self::REPOSITORY         => LanguageRepository::class,
             self::REPOSITORY_ALIASES => [
                 Language\FindableByName::class,
                 Language\ContainsLanguages::class,
             ],
         ],
-        Documentation::class => [
+        Documentation::class         => [
             self::REPOSITORY         => DocumentationRepository::class,
             self::REPOSITORY_ALIASES => [
                 Documentation\FindableByUrn::class,
@@ -45,12 +46,27 @@ final class RepositoriesProvider extends ServiceProvider
                 Documentation\ContainsDocumentationPages::class,
             ],
         ],
-        Menu::class          => [
+        Menu::class                  => [
             self::REPOSITORY         => MenuRepository::class,
             self::REPOSITORY_ALIASES => [
                 Menu\FindableByParents::class,
                 Menu\FindableByUrn::class,
-            ]
+            ],
+        ],
+        User::class                  => [
+            self::REPOSITORY         => UsersRepository::class,
+            self::REPOSITORY_ALIASES => [
+                User\FindableById::class,
+                User\FindableByLogin::class,
+                User\FindableByEmail::class,
+                User\CreatableFromSocialite::class,
+            ],
+        ],
+        AuthenticationService::class => [
+            self::REPOSITORY         => AuthenticationServiceRepository::class,
+            self::REPOSITORY_ALIASES => [
+                User\FindableByService::class,
+            ],
         ],
     ];
 
