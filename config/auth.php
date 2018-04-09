@@ -68,7 +68,7 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'doctrine',
+            'driver' => 'railt',
             'model' => User::class,
         ],
     ],
