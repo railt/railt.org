@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -33,20 +34,22 @@ class Credentials
      * Credentials constructor.
      * @param string $login
      * @param string $password
+     * @param Hasher|null $hasher
      */
-    public function __construct(string $login, string $password)
+    public function __construct(string $login, string $password, Hasher $hasher = null)
     {
         $this->login = $login;
-        $this->password = $this->updatePassword($password);
+        $this->password = $this->updatePassword($password, $hasher);
     }
 
     /**
      * @param string $password
+     * @param Hasher $hasher
      * @return $this
      */
-    public function updatePassword(string $password): self
+    public function updatePassword(string $password, Hasher $hasher = null): self
     {
-        $this->password = \bcrypt($password);
+        $this->password = ($hasher ?? app(Hasher::class))->make($password);
 
         return $this;
     }

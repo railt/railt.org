@@ -14,30 +14,31 @@ use Illuminate\Console\Command;
 /**
  * Class SyncCommand
  */
-class SyncCommand extends Command
+class FreshCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sync';
+    protected $signature = 'fresh';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync all';
+    protected $description = 'Fresh an application';
 
     /**
      * Execute the console command.
      *
      * @return void
+     * @throws \Exception
      */
     public function handle(): void
     {
-        $this->call('sync:docs');
-        $this->call('sync:menu');
+        $this->call('migrate:fresh', ['--seed' => true]);
+        $this->call('sync');
     }
 }

@@ -23,12 +23,12 @@ use Lcobucci\JWT\ValidationData;
  */
 class JwtTokenGenerator implements FindableByToken, ProvidesToken
 {
+    private const SIG_USER = 'uid';
+
     /**
      * @var array|string[]
      */
     private $store = [];
-
-    private const SIG_USER = 'uid';
 
     /**
      * @return Signer
@@ -50,7 +50,7 @@ class JwtTokenGenerator implements FindableByToken, ProvidesToken
                 ->setIssuer(\config('app.url'))
                 ->setAudience(\config('app.url'))
                 ->setIssuedAt(Carbon::now()->timestamp)
-                ->setNotBefore(Carbon::now()->addMinute()->timestamp)
+                ->setNotBefore(Carbon::now()->subMinute()->timestamp)
                 ->setExpiration(Carbon::now()->addDay()->timestamp)
                 ->set(self::SIG_USER, $user->getId())
                 ->sign($this->getSigner(), \config('app.key'))

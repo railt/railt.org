@@ -9,14 +9,17 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Entity\User;
 use App\Entity\User\AuthProvider;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Railt\Reflection\Contracts\Dependent\FieldDefinition;
 
 /**
  * Class AuthServiceProvider
@@ -42,7 +45,15 @@ final class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+        $this->extendAuthentication();
+    }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \ReflectionException
+     */
+    private function extendAuthentication(): void
+    {
         $this->authProvider(
             $this->app->make(Factory::class),
             $this->app->make(ManagerRegistry::class),

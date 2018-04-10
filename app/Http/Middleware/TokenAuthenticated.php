@@ -9,6 +9,11 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Entity\User;
+use App\Entity\User\TokenAuthenticator;
+use Illuminate\Contracts\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,13 +23,40 @@ use Symfony\Component\HttpFoundation\Response;
 class TokenAuthenticated
 {
     /**
+     * @var TokenAuthenticator
+     */
+    private $auth;
+
+    /**
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * TokenAuthenticated constructor.
+     * @param TokenAuthenticator $auth
+     * @param Container $container
+     */
+    public function __construct(TokenAuthenticator $auth, Container $container)
+    {
+        $this->auth      = $auth;
+        $this->container = $container;
+    }
+
+    /**
      * @param Request $request
      * @param \Closure $then
      * @return Response
      */
     public function handle(Request $request, \Closure $then): Response
     {
-        //dd($request->headers->get('Authorization'));
+        $user = $this->auth->fromRequest($request);
+
+        if ($user) {
+            $this->container->instance(User::class, $user);
+            $this->container->alias(User::class, Authenticatable::class);
+            $this->container->alias(User::class, Authorizable::class);
+        }
 
         return $then($request);
     }

@@ -1,6 +1,13 @@
-@import(from: "models/menu" types: ["Menu", "MenuMutation"])
-@import(from: "models/documentation" types: ["Documentation", "DocumentationMutation"])
 
+@import(from: "queries/menu" types: ["Menu"])
+@import(from: "queries/documentation" types: ["Documentation"])
+@import(from: "queries/user" types: ["User"])
+
+#
+# Autoloader
+#
+
+union __queryTypes = Menu | Documentation | User
 
 #
 # ==================================================================
@@ -10,20 +17,9 @@
 
 schema {
     query: Query
-    mutation: Mutation
 }
 
 """
 # Тип всех корневых запросов
 """
 type Query {}
-
-"""
-# Тип всех корневых мутаций
-"""
-type Mutation {
-    nothing: String @guest
-
-    documentation: DocumentationMutation! @can(ability: "process")
-    menu: MenuMutation! @can(ability: "process")
-}

@@ -24,6 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Entity\Repository\UsersRepository;
+use Illuminate\Contracts\Hashing\Hasher;
 
 /**
  * Class User
@@ -57,12 +58,6 @@ class User implements Identifiable, Timestampable, Authenticatable, Authorizable
     protected $credentials;
 
     /**
-     * @ORM\Column(name="roles", type="json")
-     * @var array
-     */
-    protected $abilities = [];
-
-    /**
      * @ORM\OneToMany(targetEntity=AuthenticationService::class, mappedBy="user", orphanRemoval=true, cascade={"persist"})
      * @var Collection|AuthenticationService[]
      */
@@ -72,13 +67,14 @@ class User implements Identifiable, Timestampable, Authenticatable, Authorizable
      * User constructor.
      * @param string $login
      * @param string $password
+     * @param Hasher|null $hasher
      */
-    public function __construct(string $login, string $password)
+    public function __construct(string $login, string $password, Hasher $hasher = null)
     {
         $this->email  = new Email();
         $this->avatar = new Avatar();
 
-        $this->credentials = new Credentials($login, $password);
+        $this->credentials = new Credentials($login, $password, $hasher);
         $this->services = new ArrayCollection();
     }
 

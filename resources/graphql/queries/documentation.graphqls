@@ -1,5 +1,4 @@
 
-
 @use(class: "App\\GraphQL\\Out\\NavigationPresenter")
 @use(class: "App\\GraphQL\\Out\\DocumentationPresenter")
 @use(class: "App\\GraphQL\\Controllers\\DocumentationController")
@@ -16,24 +15,6 @@ extend type Query {
         path: String
     ): Documentation
         @route(action: "DocumentationController@findByUrn")
-}
-
-
-type DocumentationMutation {
-    create(data: DocumentationInput!): Documentation!
-        @can(ability: "create")
-
-    update(id: ID!, data: DocumentationInput!): Boolean
-        @can(ability: "update")
-
-    remove(id: ID!): Boolean
-        @can(ability: "delete")
-}
-
-input DocumentationInput {
-    urn: String!
-    title: String!
-    content: String!
 }
 
 """

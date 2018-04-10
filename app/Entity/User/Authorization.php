@@ -17,6 +17,12 @@ use Illuminate\Contracts\Auth\Access\Gate;
 trait Authorization
 {
     /**
+     * @ORM\Column(name="abilities", type="json")
+     * @var array
+     */
+    protected $abilities = [];
+
+    /**
      * @param string $ability
      * @param array $arguments
      * @return bool
@@ -50,8 +56,8 @@ trait Authorization
      */
     public function hasAbility(string $ability): bool
     {
-        \assert(\property_exists($this, 'roles'));
+        \assert(\property_exists($this, 'abilities'));
 
-        return \in_array($ability, $this->roles, true);
+        return \in_array($ability, $this->abilities, true);
     }
 }

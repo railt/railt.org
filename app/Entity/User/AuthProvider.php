@@ -100,7 +100,7 @@ class AuthProvider implements UserProvider
      * @return Authenticatable|null|object
      * @throws \LogicException
      */
-    public function retrieveByCredentials(array $credentials)
+    public function retrieveByCredentials(array $credentials): ?object
     {
         $query = Query::new();
 
