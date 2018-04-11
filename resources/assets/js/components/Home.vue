@@ -6,7 +6,17 @@
                 <h2>The GraphQL Framework</h2>
                 <div class="code-layout">
                     <div class="code-inner">
-                        sdsd
+                        <pre><code class="language-graphql">type Idea {
+    """
+    Dreaming of something more?
+    """
+    create: Project!
+}
+
+type Project {
+    poweredBy: Railt
+    implementedBy: You
+}</code></pre>
                     </div>
                 </div>
             </div>
@@ -71,7 +81,6 @@
         .code-layout {
             position: relative;
             width: 500px;
-            height: 300px;
             margin: 0 auto;
             padding: 3px;
             border-radius: 5px;
@@ -97,6 +106,23 @@
                 background: #fff;
                 position: relative;
                 z-index: 2;
+
+                pre {
+                    margin: 0;
+                    padding: 0;
+                    display: block;
+                }
+
+                code {
+                    margin: 0;
+                    padding: 20px 25px;
+                    display: block;
+                    font-size: 15px;
+                    line-height: 25px;
+                    background: rgba(#eee, .3);
+                    opacity: 0;
+                    transition: opacity .3s ease 1s;
+                }
             }
         }
 
@@ -104,6 +130,10 @@
             .code-layout {
                 &:after {
                     transform: scaleX(1) rotate(45deg);
+                }
+
+                code {
+                    opacity: 1;
                 }
             }
         }

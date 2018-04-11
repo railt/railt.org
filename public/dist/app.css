@@ -97,6 +97,13 @@ body {
   margin: 0;
 }
 
+html pre,
+html code,
+body pre,
+body code {
+  font-family: "Fira Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
 html .layout,
 body .layout {
   width: 100vw;
