@@ -12,7 +12,6 @@
 
 <script>
     export default {
-        name: 'input-text',
         props: {
             name: String,
             value: String,

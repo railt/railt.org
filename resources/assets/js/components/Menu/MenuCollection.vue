@@ -1,9 +1,12 @@
 <template>
     <nav :class="'menu menu-' + depth + ' menu-' + (depth === 1 ? 'root' : 'sub')">
+        <app-title :title="title"></app-title>
+
         <template v-for="item in items">
             <span class="menu-item" :class="{
                 collapsible: (item.children || []).length > 0 && depth !== 1,
-                collapsed: item.id === collapsed
+                collapsed: item.id === collapsed,
+                active: current(item)
             }" @click="toggle(item)">
                 {{ item.title }}
             </span>
@@ -34,18 +37,26 @@
         },
         data() {
             return {
+                title: '',
                 collapsed: 0,
                 items: []
             }
         },
         methods: {
+            current(item) {
+                let path = this.$route.params.path;
+                let route = path instanceof Array ? path.join('/') : (path || '');
+
+                return route.toString().startsWith(item.urn);
+            },
             toggle(item) {
                 this.collapsed = this.collapsed === item.id ? 0 : item.id;
 
                 if (item.type === 'DOCUMENTATION_PAGE') {
+                    this.title = item.title;
                     this.$router.push({
                         name: 'docs',
-                        params: { path: item.urn }
+                        params: { path: item.urn.split('/') }
                     });
                 }
             },
@@ -70,13 +81,14 @@
 
 
 <style lang="scss" scoped>
-    @import "./../../../sass/kernel.scss";
+    @import "../../../sass/kernel.scss";
 
     .menu {
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         padding-left: 15px;
+        box-sizing: border-box;
 
         .menu-item {
             display: block;
@@ -124,16 +136,17 @@
                 }
             }
 
-            &.router-link-active {
+            &.active {
                 text-decoration: none;
                 color: $color-main;
-                text-shadow: 0 0 1px $color-main;
+                font-weight: bold;
             }
         }
 
         .sub {
             overflow: hidden;
             max-height: 0;
+            box-sizing: border-box;
             transition:
                 opacity .3s ease,
                 padding-bottom .3s ease,
@@ -165,8 +178,8 @@
 
         &.menu-sub {
             .menu-item {
-                margin: 4px 0;
-                font-size: 12px;
+                margin: 6px 0;
+                font-size: 13px;
                 line-height: 14px;
             }
         }

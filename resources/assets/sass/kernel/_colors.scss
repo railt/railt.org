@@ -50,7 +50,7 @@ $color-link-active: darken($color-purple, 20%);
  *  Semantic
  * --------------------------------------------------------------------------------------
  */
-$color-bg: #f7f7f8;
+$color-bg: #f9f9f9;
 $color-bg-dark: #171e26;
 $color-bg-dark-alter: #2a2e38;
 
@@ -65,7 +65,7 @@ $color-error: $color-red;
  *  Shadows
  * --------------------------------------------------------------------------------------
  */
-$ui-box-shadow: 0 5px 13px rgba($color-bg-dark, .1) !default;
+$ui-box-shadow: 0 2px 3px rgba($color-bg-dark, .1) !default;
 $ui-box-shadow-dark: 0 5px 13px rgba(#000, .1) !default;
 
 /**

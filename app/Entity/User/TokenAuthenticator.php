@@ -84,14 +84,18 @@ class TokenAuthenticator
             return null;
         }
 
-        $token = $this->readFromAuthHeader($request);
+        try {
+            $token = $this->readFromAuthHeader($request);
 
-        $user = $this->repository->getUser($this->users, $token);
+            $user = $this->repository->getUser($this->users, $token);
 
-        if ($user) {
-            $this->guard->setUser($user);
+            if ($user) {
+                $this->guard->setUser($user);
+            }
+
+            return $user;
+        } catch (\InvalidArgumentException $e) {
+            return null;
         }
-
-        return $user;
     }
 }

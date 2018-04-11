@@ -1,9 +1,7 @@
 <template>
-    <section class="preloader">
+    <section class="loading">
         <div class="container">
-            <div class="circle">
-                <div class="inner"></div>
-            </div>
+            <app-preloader></app-preloader>
             <span class="loading-text">{{ title }}</span>
         </div>
     </section>
@@ -11,7 +9,6 @@
 
 <script>
     export default {
-        name: 'loading',
         props: {
             title: {
                 type: String,
@@ -24,39 +21,10 @@
 <style lang="scss" scoped>
     @import "/../../sass/kernel";
 
-    @keyframes bounce {
-        0%, 100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba($color-main, 1);
-        }
-        10% {
-            transform: scale(.9);
-        }
-        80% {
-            transform: scale(1.2);
-            box-shadow: 0 0 0 15px rgba($color-main, 0);
-        }
-        80.1% {
-            box-shadow: 0 0 0 0 rgba($color-main, 1);
-        }
-    }
-
-    @keyframes bounce-white {
-        0%, 100% {
-            transform: scale(1);
-        }
-        5% {
-            transform: scale(.8);
-        }
-        90% {
-            transform: scale(1.1);
-        }
-    }
-
     $outer-circle: 42px;
     $inner-circle: 24px;
 
-    .preloader {
+    .loading {
         z-index: 999;
         padding: 100px 0;
         background: rgba(#fff, .6);
@@ -75,35 +43,6 @@
             position: relative;
             margin: 0 auto;
             padding: 50px;
-        }
-
-        .circle {
-            background: #654299;
-            display: block;
-            width: $outer-circle;
-            height: $outer-circle;
-            position: relative;
-            border-radius: 50%;
-            margin: 0 auto;
-            animation: bounce 1s $ui-animation-swift infinite .1s;
-
-            .sub,
-            .loader,
-            .inner {
-                display: block;
-                width: $inner-circle;
-                height: $inner-circle;
-                border-radius: 50%;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                margin: -#{$inner-circle/2} 0 0 -#{$inner-circle/2};
-            }
-
-            .inner {
-                background: #fff;
-                animation: bounce-white 1s $ui-animation-swift infinite;
-            }
         }
 
         .loading-text {

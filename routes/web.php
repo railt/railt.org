@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 
+Route::any('/logout', 'AuthController@logout');
+
 Route::group(['prefix' => 'auth'], function() {
     $providers = \implode('|', AuthController::getProviders());
 

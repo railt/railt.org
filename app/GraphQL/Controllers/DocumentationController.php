@@ -37,6 +37,6 @@ class DocumentationController
      */
     public function findByUrn(InputInterface $input): ?Documentation
     {
-        return $this->docs->findByUrn($input->get('path'));
+        return $this->docs->findByUrn((string)$input->get('path'));
     }
 }

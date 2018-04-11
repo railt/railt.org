@@ -30,5 +30,6 @@ export default new HttpLink({
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': csrf.content,
         'Authorization': `Bearer ${auth.content}`
-    }
+    },
+    credentials: 'same-origin'
 });

@@ -1,24 +1,15 @@
 <template>
-    <documentation-menu-items :menu="menu"></documentation-menu-items>
+    <ApolloQuery :query="require('../../graphql/menu.graphql')">
+        <template slot-scope="{ result: { loading, error, data } }">
+            <template v-if="data">
+                <app-menu-content :menu="data.menu"></app-menu-content>
+            </template>
+        </template>
+    </ApolloQuery>
 </template>
 
 <script>
-    import DocumentationMenu from './../../graphql/menu.graphql';
-
     export default {
         name: 'documentation-menu',
-        data() {
-            return {
-                menu: [],
-            }
-        },
-        apollo: {
-            menu: {
-                query: DocumentationMenu,
-                result({data}) {
-                    this.menu = data.menu;
-                }
-            }
-        }
     }
 </script>

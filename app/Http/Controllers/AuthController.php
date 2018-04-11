@@ -69,6 +69,17 @@ class AuthController extends Controller
     }
 
     /**
+     * @return RedirectResponse
+     * @throws \InvalidArgumentException
+     */
+    public function logout(): RedirectResponse
+    {
+        $this->guard->logout();
+
+        return \redirect()->route('home');
+    }
+
+    /**
      * @param FindableByService $users
      * @param CreatableFromSocialite $creator
      * @param string $provider
@@ -90,6 +101,6 @@ class AuthController extends Controller
 
         $this->guard->loginUsingId($user->getId());
 
-        return new RedirectResponse(\route('home'));
+        return \redirect()->route('home');
     }
 }

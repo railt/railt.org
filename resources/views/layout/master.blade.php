@@ -19,6 +19,7 @@
 </head>
 <body>
     <main id="app" class="layout">
+        <a href="#" id="page-top" name="page-top"></a>
         @yield('content')
     </main>
 </body>

@@ -1,60 +1,29 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueApollo from 'vue-apollo';
-import {ApolloClient} from 'apollo-client';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import VueScrollTo from 'vue-scrollto';
 
-import {
-    NotFound, Loading, InputText, Menu,
-    MenuCollection, Dropdown, DropdownItem,
-    Header, Modal, Button
-} from './components/default';
+import router from './routes';
+import apollo from './apollo';
+import './components';
 
 Vue.use(VueApollo);
 Vue.use(VueRouter);
-
-Vue.component('loading', Loading);
-Vue.component('dropdown', Dropdown);
-Vue.component('dropdown-item', DropdownItem);
-Vue.component('input-text', InputText);
-Vue.component('not-found', NotFound);
-Vue.component('documentation-menu', Menu);
-Vue.component('documentation-menu-items', MenuCollection);
-Vue.component('header-item', Header);
-Vue.component('modal', Modal);
-Vue.component('btn', Button);
-
-
-import http from './http';
-import router from './routes';
-
-
-const client = new ApolloClient({
-    link: http,
-    cache: new InMemoryCache(),
-    defaultOptions: {
-       /* watchQuery: {
-            fetchPolicy: 'network-only',
-            errorPolicy: 'ignore',
-        },
-        query: {
-            fetchPolicy: 'network-only',
-            errorPolicy: 'all',
-        },*/
+Vue.use(VueScrollTo, {
+    onDone: function(element) {
+        if (element.href !== '#') {
+            document.location = element.href;
+        }
     },
-    connectToDevTools: true,
 });
 
-const apollo = new VueApollo({
-    defaultClient: client,
-    defaultOptions: {
-        $loadingKey: 'loading'
-    }
-});
-
-window.app = new Vue({
+window.app = new (window.Vue = Vue)({
     router: router,
-    provide: apollo.provide()
+    provide: apollo.provide(),
+    mounted() {
+        setTimeout(() => {
+            document.body.classList.add('loaded');
+        }, 100);
+    }
 }).$mount('#app');
 
-window.Vue = Vue;

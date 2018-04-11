@@ -1,7 +1,9 @@
 import VueRouter from 'vue-router';
+import Home from './components/Home';
+import Account from './components/Account';
+import Documentation from './components/Documentation';
+import Error from './components/Error';
 
-import {NotFound} from "./components/default";
-import {Documentation, Home} from "./pages/default";
 
 export default new VueRouter({
     mode: 'history',
@@ -16,15 +18,20 @@ export default new VueRouter({
             component: Documentation,
             children: [
                 {
-                    path: ':path*',
+                    path: ':path+',
                     name: 'docs',
                     component: Documentation,
                 }
             ]
         },
         {
+            path: '/account',
+            name: 'account',
+            component: Account
+        },
+        {
             path: '*',
-            component: NotFound
+            component: Error
         }
     ]
 });

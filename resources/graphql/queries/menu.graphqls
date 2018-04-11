@@ -1,8 +1,6 @@
 
-
 @use(class: "App\\GraphQL\\Out\\MenuPresenter")
 @use(class: "App\\GraphQL\\Controllers\\MenuController")
-
 
 extend type Query {
     menu: [Menu!]!

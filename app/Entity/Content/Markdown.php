@@ -72,7 +72,7 @@ class Markdown implements Renderer
             [$data, $heading, $title] = $d;
             $slug = Str::slug(\strip_tags($title));
 
-            return \vsprintf('<h%d><a href="#%s" name="%2$s" class="header-link">#</a>%s</h%1$d>', [
+            return \vsprintf('<h%d><a href="#%s" id="%2$s" name="%2$s" class="header-link">#</a>%s</h%1$d>', [
                 $heading,
                 $slug,
                 $title

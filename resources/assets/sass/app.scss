@@ -5,7 +5,9 @@
 @import "~normalize-scss/sass/normalize";
 
 @import "kernel";
-@import "kernel/font-awesome/font-awesome";
+@import "kernel/font-awesome/variables";
+@import "kernel/font-awesome/mixins";
+@import "kernel/font-awesome/path";
 
 body {
     overflow-x: hidden;
@@ -35,6 +37,12 @@ body {
         flex-direction: column;
         overflow: visible;
         justify-content: stretch;
+        opacity: 0;
+        transition: .3s opacity;
+    }
+
+    &.loaded .layout {
+        opacity: 1;
     }
 
     .page-container {
@@ -42,7 +50,7 @@ body {
         width: 100%;
         max-width: $ui-width;
         min-height: 100vh;
-        margin: -60px auto 0 auto;
+        margin: 0 auto;
         order: 2;
         flex-basis: 100%;
         align-self: right;
@@ -59,8 +67,8 @@ body {
             overflow: visible;
         }
     }
-
-    @import "ui/links";
-    @import "ui/headings";
-    @import "ui/transitions";
 }
+
+@import "ui/links";
+@import "ui/headings";
+@import "ui/transitions";

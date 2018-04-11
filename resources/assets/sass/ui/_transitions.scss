@@ -1,7 +1,31 @@
+
 /**
- * <transition name="fade">
+ * <transition name="transition-dropdown">
  */
-.fade {
+
+.transition-dropdown {
+    &-enter-active,
+    &-leave-active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        transition:
+            transform .2s $ui-animation-bounce,
+            opacity .2s ease;
+    }
+
+    &-leave-to,
+    &-enter {
+        opacity: 0 !important;
+        transform: translateY(-25px) scale(.8);
+    }
+}
+
+
+/**
+ * <transition name="transition-fade">
+ */
+
+.transition-fade {
     &-enter-active,
     &-leave-active {
         opacity: 1;
@@ -11,27 +35,29 @@
     &-enter,
     &-leave-to {
         opacity: 0;
+        transition: .3s opacity 0s;
     }
 }
 
 
-
 /**
- * <transition name="page-loading">
+ * <transition name="transition-page">
  */
 
-.page-loading {
+.transition-page {
     &-enter-active,
     &-leave-active {
         opacity: 1;
         transform: translateY(0);
-        transition: transform .5s, opacity .5s;
+        transition: transform .5s, opacity .5s, max-height .5s;
+        max-height: 1000vh;
     }
 
     &-leave-to,
     &-enter {
         opacity: 0 !important;
         position: absolute;
+        max-height: 90vh;
     }
 
     &-enter {

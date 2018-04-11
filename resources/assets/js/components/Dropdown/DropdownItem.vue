@@ -6,7 +6,6 @@
 
 <script>
     export default {
-        name: 'dropdown-item',
         props: {
             name: String,
             default: {type: Boolean, default: false}

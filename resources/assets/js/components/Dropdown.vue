@@ -14,7 +14,6 @@
 
 <script>
     export default {
-        name: 'dropdown',
         props: {
             maxItems: {
                 type: Number,

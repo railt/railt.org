@@ -6,7 +6,6 @@
 
 <script>
     export default {
-        name: "btn",
         props: {
             href: {
                 type: String,
@@ -33,6 +32,7 @@
         background: $color-main;
         color: #fff !important;
         transition: .2s $ui-animation-swift;
+        text-decoration: none;
 
         svg {
             width: 20px;
@@ -45,6 +45,10 @@
         &:hover {
             background: lighten($color-main, 10%);
             color: #fff !important;
+        }
+
+        &:active {
+            box-shadow: inset 0 1px 2px rgba(#000, .5) !important;
         }
     }
 </style>

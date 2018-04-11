@@ -1,85 +1,27 @@
-<script>
-    import LoadDocumentation from './../../graphql/documentation.graphql';
-
-    export default {
-        data() {
-            return {
-                loaded: false,
-                page: {},
-                content: '',
-                query: {},
-                placeholders: []
-            }
-        },
-        created() {
-            for (let i = 0; i < 60; i++) {
-                this.placeholders.push(Math.floor(Math.random() * 300 + 10));
-            }
-        },
-        methods: {
-            formatLinks(content) {
-                return content.replace(/<a\s+href="\/(.*?)"(.*?)>(.*?)<\/a>/g, (link, route, attributes, title) => {
-                    let uri = this.$router.resolve({
-                        name: 'docs',
-                        params: { path: route }
-                    });
-
-                    return `<a href="${uri}" ${attributes} data-route="inner">${title}</a>`;
-                });
-            },
-            setContent(data) {
-                let content = (data.docs || {}).content || '';
-
-                content = this.formatLinks(content);
-
-                this.content = content;
-            },
-            setTitle(title) {
-                document.title = `${title} &mdash; Railt`;
-            }
-        },
-        apollo: {
-            docs: {
-                query: LoadDocumentation,
-                variables() {
-                    return {
-                        path: this.$route.params.path || null
-                    };
-                },
-                result({data}) {
-                    this.page = data.docs;
-                    this.setContent(data);
-                    document.title = `${(data.docs || {title: '404'}).title} — Railt`;
-                },
-                error() {
-                    this.page = null;
-                }
-            }
-        }
-    }
-</script>
 
 <template>
     <section class="page">
         <aside class="nav">
-            <documentation-menu></documentation-menu>
+            <app-menu></app-menu>
         </aside>
 
         <section class="body">
-            <transition name="fade">
-                <loading v-if="$apollo.loading"></loading>
+            <transition name="transition-fade">
+                <app-loading v-if="$apollo.loading"></app-loading>
             </transition>
 
             <template v-if="page === null">
-                <header class="documentation-header" style="width: 100vw">
-                    <h1>Whoops!</h1>
-                </header>
-
-                <not-found></not-found>
+                <app-error>
+                    <header class="documentation-header" style="width: 100vw">
+                        <h1>Whoops!</h1>
+                    </header>
+                </app-error>
             </template>
 
             <template v-else>
                 <header class="documentation-header">
+                    <app-title :title="page.title"></app-title>
+
                     <h1 v-if="! $apollo.loading">{{ page.title }}</h1>
                     <h1 v-if="$apollo.loading" class="placeholder">&nbsp;</h1>
 
@@ -100,15 +42,22 @@
                     </div>
 
                     <nav class="table-of-contents" v-if="! $apollo.loading">
-                        <a :href="'#' + link.slug" :class="'level-' + link.level" v-for="link in docs.nav">
-                            {{ link.title }}
-                        </a>
+                        <a :href="'#' + link.slug"
+                           :class="'level-' + link.level"
+                           v-scroll-to="'#' + link.slug"
+                           v-for="link in docs.nav"
+                        >{{ link.title }}</a>
                     </nav>
                 </template>
+                <template v-if="$apollo.loading">
+                    <div class="delimiter">
+                        <span>Содержание</span>
+                    </div>
 
-                <nav class="table-of-contents" v-if="$apollo.loading">
-                    <div class="placeholder">&nbsp;</div>
-                </nav>
+                    <nav class="table-of-contents">
+                        <div class="placeholder">&nbsp;</div>
+                    </nav>
+                </template>
 
                 <div class="delimiter"></div>
 
@@ -124,6 +73,77 @@
         </section>
     </section>
 </template>
+
+<script>
+    import LoadDocumentation from './../../graphql/documentation.graphql';
+    import Formatter from './Documentation/Formatter';
+
+    export default {
+        data() {
+            return {
+                loaded: false,
+                page: {},
+                content: '',
+                query: {},
+                placeholders: []
+            }
+        },
+        created() {
+            for (let i = 0; i < 40; i++) {
+                this.placeholders.push(Math.floor(Math.random() * 300 + 10));
+            }
+        },
+        methods: {
+            formatLinks(content) {
+                return (new Formatter(this, content)).render();
+            },
+            setContent(data) {
+                let content = (data.docs || {}).content || '';
+
+                content = this.formatLinks(content);
+
+                this.content = content;
+            },
+            routeParamsToPath() {
+                let path = this.$route.params.path;
+
+                if (! path) {
+                    return null;
+                }
+
+                if (typeof path === 'string') {
+                    return path;
+                }
+
+                return path.join('/');
+            }
+        },
+        apollo: {
+            docs: {
+                query: LoadDocumentation,
+                variables() {
+                    return {
+                        path: this.routeParamsToPath()
+                    };
+                },
+                result({data}) {
+                    this.page = data.docs;
+                    this.setContent(data);
+                    setTimeout(() => {
+                        this.$scrollTo(document.getElementById(
+                            window.location.hash
+                                ? window.location.hash.substr(1)
+                                : 'page-top'
+                        ));
+                    }, 100);
+                },
+                error() {
+                    this.page = null;
+                }
+            }
+        }
+    }
+</script>
 
 <style lang="scss" scoped>
     @import "../../sass/kernel";
@@ -156,7 +176,7 @@
             flex-direction: column;
 
             a {
-                display: block;
+                display: inline-block;
                 font-size: 14px;
                 position: relative;
                 margin: 0 5px;
