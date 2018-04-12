@@ -2,22 +2,11 @@
     <section class="page">
         <section class="splash" :class="{ready: ready}">
             <div class="middle">
-                <img src="../../img/logo-dark.svg" alt="Railt" />
+                <img src="../../img/logo-dark.svg" alt="Railt"/>
                 <h2>The GraphQL Framework</h2>
-                <div class="code-layout">
-                    <div class="code-inner">
-                        <pre><code class="language-graphql">type Idea {
-    """
-    Dreaming of something more?
-    """
-    create: Project!
-}
 
-type Project {
-    poweredBy: Railt
-    implementedBy: You
-}</code></pre>
-                    </div>
+                <div class="code-layout">
+                    <img src="/images/pc.svg" alt="PC" />
                 </div>
             </div>
         </section>
@@ -34,9 +23,7 @@ type Project {
             }
         },
         mounted() {
-            setTimeout(() => {
-                this.ready = true;
-            }, 1000);
+            setTimeout(() => this.ready = true, 1000);
         }
     }
 </script>
@@ -80,60 +67,22 @@ type Project {
 
         .code-layout {
             position: relative;
-            width: 500px;
-            margin: 0 auto;
-            padding: 3px;
-            border-radius: 5px;
-            overflow: hidden;
 
-            &:after {
-                content: '';
-                position: absolute;
-                left: 50%;
-                bottom: 0;
-                width: 200%;
-                height: 200%;
-                transform: scaleX(0) rotate(45deg);
-                background: $color-main;
-                transition: transform 1s $ui-animation-swift;
-                transform-origin: 0 0;
-            }
-
-            .code-inner {
-                width: 100%;
-                height: 100%;
-                border-radius: 3px;
-                background: #fff;
-                position: relative;
-                z-index: 2;
-
-                pre {
-                    margin: 0;
-                    padding: 0;
-                    display: block;
-                }
-
-                code {
-                    margin: 0;
-                    padding: 20px 25px;
-                    display: block;
-                    font-size: 15px;
-                    line-height: 25px;
-                    background: rgba(#eee, .3);
-                    opacity: 0;
-                    transition: opacity .3s ease 1s;
-                }
-            }
         }
 
         &.ready {
             .code-layout {
-                &:after {
-                    transform: scaleX(1) rotate(45deg);
+                .keyboard {
+                    opacity: 1;
+                    transform: translateY(0) scaleY(1);
                 }
 
-                code {
+                .display {
                     opacity: 1;
+                }
+
+                .browser {
+                    animation: ease-out-bounce 1s 1s forwards;
                 }
             }
         }

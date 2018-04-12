@@ -2,16 +2,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueApollo from 'vue-apollo';
 import VueScrollTo from 'vue-scrollto';
-import VuePrism from 'vue-prism';
 
 import router from './routes';
 import apollo from './apollo';
 import './components';
-import 'prismjs/themes/prism.css';
 
 Vue.use(VueApollo);
 Vue.use(VueRouter);
-Vue.use(VuePrism);
+
 Vue.use(VueScrollTo, {
     onDone: function(element) {
         let isHeader = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(element.tagName.toLowerCase()) !== -1;
