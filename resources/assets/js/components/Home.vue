@@ -7,6 +7,8 @@
         <section class="section purple">
             <article class="section-content">
                 <h2>4 шага для начала работы</h2>
+
+                <div style="height: 50vh"></div>
             </article>
         </section>
 
@@ -20,10 +22,10 @@
                     Абсолютно любой вклад очень ценен и помогают двигать
                     фреймворк в нужном русле.
                 </p>
+
+                <div style="height: 50vh"></div>
             </article>
         </section>
-
-        <div style="height: 200vh"></div>
     </section>
 </template>
 
