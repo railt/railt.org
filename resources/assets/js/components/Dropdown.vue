@@ -44,7 +44,13 @@
                 this.height = `${this.maxItems * (32 + 5) + 5}px`;
             });
 
-            document.body.addEventListener('click', (e) => {
+            document.body.addEventListener('click', this.hideThroughEvent)
+        },
+        destroyed () {
+            document.body.removeEventListener('click', this.hideThroughEvent);
+        },
+        methods: {
+            hideThroughEvent(e) {
                 for (let i of e.path) {
                     if (i === this.$el) {
                         return;
@@ -52,9 +58,7 @@
                 }
 
                 this.active = false;
-            })
-        },
-        methods: {
+            },
             select({ title, name }) {
                 this.title = title;
                 this.value = name;

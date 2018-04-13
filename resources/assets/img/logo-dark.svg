@@ -1,33 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="200" height="75" viewBox="0 0 200 75">
-  <defs>
-    <style>
-      .cls-1, .cls-2, .cls-3 {
-        fill: #fff;
-      }
-
-      .cls-1 {
-        filter: url(#color-overlay-1);
-        fill-rule: evenodd;
-      }
-
-      .cls-2 {
-        filter: url(#color-overlay-3);
-      }
-    </style>
-
-    <filter id="color-overlay-1" filterUnits="userSpaceOnUse">
-      <feFlood flood-color="#65429a"/>
-      <feComposite operator="in" in2="SourceGraphic"/>
-      <feBlend in2="SourceGraphic" result="solidFill"/>
-    </filter>
-    <filter id="color-overlay-3" filterUnits="userSpaceOnUse">
-      <feFlood flood-color="#65429a"/>
-      <feComposite operator="in" in2="SourceGraphic"/>
-      <feBlend in2="SourceGraphic" result="solidFill"/>
-    </filter>
-  </defs>
-  <path d="M179.591,24.219 L170.355,24.219 L170.355,53.902 L166.239,53.902 L166.239,24.219 L156.764,24.219 L156.764,20.680 L179.751,20.680 L179.591,24.219 ZM135.833,53.583 L135.833,20.999 L139.630,20.999 L139.630,49.948 L153.221,49.948 L152.424,53.583 L135.833,53.583 ZM118.778,21.290 L122.285,20.251 L122.285,56.545 L118.778,57.584 L118.778,21.290 ZM101.949,45.166 L89.124,45.166 L86.539,53.583 L82.328,53.583 L93.000,20.680 L98.264,20.680 L108.888,53.583 L104.486,53.583 L101.949,45.166 ZM95.536,24.123 L90.129,41.770 L100.896,41.770 L95.536,24.123 ZM69.980,53.583 L61.940,39.427 L56.484,39.427 L56.484,53.583 L52.368,53.583 L52.368,20.680 L60.839,20.680 C68.975,20.680 73.186,23.836 73.186,29.910 C73.186,34.597 70.697,37.323 66.007,38.710 L74.909,53.583 L69.980,53.583 ZM68.783,29.910 C68.783,25.749 66.390,23.932 60.791,23.932 L56.484,23.932 L56.484,36.223 L61.317,36.223 C66.055,36.223 68.783,34.453 68.783,29.910 Z" class="cls-1"/>
-  <path d="M122.285,12.501 L118.778,13.540 L118.778,17.334 L122.285,16.295 L122.285,12.501 Z" class="cls-1"/>
-  <circle cx="21" cy="37" r="19" class="cls-2"/>
-  <circle cx="21" cy="37" r="10" class="cls-3"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="862" height="248" viewBox="0 0 862 248">
+  <circle style="fill: #65429a;" cx="124" cy="124" r="84"/>
+  <circle style="fill: #fff;" cx="124" cy="124" r="44"/>
+  <path style="fill: #65429a;" d="M326.263,197.817h22.145l-39.989-66.864c21.069-6.235,32.249-18.49,32.249-39.559,0-27.3-18.92-41.494-55.469-41.494L248,50V198l16-1V134l28.144,0.178ZM264,120V65l20.984-.481c25.155,0,35.9,8.17,35.9,26.875,0,20.424-12.254,28.379-33.539,28.379Zm212.978,77.817h19.78L449.028,49.9H425.379L377.435,197.817h18.919l11.61-37.839h57.619Zm-64.5-53.1,24.3-79.334,24.079,79.334H412.479ZM559,28l-17,6V223l17-6V28Zm85,21-18,2V198l75.8-.183,4.15-18.34L642,182Zm178.266,0.9L719,50V65h42V199l16-2,1-132h42Z"/>
+  <path style="fill: #65429a; fill-rule: evenodd;" d="M542,24l17-6V0L542,6V24Z"/>
 </svg>

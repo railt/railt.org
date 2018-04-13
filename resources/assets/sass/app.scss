@@ -52,17 +52,18 @@ body {
     .page-container {
         position: relative;
         width: 100%;
-        max-width: $ui-width;
         min-height: 100vh;
         margin: 0 auto;
         order: 2;
+        display: flex;
+        justify-content: center;
         flex-basis: 100%;
         align-self: right;
 
         .page {
             box-sizing: border-box;
             padding-top: 60px;
-            width: 100%;
+            max-width: $ui-width;
             margin: 0 auto;
             display: flex;
             flex-direction: row;

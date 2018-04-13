@@ -1,24 +1,42 @@
 <template>
     <section class="page">
-        <section class="splash" :class="{ready: ready}">
-            <div class="middle">
-                <img src="../../img/logo-dark.svg" alt="Railt"/>
-                <h2>The GraphQL Framework</h2>
+        <app-title title="Главная"></app-title>
 
-                <div class="code-layout">
-                    <img src="/images/pc.svg" alt="PC" />
-                </div>
-            </div>
+        <app-splash class="section"></app-splash>
+
+        <section class="section purple">
+            <article class="section-content">
+                <h2>4 шага для начала работы</h2>
+            </article>
         </section>
 
-        <h1>Home</h1>
+
+        <section class="section dark">
+            <article class="section-content">
+                <h2>Для сообщества от сообщества</h2>
+
+                <p>
+                    В разработке Railt участвовали многие замечательные люди.
+                    Абсолютно любой вклад очень ценен и помогают двигать
+                    фреймворк в нужном русле.
+                </p>
+            </article>
+        </section>
+
+        <div style="height: 200vh"></div>
     </section>
 </template>
 
 <script>
+    import Splash from "./Home/Splash";
+
     export default {
+        components: {
+            'app-splash': Splash
+        },
         data() {
             return {
+
                 ready: false
             }
         },
@@ -33,58 +51,69 @@
 
     .page {
         display: block !important;
-        padding-top: 0 !important;
+        box-sizing: border-box;
+        max-width: 100% !important;
     }
 
-    .middle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -50px;
-        transform: translate(-50%, -50%);
-    }
-
-    .splash {
-        width: 100%;
-        height: 100vh;
+    .section {
+        width: 100vw;
+        display: flex;
+        padding: 60px 0;
+        box-sizing: border-box;
+        justify-content: center;
+        font-size: 18px;
+        line-height: 24px;
 
         h1, h2, h3, h4, h5, h6 {
-            margin: 0;
-            padding: 0;
             text-align: center;
         }
 
-        img {
-            display: block;
-            margin: 0 auto;
-        }
-
-        h2 {
-            padding-bottom: 20px;
-            color: $color-text;
-            font-weight: 300;
-        }
-
-        .code-layout {
+        &.dark,
+        &.purple {
+            background: $color-main;
             position: relative;
+            color: rgba($color-inv-text-primary, .7);
 
+            h1, h2, h3, h4, h5, h6 {
+                color: #fff;
+            }
         }
 
-        &.ready {
-            .code-layout {
-                .keyboard {
-                    opacity: 1;
-                    transform: translateY(0) scaleY(1);
-                }
+        p {
+            margin: 0;
+            padding: 20px 100px;
+        }
 
-                .display {
-                    opacity: 1;
-                }
+        &.dark {
+            padding-top: 100px;
+            background: $color-bg-dark;
+        }
 
-                .browser {
-                    animation: ease-out-bounce 1s 1s forwards;
-                }
+        &.purple {
+            &:after,
+            &:before {
+                content: '';
+                left: 0;
+                top: -139px;
+                display: block;
+                position: absolute;
+                z-index: 10;
+                background: url(../../img/splash/curve-highlights-top.svg) center bottom no-repeat;
+                background-size: 3000px 140px;
+                width: 100%;
+                height: 140px;
             }
+
+            &:after {
+                top: auto;
+                bottom: -108px;
+                background: $color-main url(../../img/splash/curve-highlights-bottom.svg) center bottom no-repeat;
+            }
+        }
+
+        .section-content {
+            max-width: $ui-width;
+            width: 100%;
         }
     }
 </style>

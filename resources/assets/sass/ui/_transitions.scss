@@ -7,7 +7,8 @@
     &-enter-active,
     &-leave-active {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1);
+        transform-origin: 50% 100%;
         transition:
             transform .2s $ui-animation-bounce,
             opacity .2s ease;
@@ -15,8 +16,9 @@
 
     &-leave-to,
     &-enter {
+        transform-origin: 50% 100%;
         opacity: 0 !important;
-        transform: translateY(-25px) scale(.8);
+        transform: scale(.95);
     }
 }
 

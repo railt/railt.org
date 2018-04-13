@@ -6,14 +6,12 @@
         </aside>
 
         <section class="body">
-            <transition name="transition-fade">
-                <app-loading v-if="$apollo.loading"></app-loading>
-            </transition>
+            <div class="spacer"></div>
 
             <template v-if="page === null">
                 <app-error>
-                    <header class="documentation-header" style="width: 100vw">
-                        <h1>Whoops!</h1>
+                    <header class="documentation-header">
+                        <h1>Whoops, something went wrong...</h1>
                     </header>
                 </app-error>
             </template>
@@ -27,12 +25,13 @@
 
                     <aside class="sub">
                         <time :datetime="(page.updatedAt || {}).date">
-                            Обновлено
-                            <span v-if="! $apollo.loading">{{ (page.updatedAt || {}).asString }}</span>
+                            <span v-if="! $apollo.loading">Обновлено {{ (page.updatedAt || {}).asString }}</span>
                             <span v-if="$apollo.loading" class="placeholder">&nbsp;</span>
                         </time>
 
-                        <a :href="page.url" class="edit" target="_blank">Редактировать</a>
+                        <nav class="controls">
+                            <a :href="page.url" class="edit" target="_blank">Редактировать</a>
+                        </nav>
                     </aside>
                 </header>
 
@@ -150,6 +149,10 @@
 
     $menu-width: 250px;
 
+    .page {
+        padding-top: 100px !important;
+    }
+
     .nav {
         width: $menu-width;
         order: 1;
@@ -169,6 +172,12 @@
         line-height: 26px;
         position: relative;
         max-width: $ui-width - $menu-width;
+
+        .spacer {
+            width: 100vw;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
         .table-of-contents {
             padding-left: 65px;
@@ -239,6 +248,10 @@
             display: inline-block;
         }
 
+        h1.placeholder {
+            width: 400px;
+        }
+
         .documentation-header,
         .documentation-body {
             padding: 0 20px 0 65px;
@@ -247,7 +260,7 @@
         .documentation-header {
             h1 {
                 display: block;
-                margin-bottom: 10px;
+                padding-bottom: 10px;
             }
 
             .sub {
@@ -255,7 +268,11 @@
                 font-size: 14px;
                 color: $color-text-placeholder;
 
-                .edit {
+                time {
+                    font-style: italic;
+                }
+
+                .controls {
                     float: right;
                 }
             }
@@ -307,8 +324,13 @@
                     top: -60px;
                 }
 
+                h2 {
+                    font-style: italic;
+                }
+
                 p {
-                    margin: 30px 0 !important;
+                    margin: 0 !important;
+                    padding: 20px 0;
                 }
 
                 abbr {
@@ -321,16 +343,25 @@
                     font-size: 13px;
                     font-style: italic;
                     color: $color-text-secondary;
-                    margin: 0;
-                    padding: 10px 20px;
+                    margin: 10px 0;
+                    position: relative;
+                    padding: 10px 15px;
                     line-height: 20px;
+                    min-height: 24px;
+                    box-sizing: border-box;
                     @include clear();
 
                     &:before {
                         display: block;
-                        float: left;
                         color: #fff;
-                        margin-left: -10px;
+                        height: 24px;
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        margin-top: -12px;
+                        width: 40px;
+                        text-align: center;
+                        pointer-events: none;
                     }
 
                     p {
@@ -340,10 +371,11 @@
 
                     &.warn,
                     &.info {
+                        padding: 10px 20px 10px 40px;
+
                         &:before {
                             @include fa-icon;
                             font-size: 24px;
-                            padding-right: 10px;
                         }
 
                         a {
@@ -408,12 +440,11 @@
                     }
                 }
 
-
-
                 table {
                     width: 100%;
-                    box-shadow: 0 0 0 1px $color-border;
-                    padding: 10px;
+                    box-shadow: 0 0 0 2px $color-border;
+                    border-radius: 2px;
+                    padding: 10px 15px;
 
                     th {
                         font-size: 13px;

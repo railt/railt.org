@@ -1,5 +1,5 @@
 <template>
-    <header class="header">
+    <header class="header" :class="{fixed: scrolled}">
         <div class="container">
             <router-link to="/" class="logo"></router-link>
 
@@ -23,7 +23,19 @@
         },
         data() {
             return {
+                scrolled: false
             }
+        },
+        methods: {
+            handleScroll() {
+                this.scrolled = window.scrollY > 0;
+            }
+        },
+        created () {
+            window.addEventListener('scroll', this.handleScroll);
+        },
+        destroyed () {
+            window.removeEventListener('scroll', this.handleScroll);
         }
     }
 </script>
@@ -36,7 +48,7 @@
 
         height: $height;
         line-height: $height;
-        box-shadow: $ui-box-shadow;
+        box-shadow: 0 0 0 rgba($color-bg-dark, 0);
         padding: 14px 0;
         position: fixed;
         background: rgba(#fff, .9);
@@ -44,8 +56,13 @@
         flex-shrink: 0;
         z-index: 99999;
         width: 100%;
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
+        transition:
+            box-shadow .5s ease,
+            padding .5s ease;
+
+        &.fixed {
+            box-shadow: $ui-box-shadow;
+        }
 
         .container {
             display: flex;
@@ -61,9 +78,15 @@
                 width: 115px;
                 height: inherit;
                 display: block;
+                position: relative;
                 text-decoration: none;
-                background: url(./../../img/logo-dark.svg) 50% no-repeat;
+                background: url(./../../img/logo-dark.svg) right 50% no-repeat;
                 background-size: auto $height;
+                transition: width .5s ease;
+
+                &.router-link-exact-active {
+                    width: 0;
+                }
             }
 
             .aside-menu,
@@ -90,20 +113,22 @@
                     text-decoration: none;
                     display: inline-block;
                     position: relative;
+                    text-transform: uppercase;
 
                     &:after {
                         content: '';
                         position: absolute;
                         width: 100%;
-                        height: 4px;
+                        height: 2px;
                         bottom: -14px;
                         background: $color-main;
                         left: 0;
                         opacity: 0;
-                        transform: scaleY(0);
-                        transform-origin: 0 100%;
-                        transition: opacity .3s $ui-animation-swift,
-                        transform .5s $ui-animation-bounce;
+                        transform: scaleX(0);
+                        transform-origin: 100% 100%;
+                        transition:
+                            transform .5s $ui-animation-swift,
+                            opacity .5s $ui-animation-swift;
                     }
 
                     &:hover {
@@ -113,7 +138,8 @@
                     &.router-link-active {
                         color: $color-main !important;
                         &:after {
-                            transform: scaleY(1);
+                            transform-origin: 0 100%;
+                            transform: scaleX(1);
                             opacity: 1;
                         }
                     }
@@ -124,7 +150,6 @@
                 margin-left: auto;
                 align-self: right;
                 justify-self: right;
-                box-shadow: -1px 0 0 0 $color-border;
             }
         }
     }

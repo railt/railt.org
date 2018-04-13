@@ -22,7 +22,6 @@
 
                     <header-dropdown :visible="accountDropdown" @hide="accountDropdown = false">
                         <router-link :to="{name: 'account'}">Настройки</router-link>
-                        <hr/>
                         <a href="/logout">
                             <strong>Выход</strong>
                         </a>

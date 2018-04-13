@@ -23,17 +23,16 @@
     .header-dropdown {
         position: absolute;
         background: #fff;
-        box-shadow:
-            inset 0 0 0 1px $color-border-secondary,
-            $ui-box-shadow;
+        box-shadow: $ui-box-shadow;
         border-radius: 0 0 3px 3px;
         min-width: 120px;
         width: 100%;
-        top: 56px;
+        top: 42px;
         right: 0;
         text-align: right;
-        padding: 3px 1px;
+        padding: 3px 3px;
         border-top: $color-main 4px solid;
+        box-sizing: border-box;
 
         &:before {
             content: '';
@@ -47,7 +46,6 @@
         }
 
         & /deep/ {
-
             hr {
                 display: block;
                 border: none;
@@ -67,10 +65,14 @@
                 line-height: $ui-height;
                 color: $color-text;
                 text-decoration: none;
+                border-radius: 3px;
+                transition: .3s ease;
+                margin: 2px 0;
 
                 &:hover {
                     color: $color-main;
                     background: $color-bg;
+                    transition: .1s ease;
                 }
             }
         }

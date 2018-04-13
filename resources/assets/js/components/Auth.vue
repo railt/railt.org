@@ -1,11 +1,13 @@
 <template>
-    <article class="user">
+    <article class="user" :class="{loading: loading, auth: isLoggedIn, guest: ! isLoggedIn}">
         <template v-if="loading">
             <slot name="loading"></slot>
         </template>
+
         <template v-else-if="! loading && ! isLoggedIn">
             <slot name="guest"></slot>
         </template>
+
         <template v-else-if="! loading && isLoggedIn">
             <slot :user="user" name="auth"></slot>
         </template>

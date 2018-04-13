@@ -135,12 +135,17 @@ html .page-container,
 body .page-container {
   position: relative;
   width: 100%;
-  max-width: 1080px;
   min-height: 100vh;
   margin: 0 auto;
   -webkit-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
   -ms-flex-item-align: right;
@@ -152,7 +157,7 @@ body .page-container .page {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding-top: 60px;
-  width: 100%;
+  max-width: 1080px;
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -217,6 +222,7 @@ h6 {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  margin: 0;
   color: #3c3e42;
 }
 
@@ -249,31 +255,31 @@ h6.underline {
 h1 {
   font-size: 48px;
   font-weight: 100;
-  margin: 48px 0 24px 0;
+  padding: 48px 0 24px 0;
 }
 
 h2 {
   font-size: 32px;
-  margin: 32px 0 16px 0;
+  padding: 32px 0 16px 0;
 }
 
 h3 {
   font-size: 27px;
   font-weight: 400;
-  margin: 27px 0 13.5px 0;
+  padding: 27px 0 13.5px 0;
 }
 
 h4 {
   font-size: 16px;
   text-transform: uppercase;
-  margin: 16px 0 8px 0;
+  padding: 16px 0 8px 0;
 }
 
 h5,
 h6 {
   font-size: 13px;
   font-weight: bold;
-  margin: 16px 0 8px 0;
+  padding: 16px 0 8px 0;
 }
 
 /**
@@ -283,8 +289,10 @@ h6 {
 .transition-dropdown-enter-active,
 .transition-dropdown-leave-active {
   opacity: 1;
-  -webkit-transform: translateY(0) scale(1);
-          transform: translateY(0) scale(1);
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
   -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s cubic-bezier(0.585, 0.22, 0.12, 1.355);
   transition: opacity 0.2s ease, -webkit-transform 0.2s cubic-bezier(0.585, 0.22, 0.12, 1.355);
   transition: transform 0.2s cubic-bezier(0.585, 0.22, 0.12, 1.355), opacity 0.2s ease;
@@ -293,9 +301,11 @@ h6 {
 
 .transition-dropdown-leave-to,
 .transition-dropdown-enter {
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
   opacity: 0 !important;
-  -webkit-transform: translateY(-25px) scale(0.8);
-          transform: translateY(-25px) scale(0.8);
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
 }
 
 /**
