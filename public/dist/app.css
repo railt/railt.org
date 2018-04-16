@@ -223,7 +223,6 @@ h6 {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
-  color: #3c3e42;
 }
 
 h1.underline,
@@ -264,9 +263,9 @@ h2 {
 }
 
 h3 {
-  font-size: 27px;
+  font-size: 22px;
   font-weight: 400;
-  padding: 27px 0 13.5px 0;
+  padding: 22px 0 11px 0;
 }
 
 h4 {

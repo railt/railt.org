@@ -5,7 +5,7 @@
 
 $h1-size: 48px;
 $h2-size: 32px;
-$h3-size: 27px;
+$h3-size: 22px;
 $h4-size: 16px;
 
 $h5-size: $font-size;
@@ -24,7 +24,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     box-sizing: border-box;
     margin: 0;
-    color: $color-text-primary;
 
     &.underline {
         box-shadow: 0 1px 0 $color-border;

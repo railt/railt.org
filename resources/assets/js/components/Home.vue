@@ -8,7 +8,7 @@
             <article class="section-content">
                 <h2>4 шага для начала работы</h2>
 
-                <div style="height: 50vh"></div>
+                <app-steps></app-steps>
             </article>
         </section>
 
@@ -31,10 +31,12 @@
 
 <script>
     import Splash from "./Home/Splash";
+    import Steps from "./Home/Steps";
 
     export default {
         components: {
-            'app-splash': Splash
+            'app-splash': Splash,
+            'app-steps': Steps
         },
         data() {
             return {
@@ -63,54 +65,56 @@
         padding: 60px 0;
         box-sizing: border-box;
         justify-content: center;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 24px;
+        position: relative;
 
         h1, h2, h3, h4, h5, h6 {
             text-align: center;
         }
 
+        &:before {
+            content: '';
+            left: 0;
+            top: -139px;
+            display: block;
+            position: absolute;
+            z-index: 10;
+            background-size: 3000px 140px;
+            width: 100%;
+            height: 140px;
+        }
+
         &.dark,
         &.purple {
-            background: $color-main;
-            position: relative;
+            padding-bottom: 200px;
             color: rgba($color-inv-text-primary, .7);
 
-            h1, h2, h3, h4, h5, h6 {
+            h2 {
                 color: #fff;
             }
         }
 
-        p {
-            margin: 0;
-            padding: 20px 100px;
-        }
-
         &.dark {
-            padding-top: 100px;
             background: $color-bg-dark;
+
+            &:before {
+                background: url(../../img/splash/curve-highlights-bottom.svg) center bottom no-repeat;
+            }
         }
 
         &.purple {
-            &:after,
-            &:before {
-                content: '';
-                left: 0;
-                top: -139px;
-                display: block;
-                position: absolute;
-                z-index: 10;
-                background: url(../../img/splash/curve-highlights-top.svg) center bottom no-repeat;
-                background-size: 3000px 140px;
-                width: 100%;
-                height: 140px;
-            }
+            background: $color-main;
 
-            &:after {
-                top: auto;
-                bottom: -108px;
-                background: $color-main url(../../img/splash/curve-highlights-bottom.svg) center bottom no-repeat;
+            &:before {
+                background: url(../../img/splash/curve-highlights-top.svg) center bottom no-repeat;
             }
+        }
+
+
+        p {
+            margin: 0;
+            padding: 20px 100px;
         }
 
         .section-content {

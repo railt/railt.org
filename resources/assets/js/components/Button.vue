@@ -25,7 +25,7 @@
     .button {
         height: $ui-height;
         line-height: $ui-height - 2px;
-        display: inline-block;
+        display: flex;
         outline: none;
         padding: 0 15px;
         border-radius: 2px;
