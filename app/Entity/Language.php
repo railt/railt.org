@@ -9,16 +9,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Common\Identifiable;
+use App\Entity\Common\Identifier;
+use App\Entity\Language\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Common\Identifier;
-use App\Entity\Common\Identifiable;
-use App\Entity\Repository\LanguageRepository;
 
 /**
  * Class Language
- * @ORM\Entity(repositoryClass=LanguageRepository::class)
+ * @ORM\Entity(repositoryClass=Repository::class)
  * @ORM\Table(name="languages")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -55,8 +55,8 @@ class Language implements Identifiable
      */
     public function __construct(string $name, string $title)
     {
-        $this->docs = new ArrayCollection();
-        $this->name = $name;
+        $this->docs  = new ArrayCollection();
+        $this->name  = $name;
         $this->title = $title;
     }
 

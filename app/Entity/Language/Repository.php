@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\Language;
 
 use App\Entity\Language;
 use Serafim\Hydrogen\Collection;
@@ -16,7 +16,7 @@ use Serafim\Hydrogen\Repository\DatabaseRepository;
 /**
  * Class LanguageRepository
  */
-class LanguageRepository extends DatabaseRepository implements
+class Repository extends DatabaseRepository implements
     Language\ContainsLanguages,
     Language\FindableByName
 {

@@ -18,13 +18,13 @@ use App\Entity\Content\HasContent;
 use App\Entity\Documentation\ContainsNavigation;
 use App\Entity\Documentation\Navigation;
 use App\Entity\Documentation\NavigationExtractorListener;
+use App\Entity\Documentation\Repository;
 use App\Entity\Documentation\Type;
-use App\Entity\Repository\DocumentationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Documentation
- * @ORM\Entity(repositoryClass=DocumentationRepository::class)
+ * @ORM\Entity(repositoryClass=Repository::class)
  * @ORM\Table(name="docs")
  * @ORM\EntityListeners({ ContentRendererListener::class, NavigationExtractorListener::class })
  * @ORM\HasLifecycleCallbacks()
@@ -37,6 +37,8 @@ class Documentation implements
 {
     use Identifier;
     use Timestamps;
+
+    public const STORAGE_DIRECTORY = 'docs';
 
     /**
      * Relation to document language.

@@ -34,10 +34,11 @@ class SyncCommand extends Command
      * Execute the console command.
      *
      * @return void
+     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
      */
     public function handle(): void
     {
-        $this->call('sync:docs');
-        $this->call('sync:menu');
+        $this->call('documentation:download');
+        $this->call('documentation:sync');
     }
 }

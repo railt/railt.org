@@ -7,16 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\Menu;
 
 use App\Entity\Menu;
 use Serafim\Hydrogen\Collection;
 use Serafim\Hydrogen\Repository\DatabaseRepository;
 
 /**
- * Class MenuRepository
+ * Class Repository
  */
-class MenuRepository extends DatabaseRepository implements
+class Repository extends DatabaseRepository implements
     Menu\FindableByUrn,
     Menu\FindableByParents
 {
@@ -41,6 +41,7 @@ class MenuRepository extends DatabaseRepository implements
     /**
      * @param Menu|null $parent
      * @return Menu|null|object
+     * @throws \LogicException
      */
     public function findByParent(?Menu $parent): ?Menu
     {
@@ -58,6 +59,7 @@ class MenuRepository extends DatabaseRepository implements
     /**
      * @param string $urn
      * @return Menu|null|object
+     * @throws \LogicException
      */
     public function findByUrn(string $urn): ?Menu
     {

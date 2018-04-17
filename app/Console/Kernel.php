@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\SyncCommand::class,
         Commands\SyncDocsCommand::class,
-        Commands\SyncMenuCommand::class,
+        Commands\SyncDocsDownloadCommand::class,
     ];
 
     /**

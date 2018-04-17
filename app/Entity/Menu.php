@@ -9,18 +9,18 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Common\Identifiable;
 use App\Entity\Common\Identifier;
 use App\Entity\Common\Timestampable;
 use App\Entity\Common\Timestamps;
-use App\Entity\Repository\MenuRepository;
+use App\Entity\Menu\Repository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Menu
- * @ORM\Entity(repositoryClass=MenuRepository::class)
+ * @ORM\Entity(repositoryClass=Repository::class)
  * @ORM\Table(name="menu")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -136,19 +136,19 @@ class Menu implements Identifiable, Timestampable
     }
 
     /**
-     * @return bool
-     */
-    public function hasDocumentation(): bool
-    {
-        return $this->getDocumentationPage() !== null;
-    }
-
-    /**
      * @return Documentation|null
      */
     public function getDocumentationPage(): ?Documentation
     {
         return $this->documentation;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDocumentation(): bool
+    {
+        return $this->getDocumentationPage() !== null;
     }
 
     /**

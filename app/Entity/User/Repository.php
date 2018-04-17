@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\User;
 
 use App\Entity\AuthenticationService;
 use App\Entity\User;
@@ -17,7 +17,7 @@ use Serafim\Hydrogen\Repository\DatabaseRepository;
 /**
  * Class UsersRepository
  */
-class UsersRepository extends DatabaseRepository implements
+class Repository extends DatabaseRepository implements
     User\FindableById,
     User\FindableByLogin,
     User\FindableByEmail,
@@ -26,6 +26,7 @@ class UsersRepository extends DatabaseRepository implements
     /**
      * @param int $pk
      * @return User|null|object
+     * @throws \LogicException
      */
     public function findById(int $pk): ?User
     {
@@ -35,6 +36,7 @@ class UsersRepository extends DatabaseRepository implements
     /**
      * @param string $login
      * @return User|null|object
+     * @throws \LogicException
      */
     public function findByLogin(string $login): ?User
     {
@@ -44,6 +46,7 @@ class UsersRepository extends DatabaseRepository implements
     /**
      * @param string $email
      * @return User|null|object
+     * @throws \LogicException
      */
     public function findByEmail(string $email): ?User
     {
@@ -71,6 +74,7 @@ class UsersRepository extends DatabaseRepository implements
      * @param string $service
      * @param UserInterface|\Laravel\Socialite\Two\User $prototype
      * @return User
+     * @throws \LogicException
      */
     public function fromSocialite(string $service, UserInterface $prototype): User
     {

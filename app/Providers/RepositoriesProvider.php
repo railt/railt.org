@@ -10,15 +10,15 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Entity\AuthenticationService;
+use App\Entity\AuthenticationService\Repository as AuthenticationServiceRepository;
 use App\Entity\Documentation;
+use App\Entity\Documentation\Repository as DocumentationRepository;
 use App\Entity\Language;
+use App\Entity\Language\Repository as LanguageRepository;
 use App\Entity\Menu;
-use App\Entity\Repository\AuthenticationServiceRepository;
-use App\Entity\Repository\DocumentationRepository;
-use App\Entity\Repository\LanguageRepository;
-use App\Entity\Repository\MenuRepository;
-use App\Entity\Repository\UsersRepository;
+use App\Entity\Menu\Repository as MenuRepository;
 use App\Entity\User;
+use App\Entity\User\Repository as UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,7 +27,7 @@ use Illuminate\Support\ServiceProvider;
  */
 final class RepositoriesProvider extends ServiceProvider
 {
-    private const REPOSITORY         = 0x00;
+    private const REPOSITORY = 0x00;
     private const REPOSITORY_ALIASES = 0x01;
 
     private const REPOSITORIES_MAP = [

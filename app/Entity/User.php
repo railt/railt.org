@@ -18,17 +18,17 @@ use App\Entity\User\Authorization;
 use App\Entity\User\Avatar;
 use App\Entity\User\Credentials;
 use App\Entity\User\Email;
+use App\Entity\User\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable;
-use App\Entity\Repository\UsersRepository;
 use Illuminate\Contracts\Hashing\Hasher;
 
 /**
  * Class User
- * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @ORM\Entity(repositoryClass=Repository::class)
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -58,7 +58,8 @@ class User implements Identifiable, Timestampable, Authenticatable, Authorizable
     protected $credentials;
 
     /**
-     * @ORM\OneToMany(targetEntity=AuthenticationService::class, mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=AuthenticationService::class, mappedBy="user", orphanRemoval=true,
+     *     cascade={"persist"})
      * @var Collection|AuthenticationService[]
      */
     protected $services = [];
@@ -75,7 +76,7 @@ class User implements Identifiable, Timestampable, Authenticatable, Authorizable
         $this->avatar = new Avatar();
 
         $this->credentials = new Credentials($login, $password, $hasher);
-        $this->services = new ArrayCollection();
+        $this->services    = new ArrayCollection();
     }
 
     /**

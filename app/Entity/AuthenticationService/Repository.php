@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\AuthenticationService;
 
 use App\Entity\AuthenticationService;
 use App\Entity\User;
@@ -16,13 +16,14 @@ use Serafim\Hydrogen\Repository\DatabaseRepository;
 /**
  * Class AuthenticationServiceRepository
  */
-class AuthenticationServiceRepository extends DatabaseRepository implements
+class Repository extends DatabaseRepository implements
     User\FindableByService
 {
     /**
      * @param string $name
      * @param string $userId
      * @return User|null
+     * @throws \LogicException
      */
     public function findByService(string $name, string $userId): ?User
     {

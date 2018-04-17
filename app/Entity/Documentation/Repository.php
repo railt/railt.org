@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace App\Entity\Repository;
+namespace App\Entity\Documentation;
 
 use App\Entity\Documentation;
 use Serafim\Hydrogen\Collection;
@@ -15,9 +15,9 @@ use Serafim\Hydrogen\Query\Builder;
 use Serafim\Hydrogen\Repository\DatabaseRepository;
 
 /**
- * Class DocumentationRepository
+ * Class Repository
  */
-class DocumentationRepository extends DatabaseRepository implements
+class Repository extends DatabaseRepository implements
     Documentation\ContainsDocumentationPages,
     Documentation\FindableByPath,
     Documentation\FindableByUrn
@@ -25,6 +25,7 @@ class DocumentationRepository extends DatabaseRepository implements
     /**
      * @param Builder $builder
      * @return Builder
+     * @throws \LogicException
      */
     public function scope(Builder $builder): Builder
     {

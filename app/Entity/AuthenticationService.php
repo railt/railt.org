@@ -9,15 +9,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\AuthenticationService\Repository;
+use App\Entity\Common\Identifiable;
 use App\Entity\Common\Identifier;
+use App\Entity\Common\Timestampable;
 use App\Entity\Common\Timestamps;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Common\Identifiable;
-use App\Entity\Common\Timestampable;
-use App\Entity\Repository\AuthenticationServiceRepository;
 
 /**
- * @ORM\Entity(repositoryClass=AuthenticationServiceRepository::class)
+ * @ORM\Entity(repositoryClass=Repository::class)
  * @ORM\Table(name="user_authentifications")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -53,9 +53,9 @@ class AuthenticationService implements Identifiable, Timestampable
      */
     public function __construct(string $service, string $serviceUserId, User $user)
     {
-        $this->service = $service;
+        $this->service   = $service;
         $this->serviceId = (string)$serviceUserId;
-        $this->user = $user;
+        $this->user      = $user;
     }
 
     /**

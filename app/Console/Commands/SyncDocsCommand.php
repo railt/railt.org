@@ -9,14 +9,16 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Console\Commands\Common\RepositoriesLocator;
 use App\Entity\Documentation;
-use App\Entity\Documentation\Reader as DocumentationReader;
-use App\Entity\Language\Reader as LanguageReader;
+use App\Entity\Documentation\FindableByPath;
+use App\Entity\File;
+use App\Entity\File\LocalRepository;
+use App\Entity\Language;
+use App\Entity\Language\FindableByName;
+use App\Entity\Menu\FindableByUrn;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Console\Command;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
+use Illuminate\Contracts\Container\Container;
 
 /**
  * Class SyncDocsCommand
@@ -28,7 +30,7 @@ class SyncDocsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'sync:docs';
+    protected $signature = 'documentation:sync';
 
     /**
      * The console command description.
@@ -43,12 +45,21 @@ class SyncDocsCommand extends Command
     private $em;
 
     /**
+     * @var Container
+     */
+    private $app;
+
+    /**
      * DocsSyncCommand constructor.
      * @param EntityManagerInterface $em
+     * @param Container $app
+     * @throws \InvalidArgumentException
+     * @throws \Symfony\Component\Console\Exception\LogicException
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, Container $app)
     {
         $this->em = $em;
+        $this->app = $app;
 
         parent::__construct();
     }
@@ -56,47 +67,81 @@ class SyncDocsCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param RepositoriesLocator $repositories
+     * @param LocalRepository $files
      * @return void
+     * @throws \LogicException
+     * @throws \RuntimeException
      */
-    public function handle(RepositoriesLocator $repositories): void
+    public function handle(LocalRepository $files): void
     {
         $this->comment('Processing documentation');
 
-        foreach ($this->files() as $file) {
-            $language = LanguageReader::fromSplFileInfo($repositories->langByName(), $file)
-                ->toLanguage();
+        foreach ($files->getFiles() as $file) {
+            $language = $this->syncLanguage($file);
 
-            $documentation = DocumentationReader::fromSplFileInfo($repositories->docsByPath(), $file)
-                ->toDocumentation()
-                ->withLanguage($language);
-
-            $this->notify($documentation);
-
-            $this->em->persist($documentation);
+            $this->syncDocumentation($file, $language);
+            $this->syncMenu($file);
         }
 
         $this->em->flush();
 
-        $this->line('<fg=white;bg=green;options=bold> Complete! </>' . "\n\n");
+        $this->comment('OK');
     }
 
     /**
-     * @param Documentation $documentation
+     * @param File $file
      */
-    private function notify(Documentation $documentation): void
+    private function syncMenu(File $file): void
     {
-        $this->comment(' - Reading <info>' . $documentation->getPath() . '</info>');
+        $docs = $this->app->make(Documentation\FindableByUrn::class);
+
+        $menus = $file->getMenus($this->app->make(FindableByUrn::class));
+
+        foreach ($menus as $menu) {
+            $documentation = $docs->findByUrn($menu->getUrn());
+
+            if ($documentation) {
+                $menu->withDocumentation($documentation);
+                $menu->rename($documentation->getTitle() ?? $menu->getTitle());
+            }
+
+            $this->em->persist($menu);
+
+            if ($menu->isNew()) {
+                $this->em->flush();
+            }
+        }
     }
 
     /**
-     * @return \Traversable|SplFileInfo[]
+     * @param File $file
+     * @param Language $language
+     * @return Documentation
      */
-    private function files(): \Traversable
+    private function syncDocumentation(File $file, Language $language): Documentation
     {
-        yield from (new Finder())
-            ->files()
-            ->name('*.md')
-            ->in(\resource_path('docs'));
+        $documentation = $file
+            ->getDocumentation($this->app->make(FindableByPath::class))
+            ->withLanguage($language);
+
+        $this->em->persist($documentation);
+
+        return $documentation;
+    }
+
+    /**
+     * @param File $file
+     * @return Language
+     */
+    private function syncLanguage(File $file): Language
+    {
+        $language = $file->getLanguage($this->app->make(FindableByName::class));
+
+        if ($language->isNew()) {
+            $this->em->persist($language);
+            $this->em->flush();
+        }
+
+        return $language;
     }
 }
