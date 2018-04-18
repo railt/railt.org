@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Out;
 
 use App\Entity\Documentation;
+use App\Entity\File\GithubRepository;
 use Carbon\Carbon;
 
 /**
@@ -28,10 +29,24 @@ class DocumentationPresenter
         yield 'content' => $docs->getContent()->toHtml();
 
         yield 'urn' => $docs->getUrn();
-        yield 'url' => \sprintf('https://github.com/railt/docs/%s', $docs->getPath());
+        yield 'url' => $this->getGitHubUrl($docs);
 
         yield 'updatedAt' => $docs->updatedAt() ?? $docs->createdAt();
 
         yield 'nav' => $docs->getNavigation();
+    }
+
+    /**
+     * @param Documentation $docs
+     * @return string
+     */
+    private function getGitHubUrl(Documentation $docs): string
+    {
+        return \vsprintf('https://github.com/%s/%s/blob/%s/%s', [
+            GithubRepository::GITHUB_USERNAME,
+            GithubRepository::GITHUB_REPOSITORY,
+            GithubRepository::GITHUB_BRANCH,
+            $docs->getPath()
+        ]);
     }
 }

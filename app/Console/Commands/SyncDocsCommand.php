@@ -15,6 +15,7 @@ use App\Entity\File;
 use App\Entity\File\LocalRepository;
 use App\Entity\Language;
 use App\Entity\Language\FindableByName;
+use App\Entity\Menu;
 use App\Entity\Menu\FindableByUrn;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Console\Command;
@@ -74,24 +75,32 @@ class SyncDocsCommand extends Command
      */
     public function handle(LocalRepository $files): void
     {
-        $this->comment('Processing documentation');
-
-        foreach ($files->getFiles() as $file) {
+        $i = 0;
+        foreach ($files->getFiles() as $i => $file) {
             $language = $this->syncLanguage($file);
+            $this->output->write("\r" . '<comment>Processing documentation:</comment> ' . $i);
 
             $this->syncDocumentation($file, $language);
-            $this->syncMenu($file);
         }
-
         $this->em->flush();
+        $this->line("\r" . '<info>Processed documentation:</info>  <fg=white;bg=green;options=bold> OK (' . $i . ') </>');
 
-        $this->comment('OK');
+
+        $i = 0;
+        foreach ($files->getFiles() as $file) {
+            foreach ($this->syncMenu($file) as $menu) {
+                $this->output->write("\r" . '<comment>Processing menu:</comment> ' . ++$i);
+            }
+        }
+        $this->em->flush();
+        $this->line("\r" . '<info>Processed menu:</info>  <fg=white;bg=green;options=bold> OK (' . $i . ') </>');
     }
 
     /**
      * @param File $file
+     * @return \Generator|Menu[]
      */
-    private function syncMenu(File $file): void
+    private function syncMenu(File $file)
     {
         $docs = $this->app->make(Documentation\FindableByUrn::class);
 
@@ -102,7 +111,10 @@ class SyncDocsCommand extends Command
 
             if ($documentation) {
                 $menu->withDocumentation($documentation);
-                $menu->rename($documentation->getTitle() ?? $menu->getTitle());
+
+                if ($menu->isNew()) {
+                    $menu->rename($documentation->getTitle() ?? $menu->getTitle());
+                }
             }
 
             $this->em->persist($menu);
@@ -110,6 +122,8 @@ class SyncDocsCommand extends Command
             if ($menu->isNew()) {
                 $this->em->flush();
             }
+
+            yield $menu;
         }
     }
 
@@ -125,6 +139,7 @@ class SyncDocsCommand extends Command
             ->withLanguage($language);
 
         $this->em->persist($documentation);
+        $this->em->flush();
 
         return $documentation;
     }

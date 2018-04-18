@@ -67,7 +67,7 @@ class File
     {
         \preg_match('/.*?\.([a-z]+)\.md$/', $this->pathName, $matches);
 
-        $locale = Str::lower(\trim($matches[1])) ?? \config('app.locale');
+        $locale = (string)(Str::lower(\trim($matches[1] ?? '')) ?: \config('app.locale'));
 
         return $languages->findByName($locale) ?? new Language($locale, $locale);
     }
@@ -99,14 +99,30 @@ class File
      */
     public function getMenus(FindableByUrn $menus): \Traversable
     {
-        [$parts, $child] = [\explode('/', $this->urn), null];
+        $child = null;
 
-        do {
-            $urn = \implode('/', $parts) ?: '/';
+        foreach ($this->getMenuUrnParts() as $urn) {
             $current = $menus->findByUrn($urn) ?? new Menu(Str::title($urn), $urn);
 
             yield $child ? $current->attach($child) : $current;
-        } while (\array_pop($parts) && $child = $current);
+
+            $child = $current;
+        }
+    }
+
+    /**
+     * @return \Traversable
+     */
+    private function getMenuUrnParts(): \Traversable
+    {
+        $parts = \explode('/', $this->urn);
+        $root  = \count($parts) === 1;
+
+        do {
+            if (! $root && \count($parts)) {
+                yield \implode('/', $parts);
+            }
+        } while (\array_pop($parts));
     }
 
     /**
@@ -139,7 +155,7 @@ class File
         $parts = \explode('/', \str_replace('\\', '/', $path));
         \array_pop($parts);
 
-        return \implode('/', \array_merge($parts, [$name])) ?: '/';
+        return \implode('/', \array_merge($parts, [$name])) ?: '';
     }
 
     /**

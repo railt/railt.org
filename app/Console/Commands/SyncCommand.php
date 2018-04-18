@@ -38,7 +38,7 @@ class SyncCommand extends Command
      */
     public function handle(): void
     {
-        $this->call('documentation:download');
+        // $this->call('documentation:download');
         $this->call('documentation:sync');
     }
 }

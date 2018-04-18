@@ -32,59 +32,37 @@
         </div>
 
         <article class="step">
-            <pre class="code" v-html="code"></pre>
+            <app-code v-if="current === 1">
+{color: #ccc}${/color} composer require railt/railt --dev
+{color: #51c00e}Loading composer repositories with package information{/color}
+{color: #51c00e}Updating dependencies (including require-dev){/color}
+{color: #51c00e}Package operations: 9 installs, 0 updates, 0 removals{/color}
+  - Installing {color: #51c00e}webonyx/graphql-php{/color} ({color: #1172df}v0.11.5{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}symfony/event-dispatcher{/color} ({color: #1172df}v4.0.8{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}symfony/console{/color} ({color: #1172df}v4.0.8{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}psr/log{/color} ({color: #1172df}1.0.2{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}psr/simple-cache{/color} ({color: #1172df}1.0.1{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}psr/container{/color} ({color: #1172df}1.0.0{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}illuminate/support{/color} ({color: #1172df}v5.6.16{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}psr/cache{/color} ({color: #1172df}1.0.1{/color}): Downloading ({color: #1172df}100%{/color})
+  - Installing {color: #51c00e}railt/railt{/color} ({color: #1172df}dev-master f439dce{/color}): Downloading ({color: #1172df}100%{/color})
+{color: #51c00e}Writing lock file{/color}
+{color: #51c00e}Generating autoload files{/color}
+</app-code>
         </article>
     </div>
 </template>
 
 <script>
-    const CODE_INSTALLATION = `composer require railt/railt --dev
-Using version dev-master for railt/railt
-./composer.json has been updated
-Loading composer repositories with package information
-Updating dependencies (including require-dev)
-    Finished: success: 0, skipped: 0, failure: 3, total: 3
-Package operations: 14 installs, 0 updates, 0 removals
-  - Installing webonyx/graphql-php (v0.11.5): Loading from cache
-  - Installing symfony/event-dispatcher (v4.0.8): Downloading (100%)
-  - Installing symfony/polyfill-mbstring (v1.7.0): Loading from cache
-  - Installing symfony/console (v4.0.8): Downloading (100%)
-  - Installing psr/log (1.0.2): Loading from cache
-  - Installing symfony/translation (v4.0.8): Loading from cache
-  - Installing nesbot/carbon (1.25.0): Loading from cache
-  - Installing psr/simple-cache (1.0.1): Loading from cache
-  - Installing psr/container (1.0.0): Loading from cache
-  - Installing illuminate/contracts (v5.6.16): Loading from cache
-  - Installing doctrine/inflector (v1.3.0): Loading from cache
-  - Installing illuminate/support (v5.6.16): Loading from cache
-  - Installing psr/cache (1.0.1): Loading from cache
-  - Installing railt/railt (dev-master f439dce): Cloning f439dcec05 from cache
-webonyx/graphql-php suggests installing react/promise (To leverage async resolving on React PHP platform)
-webonyx/graphql-php suggests installing psr/http-message (To use standard GraphQL server)
-symfony/event-dispatcher suggests installing symfony/dependency-injection ()
-symfony/event-dispatcher suggests installing symfony/http-kernel ()
-symfony/console suggests installing symfony/lock ()
-symfony/console suggests installing symfony/process ()
-symfony/translation suggests installing symfony/config ()
-symfony/translation suggests installing symfony/yaml ()
-illuminate/support suggests installing illuminate/filesystem (Required to use the composer class (5.6.*).)
-illuminate/support suggests installing symfony/process (Required to use the composer class (~4.0).)
-illuminate/support suggests installing symfony/var-dumper (Required to use the dd function (~4.0).)
-railt/railt suggests installing psr/cache-implementation ((~1.0) PSR-6 Cache Implementation)
-railt/railt suggests installing psr/simple-cache-implementation ((~1.0) PSR-16 Cache Implementation)
-railt/railt suggests installing monolog/monolog ((1.*) PSR-3 Logger Implementation)
-Writing lock file
-Generating autoload files
-`;
+    import Code from './Code';
 
     export default {
+        components: {
+            'app-code': Code
+        },
         data() {
             return {
-                current: 1,
-                code: CODE_INSTALLATION,
-                codeLines: [
-                    CODE_INSTALLATION
-                ]
+                current: 1
             }
         }
     }
@@ -94,6 +72,7 @@ Generating autoload files
     @import "../../../sass/kernel";
 
     .steps {
+        $width: 600px;
         width: 100%;
 
         .pagination {
@@ -146,7 +125,7 @@ Generating autoload files
         }
 
         .description {
-            width: 500px;
+            width: $width;
             margin: 0 auto;
             color: #f9f9f9;
             padding-bottom: 20px;
@@ -154,7 +133,7 @@ Generating autoload files
 
         .step {
             margin: 0 auto;
-            width: 500px;
+            width: $width;
             height: 400px;
             background: #fff;
             border-radius: 3px;
@@ -162,23 +141,9 @@ Generating autoload files
             position: relative;
             color: $color-text;
             box-sizing: border-box;
-            padding: 10px 15px 10px 25px;
-
-            .code {
-                display: block;
-                padding: 0;
-                margin: 0;
-
-                .cmd {
-                    color: $color-text-placeholder;
-                    font-weight: bold;
-                    user-select: none;
-                    width: 10px;
-                    display: inline-block;
-                    text-align: center;
-                    margin: 0 5px 0 -15px;
-                }
-            }
+            overflow-x: hidden;
+            @include scrollbar;
+            padding: 0;
         }
     }
 </style>

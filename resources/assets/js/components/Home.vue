@@ -5,6 +5,9 @@
         <app-splash class="section"></app-splash>
 
         <section class="section purple">
+            <div class="header-plank"></div>
+            <div class="header-plank header-plank-alter"></div>
+
             <article class="section-content">
                 <h2>4 шага для начала работы</h2>
 
@@ -14,6 +17,8 @@
 
 
         <section class="section dark">
+            <div class="header-plank"></div>
+
             <article class="section-content">
                 <h2>Для сообщества от сообщества</h2>
 
@@ -40,7 +45,6 @@
         },
         data() {
             return {
-
                 ready: false
             }
         },
@@ -52,6 +56,15 @@
 
 <style lang="scss" scoped>
     @import "../../sass/kernel";
+
+    @keyframes plank {
+        0% {
+            background-position-x: 0;
+        }
+        100% {
+            background-position-x: 3000px;
+        }
+    };
 
     .page {
         display: block !important;
@@ -73,18 +86,6 @@
             text-align: center;
         }
 
-        &:before {
-            content: '';
-            left: 0;
-            top: -139px;
-            display: block;
-            position: absolute;
-            z-index: 10;
-            background-size: 3000px 140px;
-            width: 100%;
-            height: 140px;
-        }
-
         &.dark,
         &.purple {
             padding-bottom: 200px;
@@ -95,19 +96,38 @@
             }
         }
 
+        .header-plank {
+            left: 0;
+            top: -139px;
+            z-index: 10;
+            width: 100%;
+            height: 140px;
+            display: block;
+            position: absolute;
+            pointer-events: none;
+            background-size: 3000px 140px;
+            background: center bottom repeat-x;
+            animation: plank 7s linear infinite;
+
+            &.header-plank-alter {
+                opacity: .8;
+                animation: plank 8s linear .3s infinite reverse;
+            }
+        }
+
         &.dark {
             background: $color-bg-dark;
 
-            &:before {
-                background: url(../../img/splash/curve-highlights-bottom.svg) center bottom no-repeat;
+            .header-plank {
+                background-image: url(../../img/splash/curve-highlights-bottom.svg);
             }
         }
 
         &.purple {
             background: $color-main;
 
-            &:before {
-                background: url(../../img/splash/curve-highlights-top.svg) center bottom no-repeat;
+            .header-plank {
+                background-image: url(../../img/splash/curve-highlights-top.svg);
             }
         }
 

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Entity\Documentation;
+use App\Entity\File\GithubRepository;
 use Github\Client;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -41,18 +42,16 @@ class SyncDocsDownloadCommand extends Command
     private $fs;
 
     /**
-     * @var Client
+     * @var GithubRepository
      */
     private $github;
 
     /**
      * SyncDocsDownloadCommand constructor.
      * @param Filesystem $fs
-     * @param Client $github
-     * @throws \InvalidArgumentException
-     * @throws \Symfony\Component\Console\Exception\LogicException
+     * @param GithubRepository $github
      */
-    public function __construct(Filesystem $fs, Client $github)
+    public function __construct(Filesystem $fs, GithubRepository $github)
     {
         $this->fs = $fs;
         $this->github = $github;
@@ -64,28 +63,50 @@ class SyncDocsDownloadCommand extends Command
      * Execute the console command.
      *
      * @return void
+     * @throws \Github\Exception\InvalidArgumentException
      * @throws \LogicException
      * @throws \InvalidArgumentException
+     * @throws \Github\Exception\ErrorException
      */
     public function handle(): void
     {
-        $this->comment('Flush directory');
-        //$this->clear();
-        $this->line('<fg=white;bg=green;options=bold> Complete! </>' . "\n\n");
+        $this->output->write('<comment>Flush directory:</comment>   ...');
+        $this->clear();
+        $this->line("\r" . '<info>Flushed directory:</info> <fg=white;bg=green;options=bold> OK </>');
 
-        $this->comment('Download new files');
+
+        $i = 0;
+        foreach ($this->github->getFiles() as $file) {
+            $this->output->write("\r" . '<comment>Downloading files:</comment> ' . ++$i);
+            $pathName  = $this->getDirectory($file->getRelativePathName());
+            $directory = \dirname($pathName);
+
+            if (! @\mkdir($directory, 0777, true) && ! \is_dir($directory)) {
+                throw new \LogicException('Could not create directory ' . $pathName);
+            }
+
+            \file_put_contents($pathName, $file->getContent());
+        }
+
+        $this->line("\r" . '<info>Downloaded files:</info>  <fg=white;bg=green;options=bold> OK (' . $i . ') </>');
     }
 
     /**
-     * @return void
+     * @param string $suffix
+     * @return string
+     */
+    private function getDirectory(string $suffix = ''): string
+    {
+        return \resource_path(Documentation::STORAGE_DIRECTORY . '/' . $suffix);
+    }
+
+    /**
      * @throws \LogicException
      * @throws \InvalidArgumentException
      */
     private function clear(): void
     {
-        $root = \resource_path(Documentation::STORAGE_DIRECTORY);
-
-        $files = \iterator_to_array((new Finder())->in($root));
+        $files = \iterator_to_array((new Finder())->in($this->getDirectory()));
 
         $files = \array_map(function(SplFileInfo $file): string {
             return \str_replace('\\', '/', $file->getRealPath());
@@ -96,7 +117,6 @@ class SyncDocsDownloadCommand extends Command
         });
 
         foreach ($files as $file) {
-            $this->info(' - Remove ' . $file);
             if (\is_file($file)) {
                 \unlink($file);
             } else {
