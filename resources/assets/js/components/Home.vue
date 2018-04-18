@@ -18,6 +18,7 @@
 
         <section class="section dark">
             <div class="header-plank"></div>
+            <div class="header-plank header-plank-alter"></div>
 
             <article class="section-content">
                 <h2>Для сообщества от сообщества</h2>
