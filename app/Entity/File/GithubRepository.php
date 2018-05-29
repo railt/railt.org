@@ -40,6 +40,14 @@ class GithubRepository implements ContainsFiles
     }
 
     /**
+     * @return string
+     */
+    protected function getBranch(): string
+    {
+        return (string)\config('app.version', self::GITHUB_BRANCH);
+    }
+
+    /**
      * @return \Traversable|File[]
      * @throws \Github\Exception\InvalidArgumentException
      * @throws \Github\Exception\ErrorException
@@ -88,7 +96,7 @@ class GithubRepository implements ContainsFiles
             self::GITHUB_USERNAME,
             self::GITHUB_REPOSITORY,
             $path,
-            self::GITHUB_BRANCH,
+            $this->getBranch(),
         ];
     }
 

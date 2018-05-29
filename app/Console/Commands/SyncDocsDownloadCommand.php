@@ -11,7 +11,6 @@ namespace App\Console\Commands;
 
 use App\Entity\Documentation;
 use App\Entity\File\GithubRepository;
-use Github\Client;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
