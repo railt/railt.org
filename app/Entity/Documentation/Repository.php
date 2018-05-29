@@ -10,9 +10,10 @@ declare(strict_types=1);
 namespace App\Entity\Documentation;
 
 use App\Entity\Documentation;
-use Serafim\Hydrogen\Collection;
-use Serafim\Hydrogen\Query\Builder;
-use Serafim\Hydrogen\Repository\DatabaseRepository;
+use App\Entity\Language;
+use RDS\Hydrogen\Collection;
+use RDS\Hydrogen\Query;
+use RDS\Hydrogen\Repository\DatabaseRepository;
 
 /**
  * Class Repository
@@ -23,19 +24,21 @@ class Repository extends DatabaseRepository implements
     Documentation\FindableByUrn
 {
     /**
-     * @param Builder $builder
-     * @return Builder
-     * @throws \LogicException
+     * @param Language $language
+     * @return Query|$this
+     * @throws \InvalidArgumentException
      */
-    public function scope(Builder $builder): Builder
+    public function withLanguage(Language $language): Query
     {
-        return $builder->with('language');
+        return $this->query
+            ->with('language')
+            ->where('language', $language);
     }
 
     /**
      * @return \Traversable|Collection|Documentation[]
      */
-    public function getDocumentationPages(): \Traversable
+    public function getDocumentationPages(): iterable
     {
         return $this->findAll();
     }

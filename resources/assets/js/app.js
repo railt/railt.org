@@ -7,6 +7,7 @@ import router from './routes';
 import apollo from './apollo';
 import './components';
 
+
 Vue.use(VueApollo);
 Vue.use(VueRouter);
 

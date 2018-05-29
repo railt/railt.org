@@ -11,7 +11,10 @@
             <template v-if="page === null">
                 <app-error>
                     <header class="documentation-header">
-                        <h1>Whoops, something went wrong...</h1>
+                        <h1>Page Not Found</h1>
+                        <h3 style="color: #999">
+                            Probably this page is not available in this language.
+                        </h3>
                     </header>
                 </app-error>
             </template>
@@ -23,21 +26,25 @@
                     <h1 v-if="! $apollo.loading">{{ page.title }}</h1>
                     <h1 v-if="$apollo.loading" class="placeholder">&nbsp;</h1>
 
+                    <blockquote class="warn" v-if="! $apollo.loading && isFallback">
+                        <p>This page is currently unavailable in the selected language</p>
+                    </blockquote>
+
                     <aside class="sub">
-                        <time :datetime="(page.updatedAt || {}).date">
-                            <span v-if="! $apollo.loading">Обновлено {{ (page.updatedAt || {}).asString }}</span>
+                        <time :datetime="page.updatedAt">
+                            <span v-if="! $apollo.loading">Updated at {{ page.updatedAtHuman }}</span>
                             <span v-if="$apollo.loading" class="placeholder">&nbsp;</span>
                         </time>
 
                         <nav class="controls">
-                            <a :href="page.url" class="edit" target="_blank">Редактировать</a>
+                            <a :href="page.url" class="edit" target="_blank">Edit</a>
                         </nav>
                     </aside>
                 </header>
 
-                <template v-if="! $apollo.loading && docs.nav.length > 1">
+                <template v-if="! $apollo.loading && docs.nav && docs.nav.length > 1">
                     <div class="delimiter">
-                        <span>Содержание</span>
+                        <span>Table of contents</span>
                     </div>
 
                     <nav class="table-of-contents" v-if="! $apollo.loading">
@@ -48,9 +55,10 @@
                         >{{ link.title }}</a>
                     </nav>
                 </template>
+
                 <template v-if="$apollo.loading">
                     <div class="delimiter">
-                        <span>Содержание</span>
+                        <span>Table of contents</span>
                     </div>
 
                     <nav class="table-of-contents">
@@ -79,6 +87,7 @@
                 loaded: false,
                 page: {},
                 content: '',
+                isFallback: false,
                 query: {}
             }
         },
@@ -108,6 +117,7 @@
                 result({data}) {
                     this.page = data.docs;
                     this.content = (data.docs || {}).content || '';
+                    this.isFallback = !! (data.docs || {}).isFallback;
 
                     setTimeout(() => {
                         this.$scrollTo(document.getElementById(
@@ -236,6 +246,10 @@
         .documentation-header,
         .documentation-body {
             padding: 0 20px 0 65px;
+        }
+
+        .documentation-body {
+            padding-bottom: 100px;
         }
 
         .documentation-header {

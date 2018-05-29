@@ -17,10 +17,9 @@ use App\Entity\Menu;
 interface FindableByParents
 {
     /**
-     * @param Menu[] $parents
-     * @return \Traversable|Menu[]
+     * @return iterable
      */
-    public function findByParents(Menu ...$parents): \Traversable;
+    public function findRoot(): iterable;
 
     /**
      * @param Menu|null $parent

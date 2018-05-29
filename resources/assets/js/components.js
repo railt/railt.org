@@ -18,6 +18,9 @@ Vue.component('app-menu-content', require('./components/Menu/MenuCollection'));
 // Header
 Vue.component('app-header', require('./components/Header'));
 
+// Footer
+Vue.component('app-footer', require('./components/Footer'));
+
 // Modal
 Vue.component('app-modal', require('./components/Modal'));
 

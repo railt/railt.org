@@ -1,0 +1,27 @@
+
+
+@use(class: "App\\GraphQL\\Out\\NavigationPresenter")
+
+
+"""
+# Page navigation object.
+"""
+type DocumentationNavigation
+    @out(action: "NavigationPresenter@fromEntity")
+{
+    """
+    # An anchor identifier in Latin, indicating the
+    # transition ("name" links) inside the page.
+    """
+    slug: String!
+
+    """
+    # Level of nesting (depth) of the navigation element.
+    """
+    level: Int!
+
+    """
+    # The title of the navigation element.
+    """
+    title: String!
+}

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 use App\GraphQL\Extensions;
 use Railt\LaravelProvider\Controllers\GraphQLController;
-use Serafim\RailtAuthorization\AuthorizationExtension;
 
 return [
 
@@ -44,9 +43,11 @@ return [
              */
             'autoload'   => [
                 resource_path('graphql'),
-                resource_path('graphql/out'),
-                resource_path('graphql/in'),
-                resource_path('graphql/repositories'),
+                resource_path('graphql/types'),
+                resource_path('graphql/enum'),
+                resource_path('graphql/interfaces'),
+                resource_path('graphql/scalars'),
+                resource_path('graphql/unions'),
             ],
 
             /**
@@ -73,8 +74,7 @@ return [
              * A list of extensions.
              */
             'extensions' => [
-                Extensions\Carbon\Extension::class,
-                Extensions\Import\Extension::class,
+                Railt\CarbonExtension\Extension::class,
                 Extensions\Auth\Extension::class,
             ],
         ],

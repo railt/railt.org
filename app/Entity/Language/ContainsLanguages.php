@@ -17,7 +17,7 @@ use App\Entity\Language;
 interface ContainsLanguages
 {
     /**
-     * @return \Traversable|Language[]
+     * @return iterable|Language[]
      */
-    public function getLanguages(): \Traversable;
+    public function getLanguages(): iterable;
 }

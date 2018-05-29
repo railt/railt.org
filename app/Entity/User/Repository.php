@@ -12,7 +12,7 @@ namespace App\Entity\User;
 use App\Entity\AuthenticationService;
 use App\Entity\User;
 use Laravel\Socialite\Contracts\User as UserInterface;
-use Serafim\Hydrogen\Repository\DatabaseRepository;
+use RDS\Hydrogen\Repository\DatabaseRepository;
 
 /**
  * Class UsersRepository
@@ -50,7 +50,7 @@ class Repository extends DatabaseRepository implements
      */
     public function findByEmail(string $email): ?User
     {
-        return $this->query->where('email.value', $email)->first();
+        return $this->query->where('this.email.value', $email)->first();
     }
 
     /**

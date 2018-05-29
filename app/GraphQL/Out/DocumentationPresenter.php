@@ -11,6 +11,7 @@ namespace App\GraphQL\Out;
 
 use App\Entity\Documentation;
 use App\Entity\File\GithubRepository;
+use App\Entity\Language;
 use Carbon\Carbon;
 
 /**
@@ -18,6 +19,20 @@ use Carbon\Carbon;
  */
 class DocumentationPresenter
 {
+    /**
+     * @var Language
+     */
+    private $current;
+
+    /**
+     * DocumentationPresenter constructor.
+     * @param Language $current
+     */
+    public function __construct(Language $current)
+    {
+        $this->current = $current;
+    }
+
     /**
      * @param Documentation $docs
      * @return iterable
@@ -27,12 +42,10 @@ class DocumentationPresenter
         yield 'id' => $docs->getId();
         yield 'title' => $docs->getTitle();
         yield 'content' => $docs->getContent()->toHtml();
-
         yield 'urn' => $docs->getUrn();
         yield 'url' => $this->getGitHubUrl($docs);
-
+        yield 'isFallback' => $docs->getLanguage()->getId() !== $this->current->getId();
         yield 'updatedAt' => $docs->updatedAt() ?? $docs->createdAt();
-
         yield 'nav' => $docs->getNavigation();
     }
 

@@ -5,10 +5,9 @@ query LoadDocumentation($path: String) {
         url
         title
         content
-        updatedAt {
-            date: format(type: RFC3339)
-            asString: diffForHumans
-        }
+        isFallback
+        updatedAt(format: RFC3339)
+        updatedAtHuman: updatedAt(format: HUMAN_READABLE)
         nav {
             slug
             level

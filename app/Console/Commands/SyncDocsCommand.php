@@ -31,7 +31,7 @@ class SyncDocsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'documentation:sync';
+    protected $signature = 'docs:sync';
 
     /**
      * The console command description.
@@ -109,12 +109,10 @@ class SyncDocsCommand extends Command
         foreach ($menus as $menu) {
             $documentation = $docs->findByUrn($menu->getUrn());
 
-            if ($documentation) {
-                $menu->withDocumentation($documentation);
+            $menu->shouldBePage($documentation !== null);
 
-                if ($menu->isNew()) {
-                    $menu->rename($documentation->getTitle() ?? $menu->getTitle());
-                }
+            if ($documentation && $menu->isNew()) {
+                $menu->rename($documentation->getTitle() ?? $menu->getTitle());
             }
 
             $this->em->persist($menu);

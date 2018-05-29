@@ -51,7 +51,7 @@ class NavigationExtractorListener
         for ($i = 0, $len = \count($matches[1]); $i < $len; ++$i) {
             [$level, $anchor, $content] = [$matches[1][$i], $matches[2][$i], $matches[3][$i]];
 
-            yield new Link($content, (int)$level, $anchor);
+            yield new Link(\strip_tags($content), (int)$level, $anchor);
         }
     }
 

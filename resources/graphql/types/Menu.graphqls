@@ -1,11 +1,8 @@
 
+
 @use(class: "App\\GraphQL\\Out\\MenuPresenter")
 @use(class: "App\\GraphQL\\Controllers\\MenuController")
 
-extend type Query {
-    menu: [Menu!]!
-        @route(action: "MenuController@findRootItems")
-}
 
 type Menu
     @out(action: "MenuPresenter@fromEntity")
@@ -16,12 +13,5 @@ type Menu
     title: String!
     type: MenuType!
     children: [Menu!]!
-        @route(action: "MenuController@findChildren", relation: {
-            child: "parentId"
-        })
-}
-
-enum MenuType {
-    TAB,
-    DOCUMENTATION_PAGE
+        @route(action: "MenuController@findChildren")
 }

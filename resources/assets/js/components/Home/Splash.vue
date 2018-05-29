@@ -5,7 +5,7 @@
 
             <transition name="transition-fade">
                 <h2 v-if="ready">The GraphQL Framework</h2>
-                <h2 v-else>Привет, друг!</h2>
+                <h2 v-else>Hello, neighbor!</h2>
             </transition>
 
 

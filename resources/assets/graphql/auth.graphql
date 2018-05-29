@@ -1,9 +1,12 @@
 query Authenticate {
     user {
         current {
-            id, login, email,
-            abilities, avatar,
-            updatedAt { date: format}
+            id,
+            login,
+            email,
+            avatar,
+            abilities,
+            updatedAt
         }
     }
 }

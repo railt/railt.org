@@ -1,0 +1,64 @@
+.code-keyword {
+    color: $color-main;
+    font-weight: bold;
+}
+
+.code-field {
+    color: $color-main;
+}
+
+.code-argument {
+    color: lighten($color-main, 10%);
+}
+
+.code-type {
+    color: $color-orange;
+}
+
+.code-comment {
+    color: desaturate($color-main, 30%);
+    font-style: italic;
+}
+
+.code-value {
+    color: desaturate($color-yellow, 20%);
+    font-style: italic;
+}
+
+
+
+
+
+.hljs-comment, .hljs-quote, .hljs-meta {
+    color: lighten(desaturate($color-main, 30%), 20%);
+    font-style: italic;
+}
+
+.hljs-variable, .hljs-template-variable, .hljs-attribute, .hljs-tag, .hljs-name, .hljs-regexp, .hljs-link, .hljs-name, .hljs-selector-id, .hljs-selector-class {
+    color: desaturate($color-yellow, 20%);
+}
+
+.hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params {
+    color: $color-blue;
+}
+
+.hljs-string, .hljs-symbol, .hljs-bullet {
+    color: $color-main;
+}
+
+.hljs-title, .hljs-section {
+    color: $color-green;
+}
+
+.hljs-class, .hljs-keyword, .hljs-selector-tag {
+    color: $color-orange;
+    font-weight: bold;
+}
+
+.hljs-emphasis {
+    font-style: italic
+}
+
+.hljs-strong {
+    font-weight: bold
+}

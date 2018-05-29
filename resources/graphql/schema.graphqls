@@ -1,25 +1,3 @@
-
-@import(from: "queries/menu" types: ["Menu"])
-@import(from: "queries/documentation" types: ["Documentation"])
-@import(from: "queries/user" types: ["User"])
-
-#
-# Autoloader
-#
-
-union __queryTypes = Menu | Documentation | User
-
-#
-# ==================================================================
-#   Application
-# ==================================================================
-#
-
 schema {
     query: Query
 }
-
-"""
-# Тип всех корневых запросов
-"""
-type Query {}

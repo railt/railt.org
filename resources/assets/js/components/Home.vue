@@ -1,6 +1,6 @@
 <template>
     <section class="page">
-        <app-title title="Главная"></app-title>
+        <app-title title="Home"></app-title>
 
         <app-splash class="section"></app-splash>
 
@@ -9,7 +9,7 @@
             <div class="header-plank header-plank-alter"></div>
 
             <article class="section-content">
-                <h2>4 шага для начала работы</h2>
+                <h2>Get started in 4 steps</h2>
 
                 <app-steps></app-steps>
             </article>
@@ -21,15 +21,15 @@
             <div class="header-plank header-plank-alter"></div>
 
             <article class="section-content">
-                <h2>Для сообщества от сообщества</h2>
+                <h2>For community from community</h2>
 
                 <p>
-                    В разработке Railt участвовали многие замечательные люди.
-                    Абсолютно любой вклад очень ценен и помогают двигать
-                    фреймворк в нужном русле.
+                    Many wonderful people participated in the development of Railt.
+                    Absolutely any contribution is very valuable and helps to move
+                    framework in the right way. A lot of ideas could not be realized
+                    without the support of some companies, so I'd like to express
+                    my special gratitude to them!
                 </p>
-
-                <div style="height: 50vh"></div>
             </article>
         </section>
     </section>

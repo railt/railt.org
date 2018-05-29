@@ -61,11 +61,10 @@ class Menu implements Identifiable, Timestampable
     protected $parentId;
 
     /**
-     * @ORM\OneToOne(targetEntity=Documentation::class)
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true)
-     * @var Documentation|null
+     * @ORM\Column(name="is_page", type="boolean")
+     * @var bool
      */
-    protected $documentation;
+    protected $isPage = true;
 
     /**
      * @ORM\Column(name="order_id", type="integer")
@@ -84,6 +83,14 @@ class Menu implements Identifiable, Timestampable
         $this->urn   = $urn;
 
         $this->children = new ArrayCollection();
+    }
+
+    /**
+     * @param bool $page
+     */
+    public function shouldBePage(bool $page): void
+    {
+        $this->isPage = $page;
     }
 
     /**
@@ -117,30 +124,11 @@ class Menu implements Identifiable, Timestampable
     }
 
     /**
-     * @param Documentation|null $documentation
-     * @return Menu
-     */
-    public function withDocumentation(?Documentation $documentation): self
-    {
-        $this->documentation = $documentation;
-
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function isTab(): bool
     {
-        return $this->getDocumentationPage() === null;
-    }
-
-    /**
-     * @return Documentation|null
-     */
-    public function getDocumentationPage(): ?Documentation
-    {
-        return $this->documentation;
+        return ! $this->isPage;
     }
 
     /**
@@ -148,7 +136,7 @@ class Menu implements Identifiable, Timestampable
      */
     public function hasDocumentation(): bool
     {
-        return $this->getDocumentationPage() !== null;
+        return $this->isPage;
     }
 
     /**

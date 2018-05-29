@@ -32,19 +32,19 @@ class MenuController
     }
 
     /**
-     * @return \Traversable
+     * @return iterable
      */
-    public function findRootItems(): \Traversable
+    public function findRootItems(): iterable
     {
-        return $this->menus->findByParents();
+        return $this->menus->findRoot();
     }
 
     /**
      * @param InputInterface $input
-     * @return \Traversable
+     * @return Menu[]|iterable
      */
-    public function findChildren(InputInterface $input): \Traversable
+    public function findChildren(InputInterface $input): iterable
     {
-        return $this->menus->findByParents(...$input->getParent());
+        return $input->getParent()->getChildren();
     }
 }

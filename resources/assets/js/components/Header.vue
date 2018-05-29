@@ -9,6 +9,7 @@
 
             <aside class="aside-menu">
                 <header-user></header-user>
+                <slot name="aside"></slot>
             </aside>
         </div>
     </header>
@@ -105,6 +106,10 @@
 
                 .dropdown {
                     width: 115px;
+
+                    &:after {
+                        top: 9px;
+                    }
                 }
 
                 a {

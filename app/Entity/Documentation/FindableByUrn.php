@@ -14,7 +14,7 @@ use App\Entity\Documentation;
 /***
  * Interface FindableByUrn
  */
-interface FindableByUrn
+interface FindableByUrn extends SelectableByLanguage
 {
     /**
      * @param string|null $urn

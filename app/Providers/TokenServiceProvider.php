@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Auth\TokenAuthenticator;
 use App\Entity\User\FindableByToken;
 use App\Entity\User\JwtTokenGenerator;
 use App\Entity\User\ProvidesToken;
@@ -29,7 +28,5 @@ class TokenServiceProvider extends ServiceProvider
 
         $this->app->alias(JwtTokenGenerator::class, FindableByToken::class);
         $this->app->alias(JwtTokenGenerator::class, ProvidesToken::class);
-
-        $this->app->singleton(TokenAuthenticator::class);
     }
 }

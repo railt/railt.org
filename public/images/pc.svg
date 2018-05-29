@@ -345,26 +345,6 @@
             }
         }
 
-        @keyframes rkWZw73V3sG_r1EtyHnoz_Animation {
-            40% {
-                transform: scale(0, 0);
-            }
-            41.67% {
-                transform: scale(1.2, 1.2);
-            }
-            43.33% {
-                transform: scale(.9, .9);
-            }
-            45% {
-                transform: scale(1, 1);
-            }
-            0% {
-                transform: scale(0, 0);
-            }
-            100% {
-                transform: scale(1, 1);
-            }
-        }
 
         @keyframes rykbwQ2EnoM_Animation {
             38.33% {
@@ -743,14 +723,6 @@
             animation-name: HyxWP734nsG_Animation;
         }
 
-        #rkWZw73V3sG {
-            fill: #6f4ca5;
-        }
-
-        #SkM-vXnN3sG {
-            fill: #fff;
-        }
-
         #Hymbw73NhoG {
             fill-rule: evenodd;
             fill: #6a6f79;
@@ -832,13 +804,6 @@
             animation-name: rykbwQ2EnoM_Animation;
             transform-origin: 50% 50%;
             opacity: 0;
-        }
-
-        #rkWZw73V3sG_r1EtyHnoz {
-            animation-name: rkWZw73V3sG_r1EtyHnoz_Animation;
-            transform-origin: 50% 50%;
-            transform: scale(0, 0);
-            animation-timing-function: cubic-bezier(.42, 0, .58, 1);
         }
 
         #HyxWP734nsG_BJrmgHnoM {
@@ -1027,10 +992,6 @@
                                 <rect id="HyxWP734nsG" x="298" y="244" width="226" height="4"/>
                             </g>
                         </g>
-                        <g id="rkWZw73V3sG_r1EtyHnoz">
-                            <circle id="rkWZw73V3sG" cx="414" cy="246" r="33"/>
-                        </g>
-                        <circle id="SkM-vXnN3sG" cx="414" cy="246" r="17"/>
                     </g>
                 </g>
                 <g id="BJ4WPQ24hof">

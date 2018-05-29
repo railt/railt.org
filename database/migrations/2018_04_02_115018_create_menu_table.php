@@ -26,7 +26,7 @@ class CreateMenuTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('urn')->unique();
-            $table->unsignedInteger('page_id')->nullable();
+            $table->boolean('is_page')->default(true);
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger('order_id')->default(0);
             $table->timestamps();

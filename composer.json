@@ -26,8 +26,9 @@
         "predis/predis": "~1.1",
         "railt/laravel-provider": "dev-master@dev",
         "railt/railt": "dev-master@dev",
+        "railt/carbon-extension": "dev-master@dev",
         "sebdesign/laravel-sri": "^1.0",
-        "serafim/hydrogen": "dev-master@dev",
+        "rds/hydrogen": "dev-master@dev",
         "serafim/laravel-annotations": "~1.0"
     },
     "require-dev": {

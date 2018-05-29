@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 class HeadersAnchors implements After
 {
     private const PATTERN    = '/<h(\d+)>(.*?)<\/h\d+>/isum';
-    private const REPLACE_TO = '<h%d id="%s">%s</h%1$d>';
+    private const REPLACE_TO = '<h%d id="%s"><a class="header-link" href="#%2$s"></a>%s</h%1$d>';
 
     private const DIGIT_MAPPINGS = [
         0 => 'zero',
@@ -48,7 +48,8 @@ class HeadersAnchors implements After
     }
 
     /**
-     * @param string $title
+     * @param string
+     * $title
      * @return string
      */
     private function titleToAnchor(string $title): string

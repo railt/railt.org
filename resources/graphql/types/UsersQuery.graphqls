@@ -1,0 +1,12 @@
+
+
+@use(class: "App\\GraphQL\\Controllers\\UserController")
+
+
+type UsersQuery {
+    current: User
+        @route(action: "UserController@current")
+
+    get(id: ID!): User
+        @can(ability: "read")
+}

@@ -9,15 +9,17 @@ declare(strict_types=1);
 
 namespace App\Entity\Documentation;
 
-use App\Entity\Documentation;
+use App\Entity\Language;
+use RDS\Hydrogen\Query;
 
 /**
- * Interface ContainsDocumentationPages
+ * Interface SelectableByLanguage
  */
-interface ContainsDocumentationPages
+interface SelectableByLanguage
 {
     /**
-     * @return iterable|Documentation[]
+     * @param Language $language
+     * @return Query|$this
      */
-    public function getDocumentationPages(): iterable;
+    public function withLanguage(Language $language): Query;
 }

@@ -9,6 +9,10 @@
 </template>
 
 <script>
+    import hljs from "highlightjs";
+
+    hljs.registerLanguage("graphql",function(e){return{aliases:["gql"],k:{keyword:"query mutation subscription|10 type interface union scalar fragment|10 enum on ...",literal:"true false null"},c:[e.HCM,e.QSM,e.NM,{cN:"type",b:"[^\\w][A-Z][a-z]",e:"\\W",eE:!0},{cN:"literal",b:"[^\\w][A-Z][A-Z]",e:"\\W",eE:!0},{cN:"variable",b:"\\$",e:"\\W",eE:!0},{cN:"keyword",b:"[.]{2}",e:"\\."},{cN:"meta",b:"@",e:"\\W",eE:!0}],i:/([;<']|BEGIN)/}});
+
     const DOCUMENTATION_ROUTE = 'docs';
 
     export default {
@@ -61,7 +65,15 @@
                 content = this.formatInternalLinks(content);
                 this.subscribeInternalLinks();
 
-                return content;
+                let htmlObject = document.createElement('div');
+                htmlObject.innerHTML = content;
+
+                for (let block of htmlObject.querySelectorAll('pre code')) {
+                    block.className = (block.className || '').substr(9);
+                    hljs.highlightBlock(block.parentElement);
+                }
+
+                return htmlObject.innerHTML;
             }
         },
         created() {
@@ -106,6 +118,9 @@
                     color: #fff;
                     transition: color .3s ease;
                     font-size: 90%;
+                    &:before {
+                        content: '#';
+                    }
                     &:hover {
                         color: $color-main;
                     }
@@ -140,77 +155,6 @@
 
             abbr {
                 cursor: help;
-            }
-
-            blockquote {
-                box-shadow: 0 0 0 2px $color-border;
-                border-radius: 2px;
-                font-size: 13px;
-                font-style: italic;
-                color: $color-text-secondary;
-                margin: 10px 0;
-                position: relative;
-                padding: 10px 15px;
-                line-height: 20px;
-                min-height: 24px;
-                box-sizing: border-box;
-                @include clear();
-
-                &:before {
-                    display: block;
-                    color: #fff;
-                    height: 24px;
-                    position: absolute;
-                    left: 0;
-                    top: 50%;
-                    margin-top: -12px;
-                    width: 40px;
-                    text-align: center;
-                    pointer-events: none;
-                }
-
-                p {
-                    margin: 0 !important;
-                    padding: 0 !important;
-                }
-
-                &.warn,
-                &.info {
-                    padding: 10px 20px 10px 40px;
-
-                    &:before {
-                        @include fa-icon;
-                        font-size: 24px;
-                    }
-
-                    a {
-                        color: #fff;
-                        text-decoration: underline;
-                        &:hover {
-                            color: $color-border-regular;
-                        }
-                    }
-
-                    color: #fff;
-                }
-
-                &.warn {
-                    &:before {
-                        content: $fa-var-warning;
-                    }
-
-                    background: $color-red;
-                    box-shadow: 0 0 0 2px $color-red;
-                }
-
-                &.info {
-                    &:before {
-                        content: $fa-var-info;
-                    }
-
-                    background: $color-blue;
-                    box-shadow: 0 0 0 2px $color-blue;
-                }
             }
 
             code {

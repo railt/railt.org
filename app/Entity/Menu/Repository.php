@@ -9,9 +9,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Menu;
 
+use App\Entity\Language;
 use App\Entity\Menu;
-use Serafim\Hydrogen\Collection;
-use Serafim\Hydrogen\Repository\DatabaseRepository;
+use RDS\Hydrogen\Query;
+use RDS\Hydrogen\Repository\DatabaseRepository;
 
 /**
  * Class Repository
@@ -21,21 +22,14 @@ class Repository extends DatabaseRepository implements
     Menu\FindableByParents
 {
     /**
-     * @param Menu ...$parents
-     * @return Collection|Menu[]
+     * @return iterable|Menu[]
      * @throws \LogicException
      */
-    public function findByParents(Menu ...$parents): \Traversable
+    public function findRoot(): iterable
     {
-        $query = $this->query;
-
-        if (\count($parents)) {
-            $query->whereIn('parent', $parents);
-        } else {
-            $query->whereNull('parent');
-        }
-
-        return $query->get();
+        return $this->query->whereNull('parent')
+            ->with('children.children.children.children')
+            ->get();
     }
 
     /**

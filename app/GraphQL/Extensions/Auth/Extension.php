@@ -10,17 +10,14 @@ declare(strict_types=1);
 namespace App\GraphQL\Extensions\Auth;
 
 use Illuminate\Contracts\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Guard;
 use Railt\Foundation\Events\ActionDispatching;
-use Railt\Foundation\Events\TypeBuilding;
 use Railt\Foundation\Extensions\BaseExtension;
 use Railt\Io\File;
-use Railt\Reflection\Contracts\Dependent\FieldDefinition;
+use Railt\SDL\Contracts\Dependent\FieldDefinition;
 use Railt\SDL\Schema\CompilerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 /**
  * Class Extension
@@ -33,13 +30,13 @@ class Extension extends BaseExtension
      * @param CompilerInterface $compiler
      * @param EventDispatcherInterface $events
      * @throws \Symfony\Component\Finder\Exception\AccessDeniedException
-     * @throws \Railt\Io\Exceptions\NotReadableException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function boot(CompilerInterface $compiler, EventDispatcherInterface $events): void
     {
         $compiler->compile(File::fromPathname(self::SCHEMA_FILE));
 
-        $events->addListener(ActionDispatching::class, function(ActionDispatching $event) {
+        $events->addListener(ActionDispatching::class, function (ActionDispatching $event) {
             $field = $event->getInput()->getFieldDefinition();
 
             if ($field instanceof FieldDefinition && ! $this->allowed($field)) {

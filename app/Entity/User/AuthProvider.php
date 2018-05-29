@@ -16,8 +16,8 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Str;
-use Serafim\Hydrogen\Query;
-use Serafim\Hydrogen\Repository\ObjectRepository;
+use RDS\Hydrogen\Query;
+use RDS\Hydrogen\Repository\ObjectRepository;
 
 /**
  * Class AuthProvider

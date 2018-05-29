@@ -29,6 +29,6 @@
         height: 100%;
         display: block;
         min-height: 400px;
-        background: url(./../../img/404.png) center bottom no-repeat;
+        background: url(./../../img/404.png) center bottom no-repeat fixed;
     }
 </style>

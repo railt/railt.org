@@ -20,5 +20,10 @@
                 background: $scroll-track-inactive;
             }
         }
+
+        &:hover {
+            width: 10px;
+            height: 10px;
+        }
     }
 }

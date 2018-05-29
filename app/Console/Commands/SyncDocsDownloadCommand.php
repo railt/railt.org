@@ -27,7 +27,7 @@ class SyncDocsDownloadCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'documentation:download';
+    protected $signature = 'docs:download';
 
     /**
      * The console command description.

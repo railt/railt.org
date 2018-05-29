@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Controllers;
 
 use App\Entity\Documentation;
+use App\Entity\Language;
 use Railt\Http\InputInterface;
 
 /**
@@ -33,10 +34,15 @@ class DocumentationController
 
     /**
      * @param InputInterface $input
+     * @param Language $current
      * @return Documentation|null
+     * @throws \BadMethodCallException
      */
-    public function findByUrn(InputInterface $input): ?Documentation
+    public function findByUrn(InputInterface $input, Language $current): ?Documentation
     {
-        return $this->docs->findByUrn((string)$input->get('path'));
+        $language = $this->docs->withLanguage($current)
+            ->findByUrn((string)$input->get('path'));
+
+        return $language ?? $this->docs->findByUrn((string)$input->get('path'));
     }
 }

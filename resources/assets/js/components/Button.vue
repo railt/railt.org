@@ -1,5 +1,5 @@
 <template>
-    <a :href="href" :target="target" class="button" @click="$emit('click')">
+    <a :href="href" :target="target" class="button" @click.stop="click">
         <slot></slot>
     </a>
 </template>
@@ -14,6 +14,11 @@
             target: {
                 type: String,
                 default: '_self'
+            }
+        },
+        methods: {
+            click(e) {
+                this.$emit('click', e)
             }
         }
     }
@@ -33,6 +38,7 @@
         color: #fff !important;
         transition: .2s $ui-animation-swift;
         text-decoration: none;
+        cursor: pointer;
 
         svg {
             width: 20px;

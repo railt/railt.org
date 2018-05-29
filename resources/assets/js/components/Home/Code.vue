@@ -4,6 +4,8 @@
             <span class="code-line" v-html="line" :data-order="key || ''"></span>
         </template>
         <div class="code-play" v-if="lines.length === 1"></div>
+
+        <app-button v-if="completed" @click="$emit('next')">Next</app-button>
     </div>
 </template>
 
@@ -13,7 +15,8 @@
             return {
                 lineId: 1,
                 lines: [],
-                code: []
+                code: [],
+                completed: false
             };
         },
         mounted() {
@@ -33,6 +36,7 @@
             run() {
                 let interval = setInterval(() => {
                     if (this.code.length === 0) {
+                        this.completed = true;
                         return clearInterval(interval);
                     }
 

@@ -10,8 +10,7 @@ declare(strict_types=1);
 namespace App\Entity\Language;
 
 use App\Entity\Language;
-use Serafim\Hydrogen\Collection;
-use Serafim\Hydrogen\Repository\DatabaseRepository;
+use RDS\Hydrogen\Repository\DatabaseRepository;
 
 /**
  * Class LanguageRepository
@@ -21,16 +20,18 @@ class Repository extends DatabaseRepository implements
     Language\FindableByName
 {
     /**
-     * @return \Traversable|Language[]|Collection
+     * @return \Traversable|Language[]|iterable
      */
-    public function getLanguages(): \Traversable
+    public function getLanguages(): iterable
     {
         return $this->findAll();
     }
 
     /**
      * @param string $name
-     * @return Language|null|object
+     * @return Language|null
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public function findByName(string $name): ?Language
     {

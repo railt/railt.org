@@ -11,7 +11,7 @@ namespace App\Entity\AuthenticationService;
 
 use App\Entity\AuthenticationService;
 use App\Entity\User;
-use Serafim\Hydrogen\Repository\DatabaseRepository;
+use RDS\Hydrogen\Repository\DatabaseRepository;
 
 /**
  * Class AuthenticationServiceRepository

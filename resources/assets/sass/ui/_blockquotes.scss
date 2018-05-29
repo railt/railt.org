@@ -1,0 +1,71 @@
+
+blockquote {
+    box-shadow: 0 0 0 2px $color-border;
+    border-radius: 2px;
+    font-size: 13px;
+    font-style: italic;
+    color: $color-text-secondary;
+    margin: 10px 0;
+    position: relative;
+    padding: 10px 15px;
+    line-height: 20px;
+    min-height: 24px;
+    box-sizing: border-box;
+    @include clear();
+
+    &:before {
+        display: block;
+        color: #fff;
+        height: 24px;
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        margin-top: -12px;
+        width: 40px;
+        text-align: center;
+        pointer-events: none;
+    }
+
+    p {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    &.warn,
+    &.info {
+        padding: 10px 20px 10px 60px;
+
+        &:before {
+            @include fa-icon;
+            font-size: 24px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: underline;
+            &:hover {
+                color: $color-border-regular;
+            }
+        }
+
+        color: #fff;
+    }
+
+    &.warn {
+        &:before {
+            content: $fa-var-warning;
+        }
+
+        background: $color-red;
+        box-shadow: 0 0 0 2px $color-red;
+    }
+
+    &.info {
+        &:before {
+            content: $fa-var-info;
+        }
+
+        background: $color-blue;
+        box-shadow: 0 0 0 2px $color-blue;
+    }
+}

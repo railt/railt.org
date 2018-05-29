@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 
+
 Route::any('/logout', 'AuthController@logout');
 
 Route::group(['prefix' => 'auth'], function() {
@@ -16,10 +17,17 @@ Route::group(['prefix' => 'auth'], function() {
         ->where('provider', $providers);
 });
 
+Route::pattern('domain', 'ru|en');
 
-
-Route::group(['middleware' => 'prefetch:dist/app.css,dist/app.js'], function () {
+Route::group([
+    'domain' => '{domain}.' . \config('app.domain'),
+    'middleware' => 'prefetch:dist/app.css,dist/app.js'
+], function () {
     Route::get('{any?}', 'HomeController@index')
-        ->name('home')
+        ->name('home.language')
         ->where('any', '.*?');
 });
+
+Route::get('{any?}', 'HomeController@index')
+    ->name('home')
+    ->where('any', '.*?');
