@@ -18,6 +18,10 @@
         },
         methods: {
             click(e) {
+                if (this.href === '#') {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
                 this.$emit('click', e)
             }
         }
