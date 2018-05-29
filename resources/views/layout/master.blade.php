@@ -13,9 +13,6 @@
     @include('layout.partials.assets')
     @include('layout.partials.prefetch')
     @include('layout.partials.icons')
-    @if(app('env') === 'production')
-        @include('partials.metrika')
-    @endif
 </head>
 <body>
     <main id="app" class="layout">
