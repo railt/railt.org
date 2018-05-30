@@ -8,12 +8,8 @@ export default new ApolloClient({
     link: http,
     cache: cache,
     defaultOptions: {
-        watchQuery: {
-            fetchPolicy: 'cache-and-network',
-            errorPolicy: 'ignore',
-        },
         query: {
-            fetchPolicy: 'cache-and-network',
+            fetchPolicy: 'cache-first',
             errorPolicy: 'all',
         }
     },
