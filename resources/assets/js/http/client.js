@@ -9,11 +9,11 @@ export default new ApolloClient({
     cache: cache,
     defaultOptions: {
         watchQuery: {
-            fetchPolicy: 'network-only',
+            fetchPolicy: 'cache-and-network',
             errorPolicy: 'ignore',
         },
         query: {
-            fetchPolicy: 'network-only',
+            fetchPolicy: 'cache-and-network',
             errorPolicy: 'all',
         }
     },
