@@ -20,7 +20,7 @@ body {
     color: $color-text;
     line-height: $ui-min-height;
     width: 100%;
-    min-width: 360px;
+    min-width: $ui-width;
     min-height: 100vh;
     font-size: $font-size;
     font-family: $font-family;
