@@ -180,6 +180,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoriesProvider::class,
         App\Providers\TokenServiceProvider::class,
+        App\Providers\HighlightServiceProvider::class,
         App\Providers\ViewComposersServiceProvider::class,
     ],
 

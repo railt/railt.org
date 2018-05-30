@@ -2,13 +2,13 @@
 blockquote {
     box-shadow: 0 0 0 2px $color-border;
     border-radius: 2px;
-    font-size: 13px;
+    font-size: 14px;
     font-style: italic;
     color: $color-text-secondary;
     margin: 10px 0;
     position: relative;
     padding: 10px 15px;
-    line-height: 20px;
+    line-height: 23px;
     min-height: 24px;
     box-sizing: border-box;
     @include clear();
@@ -34,6 +34,13 @@ blockquote {
     &.warn,
     &.info {
         padding: 10px 20px 10px 60px;
+        color: #fff;
+
+        code {
+            background: rgba($color-bg-dark, .2) !important;
+            color: #fff !important;
+            font-weight: bold;
+        }
 
         &:before {
             @include fa-icon;
@@ -47,8 +54,6 @@ blockquote {
                 color: $color-border-regular;
             }
         }
-
-        color: #fff;
     }
 
     &.warn {

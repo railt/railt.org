@@ -9,10 +9,6 @@
 </template>
 
 <script>
-    import hljs from "highlightjs";
-
-    hljs.registerLanguage("graphql",function(e){return{aliases:["gql"],k:{keyword:"query mutation subscription|10 type interface union scalar fragment|10 enum on ...",literal:"true false null"},c:[e.HCM,e.QSM,e.NM,{cN:"type",b:"[^\\w][A-Z][a-z]",e:"\\W",eE:!0},{cN:"literal",b:"[^\\w][A-Z][A-Z]",e:"\\W",eE:!0},{cN:"variable",b:"\\$",e:"\\W",eE:!0},{cN:"keyword",b:"[.]{2}",e:"\\."},{cN:"meta",b:"@",e:"\\W",eE:!0}],i:/([;<']|BEGIN)/}});
-
     const DOCUMENTATION_ROUTE = 'docs';
 
     export default {
@@ -65,15 +61,7 @@
                 content = this.formatInternalLinks(content);
                 this.subscribeInternalLinks();
 
-                let htmlObject = document.createElement('div');
-                htmlObject.innerHTML = content;
-
-                for (let block of htmlObject.querySelectorAll('pre code')) {
-                    block.className = (block.className || '').substr(9);
-                    hljs.highlightBlock(block.parentElement);
-                }
-
-                return htmlObject.innerHTML;
+                return content;
             }
         },
         created() {
@@ -172,20 +160,23 @@
             }
 
             pre {
+                margin: 0;
+                padding: 0;
                 display: block;
-                box-sizing: border-box;
-                padding: 10px 15px;
-                border-radius: 3px;
-                background: $color-bg;
-                overflow-x: auto;
-                width: 100%;
-                box-shadow: 0 2px 1px rgba(#001, .1);
-                @include scrollbar;
+                background: none;
 
                 code {
+                    box-sizing: border-box;
+                    display: block;
+                    box-shadow: 0 0 0 2px $color-bg;
                     background: none;
                     color: inherit;
-                    padding: 0;
+                    padding: 20px 25px;
+                    margin: 0;
+                    border-radius: 6px;
+                    overflow-x: auto;
+                    width: 100%;
+                    @include scrollbar;
                 }
             }
 

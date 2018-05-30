@@ -50,7 +50,7 @@ class Repository extends DatabaseRepository implements
      */
     public function findByEmail(string $email): ?User
     {
-        return $this->query->where('this.email.value', $email)->first();
+        return $this->query->where('email.value', $email)->first();
     }
 
     /**

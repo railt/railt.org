@@ -29,7 +29,8 @@
         "railt/carbon-extension": "dev-master@dev",
         "sebdesign/laravel-sri": "^1.0",
         "rds/hydrogen": "dev-master@dev",
-        "serafim/laravel-annotations": "~1.0"
+        "serafim/laravel-annotations": "~1.0",
+        "scrivo/highlight.php": "~9.12.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

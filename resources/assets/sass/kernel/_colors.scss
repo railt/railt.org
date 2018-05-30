@@ -4,12 +4,25 @@
  * --------------------------------------------------------------------------------------
  */
 $color-red: #fa5555 !default;
+$color-light-red: lighten(#fa5555, 20%) !default;
+
 $color-orange: #f4645f !default;
+$color-light-orange: lighten(#f4645f, 20%) !default;
+
 $color-yellow: #e09205 !default;
+$color-light-yellow: lighten(#e09205, 20%) !default;
+
 $color-green: #67c23a !default;
+$color-light-green: lighten(#67c23a, 20%) !default;
+
 $color-blue: #64b5f6 !default;
+$color-light-blue: lighten(#64b5f6, 20%) !default;
+
 $color-purple: #6f4ca5 !default;
+$color-light-purple: lighten(#6f4ca5, 20%) !default;
+
 $color-pink: #ba6380 !default;
+$color-light-pink: lighten(#ba6380, 20%) !default;
 
 /**
  * --------------------------------------------------------------------------------------
@@ -50,7 +63,7 @@ $color-link-active: darken($color-purple, 20%);
  *  Semantic
  * --------------------------------------------------------------------------------------
  */
-$color-bg: #f9f9f9;
+$color-bg: #eff3f5;
 $color-bg-dark: #171e26;
 $color-bg-dark-alter: #2a2e38;
 

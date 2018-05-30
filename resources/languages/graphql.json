@@ -1,0 +1,14 @@
+{
+    "aliases": [
+        "gql"
+    ],
+    "case_insensitive": true,
+    "keywords": "directive enum extend extends false from fragment implements input inputUnion import interface mutation namespace null on query scalar schema subscription true type union use ...",
+    "contains": [
+        {
+            "className": "comment",
+            "begin": "#",
+            "end": "$"
+        }
+    ]
+}

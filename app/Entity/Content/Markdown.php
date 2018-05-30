@@ -12,8 +12,10 @@ namespace App\Entity\Content;
 use App\Entity\Content\Rule\After;
 use App\Entity\Content\Rule\Before;
 use App\Entity\Content\Rule\BlockquoteFormatter;
+use App\Entity\Content\Rule\CodeHighlight;
 use App\Entity\Content\Rule\HeadersAnchors;
 use App\Entity\Renderer;
+use Highlight\Highlighter;
 
 /**
  * Class Markdown
@@ -33,13 +35,15 @@ class Markdown implements Renderer
     /**
      * MarkdownRenderer constructor.
      * @param \Parsedown $pd
+     * @param Highlighter $hl
      */
-    public function __construct(\Parsedown $pd)
+    public function __construct(\Parsedown $pd, Highlighter $hl)
     {
         $this->pd = $pd;
 
         $this->rules[] = new BlockquoteFormatter();
         $this->rules[] = new HeadersAnchors();
+        $this->rules[] = new CodeHighlight($hl);
     }
 
     /**
