@@ -36,10 +36,12 @@
     @import "../../../sass/kernel";
 
     .splash {
-        min-height: 100vh;
+        min-height: 90vh;
         justify-content: center;
         align-items: center;
         padding: 0 0 100px 0 !important;
+        background: url(../../../img/splash/bg.png) center bottom no-repeat;
+        background-size: 200% auto;
 
         h1, h2, h3, h4, h5, h6 {
             margin: 0;
@@ -67,13 +69,14 @@
 
             img {
                 display: block;
+                position: fixed;
+                left: 10%;
                 margin: 0 auto;
-                width: 100%;
+                width: 80%;
                 height: 100%;
             }
 
             .placeholder {
-                background: $color-bg;
                 border-radius: 4px;
                 height: 100%;
                 width: 100%;
