@@ -116,7 +116,7 @@
         {
             "className": "function",
             "begin": "(::|->)+",
-            "excludeBegin": "true",
+            "excludeBegin": true,
             "end": "[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*"
         },
         {

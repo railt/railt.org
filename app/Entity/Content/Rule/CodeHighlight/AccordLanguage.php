@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace App\Entity\Content\Rule\CodeHighlight;
 
 /**
- * Class GraphQLLanguage
+ * Class AccordLanguage
  */
-class GraphQLLanguage extends Language
+class AccordLanguage extends Language
 {
     /**
      * @param string $code
@@ -20,6 +20,6 @@ class GraphQLLanguage extends Language
      */
     public function parse(string $code): string
     {
-        return $this->hl->highlight('graphql', $code)->value;
+        return $this->hl->highlight('accord', $code)->value;
     }
 }

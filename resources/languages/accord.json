@@ -1,0 +1,20 @@
+{
+    "case_insensitive": false,
+    "contains": [
+        {
+            "className": "comment",
+            "begin": "#",
+            "end": "$"
+        },
+        {
+            "className": "literal",
+            "begin": "→",
+            "end": ".+\\n",
+            "excludeBegin": true
+        },
+        {
+            "className": "keyword",
+            "begin": "→"
+        }
+    ]
+}

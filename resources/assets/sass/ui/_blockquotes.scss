@@ -1,13 +1,13 @@
 
 blockquote {
     box-shadow: 0 0 0 2px $color-border;
-    border-radius: 2px;
-    font-size: 14px;
+    border-radius: 3px;
+    font-size: ($font-size - 1px);
     font-style: italic;
     color: $color-text-secondary;
     margin: 10px 0;
     position: relative;
-    padding: 10px 15px;
+    padding: 10px 25px;
     line-height: 23px;
     min-height: 24px;
     box-sizing: border-box;

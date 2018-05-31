@@ -90,7 +90,7 @@ body {
   width: 100%;
   min-width: 1080px;
   min-height: 100vh;
-  font-size: 13px;
+  font-size: 16px;
   font-family: "Open Sans", "Roboto", Helvetica, sans-serif;
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
@@ -260,27 +260,27 @@ h1 {
 }
 
 h2 {
-  font-size: 32px;
-  margin: 32px 0 16px 0;
+  font-size: 30px;
+  margin: 45px 0 15px 0;
 }
 
 h3 {
   font-size: 22px;
   font-weight: 400;
-  margin: 22px 0 11px 0;
+  margin: 33px 0 11px 0;
 }
 
 h4 {
   font-size: 16px;
   text-transform: uppercase;
-  margin: 16px 0 8px 0;
+  margin: 24px 0 8px 0;
 }
 
 h5,
 h6 {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: bold;
-  margin: 16px 0 8px 0;
+  margin: 24px 0 8px 0;
 }
 
 /**
@@ -372,44 +372,27 @@ h6 {
   color: #64b5f6;
 }
 
+.hljs-keyword,
+.hljs-quote,
+.hljs-emphasis,
+.hljs-strong,
+.hljs-template-variable,
 .hljs-arrow {
-  color: #f25c54;
+  color: #fa5555;
 }
 
-.hljs-template-variable {
-  color: #f25c54;
-}
-
-.hljs-strong {
-  color: #f25c54;
-}
-
-.hljs-emphasis {
-  color: #f25c54;
-}
-
-.hljs-quote {
-  color: #f25c54;
-}
-
-.hljs-keyword {
-  color: #f25c54;
-}
-
-.hljs-selector-tag {
-  color: #f25c54;
-}
-
+.hljs-attr,
 .hljs-type {
-  color: #f25c54;
+  color: #6f4ca5;
 }
 
 .hljs-literal {
-  color: #0086b3;
+  color: #0d86e7;
 }
 
-.hljs-string {
-  color: #67c23a;
+.hljs-string,
+.hljs-number {
+  color: #7eae4a;
 }
 
 .hljs-symbol {
@@ -417,10 +400,6 @@ h6 {
 }
 
 .hljs-bullet {
-  color: #0086b3;
-}
-
-.hljs-attribute {
   color: #0086b3;
 }
 
@@ -444,29 +423,14 @@ h6 {
   color: #6f4ca5;
 }
 
+.hljs-wrapper {
+  color: #ba6380;
+  font-weight: bold;
+}
+
 .hljs-function,
 .hljs-method {
   color: #6f4ca5;
-}
-
-.hljs-selector-id {
-  color: #7232c5;
-}
-
-.hljs-selector-class {
-  color: #7232c5;
-}
-
-.hljs-selector-attr {
-  color: #7232c5;
-}
-
-.hljs-selector-pseudo {
-  color: #7232c5;
-}
-
-.hljs-built_in {
-  color: #2a7ed3;
 }
 
 .hljs-builtin-name {
@@ -494,13 +458,13 @@ h6 {
 blockquote {
   -webkit-box-shadow: 0 0 0 2px #d8dce5;
           box-shadow: 0 0 0 2px #d8dce5;
-  border-radius: 2px;
-  font-size: 14px;
+  border-radius: 3px;
+  font-size: 15px;
   font-style: italic;
   color: #878d99;
   margin: 10px 0;
   position: relative;
-  padding: 10px 15px;
+  padding: 10px 25px;
   line-height: 23px;
   min-height: 24px;
   -webkit-box-sizing: border-box;

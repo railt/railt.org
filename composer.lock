@@ -3972,12 +3972,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rambler-digital-solutions/hydrogen.git",
-                "reference": "d1b74b753d0b81625f93197345dcc94dd1198001"
+                "reference": "36ff2175b2a685e60817d967c59b38d075ab8c60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rambler-digital-solutions/hydrogen/zipball/d1b74b753d0b81625f93197345dcc94dd1198001",
-                "reference": "d1b74b753d0b81625f93197345dcc94dd1198001",
+                "url": "https://api.github.com/repos/rambler-digital-solutions/hydrogen/zipball/36ff2175b2a685e60817d967c59b38d075ab8c60",
+                "reference": "36ff2175b2a685e60817d967c59b38d075ab8c60",
                 "shasum": ""
             },
             "require": {
@@ -4017,7 +4017,7 @@
                 "relations",
                 "repository"
             ],
-            "time": "2018-05-30T15:13:33+00:00"
+            "time": "2018-05-31T14:57:23+00:00"
         },
         {
             "name": "scrivo/highlight.php",

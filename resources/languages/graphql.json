@@ -2,13 +2,70 @@
     "aliases": [
         "gql"
     ],
-    "case_insensitive": true,
-    "keywords": "directive enum extend extends false from fragment implements input inputUnion import interface mutation namespace null on query scalar schema subscription true type union use ...",
+    "case_insensitive": false,
+    "keywords": {
+        "keyword": "directive enum extend extends from fragment implements input inputUnion import interface mutation namespace on query scalar schema subscription type union use ...",
+        "literal": "true false null"
+    },
     "contains": [
         {
             "className": "comment",
             "begin": "#",
             "end": "$"
+        },
+        {
+            "className": "string",
+            "begin": "\"",
+            "end": "\"",
+            "illegal": null,
+            "contains": [
+                {
+                    "className": "subst",
+                    "begin": "\\\\[abfnrtv]\\|\\\\x[0-9a-fA-F]*\\\\\\|%[-+# *.0-9]*[dioxXucsfeEgGp]",
+                    "relevance": 0
+                },
+                {
+                    "className": "subst",
+                    "begin": "\\\\[abfnrtv]\\|\\\\x[0-9a-fA-F]*\\\\\\|%[-+# *.0-9]*[dioxXucsfeEgGp]",
+                    "relevance": 0
+                }
+            ]
+        },
+        {
+            "className": "number",
+            "begin": "[0-9\\.]+"
+        },
+        {
+            "className": "keyword",
+            "begin": "(directive|enum|extend|extends|from|fragment|implements|input|inputUnion|import|interface|mutation|namespace|on|query|scalar|schema|subscription|type|union|use)\\h",
+            "excludeEnd": true
+        },
+        {
+            "className": "literal",
+            "begin": "[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*\\h*\\b"
+        },
+
+        {
+            "className": "wrapper",
+            "begin": "(!|\\.\\.\\.)"
+        },
+        {
+            "className": "type",
+            "begin": ":\\h+\\[?",
+            "end": "[a-zA-Z0-9_\\x7f-\\xff]*\\h*\\b",
+            "excludeBegin": true
+        },
+        {
+            "className": "variable",
+            "begin": "\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*",
+            "end": "\\W",
+            "excludeEnd": true
+        },
+        {
+            "className": "meta",
+            "begin": "@",
+            "end": "\\W",
+            "excludeEnd": true
         }
     ]
 }

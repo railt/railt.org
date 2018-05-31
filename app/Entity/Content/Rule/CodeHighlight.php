@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Content\Rule;
 
+use App\Entity\Content\Rule\CodeHighlight\AccordLanguage;
 use App\Entity\Content\Rule\CodeHighlight\GraphQLLanguage;
+use App\Entity\Content\Rule\CodeHighlight\JsonLanguage;
 use App\Entity\Content\Rule\CodeHighlight\Language;
 use App\Entity\Content\Rule\CodeHighlight\PhpLanguage;
 use Highlight\Highlighter;
@@ -33,6 +35,8 @@ class CodeHighlight implements Before
         $this->languages['php'] = new PhpLanguage($hl);
         $this->languages['graphql'] = new GraphQLLanguage($hl);
         $this->languages['gql'] = new GraphQLLanguage($hl);
+        $this->languages['json'] = new JsonLanguage($hl);
+        $this->languages['accord'] = new AccordLanguage($hl);
     }
 
     /**

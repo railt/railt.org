@@ -27,6 +27,8 @@ class HighlightServiceProvider extends ServiceProvider
 
             $hl::registerLanguage('php', \resource_path('languages/php.json'));
             $hl::registerLanguage('graphql', \resource_path('languages/graphql.json'));
+            $hl::registerLanguage('json', \resource_path('languages/json.json'));
+            $hl::registerLanguage('accord', \resource_path('languages/accord.json'));
 
             return $hl;
         });

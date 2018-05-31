@@ -80,6 +80,7 @@
         overflow: hidden;
         padding-top: 10px;
         padding-bottom: 100px;
+        font-size: $font-size;
 
         .placeholder {
             margin: 4px 8px;
@@ -122,14 +123,6 @@
                 top: -60px;
             }
 
-            h2 {
-                font-style: italic;
-            }
-
-            h3 {
-                color: $color-main;
-            }
-
             h4, h5, h6 {
                 .header-link {
                     display: none;
@@ -137,8 +130,8 @@
             }
 
             p {
-                margin: 0 !important;
-                padding: 20px 0;
+                margin: 20px 0;
+                padding: 0;
             }
 
             abbr {
@@ -154,16 +147,12 @@
                 font-size: inherit;
             }
 
-            & > code,
-            & > pre {
-                font-size: 14px;
-            }
-
             pre {
                 margin: 0;
                 padding: 0;
                 display: block;
                 background: none;
+                font-size: ($font-size - 1px);
 
                 code {
                     box-sizing: border-box;
@@ -171,9 +160,10 @@
                     box-shadow: 0 0 0 2px $color-bg;
                     background: none;
                     color: inherit;
+                    font-size: inherit;
                     padding: 20px 25px;
                     margin: 0;
-                    border-radius: 6px;
+                    border-radius: 3px;
                     overflow-x: auto;
                     width: 100%;
                     @include scrollbar;
@@ -183,7 +173,7 @@
             table {
                 width: 100%;
                 box-shadow: 0 0 0 2px $color-border;
-                border-radius: 2px;
+                border-radius: 3px;
                 padding: 10px 15px;
 
                 th {
