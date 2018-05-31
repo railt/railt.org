@@ -147,6 +147,17 @@
                 font-size: inherit;
             }
 
+            sup {
+                position: relative;
+                top: -5px;
+                font-size: 11px;
+
+                code {
+                    background: none;
+                    padding: 0;
+                }
+            }
+
             pre {
                 margin: 20px 0;
                 padding: 0;

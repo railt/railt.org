@@ -177,6 +177,30 @@ body .page-container .page {
   overflow: visible;
 }
 
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 0 0 2px #fff;
+          box-shadow: inset 0 0 0 2px #fff;
+  background: #d8dce5;
+}
+
+body::-webkit-scrollbar-thumb:window-inactive {
+  background: #e7eaef;
+}
+
+body:hover::-webkit-scrollbar-thumb {
+  background: #b9c1d1;
+}
+
 a {
   color: #6f4ca5;
   outline: none;

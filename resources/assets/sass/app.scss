@@ -74,6 +74,13 @@ body {
     }
 }
 
+body {
+    @include scrollbar;
+    &:hover {
+        @include scrollbar-hover;
+    }
+}
+
 @import "ui/links";
 @import "ui/headings";
 @import "ui/transitions";
