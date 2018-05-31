@@ -158,7 +158,7 @@
             opacity: 0;
 
             &.collapsed {
-                max-height: 550px;
+                max-height: 850px;
                 opacity: 1;
                 transition:
                     max-height 1s ease,
@@ -185,10 +185,10 @@
             }
 
             & > .sub {
+                padding-bottom: 25px;
                 &:before {
                     display: none;
                 }
-                padding-bottom: 25px;
             }
         }
     }
