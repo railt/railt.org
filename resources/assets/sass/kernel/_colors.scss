@@ -94,6 +94,7 @@ $ui-box-shadow-dark: 0 5px 13px rgba(#000, .1) !default;
  * --------------------------------------------------------------------------------------
  */
 $scroll-bg: #fff;
+$scroll-bg-hover: #eff3f5;
 $scroll-track: $color-border;
 $scroll-track-active: darken($color-border, 10%);
-$scroll-track-inactive: $color-border;
+$scroll-track-inactive: lighten($color-border, 5%);

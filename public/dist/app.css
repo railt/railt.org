@@ -88,7 +88,7 @@ body {
   color: rgba(60, 62, 66, 0.8);
   line-height: 18px;
   width: 100%;
-  min-width: 1080px;
+  min-width: 360px;
   min-height: 100vh;
   font-size: 16px;
   font-family: "Open Sans", "Roboto", Helvetica, sans-serif;
@@ -392,7 +392,7 @@ h6 {
 
 .hljs-string,
 .hljs-number {
-  color: #7eae4a;
+  color: #d2a046;
 }
 
 .hljs-symbol {

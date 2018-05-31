@@ -94,7 +94,7 @@
             display: block;
             width: 100%;
             white-space: nowrap;
-            margin: 6px 0;
+            margin: 9px 0;
             color: $color-text-secondary;
             text-decoration: none;
             cursor: pointer;
@@ -108,12 +108,13 @@
 
             &.collapsible {
                 &:before {
-                    opacity: 0;
+                    opacity: .6;
                     @include fa-icon;
                     content: $fa-var-angle-right;
                     position: absolute;
                     left: -12px;
                     border-radius: 50%;
+                    color: $color-text-secondary;
                     transform: rotate(0);
                     text-align: center;
                     vertical-align: center;
@@ -126,6 +127,7 @@
 
                 &:hover:before {
                     opacity: 1;
+                    content: $fa-var-angle-right;
                 }
             }
 
@@ -155,18 +157,8 @@
             padding-bottom: 0;
             opacity: 0;
 
-            &:before {
-                content: '';
-                position: absolute;
-                height: 100%;
-                left: 5px;
-                top: 0;
-                width: 0;
-                border-right: $color-border-lighten 1px dotted;
-            }
-
             &.collapsed {
-                max-height: 500px;
+                max-height: 550px;
                 opacity: 1;
                 transition:
                     max-height 1s ease,
@@ -178,7 +170,7 @@
 
         &.menu-sub {
             .menu-item {
-                margin: 6px 0;
+                margin: 9px 0;
                 font-size: 13px;
                 line-height: 14px;
             }

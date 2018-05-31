@@ -3,8 +3,14 @@
 @section('content')
     <app-header>
         <router-link to="/docs">Documentation</router-link>
-        <a href="https://github.com/railt/railt" target="_blank">GitHub</a>
-        <a href="https://discord.gg/ND7SpD4" target="_blank">Chat</a>
+        <a href="https://github.com/railt/railt" target="_blank">
+            <img src="/images/github.svg" alt="GitHub" style="display: none" />
+            GitHub
+        </a>
+        <a href="https://discord.gg/ND7SpD4" target="_blank">
+            <img src="/images/discord.svg" alt="Discord" style="display: none" />
+            Chat
+        </a>
 
         <template slot="aside">
             <?php /** @var $language \App\Entity\Language */ ?>

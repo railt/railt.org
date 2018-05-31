@@ -148,11 +148,25 @@
             }
 
             pre {
-                margin: 0;
+                margin: 20px 0;
                 padding: 0;
                 display: block;
                 background: none;
+                position: relative;
                 font-size: ($font-size - 1px);
+
+                &:after {
+                    content: '';
+                    display: block;
+                    width: 30px;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    pointer-events: none;
+                    border-radius: 0 3px 3px 0;
+                    background: linear-gradient(to right, rgba(#fff, 0), rgba(#fff, 1));
+                }
 
                 code {
                     box-sizing: border-box;
@@ -167,6 +181,25 @@
                     overflow-x: auto;
                     width: 100%;
                     @include scrollbar;
+
+                    &:after {
+                        content: attr(data-language);
+                        position: absolute;
+                        top: 3px;
+                        right: 3px;
+                        font-size: 11px;
+                        z-index: 99;
+                        background: $color-border;
+                        color: #fff;
+                        border-radius: 2px;
+                        padding: 0 3px;
+                        line-height: 15px;
+                        pointer-events: none;
+                    }
+                }
+
+                &:hover code {
+                    @include scrollbar-hover;
                 }
             }
 

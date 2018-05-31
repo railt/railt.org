@@ -101,7 +101,7 @@
                 font-size: 13px;
 
                 & > * {
-                    margin-left: 25px;
+                    margin: 0 10px 0 35px;
                 }
 
                 .dropdown {
@@ -137,7 +137,7 @@
                     }
 
                     &:hover {
-                        color: $color-text;
+                        color: $color-text-primary;
                     }
 
                     &.router-link-active {
@@ -155,6 +155,18 @@
                 margin-left: auto;
                 align-self: right;
                 justify-self: right;
+            }
+
+            .menu {
+                display: flex;
+
+                img {
+                    display: inline-block !important;
+                    height: 20px;
+                    position: relative;
+                    top: 5px;
+                    margin-right: 3px;
+                }
             }
         }
     }

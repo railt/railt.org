@@ -30,7 +30,7 @@
 
 .hljs-string,
 .hljs-number {
-    color: $color-green;
+    color: lighten(desaturate($color-yellow, 35%), 10%);
 }
 
 .hljs-symbol {
