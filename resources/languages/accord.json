@@ -8,13 +8,13 @@
         },
         {
             "className": "addition",
-            "begin": "[→✓✔]",
+            "begin": "[→✓✔]\\h*",
             "end": ".+\\n",
             "excludeBegin": true
         },
         {
             "className": "deletion",
-            "begin": "[✕✖]",
+            "begin": "[✕✖]\\h*",
             "end": ".+\\n",
             "excludeBegin": true
         },
