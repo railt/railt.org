@@ -48,6 +48,8 @@ class CodeHighlight implements Before
         $applicant = function (array $matches): string {
             [$body, $lang, $code] = $matches;
 
+            $code = \htmlspecialchars($code);
+
             foreach ($this->languages as $name => $formatter) {
                 if ($name === $lang) {
                     $code = $formatter->parse($code);
