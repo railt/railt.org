@@ -7,8 +7,14 @@
             "end": "$"
         },
         {
-            "className": "literal",
-            "begin": "→",
+            "className": "addition",
+            "begin": "[→✓✔]",
+            "end": ".+\\n",
+            "excludeBegin": true
+        },
+        {
+            "className": "deletion",
+            "begin": "[✕✖]",
             "end": ".+\\n",
             "excludeBegin": true
         },
