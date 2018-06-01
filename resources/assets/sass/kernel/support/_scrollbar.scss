@@ -22,7 +22,7 @@
 @mixin scrollbar-hover {
     &::-webkit-scrollbar {
         &-thumb {
-            background: $scroll-track-active;
+            background: $scroll-track-active !important;
         }
     }
 }

@@ -76,6 +76,7 @@ body {
 
 body {
     @include scrollbar;
+
     &:hover {
         @include scrollbar-hover;
     }
