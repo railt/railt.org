@@ -197,8 +197,8 @@ body::-webkit-scrollbar-thumb:window-inactive {
   background: #e7eaef;
 }
 
-body:hover::-webkit-scrollbar-thumb {
-  background: #b9c1d1;
+body::-webkit-scrollbar-thumb {
+  background: #b9c1d1 !important;
 }
 
 a {
