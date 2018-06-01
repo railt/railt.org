@@ -225,12 +225,14 @@
                     font-weight: normal;
                     text-align: left;
                     text-transform: uppercase;
-                    padding-bottom: 10px;
+                    padding: 0 10px 10px 10px;
                     color: $color-text-placeholder;
                 }
 
                 td {
                     font-size: 13px;
+                    padding: 5px 10px;
+                    line-height: 17px;
                 }
             }
         }
