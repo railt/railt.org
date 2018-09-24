@@ -19,5 +19,6 @@
         <a href="#" id="page-top" name="page-top"></a>
         @yield('content')
     </main>
+    @include('layout.partials.analytics')
 </body>
 </html>
