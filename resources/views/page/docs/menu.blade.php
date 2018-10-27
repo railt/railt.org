@@ -7,7 +7,7 @@
  */
 ?>
 @foreach($items->sort(function (\App\Entity\Menu $b, \App\Entity\Menu $a): int {
-    return $a->getOrderId() <=> $b->getOrderId();
+    return $b->getOrderId() <=> $a->getOrderId();
 }) as $item)
     @if($item->hasDocument())
         <a itemprop="url" class="menu-item {{ $current->getUrn() === $item->getUrn() ? 'active' : '' }}"
