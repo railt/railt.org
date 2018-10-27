@@ -15,6 +15,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\ServiceProvider;
 use LanguageDetection\Detector\DetectByAcceptLanguage;
 use LanguageDetection\Detector\DetectByConfigs;
+use LanguageDetection\Detector\DetectByDomain;
 use LanguageDetection\Detector\DetectByIpAddress;
 use LanguageDetection\Detector\DetectorInterface;
 use LanguageDetection\Detector\Factory;
@@ -43,6 +44,7 @@ class LanguageDetectionServiceProvider extends ServiceProvider
             $zones = $this->app->make(FindableByIp::class);
 
             return new Factory([
+                new DetectByDomain($langs),
                 new DetectByIpAddress($zones, \env('VIRTUAL_IP_ADDR')),
                 new DetectByAcceptLanguage($langs),
                 new DetectByConfigs($langs, $this->app->make(Repository::class))
