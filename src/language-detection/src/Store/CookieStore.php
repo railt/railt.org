@@ -15,9 +15,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class CookieStore
@@ -71,6 +70,7 @@ class CookieStore implements StoreInterface
      * @param BaseResponse $response
      * @param Language $language
      * @return BaseResponse
+     * @throws \InvalidArgumentException
      */
     public function write(BaseResponse $response, Language $language): BaseResponse
     {
@@ -93,29 +93,44 @@ class CookieStore implements StoreInterface
      * @param Response $response
      * @param Language $language
      * @return BaseResponse
+     * @throws \InvalidArgumentException
      */
     private function withResponseCookie(Response $response, Language $language): BaseResponse
     {
-        return $response->cookie(self::COOKIE_LANGUAGE, $language->getCode());
+        return $response->withCookie($this->cookie($language));
     }
 
     /**
      * @param JsonResponse $response
      * @param Language $language
      * @return BaseResponse
+     * @throws \InvalidArgumentException
      */
     private function withJsonResponseCookie(JsonResponse $response, Language $language): BaseResponse
     {
-        return $response->cookie(self::COOKIE_LANGUAGE, $language->getCode());
+        return $response->withCookie($this->cookie($language));
     }
 
     /**
      * @param RedirectResponse $redirect
      * @param Language $language
      * @return BaseResponse
+     * @throws \InvalidArgumentException
      */
     private function withRedirectCookie(RedirectResponse $redirect, Language $language): BaseResponse
     {
-        return $redirect->cookie(self::COOKIE_LANGUAGE, $language->getCode());
+        return $redirect->withCookie($this->cookie($language));
+    }
+
+    /**
+     * @param Language $language
+     * @return Cookie
+     * @throws \InvalidArgumentException
+     */
+    private function cookie(Language $language): Cookie
+    {
+        $domain = '.' . \basename(config('app.domain'));
+
+        return new Cookie(self::COOKIE_LANGUAGE, $language->getCode(),0, '/', $domain, true, true);
     }
 }

@@ -12,8 +12,10 @@ namespace LanguageDetection;
 use App\Entity\Language;
 use Carbon\Carbon;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use LanguageDetection\Detector\DetectorInterface;
 use LanguageDetection\Store\StoreInterface;
@@ -60,13 +62,37 @@ class LanguageDetectionMiddleware
      */
     public function handle(Request $request, \Closure $next): Response
     {
-        $this->setLanguage($this->read($request));
+        $this->setLanguage($language = $this->read($request));
 
-        $response = $next($request);
+        $response = $this->redirectToDomain($request, $language, function($request) use ($next) {
+            return $next($request);
+        });
 
         $this->store->write($response, $this->container->make(Language::class));
 
         return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param Language $language
+     * @param \Closure $otherwise
+     * @return Response
+     * @throws \InvalidArgumentException
+     */
+    private function redirectToDomain(Request $request, Language $language, \Closure $otherwise): Response
+    {
+        if (Str::startsWith($request->getHost(), $language->getCode())) {
+            return $otherwise($request);
+        }
+
+        $url = \vsprintf('//%s.%s%s', [
+            $language->getCode(),
+            \basename(\config('app.url')),
+            $request->getRequestUri()
+        ]);
+
+        return new RedirectResponse($url);
     }
 
     /**
