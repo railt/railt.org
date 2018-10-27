@@ -1,0 +1,34 @@
+.button {
+    display: inline-block;
+    height: $ui-height;
+    line-height: $ui-height;
+    border-radius: 2px;
+    text-align: center;
+    padding: 0 15px;
+    position: relative;
+    border: none;
+    outline: none;
+    margin: 0;
+    cursor: pointer;
+    z-index: 1;
+    background: $color-main;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: none !important;
+    transition: background .3s $ui-animation-swift;
+
+    &:hover {
+        transition: background .1s $ui-animation-swift;
+        background: desaturate(lighten($color-main, 5%), 10%);
+        color: #fff;
+    }
+
+    &[disabled],
+    &.disabled {
+        cursor: default;
+        background: $color-disabled-bg;
+        color: $color-disabled-body;
+    }
+}

@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Entity\Language;
-use App\Entity\Language\ContainsLanguages;
 use Illuminate\Contracts\View\Factory as Views;
 use Illuminate\Contracts\View\View as ViewInterface;
 
@@ -21,15 +19,12 @@ class HomeController extends Controller
 {
     /**
      * @param Views $views
-     * @param ContainsLanguages $languages
-     * @param Language $current
      * @return ViewInterface
      */
-    public function index(Views $views, ContainsLanguages $languages, Language $current): ViewInterface
+    public function index(Views $views): ViewInterface
     {
-        return $views->make('home', [
-            'languages' => $languages->getLanguages(),
-            'current'   => $current,
+        return $views->make('page.home', [
+
         ]);
     }
 }

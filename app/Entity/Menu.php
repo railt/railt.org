@@ -13,142 +13,114 @@ use App\Entity\Common\Identifiable;
 use App\Entity\Common\Identifier;
 use App\Entity\Common\Timestampable;
 use App\Entity\Common\Timestamps;
-use App\Entity\Menu\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Menu
- * @ORM\Entity(repositoryClass=Repository::class)
- * @ORM\Table(name="menu")
- * @ORM\HasLifecycleCallbacks()
  */
 class Menu implements Identifiable, Timestampable
 {
-    use Timestamps;
     use Identifier;
+    use Timestamps;
 
     /**
-     * @ORM\Column(name="title", type="string")
+     * @var string
+     */
+    public const ROOT_MENU_ITEM = 'README';
+
+    /**
      * @var string
      */
     protected $title;
 
     /**
-     * @ORM\Column(name="urn", type="string")
-     * @var string
+     * @var Language
+     */
+    protected $language;
+
+    /**
+     * @var Urn
      */
     protected $urn;
 
     /**
-     * @ORM\OneToMany(targetEntity=Menu::class, mappedBy="parent", cascade={"persist"})
-     * @var Menu[]|Collection
+     * @var int
      */
-    protected $children;
+    protected $orderId = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Menu::class, inversedBy="children", cascade={"persist"})
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
-     * @var Menu
+     * @var Menu|null
      */
     protected $parent;
 
     /**
-     * @ORM\Column(name="parent_id", type="integer", nullable=true)
-     * @var int|null
+     * @var Menu[]|ArrayCollection
      */
-    protected $parentId;
+    protected $children;
 
     /**
-     * @ORM\Column(name="is_page", type="boolean")
-     * @var bool
+     * @var Document|null
      */
-    protected $isPage = true;
-
-    /**
-     * @ORM\Column(name="order_id", type="integer")
-     * @var int
-     */
-    protected $order = 0;
+    protected $document;
 
     /**
      * Menu constructor.
+     * @param Language $language
      * @param string $title
      * @param string $urn
      */
-    public function __construct(string $title, string $urn)
+    public function __construct(Language $language, string $title, string $urn = '')
     {
         $this->title = $title;
-        $this->urn   = $urn;
+        $this->language = $language;
 
+        $this->urn = new Urn($urn);
         $this->children = new ArrayCollection();
+
+        $this->actualize();
     }
 
     /**
-     * @param bool $page
-     */
-    public function shouldBePage(bool $page): void
-    {
-        $this->isPage = $page;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getParentId(): ?int
-    {
-        return $this->parentId;
-    }
-
-    /**
-     * @param string $title
+     * @param Document|null $document
      * @return Menu
      */
-    public function rename(string $title): self
+    public function related(?Document $document): Menu
     {
-        $this->title = $title;
+        $this->document = $document;
 
         return $this;
     }
 
     /**
-     * @param string $urn
-     * @return Menu
+     * @return iterable|Menu[]
      */
-    public function moveTo(string $urn): self
+    public function getChildren(): iterable
     {
-        $this->urn = $urn;
-
-        return $this;
+        return $this->children;
     }
 
     /**
      * @return bool
      */
-    public function isTab(): bool
+    public function hasChildren(): bool
     {
-        return ! $this->isPage;
+        return $this->children->count() > 0;
     }
 
     /**
-     * @return bool
+     * @return Menu|null
      */
-    public function hasDocumentation(): bool
+    public function getParent(): ?Menu
     {
-        return $this->isPage;
+        return $this->parent;
     }
 
     /**
-     * @param Menu $menu
-     * @return Menu
+     * @return Language
      */
-    public function attach(Menu $menu): self
+    public function getLanguage(): Language
     {
-        $this->children->add($menu);
-        $menu->parent = $this;
-
-        return $this;
+        return $this->language;
     }
 
     /**
@@ -164,30 +136,57 @@ class Menu implements Identifiable, Timestampable
      */
     public function getUrn(): string
     {
-        return $this->urn;
+        return \str_replace(self::ROOT_MENU_ITEM, '', $this->urn->getValue());
     }
 
     /**
-     * @return Menu|null
+     * @param string $title
+     * @return Menu
      */
-    public function getParent(): ?Menu
+    public function rename(string $title): Menu
     {
-        return $this->parent;
+        $this->title = $title;
+
+        return $this;
     }
 
     /**
-     * @return Menu[]|Collection
+     * @param Menu $menu
+     * @return Menu
      */
-    public function getChildren(): \Traversable
+    public function append(Menu $menu): Menu
     {
-        return $this->children;
+        $menu->parent = $this;
+        $this->children->add($menu);
+
+        return $this;
     }
 
     /**
-     * @return int
+     * @param Menu $menu
+     * @return Menu
      */
-    public function getOrderId(): int
+    public function of(Menu $menu): Menu
     {
-        return $this->order;
+        $this->parent = $menu;
+        $menu->children->add($this);
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDocument(): bool
+    {
+        return $this->getDocument() !== null;
+    }
+
+    /**
+     * @return Document|null
+     */
+    public function getDocument(): ?Document
+    {
+        return $this->document;
     }
 }

@@ -1,38 +1,42 @@
 import Vue from 'vue';
 
-// Loading
-Vue.component('app-loading', require('./components/Loading'));
-Vue.component('app-preloader', require('./components/Loading/Preloader'));
+/*
+|--------------------------------------------------------------------------
+| Partials
+|--------------------------------------------------------------------------
+*/
+Vue.component('app-header', require('./partials/Header'));
+Vue.component('app-footer', require('./partials/Footer'));
+Vue.component('app-splash', require('./partials/Splash'));
 
-// Dropdown
-Vue.component('app-select', require('./components/Dropdown'));
-Vue.component('app-option', require('./components/Dropdown/DropdownItem'));
-
-// Input
-Vue.component('app-input', require('./components/InputText'));
-
-// Menu
-Vue.component('app-menu', require('./components/Menu'));
-Vue.component('app-menu-content', require('./components/Menu/MenuCollection'));
-
-// Header
-Vue.component('app-header', require('./components/Header'));
-
-// Footer
-Vue.component('app-footer', require('./components/Footer'));
-
-// Modal
-Vue.component('app-modal', require('./components/Modal'));
-
-// Button
-Vue.component('app-button',  require('./components/Button'));
-
-// Error
-Vue.component('app-error', require('./components/Error'));
-
-// Auth
-Vue.component('app-auth', require('./components/Auth'));
-
-// Title
+/*
+|--------------------------------------------------------------------------
+| Components
+|--------------------------------------------------------------------------
+*/
+Vue.component('app-tab', require('./components/Tab'));
+Vue.component('app-text', require('./components/Text'));
+Vue.component('app-tabs', require('./components/Tabs'));
 Vue.component('app-title', require('./components/Title'));
+Vue.component('app-search', require('./components/Search'));
+Vue.component('app-select', require('./components/Select'));
+Vue.component('app-option', require('./components/Option'));
+Vue.component('app-loading', require('./components/Loading'));
+Vue.component('app-tooltip', require('./components/Tooltip'));
+Vue.component('app-section', require('./components/Section'));
+Vue.component('app-content', require('./components/Content'));
+Vue.component('app-checkbox', require('./components/Checkbox'));
+Vue.component('app-dropdown', require('./components/Dropdown'));
+Vue.component('app-password', require('./components/Password'));
+
+Vue.component('v-input', require('./components/DynamicInput'));
+
+/*
+|--------------------------------------------------------------------------
+| Pages
+|--------------------------------------------------------------------------
+*/
+Vue.component('app-error', require('./page/Error'));
+Vue.component('app-blog', require('./page/Blog'));
+Vue.component('app-docs', require('./page/Docs'));
 

@@ -7,37 +7,65 @@
     ],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./src/navigation"
+        },
+        {
+            "type": "path",
+            "url": "./src/language-detection"
+        },
+        {
+            "type": "path",
+            "url": "./src/renderer"
+        },
+        {
+            "type": "path",
+            "url": "./src/search"
+        },
+        {
+            "type": "path",
+            "url": "./src/sync"
+        }
+    ],
     "require": {
         "php": ">=7.2",
-        "barryvdh/laravel-debugbar": "~3.1",
-        "barryvdh/laravel-ide-helper": "~2.4",
+        "ext-json": "*",
+        "app/language-detection": "*",
+        "app/navigation": "*",
+        "app/renderer": "*",
+        "app/search": "*",
+        "app/sync": "*",
         "beberlei/DoctrineExtensions": "~1.0",
         "doctrine/dbal": "~2.6",
-        "erusev/parsedown": "~1.6",
         "fideloper/proxy": "~4.0",
-        "graham-campbell/github": "~6.0",
-        "itsgoingd/clockwork": "~2.0",
         "laravel-doctrine/orm": "~1.4",
-        "laravel/framework": "5.5.*",
+        "laravel/framework": "5.7.*",
         "laravel/socialite": "^3.0",
-        "laravel/tinker": "~1.0",
         "lcobucci/jwt": "^3.2",
-        "php-http/guzzle6-adapter": "~1.1",
         "predis/predis": "~1.1",
-        "railt/laravel-provider": "dev-master@dev",
-        "railt/railt": "dev-master@dev",
-        "railt/carbon-extension": "dev-master@dev",
+        "railt/railt": "dev-master#fe78d45c0e7246a535698dc31645fa50d983f18b",
+        "railt/carbon-extension": "dev-master#cce3da94983df8fbebe35df0adfd788db069e467",
+        "railt/laravel-provider": "dev-master#2cb0e2269306b838d47cfd2c8c227e19fe45fa09",
+        "rds/hydrogen": "~0.3",
+        "scrivo/highlight.php": "~9.12.0",
         "sebdesign/laravel-sri": "^1.0",
-        "rds/hydrogen": "dev-master@dev",
+        "sentry/sentry-laravel": "^0.10.0",
         "serafim/laravel-annotations": "~1.0",
-        "scrivo/highlight.php": "~9.12.0"
+        "symfony/yaml": "~4.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "~2.4",
+        "davidbadura/faker-markdown-generator": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
+        "itsgoingd/clockwork": "~3.0",
+        "laravel/tinker": "~1.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^7.0",
+        "beyondcode/laravel-dump-server": "^1.0"
     },
     "autoload": {
         "classmap": [
@@ -75,8 +103,8 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
         "sort-packages": true,
+        "preferred-install": "dist",
         "optimize-autoloader": true
     },
     "minimum-stability": "dev",

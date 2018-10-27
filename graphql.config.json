@@ -1,7 +1,7 @@
 {
   "schema": {
     "request": {
-      "url" : "http://railt.localhost:81/api",
+      "url" : "http://railt.localhost/api",
       "method" : "POST",
       "postIntrospectionQuery" : true,
       "options" : {
@@ -14,7 +14,7 @@
   "endpoints" : [
     {
       "name": "Local",
-      "url" : "http://railt.localhost:81/api",
+      "url" : "http://railt.localhost/api",
       "options" : {
         "headers": {
           "user-agent" : "JS GraphQL"

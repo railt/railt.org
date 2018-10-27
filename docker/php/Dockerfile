@@ -54,27 +54,15 @@ RUN docker-php-ext-install \
         opcache \
         exif \
         tokenizer \
-        gd
+        gd \
+        pcntl
 
-#####################################
-#          PCNTL EXTENSION:
-#####################################
+RUN pecl install ev && \
+    docker-php-ext-enable ev
 
-ARG ENABLE_PCNTL=false
-RUN if [ ${ENABLE_PCNTL} = true ]; then \
-    docker-php-ext-install pcntl \
-;fi
+RUN pecl install swoole && \
+    docker-php-ext-enable swoole
 
-#####################################
-#           EV EXTENSION:
-#####################################
-
-ARG ENABLE_EV=false
-RUN if [ ${ENABLE_EV} = true ]; then \
-    # Install the ev extension
-    pecl install ev && \
-    docker-php-ext-enable ev \
-;fi
 
 #####################################
 #         XDEBUG EXTENSION:
@@ -161,8 +149,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN echo "" >> ~/.bashrc && \
     echo 'export PATH="/var/www/railt.org/vendor/bin:$PATH"' >> ~/.bashrc
 
-ADD ./laravel.sh /laravel.sh
-RUN chmod 0755 /laravel.sh
+ADD ./bootstrap.sh /bootstrap.sh
+RUN chmod 0755 /bootstrap.sh
 
 RUN chmod -R 0777 /var/www
 
@@ -172,4 +160,4 @@ RUN usermod -u 1000 www-data
 
 EXPOSE 9000
 
-CMD ["/laravel.sh"]
+CMD ["/bootstrap.sh"]

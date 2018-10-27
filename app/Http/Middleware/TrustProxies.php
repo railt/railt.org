@@ -14,6 +14,7 @@ use Fideloper\Proxy\TrustProxies as Middleware;
 
 class TrustProxies extends Middleware
 {
+
     /**
      * The trusted proxies for this application.
      *
@@ -24,7 +25,7 @@ class TrustProxies extends Middleware
     /**
      * The headers that should be used to detect proxies.
      *
-     * @var string
+     * @var int
      */
     protected $headers = Request::HEADER_X_FORWARDED_ALL;
 }

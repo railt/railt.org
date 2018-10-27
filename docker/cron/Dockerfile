@@ -1,7 +1,5 @@
 FROM railt_org:latest
 
-USER root
-
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
@@ -16,24 +14,15 @@ RUN echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/d
 RUN apt-get update && \
     apt-get install -y \
         cron \
-        rsyslog \
     && apt-get clean
-
-
-#####################################
-# Rsyslog
-#####################################
-
-COPY ./rsyslog.conf /etc/rsyslog.conf
-RUN service rsyslog restart
 
 #####################################
 # Crontab
 #####################################
 
-COPY ./crontab /var/spool/cron/crontabs/root
+COPY ./crontab /etc/cron.d
+RUN chmod 0644 /etc/cron.d
 
-ADD ./cron.sh /cron.sh
-RUN chmod 0755 /cron.sh
+RUN mkfifo --mode 0666 /var/log/cron.log
 
-CMD ["/cron.sh"]
+CMD ["/bin/bash", "-c", "cron && tail -f /var/log/cron.log"]

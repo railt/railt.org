@@ -1,176 +1,156 @@
 <template>
-    <div class="dropdown" v-on:click="toggle"
-         :class="{'dropdown-active': active}">
-        <span class="dropdown-title" v-html="title"></span>
-
-        <section class="dropdown-selections"
-            :style="{'max-height': height}">
-            <slot></slot>
-        </section>
-
-        <input type="hidden" v-bind:name="name" v-bind:value="value" />
+    <div class="dropdown">
+        <button v-on:click.stop.prevent="active = !active" class="button" :class="{active: active}">
+            <slot name="title"></slot>
+        </button>
+        <div class="dropdown-content" :class="{active: active}">
+            <slot name="selections"></slot>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: {
-            maxItems: {
-                type: Number,
-                default: 5
-            },
-            name: String,
-        },
         data() {
             return {
-                title: '',
-                value: null,
-                active: false,
-                height: '100vh'
-            };
+                active: false
+            }
         },
         mounted() {
-            this.$nextTick(() => {
-                this.$on('dropdown-item:loaded', (item) => {
-                    if (this.value === null) {
-                        this.select(item);
-                    }
-                });
-
-                this.$on('dropdown-item:select', item => {
-                    this.select(item);
-                });
-
-                this.height = `${this.maxItems * (32 + 5) + 5}px`;
-            });
-
-            document.body.addEventListener('click', this.hideThroughEvent)
-        },
-        destroyed () {
-            document.body.removeEventListener('click', this.hideThroughEvent);
-        },
-        methods: {
-            hideThroughEvent(e) {
-                for (let i of e.path) {
-                    if (i === this.$el) {
-                        return;
-                    }
-                }
-
+            document.body.addEventListener('click', () => {
                 this.active = false;
-            },
-            select({ title, name }) {
-                this.title = title;
-                this.value = name;
-            },
-            toggle() {
-                this.active = ! this.active;
-            }
+            }, false);
         }
     }
 </script>
 
-<style lang="scss" scoped>
-    @import "/../../sass/kernel";
+<style scoped lang="scss">
+    @import "./../../sass/kernel";
 
-    $arrow-size: 15px;
-    $max-width: 200px;
+    $color: rgba($color-bg-dark, .98);
 
     .dropdown {
-        background: #fff;
-        max-width: $max-width;
-        min-width: 80px;
-        box-shadow: 0 0 0 2px $color-border;
-        height: $ui-height;
-        line-height: $ui-height;
-        box-sizing: border-box;
-        padding: 0 #{$ui-padding + $arrow-size * 2} 0 $ui-padding;
         position: relative;
-        display: inline-block;
-        border-radius: 2px;
-        cursor: pointer;
-        z-index: 2;
-        transition: box-shadow .3s $ui-animation-swift;
 
-        &-title {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: inline-block;
-            white-space: nowrap;
-            user-select: none;
-            max-width: #{$max-width - $ui-padding * 2 - $arrow-size};
-        }
-
-
-        &:hover {
-            color: darken($color-text, 10%);
-        }
-
-        &:after {
-            @include fa-icon;
-            content: $fa-var-angle-down;
-            width: $arrow-size;
-            height: $arrow-size;
-            text-align: center;
-            display: block;
-            position: absolute;
-            right: 10px;
-            top: 14px;
-            border-radius: 50%;
-            font-size: 15px;
-            transform: rotate(0);
-            box-shadow:
-                0 0 0 2px #fff,
-                0 0 0 0 rgba($color-border-secondary, 1);
-            transition:
-                transform .5s $ui-animation-bounce;
-        }
-
-        &-selections {
-            pointer-events: none;
-            overflow-y: auto;
-            position: absolute;
-            width: 100%;
-            background: #fff;
-            box-shadow: 0 -2px 0 #fff, 0 0 0 2px $color-border, $ui-box-shadow;
-            left: 0;
-            top: $ui-height;
-            border-radius: 0 0 2px 2px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition:
-                box-shadow .3s $ui-animation-swift,
-                opacity .3s $ui-animation-swift,
-                transform .3s $ui-animation-swift;
-            @include scrollbar;
-        }
-
-        &-active {
-            box-shadow:
-                0 2px 0 #fff,
-                0 0 0 2px $color-main;
-            z-index: 998;
-
-            .dropdown-title {
-                color: $color-main !important;
-            }
+        .button {
+            margin: 0 auto;
+            width: 90px;
+            display: flex;
+            background: none;
+            align-items: center;
+            padding: 0 40px 0 15px;
+            box-shadow: 0 0 0 2px $color-border;
+            transition: .3s $ui-animation-swift;
+            font-weight: bold;
+            color: $color-description;
 
             &:after {
-                color: $color-main !important;
-                transform: rotate(-180deg);
-                box-shadow:
-                    0 0 0 2px $color-border-secondary,
-                    0 0 0 15px rgba($color-border-secondary, 0);
-                transition:
-                    box-shadow .5s ease,
-                    transform .5s $ui-animation-bounce;
+                top: 0;
+                right: 0;
+                content: '';
+                width: 32px;
+                height: 32px;
+                display: block;
+                line-height: 32px;
+                position: absolute;
+                pointer-events: none;
+                transform: rotate(0);
+                transition: transform .3s $ui-animation-swift;
+                background: url(/images/icons/arrow-down.svg) center center no-repeat;
+                background-size: 10px 10px;
             }
 
-            .dropdown-selections {
-                pointer-events: all;
+            img {
+                width: 16px;
+                height: auto;
+                display: block;
+                margin-right: 10px;
+            }
+
+            &:hover {
+                color: $color-text;
+                box-shadow: 0 0 0 2px $color-border-hover;
+            }
+
+            &.active {
+                color: $color-text;
+                background: rgba(#fff, .7);
+                box-shadow: 0 0 0 2px $color-main;
+
+                &:after {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        .dropdown-content {
+            right: -2px;
+            opacity: 0;
+            z-index: 9;
+            top: 45px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            min-width: 300px;
+            padding: 10px 15px;
+            border-radius: 3px;
+            position: absolute;
+            pointer-events: none;
+            transition: .3s ease;
+            background: $color;
+            transform: translateY(25px) scale(.95);
+            box-shadow: 0 2px 10px rgba(#000, .3);
+
+            &:after {
+                content: '';
+                right: 40px;
+                position: absolute;
+                pointer-events: none;
+                top: -13px;
+                display: block;
+                border: transparent 6px solid;
+                border-bottom-color: $color;
+                width: 1px;
+                height: 1px;
+            }
+
+            .item-cell {
+                flex: 50%;
+                width: 50%;
+                max-width: 50%;
+                margin: 5px 0;
+                padding: 5px;
+                min-width: 150px;
+                box-sizing: border-box;
+            }
+
+            a {
+                padding: 3px;
+                display: block;
+                border-radius: 3px;
+                text-align: center;
+                white-space: nowrap;
+                color: rgba(#fff, .9);
+
+                &:hover {
+                    color: #fff;
+                    text-decoration: none;
+                    background: rgba(#fff, .2);
+                }
+
+                &.active {
+                    cursor: default;
+                    background: #fff;
+                    font-weight: bold;
+                    color: $color-text;
+                    text-decoration: none;
+                }
+            }
+
+            &.active {
                 opacity: 1;
-                transform: translateY(0);
-                box-shadow: 0 -2px 0 #fff, 0 0 0 2px $color-main, $ui-box-shadow;
+                pointer-events: all;
+                transform: translateY(0) scale(1);
             }
         }
     }

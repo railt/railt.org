@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Views\Composers\AuthTokenComposer;
+use App\Views\Composers\LanguageComposer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,8 +19,12 @@ use Illuminate\Support\ServiceProvider;
  */
 class ViewComposersServiceProvider extends ServiceProvider
 {
+    /**
+     * @var string[][]
+     */
     private const COMPOSERS = [
-        AuthTokenComposer::class => ['*']
+        AuthTokenComposer::class => ['*'],
+        LanguageComposer::class => ['*']
     ];
 
     /**

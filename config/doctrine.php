@@ -1,5 +1,4 @@
 <?php
-
 return [
 
     /*
@@ -22,18 +21,18 @@ return [
     */
     'managers'                   => [
         'default' => [
-            'dev'        => env('APP_DEBUG'),
-            'meta'       => env('DOCTRINE_METADATA', 'annotations'),
-            'connection' => env('DB_CONNECTION', 'mysql'),
+            'dev'        => \env('APP_DEBUG', false),
+            'meta'       => \env('DOCTRINE_METADATA', 'yaml'),
+            'connection' => \env('DB_CONNECTION', 'mysql'),
             'namespaces' => [],
             'paths'      => [
-                base_path('app/Entity'),
+                \resource_path('mappings'),
             ],
-            'repository' => Doctrine\ORM\EntityRepository::class,
+            'repository' => \Doctrine\ORM\EntityRepository::class,
             'proxies'    => [
                 'namespace'     => false,
-                'path'          => storage_path('proxies'),
-                'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', true),
+                'path'          => \storage_path('proxies'),
+                'auto_generate' => \env('APP_DEBUG', false),
             ],
 
             /*
@@ -46,11 +45,18 @@ return [
             |
             */
             'events'     => [
-                'listeners'   => [],
-                'subscribers' => [],
+                'listeners'   => [
+
+                ],
+                'subscribers' => [
+                    \App\Subscribers\RendererSubscriber::class,
+                ],
             ],
 
-            'filters'       => [],
+            'filters'       => [
+
+            ],
+
             /*
             |--------------------------------------------------------------------------
             | Doctrine mapping types
@@ -112,12 +118,8 @@ return [
     |--------------------------------------------------------------------------
     */
     'custom_types'               => [
-        'json'                                => LaravelDoctrine\ORM\Types\Json::class,
-        'carbon'                              => DoctrineExtensions\Types\CarbonDateTimeType::class,
-
-        // Enumse
-        \App\Entity\Documentation\Type::class => \App\Entity\Documentation\Type::class,
-        \App\Entity\Menu\Type::class          => \App\Entity\Menu\Type::class,
+        'json'   => \LaravelDoctrine\ORM\Types\Json::class,
+        'carbon' => \DoctrineExtensions\Types\CarbonDateTimeType::class,
     ],
 
     /*
@@ -166,7 +168,9 @@ return [
     | DQL custom string functions
     |--------------------------------------------------------------------------
     */
-    'custom_string_functions'    => [],
+    'custom_string_functions'    => [
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -189,7 +193,7 @@ return [
     | - LaravelDoctrine\ORM\Loggers\FileLogger
     |--------------------------------------------------------------------------
     */
-    'logger'                     => env('DOCTRINE_LOGGER', false),
+    'logger'                     => \env('DOCTRINE_LOGGER', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -204,18 +208,18 @@ return [
     */
     'cache'                      => [
         'second_level' => false,
-        'default'      => env('DOCTRINE_CACHE', 'array'),
+        'default'      => \env('DOCTRINE_CACHE', 'array'),
         'namespace'    => null,
         'metadata'     => [
-            'driver'    => env('DOCTRINE_METADATA_CACHE', env('DOCTRINE_CACHE', 'array')),
+            'driver'    => \env('DOCTRINE_METADATA_CACHE', \env('DOCTRINE_CACHE', 'array')),
             'namespace' => null,
         ],
         'query'        => [
-            'driver'    => env('DOCTRINE_QUERY_CACHE', env('DOCTRINE_CACHE', 'array')),
+            'driver'    => \env('DOCTRINE_QUERY_CACHE', \env('DOCTRINE_CACHE', 'array')),
             'namespace' => null,
         ],
         'result'       => [
-            'driver'    => env('DOCTRINE_RESULT_CACHE', env('DOCTRINE_CACHE', 'array')),
+            'driver'    => \env('DOCTRINE_RESULT_CACHE', \env('DOCTRINE_CACHE', 'array')),
             'namespace' => null,
         ],
     ],

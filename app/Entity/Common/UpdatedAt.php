@@ -10,17 +10,14 @@ declare(strict_types=1);
 namespace App\Entity\Common;
 
 use Carbon\Carbon;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Trait UpdatedAt
- * @ORM\HasLifecycleCallbacks()
  */
 trait UpdatedAt
 {
     /**
      * @var Carbon|null
-     * @ORM\Column(name="updated_at", type="carbon")
      */
     private $updated;
 
@@ -34,7 +31,6 @@ trait UpdatedAt
 
     /**
      * @return void
-     * @ORM\PreUpdate()
      */
     public function touch(): void
     {

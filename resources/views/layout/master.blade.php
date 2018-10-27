@@ -1,24 +1,26 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>@section('title')Home @show &mdash; Railt</title>
-    <meta name="keywords" content="@stack('keywords')" />
-    <meta name="description" content="@stack('description')" />
-    <meta name="theme-color" content="#65429a" />
-    <meta name="csrf-token" content="{{ \csrf_token() }}" />
-    <meta name="auth-token" content="{{ $token }}" />
-    @include('layout.partials.assets')
-    @include('layout.partials.prefetch')
-    @include('layout.partials.icons')
+    @include('layout.partials.head')
+    @stack('head')
 </head>
-<body>
+<body style="opacity: 0" class="@stack('body-class')" itemscope itemtype="http://schema.org/WebSite">
+    <link itemprop="url" href="{{ \route('home') }}" />
+
     <main id="app" class="layout">
-        <a href="#" id="page-top" name="page-top"></a>
-        @yield('content')
+        @section('header')
+            @include('partials.header')
+        @show
+
+        <section class="main">
+            @yield('content')
+        </section>
+
+        @section('footer')
+            @include('partials.footer')
+        @show
     </main>
-    @include('layout.partials.analytics')
+
+    @include('partials.analytics')
 </body>
 </html>

@@ -9,16 +9,12 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Class Email
- * @ORM\Embeddable()
  */
 class Email
 {
     /**
-     * @ORM\Column(name="email", type="string", nullable=true)
      * @var string|null
      */
     private $value;

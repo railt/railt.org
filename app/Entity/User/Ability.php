@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 namespace App\Entity\User;
+
 use App\System\BaseEnum;
 
 /**
@@ -15,19 +16,47 @@ use App\System\BaseEnum;
  */
 final class Ability extends BaseEnum
 {
-    public const DELIMITER = ':';
+    /**
+     * @var string
+     */
+    private const DELIMITER = ':';
 
+    /**
+     * @var string
+     */
     public const CREATE = 'create';
+
+    /**
+     * @var string
+     */
     public const UPDATE = 'update';
+
+    /**
+     * @var string
+     */
     public const DELETE = 'delete';
+
+    /**
+     * @var string
+     */
     public const READ   = 'read';
+
+    /**
+     * @var string[]
+     */
+    private const CRUD = [
+        self::CREATE,
+        self::UPDATE,
+        self::DELETE,
+        self::READ,
+    ];
 
     /**
      * @param string $action
      * @param string $object
      * @return string
      */
-    public static function concat(string $action, string $object): string
+    private static function concat(string $action, string $object): string
     {
         return $action . self::DELIMITER . $object;
     }
@@ -39,7 +68,10 @@ final class Ability extends BaseEnum
      */
     public static function make(string $action, string $entity): string
     {
-        return static::concat($action, \class_basename($entity));
+        $class = \str_replace('\\', '_', $entity);
+        $class = \mb_strtolower($class);
+
+        return static::concat($action, $class);
     }
 
     /**
@@ -79,24 +111,19 @@ final class Ability extends BaseEnum
     }
 
     /**
+     * @param string[] $entities
      * @return iterable|string[]
      */
-    public static function abilities(): iterable
+    public static function crud(string ...$entities): array
     {
-        yield static::READ;
-        yield static::CREATE;
-        yield static::UPDATE;
-        yield static::DELETE;
-    }
+        $result = [];
 
-    /**
-     * @param string $entity
-     * @return iterable|string[]
-     */
-    public static function crud(string $entity): iterable
-    {
-        foreach (static::abilities() as $ability) {
-            yield static::make($ability, $entity);
+        foreach ($entities as $entity) {
+            foreach (self::CRUD as $ability) {
+                $result[] = static::make($ability, $entity);
+            }
         }
+
+        return $result;
     }
 }

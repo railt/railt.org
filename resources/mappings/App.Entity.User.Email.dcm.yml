@@ -1,0 +1,8 @@
+App\Entity\User\Email:
+    type: embeddable
+    fields:
+        value:
+            column: email
+            type: string
+            nullable: true
+            length: 255

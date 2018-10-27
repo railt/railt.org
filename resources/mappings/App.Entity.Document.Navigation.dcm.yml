@@ -1,0 +1,8 @@
+App\Entity\Document\Navigation:
+    type: embeddable
+    fields:
+        value:
+            column: nav
+            type: json
+            nullable: false
+            length: 255

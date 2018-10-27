@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url'    => env('APP_URL', 'http://localhost'),
     'domain' => env('APP_DOMAIN', 'localhost'),
 
     /*
@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -170,6 +170,10 @@ return [
         /*
          * Package Service Providers...
          */
+        \LanguageDetection\LanguageDetectionServiceProvider::class,
+        \Navigation\NavigationServiceProvider::class,
+        \Renderer\RendererServiceProvider::class,
+        \Search\SearchServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -178,8 +182,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\RepositoriesProvider::class,
-        App\Providers\TokenServiceProvider::class,
+        App\Providers\DoctrineServiceProvider::class,
         App\Providers\HighlightServiceProvider::class,
         App\Providers\ViewComposersServiceProvider::class,
     ],
@@ -196,10 +199,9 @@ return [
     */
 
     'aliases' => [
-        'Artisan'      => Illuminate\Support\Facades\Artisan::class,
-        'DB'           => Illuminate\Support\Facades\DB::class,
-        'Log'          => Illuminate\Support\Facades\Log::class,
-        'Route'        => Illuminate\Support\Facades\Route::class,
-        'Schema'       => Illuminate\Support\Facades\Schema::class,
+        'DB'      => Illuminate\Support\Facades\DB::class,
+        'Route'   => Illuminate\Support\Facades\Route::class,
+        'Schema'  => Illuminate\Support\Facades\Schema::class,
+        'Artisan' => Illuminate\Support\Facades\Artisan::class,
     ],
 ];

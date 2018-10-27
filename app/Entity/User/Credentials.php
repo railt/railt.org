@@ -14,18 +14,16 @@ use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * @ORM\Embeddable()
+ * Class Credentials
  */
 class Credentials
 {
     /**
-     * @ORM\Column(name="login", type="string")
      * @var string
      */
     protected $login;
 
     /**
-     * @ORM\Column(name="password", type="string")
      * @var string
      */
     protected $password;
@@ -45,7 +43,7 @@ class Credentials
     /**
      * @param string $password
      * @param Hasher $hasher
-     * @return $this
+     * @return $this|Credentials
      */
     public function updatePassword(string $password, Hasher $hasher = null): self
     {

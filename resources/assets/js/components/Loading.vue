@@ -1,59 +1,73 @@
 <template>
-    <section class="loading">
-        <div class="container">
-            <app-preloader></app-preloader>
-            <span class="loading-text">{{ title }}</span>
-        </div>
-    </section>
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
 </template>
 
 <script>
     export default {
-        props: {
-            title: {
-                type: String,
-                default: 'Loading'
-            }
-        }
+
     }
 </script>
 
-<style lang="scss" scoped>
-    @import "/../../sass/kernel";
+<style scoped lang="scss">
+    @import "./../../sass/kernel";
 
-    $outer-circle: 42px;
-    $inner-circle: 24px;
+    @keyframes preloader {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 
-    .loading {
-        z-index: 999;
-        padding: 100px 0;
-        background: rgba(#fff, .6);
-        position: absolute;
-        top: 0;
-        left: 0;
+    $size: $ui-min-height;
+    $size-div-2: $size / 2;
+
+    .loader {
+        display: block;
         width: 100%;
         height: 100%;
-        display: block;
-        pointer-events: none;
+        z-index: 5;
+        border-radius: 2px;
+        background: rgba(#fff, .6);
+        position: absolute;
 
-        .container {
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: (-$size-div-2) 0 0 (-$size-div-2);
             display: block;
-            width: $outer-circle;
-            height: $outer-circle;
-            position: relative;
-            margin: 0 auto;
-            padding: 50px;
-        }
+            width: $size;
+            height: $size;
+            border-radius: 50%;
+            border-color: inherit;
+            box-shadow: inset 0 0 0 2px $color-border;
+            animation: preloader 2s cubic-bezier(0.250, 0.625, 0.470, 0.915) infinite;
 
-        .loading-text {
-            margin-top: 10px;
-            display: block;
-            width: 200px;
-            position: relative;
-            left: ($outer-circle / 2) - 100px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: .1em;
+            &:before,
+            &:after {
+                width: $size - 4px;
+                height: $size - 4px;
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                border-radius: 50%;
+                border: transparent 2px solid;
+                border-left-color: inherit;
+            }
+
+            &:before {
+                animation: preloader 2s ease infinite;
+            }
+
+            &:after {
+                animation: preloader 2s cubic-bezier(.5, 0, .1, 1) infinite;
+            }
         }
     }
 </style>

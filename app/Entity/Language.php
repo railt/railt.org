@@ -11,67 +11,101 @@ namespace App\Entity;
 
 use App\Entity\Common\Identifiable;
 use App\Entity\Common\Identifier;
-use App\Entity\Language\Repository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Language
- * @ORM\Entity(repositoryClass=Repository::class)
- * @ORM\Table(name="languages")
- * @ORM\HasLifecycleCallbacks()
  */
 class Language implements Identifiable
 {
     use Identifier;
 
     /**
-     * @ORM\Column(name="name")
-     *
      * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(name="title")
-     *
      * @var string
      */
-    protected $title;
+    protected $code;
 
     /**
-     * @ORM\OneToMany(targetEntity=Documentation::class, mappedBy="language", cascade={"persist"})
-     * @ORM\JoinColumn(name="id", referencedColumnName="language_id")
-     *
-     * @var Documentation[]|Collection
+     * @var Country[]|ArrayCollection
      */
-    protected $docs;
+    protected $countries;
+
+    /**
+     * @var Document[]|ArrayCollection
+     */
+    protected $documentations;
+
+    /**
+     * @var Menu[]|ArrayCollection
+     */
+    protected $menus;
+
+    /**
+     * @var bool
+     */
+    private $auto = false;
 
     /**
      * Language constructor.
-     * @param string $name
-     * @param string $title
      */
-    public function __construct(string $name, string $title)
+    public function __construct()
     {
-        $this->docs  = new ArrayCollection();
-        $this->name  = $name;
-        $this->title = $title;
+        $this->menus = new ArrayCollection();
+        $this->countries = new ArrayCollection();
+        $this->documentations = new ArrayCollection();
     }
 
     /**
-     * @return Collection|Documentation[]
+     * @return Language
      */
-    public function getDocumentations(): Collection
+    public function autodetect(): Language
     {
-        return $this->docs;
+        $this->auto = true;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAutoDetectable(): bool
+    {
+        return $this->auto;
+    }
+
+    /**
+     * @return Country[]|ArrayCollection
+     */
+    public function getCountries(): iterable
+    {
+        return $this->countries;
+    }
+
+    /**
+     * @return Document[]|ArrayCollection
+     */
+    public function getDocuments(): iterable
+    {
+        return $this->documentations;
+    }
+
+    /**
+     * @return Menu[]|ArrayCollection
+     */
+    public function getMenus(): iterable
+    {
+        return $this->menus;
     }
 
     /**
      * @return string
      */
-    public function getNameIdentifier(): string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -79,24 +113,8 @@ class Language implements Identifiable
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getCode(): string
     {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function rename(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @param string $newName
-     */
-    public function move(string $newName): void
-    {
-        $this->id = $newName;
+        return $this->code;
     }
 }

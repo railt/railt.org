@@ -25,11 +25,17 @@ class CreateMenuTable extends Migration
         Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('urn')->unique();
-            $table->boolean('is_page')->default(true);
+            $table->unsignedInteger('language_id');
+            $table->unsignedInteger('document_id')->nullable()->index();
+            $table->string('urn');
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger('order_id')->default(0);
             $table->timestamps();
+
+            $table->unique(['language_id', 'urn']);
+            $table->foreign('language_id')
+                ->references('id')
+                ->on('languages');
         });
     }
 

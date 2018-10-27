@@ -1,0 +1,67 @@
+App\Entity\Menu:
+    type: entity
+    repositoryClass: App\Entity\Repositories\DatabaseMenuRepository
+    table: menu
+    readonly: true
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            column: title
+            type: string
+            nullable: false
+            length: 255
+        orderId:
+            column: order_id
+            type: integer
+            nullable: false
+            length: 255
+        created:
+            column: created_at
+            type: carbon
+            nullable: false
+        updated:
+            column: updated_at
+            type: carbon
+            nullable: true
+    embedded:
+        urn:
+            class: App\Entity\Urn
+            columnPrefix: false
+    oneToOne:
+        document:
+            targetEntity: App\Entity\Document
+            inversedBy: menu
+            joinColumn:
+                name: document_id
+                referencedColumnName: id
+    oneToMany:
+        children:
+            targetEntity: App\Entity\Menu
+            mappedBy: parent
+            fetch: EAGER
+            cascade: ["persist", "merge", "remove"]
+    manyToOne:
+        parent:
+            targetEntity: App\Entity\Menu
+            inversedBy: children
+            fetch: EAGER
+            cascade: ["persist", "merge"]
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+                nullable: true
+        language:
+            targetEntity: App\Entity\Language
+            inversedBy: menus
+            fetch: EAGER
+            cascade: ["persist", "merge", "remove"]
+            joinColumn:
+                name: language_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ actualize ]
+        preUpdate: [ touch ]

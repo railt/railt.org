@@ -1,21 +1,21 @@
-version: "2"
+version: "2.0"
 
 services:
     php:
-        image: "railt_org"
-        container_name: "railt_org"
-        command: "/laravel.sh"
+        image: railt_org
+        container_name: railt_org
+        command: /bootstrap.sh
         build:
             context: ./docker/php
             args:
-                - ENABLE_XDEBUG=true
-                - ENABLE_EV=true
-                - ENABLE_PCNTL=true
-                - INSTALL_OPCACHE=true
-                - INSTALL_INTL=true
-                - INSTALL_IMAGEMAGICK=true
+                ENABLE_XDEBUG: "true"
+                ENABLE_EV: "true"
+                ENABLE_PCNTL: "true"
+                INSTALL_OPCACHE: "true"
+                INSTALL_INTL: "true"
+                INSTALL_IMAGEMAGICK: "true"
         volumes:
-            - "./:/var/www/railt.org"
+            - ./:/var/www/railt.org
         links:
             - mysql
             - redis
@@ -24,8 +24,8 @@ services:
             - mysql
 
     cron:
-        image: "railt_org_cron"
-        container_name: "railt_org_cron"
+        image: railt_org_cron
+        container_name: railt_org_cron
         build:
             context: ./docker/cron
         volumes_from:
@@ -34,58 +34,118 @@ services:
             - php
 
     nginx:
-        container_name: "railt_org_nginx"
+        container_name: railt_org_nginx
         build:
             context: ./docker/nginx
             args:
-                - PHP_UPSTREAM=php
+                PHP_UPSTREAM: php
         volumes_from: [php]
         volumes:
             - ./docker/nginx/sites-available/:/etc/nginx/sites-available
         ports:
-            - "81:80"
-            - "444:443"
+            - 80:80
+            - 443:443
         links:
             - php
 
     mysql:
-        container_name: "railt_org_database"
+        container_name: railt_org_database
         build:
             context: ./docker/mysql
         environment:
-            - MYSQL_DATABASE=railt
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=root
-            - MYSQL_ROOT_PASSWORD=root
-            - TZ=UTC
+            MYSQL_DATABASE: railt
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+            TZ: UTC
         volumes:
             - mysql:/var/lib/mysql
             - ./docker/mysql:/docker-entrypoint-initdb.d
         ports:
-            - "3308:3306"
+            - 3306:3306
 
     redis:
-        container_name: "railt_org_redis"
+        container_name: railt_org_redis
         build: ./docker/redis
         volumes:
             - redis:/data
         ports:
-            - "6380:6379"
+            - 6379:6379
 
     supervisord:
-        container_name: "railt_org_supervisor"
+        container_name: railt_org_supervisor
         build: ./docker/supervisord
         volumes_from:
             - php
+            - sentry
         depends_on:
             - php
+            - sentry
+
+    sentry:
+        image: sentry
+        container_name: railt_org_sentry
+        links:
+            - redis
+            - sentry_postrgres
+        ports:
+            - 9000:9000
+        depends_on:
+            - sentry_postrgres
+        environment:
+            C_FORCE_ROOT: "true"
+            SENTRY_SECRET_KEY: 'IN_GRAPHQL_WE_TRUST'
+            SENTRY_POSTGRES_HOST: sentry_postrgres
+            SENTRY_DB_USER: sentry
+            SENTRY_DB_PASSWORD: sentry
+            SENTRY_REDIS_HOST: redis
+
+    sentry_postrgres:
+        container_name: railt_org_sentry_postgres
+        image: postgres
+        environment:
+            POSTGRES_USER: sentry
+            POSTGRES_PASSWORD: sentry
+            POSTGRES_DB: sentry
+        volumes:
+            - pgdb:/var/lib/postgresql/data
+
+    sentry_cron:
+        image: sentry
+        container_name: railt_org_sentry_cron
+        links:
+            - redis
+            - sentry_postrgres
+        command: "sentry run cron"
+        environment:
+            SENTRY_SECRET_KEY: 'IN_GRAPHQL_WE_TRUST'
+            SENTRY_POSTGRES_HOST: sentry_postrgres
+            SENTRY_DB_USER: sentry
+            SENTRY_DB_PASSWORD: sentry
+            SENTRY_REDIS_HOST: redis
+
+    sentry_worker:
+        image: sentry
+        container_name: railt_org_sentry_worker
+        links:
+            - redis
+            - sentry_postrgres
+        command: "sentry run worker"
+        environment:
+            SENTRY_SECRET_KEY: 'IN_GRAPHQL_WE_TRUST'
+            SENTRY_POSTGRES_HOST: sentry_postrgres
+            SENTRY_DB_USER: sentry
+            SENTRY_DB_PASSWORD: sentry
+            SENTRY_REDIS_HOST: redis
 
 volumes:
     mysql:
-        driver: "local"
+        driver: local
     sentry:
-        driver: "local"
+        driver: local
+    pgdb:
+        driver: local
     redis:
-        driver: "local"
-    sessions:    ## nothing is connected to this (- ./data/sessions:/sessions)
-        driver: "local"
+        driver: local
+    sessions:
+        driver: local

@@ -1,13 +1,11 @@
 /**
  * Fonts Variables
  */
-$font-size: 16px;
+$font-size: 1em;
 
 $font-family: 'Open Sans', 'Roboto', Helvetica, sans-serif !default;
 $font-family-headings: 'Open Sans', 'Roboto', Helvetica, sans-serif !default;
 $font-mono: 'Fira Mono', Menlo, Monaco, Consolas, 'Courier New', monospace !default;
-
-$fa-font-path: '/fonts';
 
 @mixin font-optimize {
   -moz-font-feature-settings: 'kern=1,liga=1,calt=1';

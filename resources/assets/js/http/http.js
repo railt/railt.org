@@ -1,4 +1,3 @@
-
 import {HttpLink} from 'apollo-link-http';
 
 /**
@@ -9,7 +8,7 @@ import {HttpLink} from 'apollo-link-http';
 
 let csrf = document.head.querySelector('meta[name="csrf-token"]');
 
-if (! csrf) {
+if (!csrf) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
@@ -19,17 +18,12 @@ if (! csrf) {
 
 let auth = document.head.querySelector('meta[name="auth-token"]');
 
-if (! auth) {
-    console.error('Auth token not found');
-}
-
-
 export default new HttpLink({
     uri: process.env.MIX_GRAPHQL_URI,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': csrf.content,
-        'Authorization': `Bearer ${auth.content}`
+        'Authorization': `Bearer ${(auth || {content: ''}).content}`
     },
     credentials: 'same-origin'
 });

@@ -78,29 +78,4 @@ class AuthController extends Controller
 
         return \redirect()->route('home');
     }
-
-    /**
-     * @param FindableByService $users
-     * @param CreatableFromSocialite $creator
-     * @param string $provider
-     * @return Response
-     * @throws \InvalidArgumentException
-     * @throws Response
-     */
-    public function auth(FindableByService $users, CreatableFromSocialite $creator, string $provider): Response
-    {
-        $socialite = $this->socialite->driver($provider)->user();
-
-        $user = $users->findByService($provider, (string)$socialite->getId()) ??
-            $creator->fromSocialite($provider, $socialite);
-
-        if ($user->isNew()) {
-            $this->em->persist($user);
-            $this->em->flush();
-        }
-
-        $this->guard->loginUsingId($user->getId());
-
-        return \redirect()->route('home');
-    }
 }

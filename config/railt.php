@@ -32,7 +32,7 @@ return [
         /**
          * Route name => [ configs ]
          */
-        'api' => [
+        'graphql' => [
             /**
              * Root GraphQL schema file path.
              */
@@ -63,7 +63,9 @@ return [
             /**
              * GraphQL middleware.
              */
-            'middleware' => ['api'],
+            'middleware' => [
+                'api'
+            ],
 
             /**
              * Allowed methods.
@@ -74,8 +76,9 @@ return [
              * A list of extensions.
              */
             'extensions' => [
-                Railt\CarbonExtension\Extension::class,
-                Extensions\Auth\Extension::class,
+                //Railt\CarbonExtension\Extension::class,
+                //Extensions\Auth\Extension::class,
+                Extensions\Exception\ExceptionReporter::class,
             ],
         ],
     ],

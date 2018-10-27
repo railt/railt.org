@@ -1,0 +1,25 @@
+{
+    "name": "app/renderer",
+    "description": "",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Renderer\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "erusev/parsedown": "~1.6"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

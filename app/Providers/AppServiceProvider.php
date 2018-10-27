@@ -24,7 +24,7 @@ final class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
@@ -33,31 +33,10 @@ final class AppServiceProvider extends ServiceProvider
      * Register any application services.
      *
      * @return void
+     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
-    public function register()
+    public function register(): void
     {
         Carbon::setLocale(\config('app.locale'));
-
-        $this->app->singleton(Language::class, function() {
-            /** @var Language\FindableByName $repository */
-            $repository = $this->app->make(Language\FindableByName::class);
-
-            return $repository->findByName($this->resolveLanguage()) ??
-                $repository->findByName((string)\config('app.locale'));
-        });
-    }
-
-    /**
-     * @return string
-     */
-    private function resolveLanguage(): string
-    {
-        $host = \app(Request::class)->getHttpHost();
-
-        if (\substr_count($host, '.') === 2) {
-            return \array_first(\explode('.', $host));
-        }
-
-        return (string)\config('app.locale');
     }
 }

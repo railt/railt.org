@@ -25,10 +25,11 @@ class HighlightServiceProvider extends ServiceProvider
         $this->app->singleton(Highlighter::class, function() {
             $hl = new Highlighter();
 
-            $hl::registerLanguage('php', \resource_path('languages/php.json'));
-            $hl::registerLanguage('graphql', \resource_path('languages/graphql.json'));
-            $hl::registerLanguage('json', \resource_path('languages/json.json'));
-            $hl::registerLanguage('accord', \resource_path('languages/accord.json'));
+            $hl::registerLanguage('php', \resource_path('highlight/php.json'));
+            $hl::registerLanguage('graphql', \resource_path('highlight/graphql.json'));
+            $hl::registerLanguage('sdl', \resource_path('highlight/graphql.json'));
+            $hl::registerLanguage('json', \resource_path('highlight/json.json'));
+            $hl::registerLanguage('accord', \resource_path('highlight/accord.json'));
 
             return $hl;
         });

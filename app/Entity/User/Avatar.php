@@ -13,13 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Avatar
- * @ORM\Embeddable()
  */
 class Avatar
 {
     /**
-     *
-     * @ORM\Column(name="avatar", type="string", nullable=true)
      * @var string|null
      */
     protected $path;

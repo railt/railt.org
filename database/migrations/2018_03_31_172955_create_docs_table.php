@@ -25,7 +25,6 @@ class CreateDocsTable extends Migration
             $table->string('title')->nullable();
             $table->json('nav');
             $table->string('urn');
-            $table->string('path');
             $table->string('hash')->nullable();
             $table->longText('content_original');
             $table->longText('content_rendered');
@@ -34,6 +33,7 @@ class CreateDocsTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
 
+            $table->unique(['language_id', 'urn']);
             $table->foreign('language_id')
                 ->references('id')
                 ->on('languages');

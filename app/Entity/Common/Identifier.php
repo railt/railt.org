@@ -9,18 +9,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Common;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Trait Identifier
  */
 trait Identifier
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
      * @var int|null
      */
     protected $id;

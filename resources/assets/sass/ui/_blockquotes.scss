@@ -2,29 +2,15 @@
 blockquote {
     box-shadow: 0 0 0 2px $color-border;
     border-radius: 3px;
-    font-size: ($font-size - 1px);
+    font-size: 90%;
     font-style: italic;
-    color: $color-text-secondary;
+    color: $color-description;
     margin: 10px 0;
-    position: relative;
     padding: 10px 25px;
     line-height: 23px;
     min-height: 24px;
     box-sizing: border-box;
     @include clear();
-
-    &:before {
-        display: block;
-        color: #fff;
-        height: 24px;
-        position: absolute;
-        left: 8px;
-        top: 50%;
-        margin-top: -12px;
-        width: 40px;
-        text-align: center;
-        pointer-events: none;
-    }
 
     p {
         margin: 0 !important;
@@ -33,7 +19,7 @@ blockquote {
 
     &.warn,
     &.info {
-        padding: 10px 20px 10px 60px;
+        padding: 10px 20px;
         color: #fff;
 
         code {
@@ -42,34 +28,21 @@ blockquote {
             font-weight: bold;
         }
 
-        &:before {
-            @include fa-icon;
-            font-size: 24px;
-        }
-
         a {
             color: #fff;
             text-decoration: underline;
             &:hover {
-                color: $color-border-regular;
+                color: $color-border;
             }
         }
     }
 
     &.warn {
-        &:before {
-            content: $fa-var-warning;
-        }
-
         background: $color-red;
         box-shadow: 0 0 0 2px $color-red;
     }
 
     &.info {
-        &:before {
-            content: $fa-var-info;
-        }
-
         background: $color-blue;
         box-shadow: 0 0 0 2px $color-blue;
     }

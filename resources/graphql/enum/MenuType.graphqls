@@ -1,6 +1,0 @@
-
-
-enum MenuType {
-    TAB,
-    DOCUMENTATION_PAGE
-}

@@ -10,17 +10,14 @@ declare(strict_types=1);
 namespace App\Entity\Common;
 
 use Carbon\Carbon;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Trait CreatedAt
- * @ORM\HasLifecycleCallbacks()
  */
 trait CreatedAt
 {
     /**
      * @var Carbon|null
-     * @ORM\Column(name="created_at", type="carbon")
      */
     protected $created;
 
@@ -34,7 +31,6 @@ trait CreatedAt
 
     /**
      * @return Carbon
-     * @ORM\PrePersist()
      */
     public function actualize(): Carbon
     {

@@ -12,12 +12,13 @@ if (! function_exists('asset_ts')) {
      * Asset path with timestamp.
      *
      * @param string $path
-     * @param string $directory
      * @return string
+     * @throws LogicException
+     * @throws Exception
      */
-    function asset_ts(string $path = '', string $directory = 'dist/'): string
+    function asset_ts(string $path = ''): string
     {
-        $link = '/' . $directory . $path;
+        $link = '/' . $path;
 
         $hash = \is_file(\public_path($link)) ? \filemtime(\public_path($link)) : \random_int(0, 9999);
 
@@ -47,5 +48,17 @@ if (! function_exists('enum')) {
     function enum(string $enum, $value): bool
     {
         return $enum::exists($value);
+    }
+}
+
+if (! function_exists('highlight')) {
+    /**
+     * @param string $language
+     * @param string $code
+     * @return string
+     */
+    function highlight(string $language, string $code): string
+    {
+        return app(\Highlight\Highlighter::class)->highlight($language, $code)->value;
     }
 }

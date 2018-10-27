@@ -9,17 +9,14 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Entity\User;
-use App\Entity\User\AuthProvider;
+use App\Authentication\AuthProvider;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Railt\Reflection\Contracts\Dependent\FieldDefinition;
 
 /**
  * Class AuthServiceProvider
@@ -41,36 +38,32 @@ final class AuthServiceProvider extends ServiceProvider
      * @return void
      * @throws \InvalidArgumentException
      * @throws \ReflectionException
+     * @throws \LogicException
+     */
+    public function register(): void
+    {
+        if (! $this->app->runningInConsole()) {
+            $this->extendAuthentication($this->app->make(Factory::class));
+        }
+    }
+
+    /**
+     * @return void
      */
     public function boot(): void
     {
         $this->registerPolicies();
-        $this->extendAuthentication();
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     * @throws \ReflectionException
-     */
-    private function extendAuthentication(): void
-    {
-        $this->authProvider(
-            $this->app->make(Factory::class),
-            $this->app->make(ManagerRegistry::class),
-            $this->app->make(Hasher::class)
-        );
     }
 
     /**
      * @param AuthManager $auth
-     * @param ManagerRegistry $registry
-     * @param Hasher $hash
-     * @throws \ReflectionException
-     * @throws \InvalidArgumentException
      */
-    private function authProvider(AuthManager $auth, ManagerRegistry $registry, Hasher $hash): void
+    private function extendAuthentication(AuthManager $auth): void
     {
-        $auth->provider('railt', function (Container $app, array $config) use ($registry, $hash) {
+        $auth->provider('railt', function (Container $app, array $config) {
+            $registry = $this->app->make(ManagerRegistry::class);
+            $hash = $this->app->make(Hasher::class);
+
             /** @var string $entity */
             $entity = $config['model'] ?? '';
 

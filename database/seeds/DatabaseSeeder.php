@@ -1,58 +1,48 @@
 <?php
+/**
+ * This file is part of railt.org package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+declare(strict_types=1);
 
-use App\Entity\Documentation;
-use App\Entity\Menu;
-use App\Entity\User;
-use App\Entity\User\Ability;
-use Doctrine\ORM\EntityManagerInterface;
-use Illuminate\Database\Seeder;
+use Illuminate\Foundation\Application;
 
-class DatabaseSeeder extends Seeder
+/**
+ * Class DatabaseSeeder
+ */
+class DatabaseSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
+     * @param Application $app
+     * @throws InvalidArgumentException
      */
-    public function run(): void
+    public function run(Application $app): void
     {
-        /** @var EntityManagerInterface $em */
-        $em = $this->container->make(EntityManagerInterface::class);
+        $cli = $this->command->getOutput();
 
-        foreach ($this->entities() as $entity) {
-            $em->persist($entity);
+        $this->call(CountriesSeeder::class);
+        $this->call(IP4ZonesSeeder::class);
+        $this->call(LanguageSeeder::class);
+
+        if ($app->environment('local')) {
+            $this->call(UsersSeeder::class);
+            $this->call(CategoriesSeeder::class);
+            $this->call(TagsSeeder::class);
+            $this->call(ArticlesSeeder::class);
+
+            if (! \env('GITHUB_CLIENT_ID')) {
+                $this->call(DocumentSeeder::class);
+            } else {
+                $cli->writeln('<comment>Skip:</comment> DocumentSeeder (reason: ' .
+                    'GitHub connection is configured. Running <info>docs:sync</info> command instead.)');
+                $this->command->call('docs:sync');
+            }
+        } else {
+            $cli->writeln('<comment>Skip:</comment> UsersSeeder (reason: Non-local environment)');
+            $cli->writeln('<comment>Skip:</comment> DocumentSeeder (reason: Non-local environment)');
         }
-
-        $em->flush();
-    }
-
-    /**
-     * @return iterable
-     */
-    private function entities(): iterable
-    {
-        yield from $this->users();
-    }
-
-    /**
-     * @return iterable
-     */
-    private function users(): iterable
-    {
-        $user = new User('admin', 'admin');
-
-        foreach (Ability::crud(Documentation::class) as $ability) {
-            $user->addAbility($ability);
-        }
-
-        foreach (Ability::crud(Menu::class) as $ability) {
-            $user->addAbility($ability);
-        }
-
-        foreach (Ability::crud(User::class) as $ability) {
-            $user->addAbility($ability);
-        }
-
-        yield $user;
     }
 }

@@ -1,0 +1,37 @@
+App\Entity\Language:
+    type: entity
+    repositoryClass: App\Entity\Repositories\DatabaseLanguageRepository
+    table: languages
+    readonly: true
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            column: name
+            type: string
+            nullable: false
+            length: 255
+        code:
+            column: code
+            type: string
+            nullable: false
+            length: 2
+    oneToMany:
+        countries:
+            targetEntity: App\Entity\Country
+            mappedBy: language
+            fetch: EXTRA_LAZY
+            cascade: ["persist", "merge"]
+        documentations:
+            targetEntity: App\Entity\Document
+            mappedBy: language
+            fetch: EXTRA_LAZY
+            cascade: ["persist", "merge"]
+        menus:
+            targetEntity: App\Entity\Menu
+            mappedBy: language
+            fetch: EXTRA_LAZY
+            cascade: ["persist", "merge"]

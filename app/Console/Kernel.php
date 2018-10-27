@@ -9,7 +9,8 @@ declare(strict_types=1);
 
 namespace App\Console;
 
-use App\Console\Commands;
+use App\Console\Commands\SyncCommand;
+use App\Console\Commands\TestCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,9 +25,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\SyncCommand::class,
-        Commands\SyncDocsCommand::class,
-        Commands\SyncDocsDownloadCommand::class,
+        SyncCommand::class,
+        TestCommand::class,
     ];
 
     /**
@@ -37,18 +37,18 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-
+        $schedule->command('docs:sync')->daily()->onOneServer();
     }
 
     /**
      * Register the commands for the application.
      *
      * @return void
+     * @throws \InvalidArgumentException
+     * @throws \ReflectionException
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__ . '/Commands');
-
-        require \base_path('routes/console.php');
     }
 }

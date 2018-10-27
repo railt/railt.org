@@ -1,96 +1,135 @@
-.hljs-comment {
-    color: $color-text-placeholder
+pre {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: block;
+
+    code {
+        margin: 0;
+        width: 100%;
+        overflow: auto;
+        display: block;
+        font-size: 15px;
+        background: #fff;
+        line-height: 25px;
+        position: relative;
+        padding: 20px 25px;
+        border-radius: 3px;
+        box-sizing: border-box;
+        color: $color-text;
+        text-shadow: 0 0 1px rgba($color-text, .2);
+        @include scrollbar(10px, 7px);
+
+        &:after {
+            content: attr(data-language);
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            font-size: 11px;
+            z-index: 99;
+            background: $color-description;
+            color: #fff;
+            border-radius: 2px;
+            padding: 0 3px;
+            line-height: 15px;
+            pointer-events: none;
+        }
+    }
 }
 
-.hljs-meta {
-    color: #969896;
+
+.hljs {
+    &-comment {
+        color: $color-description;
+    }
+
+    &-meta {
+        color: #969896;
+    }
+
+    &-keyword,
+    &-quote,
+    &-emphasis,
+    &-strong,
+    &-template-variable,
+    &-arrow {
+        color: $color-red;
+    }
+
+    &-attr,
+    &-type {
+        color: $color-purple;
+    }
+
+    &-literal {
+        color: $color-dark-blue;
+    }
+
+    &-string,
+    &-number {
+        color: lighten(desaturate($color-yellow, 35%), 10%);
+    }
+
+    &-variable,
+    &-generic {
+        color: lighten(desaturate($color-yellow, 35%), 10%);
+        font-style: italic;
+    }
+
+    &-symbol,
+    &-bullet {
+        color: #0086b3;
+    }
+
+    &-params {
+        color: rgba(15, 32, 45, .9)
+    }
+
+    &-name,
+    &-section {
+        color: #63a35c;
+    }
+
+    &-tag {
+        color: #333;
+    }
+
+    &-title {
+        color: $color-purple;
+    }
+
+    &-wrapper {
+        color: $color-pink;
+        font-weight: bold;
+    }
+
+    &-function,
+    &-method {
+        color: $color-purple;
+    }
+
+    &-builtin-name {
+        color: #a52a2a;
+    }
+
+    &-addition {
+        color: #55a532;
+        background-color: #eaffea;
+    }
+
+    &-deletion {
+        color: #bd2c00;
+        background-color: #ffecec;
+    }
+
+    &-link {
+        text-decoration: underline;
+    }
 }
 
-.hljs-variable {
-    color: $color-blue;
-}
-
-.hljs-keyword,
-.hljs-quote,
-.hljs-emphasis,
-.hljs-strong,
-.hljs-template-variable,
-.hljs-arrow {
-    color: $color-red;
-}
-
-.hljs-attr,
-.hljs-type {
-    color: $color-purple;
-}
-
-.hljs-literal {
-    color: $color-dark-blue;
-}
-
-.hljs-string,
-.hljs-number {
-    color: lighten(desaturate($color-yellow, 35%), 10%);
-}
-
-.hljs-symbol {
-    color: #0086b3
-}
-
-.hljs-bullet {
-    color: #0086b3
-}
-
-.hljs-params {
-    color: rgba(15, 32, 45, .9)
-}
-
-.hljs-section {
-    color: #63a35c
-}
-
-.hljs-name {
-    color: #63a35c
-}
-
-.hljs-tag {
-    color: #333
-}
-
-.hljs-title {
-    color: $color-purple;
-}
-
-.hljs-wrapper {
-    color: $color-pink;
-    font-weight: bold;
-}
-
-.hljs-function,
-.hljs-method {
-    color: $color-purple;
-}
-
-.hljs-builtin-name {
-    color: brown
-}
-
-.hljs-addition {
-    color: #55a532;
-    background-color: #eaffea
-}
-
-.hljs-deletion {
-    color: #bd2c00;
-    background-color: #ffecec
-}
-
-.hljs-link {
-    text-decoration: underline
-}
 
 *[data-language="yml"] {
     .hljs-attr {
-        color: #22863a
+        color: #22863a;
     }
 }
