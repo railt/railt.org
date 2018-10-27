@@ -46,7 +46,8 @@ class DetectByAcceptLanguage implements DetectorInterface
     {
         $lang = $this->getLanguageStrings($request);
 
-        return $lang->when($lang->count() === self::MAX_ARGUMENTS,
+        return $lang
+            ->when($lang->count() === self::MAX_ARGUMENTS,
             //
             // If Accept-Language provides 2 languages
             //
@@ -57,7 +58,11 @@ class DetectByAcceptLanguage implements DetectorInterface
             // Otherwise
             //
             function (Collection $accept): ?Language {
-                return $this->languages->findByCode($accept->first());
+                if ($accept->first()) {
+                    return $this->languages->findByCode($accept->first());
+                }
+
+                return null;
             });
     }
 
