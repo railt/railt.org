@@ -2,6 +2,11 @@
 
 @section('title', $document->getTitle())
 
+@push('description',
+    $document->getTitle() . ': ' .
+    \Illuminate\Support\Str::words(\strip_tags($document->getContent()->getBody()), 20)
+)
+
 @section('content')
     <app-docs>
         <template slot="navigation">

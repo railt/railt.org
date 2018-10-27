@@ -1,5 +1,8 @@
 @extends('layout.master')
 
+@push('description', 'A modern framework for creating and designing GraphQL servers using PHP.')
+@push('keywords', 'Railt, GraphQL, SDL, Grammar, Framework, PHP, Lexing, Dependency Injection, Modern, Fast, Easy')
+
 @section('content')
     <app-splash>
         <template slot="title">The GraphQL Framework</template>
