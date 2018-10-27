@@ -45,7 +45,7 @@ body {
 
     &.loaded {
         opacity: 1 !important;
-        transition: opacity .1s ease;
+        transition: opacity .01s ease;
     }
 
     button {

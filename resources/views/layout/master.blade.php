@@ -4,7 +4,7 @@
     @include('layout.partials.head')
     @stack('head')
 </head>
-<body class="@stack('body-class')" itemscope itemtype="http://schema.org/WebSite">
+<body style="opacity: 0" class="@stack('body-class')" itemscope itemtype="http://schema.org/WebSite">
     <link itemprop="url" href="{{ \route('home') }}" />
 
     <main id="app" class="layout">
