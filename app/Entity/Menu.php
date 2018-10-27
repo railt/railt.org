@@ -81,6 +81,14 @@ class Menu implements Identifiable, Timestampable
     }
 
     /**
+     * @return int
+     */
+    public function getOrderId(): int
+    {
+        return $this->orderId;
+    }
+
+    /**
      * @param Document|null $document
      * @return Menu
      */

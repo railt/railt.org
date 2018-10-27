@@ -6,7 +6,9 @@
  * @var \App\Entity\Document $current
  */
 ?>
-@foreach($items as $item)
+@foreach($items->sort(function (\App\Entity\Menu $b, \App\Entity\Menu $a): int {
+    return $a->getOrderId() <=> $b->getOrderId();
+}) as $item)
     @if($item->hasDocument())
         <a itemprop="url" class="menu-item {{ $current->getUrn() === $item->getUrn() ? 'active' : '' }}"
            href="{{ \route('docs.page', ['page' => $item->getUrn()]) }}">
@@ -20,7 +22,7 @@
         <nav class="menu menu-depth-{{ $depth }}">
             @include('page.docs.menu', [
                 'current' => $current,
-                'items'   => $item->getChildren(),
+                'items'   => \collect($item->getChildren()),
                 'depth'   => $depth + 1
             ])
         </nav>

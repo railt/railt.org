@@ -45,7 +45,7 @@ class DatabaseMenuRepository extends EntityRepository implements MenuRepository
             ->whereLanguage($language)
             ->whereNull('parent')
             ->where('urn.value', '<>', Menu::ROOT_MENU_ITEM)
-            ->get();
+            ->collect();
     }
 
     /**

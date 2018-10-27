@@ -13,6 +13,7 @@ use App\Entity\Language;
 use App\Entity\Menu;
 use App\Entity\Repositories\DocumentRepository;
 use App\Entity\Repositories\MenuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Highlight\Highlighter;
 use Illuminate\Contracts\View\View;
 use Railt\Io\File;
