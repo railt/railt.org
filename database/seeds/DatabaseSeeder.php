@@ -42,6 +42,9 @@ class DatabaseSeeder extends BaseSeeder
             }
         } else {
             $cli->writeln('<comment>Skip:</comment> UsersSeeder (reason: Non-local environment)');
+            $cli->writeln('<comment>Skip:</comment> CategoriesSeeder (reason: Non-local environment)');
+            $cli->writeln('<comment>Skip:</comment> TagsSeeder (reason: Non-local environment)');
+            $cli->writeln('<comment>Skip:</comment> ArticlesSeeder (reason: Non-local environment)');
             $cli->writeln('<comment>Skip:</comment> DocumentSeeder (reason: Non-local environment)');
         }
     }

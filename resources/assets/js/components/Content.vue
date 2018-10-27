@@ -154,32 +154,11 @@
 
                 code {
                     box-shadow: 0 0 0 2px $color-border;
-                    box-sizing: border-box;
                     display: block;
                     background: #fff;
                     color: inherit;
                     font-size: inherit;
                     padding: 20px 25px;
-                    margin: 0;
-                    border-radius: 3px;
-                    overflow-x: auto;
-                    width: 100%;
-                    @include scrollbar;
-
-                    &:after {
-                        content: attr(data-language);
-                        position: absolute;
-                        top: 3px;
-                        right: 3px;
-                        font-size: 11px;
-                        z-index: 99;
-                        background: none;
-                        color: $color-description;
-                        padding: 0 5px;
-                        line-height: 17px;
-                        pointer-events: none;
-                        font-style: italic;
-                    }
                 }
             }
 

@@ -124,8 +124,8 @@ body.fixed {
 
 body.loaded {
   opacity: 1 !important;
-  -webkit-transition: opacity .1s ease;
-  transition: opacity .1s ease;
+  -webkit-transition: opacity .01s ease;
+  transition: opacity .01s ease;
 }
 
 body button {
@@ -503,17 +503,17 @@ pre code::-webkit-scrollbar-thumb:hover {
 
 pre code:after {
   content: attr(data-language);
-  position: absolute;
   top: 3px;
   right: 3px;
-  font-size: 11px;
-  z-index: 99;
-  background: #b4bccc;
-  color: #fff;
-  border-radius: 2px;
+  z-index: 1;
   padding: 0 3px;
+  font-size: 11px;
   line-height: 15px;
+  font-style: italic;
+  position: absolute;
+  border-radius: 2px;
   pointer-events: none;
+  color: #b4bccc;
 }
 
 .hljs-comment {

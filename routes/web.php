@@ -40,6 +40,8 @@ Route::get('/docs/{page}', 'DocsController@show')
 Route::get('/blog', 'BlogController@index')
     ->name('blog');
 
+Route::get('/blog/{article}', 'BlogController@index')
+    ->name('blog.page');
 
 
 /*

@@ -218,6 +218,7 @@
             position: fixed;
             background: rgba($color-dark-white, .9);
             z-index: 3;
+            backdrop-filter: blur(1px);
         }
 
         &-results {

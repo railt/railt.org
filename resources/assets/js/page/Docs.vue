@@ -51,13 +51,13 @@
 <style scoped lang="scss">
     @import "./../../sass/kernel";
 
-    $width: 275px;
+    $aside-width: 300px;
 
     .navigation {
         margin: 0 auto;
         padding: 20px 0 30px 0;
         box-sizing: border-box;
-        max-width: map-get($grid-breakpoints, lg);
+        max-width: map-get($grid-breakpoints, xl);
 
         & /deep/ {
             .breadcrumbs {
@@ -90,19 +90,19 @@
     }
 
     .docs {
-        max-width: map-get($grid-breakpoints, lg);
+        max-width: map-get($grid-breakpoints, xl);
         margin: 0 auto;
         display: flex;
         padding: 0 0 100px 0;
         background: inherit;
 
         &-menu {
-            flex: $width;
-            width: $width;
-            max-width: $width;
-            min-width: $width;
+            flex: $aside-width;
+            width: $aside-width;
+            max-width: $aside-width;
+            min-width: $aside-width;
             box-sizing: border-box;
-            padding: 0 25px 20px 15px;
+            padding: 0 30px 20px 15px;
             background: inherit;
 
             &-open {
@@ -193,8 +193,8 @@
         &-content {
             flex: 1;
             box-sizing: border-box;
-            max-width: map-get($grid-breakpoints, lg) - $width;
-            padding: 0 15px 0 10px;
+            max-width: map-get($grid-breakpoints, xl) - $aside-width;
+            padding: 0 15px 0 0;
 
             & /deep/ {
                 .table-of-contents {

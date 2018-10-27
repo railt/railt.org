@@ -7,7 +7,9 @@
  */
 declare(strict_types=1);
 
+use App\Entity\Repositories\ArticleRepository;
 use DavidBadura\FakerMarkdownGenerator\FakerProvider;
+use Doctrine\ORM\EntityManagerInterface;
 use Faker\Generator;
 
 /**
@@ -19,10 +21,12 @@ class ArticlesSeeder extends BaseSeeder
      * Run the database seeds.
      *
      * @param Generator $faker
+     * @param ArticleRepository $articles
+     * @param EntityManagerInterface $em
      * @return void
      * @throws Exception
      */
-    public function run(Generator $faker): void
+    public function run(Generator $faker, ArticleRepository $articles, EntityManagerInterface $em): void
     {
         $faker->addProvider(new FakerProvider($faker));
 
@@ -36,10 +40,14 @@ class ArticlesSeeder extends BaseSeeder
             try {
 
                 $id = \DB::table('articles')->insertGetId([
-                    'title'            => $title = $faker->words(\random_int(1, 10), true),
+                    'title'            => \ucfirst($title = $faker->words(\random_int(1, 10), true)),
                     'urn'              => \str_slug($title),
-                    'preview'          => $faker->image(\storage_path('app/public'), 962, 480,
-                        null, false),
+                    'preview'          => $faker->image(
+                        \storage_path('app/public'),
+                        960, 540,
+                        'cats',
+                        false
+                    ),
                     'category_id'      => \random_int(1, $categories),
                     'content_original' => $faker->markdown(\random_int(50, 8000)),
                     'content_rendered' => '',
@@ -61,5 +69,13 @@ class ArticlesSeeder extends BaseSeeder
                 }
             }
         }
+
+        /** @var \App\Entity\Article $article */
+        foreach ($articles->findAll() as $article) {
+            $article->touch();
+            $em->persist($article);
+        }
+
+        $em->flush();
     }
 }

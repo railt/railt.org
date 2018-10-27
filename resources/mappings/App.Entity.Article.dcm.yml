@@ -13,6 +13,11 @@ App\Entity\Article:
             type: string
             nullable: false
             length: 255
+        urn:
+            column: urn
+            type: string
+            nullable: false
+            length: 255
         created:
             column: created_at
             type: carbon
@@ -25,6 +30,9 @@ App\Entity\Article:
         content:
             class: App\Entity\Article\Content
             columnPrefix: content_
+        preview:
+            class: App\Entity\Article\Image
+            columnPrefix: false
     lifecycleCallbacks:
         prePersist: [ actualize ]
         preUpdate: [ touch ]

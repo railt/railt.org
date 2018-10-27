@@ -22,17 +22,17 @@ pre {
 
         &:after {
             content: attr(data-language);
-            position: absolute;
             top: 3px;
             right: 3px;
-            font-size: 11px;
-            z-index: 99;
-            background: $color-description;
-            color: #fff;
-            border-radius: 2px;
+            z-index: 1;
             padding: 0 3px;
+            font-size: 11px;
             line-height: 15px;
+            font-style: italic;
+            position: absolute;
+            border-radius: 2px;
             pointer-events: none;
+            color: $color-description;
         }
     }
 }

@@ -44,7 +44,7 @@
         }
 
         .footer-container {
-            max-width: map-get($grid-breakpoints, lg);
+            max-width: map-get($grid-breakpoints, xl);
             margin: 0 auto;
             box-sizing: border-box;
             padding: 0 15px;

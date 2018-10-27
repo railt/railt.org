@@ -10,12 +10,14 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Article\Content;
+use App\Entity\Article\Image;
 use App\Entity\Common\BaseContent;
 use App\Entity\Common\Identifiable;
 use App\Entity\Common\Identifier;
 use App\Entity\Common\ProvidesContent;
 use App\Entity\Common\Timestampable;
 use App\Entity\Common\Timestamps;
+use Illuminate\Support\Str;
 use Renderer\RendererInterface;
 
 /**
@@ -37,7 +39,12 @@ class Article implements
     /**
      * @var string
      */
-    protected $urn;
+    protected $urn = '';
+
+    /**
+     * @var Image
+     */
+    protected $preview;
 
     /**
      * @var Content
@@ -54,8 +61,28 @@ class Article implements
         $this->title = $title;
         $this->urn = \str_slug($title);
         $this->content = new Content($content);
+        $this->preview = new Image();
 
         $this->actualize();
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreviewText(): string
+    {
+        $text = $this->getContent()->getBody();
+        $text = \strip_tags($text);
+
+        return Str::words($text, 60);
+    }
+
+    /**
+     * @return Image
+     */
+    public function getPreview(): Image
+    {
+        return $this->preview;
     }
 
     /**

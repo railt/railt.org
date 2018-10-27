@@ -25,6 +25,7 @@ Vue.component('app-loading', require('./components/Loading'));
 Vue.component('app-tooltip', require('./components/Tooltip'));
 Vue.component('app-section', require('./components/Section'));
 Vue.component('app-content', require('./components/Content'));
+Vue.component('app-article', require('./components/Article'));
 Vue.component('app-checkbox', require('./components/Checkbox'));
 Vue.component('app-dropdown', require('./components/Dropdown'));
 Vue.component('app-password', require('./components/Password'));
