@@ -1,16 +1,17 @@
 
 blockquote {
-    box-shadow: 0 0 0 2px $color-border;
+    box-shadow: 0 0 0 2px $color-extra-light-gray;
+    background: $color-extra-light-gray;
     border-radius: 3px;
-    font-size: 90%;
+    font-size: 14px;
     font-style: italic;
-    color: $color-description;
+    color: rgba($color-text, .7);
     margin: 10px 0;
     padding: 10px 25px;
     line-height: 23px;
     min-height: 24px;
     box-sizing: border-box;
-    @include clear();
+    @include clear;
 
     p {
         margin: 0 !important;
