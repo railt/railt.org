@@ -16,7 +16,7 @@ pre {
         padding: 20px 25px;
         border-radius: 3px;
         box-sizing: border-box;
-        color: $color-text;
+        color: rgba($color-extra-light-black, .8) !important;
         text-shadow: 0 0 1px rgba($color-text, .2);
         @include scrollbar(10px, 7px);
 

@@ -26,8 +26,10 @@ class DocumentResult extends Result
      */
     public function __construct(string $query, Document $doc)
     {
-        $content = $this->extractContent($query, $doc->getNavigation(), $doc->getContent());
-        $uri     = \route('docs.page', ['page' => $doc->getUrn()]);
+        [$content, $suffix] =
+            $this->extractContent($query, $doc->getNavigation(), $doc->getContent());
+
+        $uri     = \route('docs.page', ['page' => $doc->getUrn() . '#' . $suffix]);
 
         parent::__construct($doc->getTitle(), $content, $uri);
     }
@@ -36,20 +38,20 @@ class DocumentResult extends Result
      * @param string $query
      * @param Navigation $navigation
      * @param Content $content
-     * @return string
+     * @return array
      */
-    private function extractContent(string $query, Navigation $navigation, Content $content): string
+    private function extractContent(string $query, Navigation $navigation, Content $content): array
     {
         $query = \mb_strtolower($query);
 
         foreach ($navigation as $nav) {
-            $inTitle = \mb_strpos($nav[Navigation::INDEX_TITLE], $query) >= 0;
+            $inTitle = \mb_stripos($nav[Navigation::INDEX_TITLE], $query) !== false;
 
             if ($inTitle) {
-                return $nav[Navigation::INDEX_TITLE];
+                return [$nav[Navigation::INDEX_TITLE], $nav[Navigation::INDEX_SLUG]];
             }
         }
 
-        return '';
+        return ['', ''];
     }
 }
