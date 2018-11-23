@@ -55,7 +55,11 @@ class DocsLoader
             if (! $entity) {
                 $entity = new Document($language);
                 $entity->moveTo($page->getUrn());
+            }
+
+            if ($entity->getHash() !== $page->getHash()) {
                 $entity->update($page->getContents(), $page->getHash());
+                $entity->touch();
             }
 
             yield $entity;

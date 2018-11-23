@@ -17,7 +17,7 @@ class QuoteFormatter extends BaseHook
     /**
      * @var string
      */
-    private const PATTERN_AFTER = '/<blockquote>.*?<p>(%s)(.*?)<\/p>.*?<\/blockquote>/sum';
+    private const PATTERN_AFTER = '/<blockquote>\s*<p>(%s)(.*?)<\/p>\s*<\/blockquote>/sum';
 
     /**
      * @var string
