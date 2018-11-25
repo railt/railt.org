@@ -107,6 +107,12 @@
                 padding: 0;
             }
 
+            img {
+                max-width: 100%;
+                display: block;
+                margin: 10px auto;
+            }
+
             abbr {
                 cursor: help;
             }
