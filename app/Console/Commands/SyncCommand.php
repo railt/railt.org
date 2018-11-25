@@ -34,7 +34,7 @@ class SyncCommand extends Command
     /**
      * @var string
      */
-    protected $name = 'docs:sync';
+    protected $signature = 'docs:sync {--force}';
 
     /**
      * @param EntityManagerInterface $em
@@ -46,11 +46,19 @@ class SyncCommand extends Command
         $app = $this->getLaravel();
 
         foreach ($app->call(\Closure::fromCallable([$this, 'loadDocument'])) as $page) {
+            if ($this->option('force')) {
+                $page->touch();
+            }
+
             $em->persist($page);
             $em->flush();
         }
 
         foreach ($app->call(\Closure::fromCallable([$this, 'loadMenus'])) as $menu) {
+            if ($this->option('force')) {
+                $menu->touch();
+            }
+
             $em->persist($menu);
             $em->flush();
         }

@@ -36,11 +36,10 @@ class DatabaseDocumentRepository extends EntityRepository implements
      */
     public function search(Language $language, string $query, int $results): iterable
     {
-        $like = \sprintf('%%%s%%', $query);
+        $like = \sprintf('%%%s%%', \mb_strtolower($query));
 
         $result = $this->query->where('language', $language)
-            ->like('title', $like)
-            ->or->like('navigation.value', $like)
+            ->like('LOWER(navigation.value)', $like)
             ->limit($results)
             ->get();
 
