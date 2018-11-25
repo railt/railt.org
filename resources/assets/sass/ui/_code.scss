@@ -9,14 +9,14 @@ pre {
         width: 100%;
         overflow: auto;
         display: block;
-        font-size: 15px;
+        font-size: 15px !important;
         background: #fff;
         line-height: 25px;
         position: relative;
         padding: 20px 25px;
         border-radius: 3px;
         box-sizing: border-box;
-        color: $color-text;
+        color: rgba($color-extra-light-black, .8) !important;
         text-shadow: 0 0 1px rgba($color-text, .2);
         @include scrollbar(10px, 7px);
 

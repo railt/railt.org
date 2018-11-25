@@ -74,7 +74,7 @@ body {
   line-height: 32px;
   width: 100%;
   min-height: 100vh;
-  font-size: 1em;
+  font-size: 15px;
   font-family: "Open Sans", "Roboto", Helvetica, sans-serif;
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
@@ -130,7 +130,7 @@ body.loaded {
 
 body button {
   font-family: "Open Sans", "Roboto", Helvetica, sans-serif;
-  font-size: 1em;
+  font-size: 15px;
 }
 
 main {
@@ -219,12 +219,13 @@ a.dashed:hover {
 }
 
 blockquote {
-  -webkit-box-shadow: 0 0 0 2px #e5e9f2;
-          box-shadow: 0 0 0 2px #e5e9f2;
+  -webkit-box-shadow: 0 0 0 2px #eff2f7;
+          box-shadow: 0 0 0 2px #eff2f7;
+  background: #eff2f7;
   border-radius: 3px;
-  font-size: 90%;
+  font-size: 14px;
   font-style: italic;
-  color: #b4bccc;
+  color: rgba(71, 86, 105, 0.7);
   margin: 10px 0;
   padding: 10px 25px;
   line-height: 23px;
@@ -356,7 +357,7 @@ h4 {
 
 h5,
 h6 {
-  font-size: 1em;
+  font-size: 15px;
   font-weight: bold;
   margin: 24px 0 8px 0;
 }
@@ -465,7 +466,7 @@ pre code {
   width: 100%;
   overflow: auto;
   display: block;
-  font-size: 15px;
+  font-size: 15px !important;
   background: #fff;
   line-height: 25px;
   position: relative;
@@ -473,7 +474,7 @@ pre code {
   border-radius: 3px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: rgba(71, 86, 105, 0.95);
+  color: rgba(71, 86, 105, 0.8) !important;
   text-shadow: 0 0 1px rgba(71, 86, 105, 0.2);
 }
 

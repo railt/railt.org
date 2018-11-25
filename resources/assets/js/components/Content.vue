@@ -118,6 +118,7 @@
                 border-radius: 2px;
                 font-family: $font-mono;
                 font-size: inherit;
+                white-space: nowrap;
             }
 
             sup {
@@ -159,6 +160,7 @@
                     color: inherit;
                     font-size: inherit;
                     padding: 20px 25px;
+                    white-space: pre !important;
                 }
             }
 

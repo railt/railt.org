@@ -165,7 +165,7 @@
 
                         p {
                             color: $color-description;
-                            line-height: 1.8rem;
+                            line-height: 27px;
                         }
                     }
                 }
