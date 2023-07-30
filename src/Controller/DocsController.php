@@ -32,7 +32,7 @@ final class DocsController extends Controller
     #[Route(
         path: '/docs/{path}',
         name: 'docs',
-        requirements: ['path' => '[\w\-\d/]+'],
+        requirements: ['path' => '[\w\-\d/\.]+'],
         defaults: ['path' => '']
     )]
     public function show(string $path): Response
