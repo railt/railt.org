@@ -33,7 +33,8 @@ final class DocsController extends Controller
         path: '/docs/{path}',
         name: 'docs',
         requirements: ['path' => '[\w\-\d/\.]+'],
-        defaults: ['path' => '']
+        defaults: ['path' => ''],
+        priority: -1
     )]
     public function show(string $path): Response
     {
