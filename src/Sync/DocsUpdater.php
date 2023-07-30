@@ -11,55 +11,31 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Highlight\Highlighter;
 use Illuminate\Support\Str;
-use League\CommonMark\MarkdownConverterInterface;
+use League\CommonMark\ConverterInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
 class DocsUpdater extends Updater
 {
-    /**
-     * @var MarkdownConverterInterface
-     */
-    private MarkdownConverterInterface $md;
-
-    /**
-     * @var Highlighter
-     */
-    private Highlighter $hl;
-
-    /**
-     * @param DocumentationRepository $docs
-     * @param EntityManager $em
-     * @param MarkdownConverterInterface $md
-     * @param Highlighter $hl
-     */
     public function __construct(
         EntityManager $em,
         DocumentationRepository $docs,
-        MarkdownConverterInterface $md,
-        Highlighter $hl
+        private ConverterInterface $md,
+        private Highlighter $hl,
     ) {
         parent::__construct($em, $docs);
-        $this->md = $md;
-        $this->hl = $hl;
     }
 
-    /**
-     * @param string $directory
-     * @param OutputInterface $out
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
     public function update(string $directory, OutputInterface $out): void
     {
         foreach ($this->files($directory) as $file) {
             $path = \str_replace(['.md', '\\'], ['', '/'], $file->getRelativePathname());
-            $content = $this->md->convertToHtml($file->getContents());
+            $content = $this->md->convert($file->getContents());
 
-            $info = $this->analyze($content);
+            $info = $this->analyze($content->getContent());
 
-            $docs = new Documentation($info['title'], $path, $this->process($content));
+            $docs = new Documentation($info['title'], $path, $this->process($content->getContent()));
 
             $this->em->persist($docs);
         }

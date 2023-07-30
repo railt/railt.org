@@ -93,7 +93,10 @@ services:
     App\MathParser\MathParser: ~
     App\MathParser\AstDumper: ~
 
-    League\CommonMark\MarkdownConverterInterface:
+    League\CommonMark\ConverterInterface:
         class: League\CommonMark\GithubFlavoredMarkdownConverter
         arguments:
           - allow_unsafe_links: true
+
+    League\CommonMark\MarkdownConverterInterface:
+        alias: League\CommonMark\ConverterInterface
