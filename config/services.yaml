@@ -97,6 +97,3 @@ services:
         class: League\CommonMark\GithubFlavoredMarkdownConverter
         arguments:
           - allow_unsafe_links: true
-
-    League\CommonMark\MarkdownConverterInterface:
-        alias: League\CommonMark\ConverterInterface
