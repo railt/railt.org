@@ -1,0 +1,18 @@
+{% if page is not defined %}
+    {% set page = '' %}
+{% endif %}
+
+{% if page != "docs" %}
+<header class="header" data-vm="HeaderViewModel" data-bind="css: { sticky: sticky }">
+    <section class="container">
+        <a href="/" class="logo">
+            <h1>PHP Language Recognition Tool</h1>
+        </a>
+
+        <nav class="menu">
+            <a href="/docs" {% if page == 'docs' %}class="active"{% endif %}>Docs</a>
+            <a href="https://github.com/phplrt/phplrt" target="_blank" rel="nofollow">Source</a>
+        </nav>
+    </section>
+</header>
+{% endif %}

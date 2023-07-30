@@ -1,0 +1,3 @@
+twig:
+    cache: false
+    default_path: '%kernel.project_dir%/resources/views'

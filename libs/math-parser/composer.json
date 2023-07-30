@@ -1,0 +1,22 @@
+{
+    "name": "app/math-parser",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.1",
+        "symfony/var-dumper": "^5.4|^6.0",
+        "scrivo/highlight.php": "^9.18",
+        "phplrt/lexer": "^3.2",
+        "phplrt/parser": "^3.2",
+        "phplrt/ast-contracts": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\MathParser\\": "src"
+        }
+    },
+    "require-dev": {
+        "phplrt/phplrt": "^3.2"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

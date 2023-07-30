@@ -1,8 +1,0 @@
-App\Entity\Urn:
-    type: embeddable
-    fields:
-        value:
-            column: urn
-            type: string
-            nullable: false
-            length: 255

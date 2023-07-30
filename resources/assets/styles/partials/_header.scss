@@ -1,0 +1,86 @@
+
+.header {
+  @include full-section();
+  height: 112px;
+  margin-bottom: -112px;
+  line-height: 64px;
+  padding: 24px 0;
+  box-sizing: border-box;
+  position: sticky;
+  z-index: 999;
+  top: 0;
+  background-color: rgba($color-main, 0);
+  transition: all .1s ease, background .9s ease .1s;
+
+  & > .container {
+    display: flex;
+  }
+
+  .logo {
+    margin: 8px;
+    display: block;
+    height: 48px;
+    width: 48px;
+    background: url(../../img/logo.png) center center no-repeat;
+    background-size: 48px 48px;
+    transition: transform .1s ease;
+    &:after {
+      display: none;
+    }
+    h1 {
+      display: none;
+    }
+  }
+
+  .menu {
+    display: flex;
+    font-weight: bold;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    margin: 14px 0 14px auto;
+    z-index: 9;
+
+    a {
+      color: #fff;
+      margin-left: 20px;
+      position: relative;
+      padding: 0 20px;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: inset 0 5px 20px 12px rgba($color-main-alter, 0);
+      background: rgba($color-main-alter, 0);
+      transition: background .6s ease, box-shadow 2s ease;
+
+      &:before,
+      &:after {
+        display: none;
+      }
+
+      &:hover {
+        box-shadow: inset 0 0 0 1px rgba($color-main-alter, .9);
+        background: rgba($color-main-alter, .9);
+        transition: background .1s ease, box-shadow .1s ease;
+      }
+
+      &.active {
+        cursor: default;
+        background: rgba($color-white, .9);
+        color: $color-main;
+      }
+    }
+  }
+
+  &.sticky {
+    background-color: $color-main;
+    padding: 0;
+    height: 64px;
+    margin-bottom: -64px;
+    transition: all .3s ease, background .2s ease .1s;
+
+    .logo {
+      transform: scale(.9);
+      transition: transform .1s ease;
+    }
+  }
+}

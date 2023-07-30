@@ -1,0 +1,26 @@
+
+input[type=text],
+input[type=password] {
+  display: inline-block;
+  border: none;
+  border-radius: 2px;
+  height: 48px;
+  line-height: 48px;
+  background: #fff;
+  color: $color-extra-light-black;
+  text-decoration: none;
+  outline: none;
+  padding: 0 15px;
+  box-shadow: 0 0 0 2px $color-light-silver;
+  font-size: $font-size + 4px;
+  transition: .3s ease;
+
+  &:hover {
+    box-shadow: 0 0 0 3px $color-silver;
+  }
+
+  &:active, &:focus {
+    box-shadow: 0 0 0 3px $color-main;
+    color: $color-text;
+  }
+}

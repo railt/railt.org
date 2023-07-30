@@ -1,0 +1,19 @@
+
+
+.footer {
+  @include full-section();
+  text-align: center;
+  padding: 32px 0 60px 0;
+
+  address {
+    font-size: .8rem;
+  }
+
+  nav {
+    line-height: 64px;
+
+    a {
+      margin: 0 20px;
+    }
+  }
+}

@@ -1,0 +1,103 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    #
+    # -----------------------------------------------------------------------------
+    #   Database Repositories
+    # -----------------------------------------------------------------------------
+    #
+
+    App\Repository\MenuRepository: ~
+    App\Repository\DocumentationRepository: ~
+    App\Repository\SearchIndexRepository: ~
+
+    #
+    # --------------------------------------------------------------------------
+    #   Controllers
+    # --------------------------------------------------------------------------
+    #
+    # Controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class.
+    #
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    #
+    # --------------------------------------------------------------------------
+    #   Console Commands
+    # --------------------------------------------------------------------------
+    #
+
+    App\MathParser\Command\CompileGrammarCommand:
+        tags:
+            - { name: 'console.command' }
+
+    App\Command\DocsUpdateCommand:
+        autowire: true
+        arguments:
+            - "%kernel.project_dir%/resources/docs"
+        tags:
+            - { name: 'console.command' }
+
+    #
+    # --------------------------------------------------------------------------
+    #   Twig Extensions
+    # --------------------------------------------------------------------------
+    #
+
+    App\Twig\HighlightExtension\HighlightExtension:
+        tags: ['twig.extension']
+
+    #
+    # --------------------------------------------------------------------------
+    #   Services
+    # --------------------------------------------------------------------------
+    #
+
+    Highlight\Highlighter:
+        calls:
+            - registerLanguage: ['ebnf', '%kernel.project_dir%/resources/lang/pp2.json']
+            - registerLanguage: ['bnf', '%kernel.project_dir%/resources/lang/pp2.json']
+            - registerLanguage: ['pp2', '%kernel.project_dir%/resources/lang/pp2.json']
+            - registerLanguage: ['pp', '%kernel.project_dir%/resources/lang/pp2.json']
+            - registerLanguage: ['ast', '%kernel.project_dir%/resources/lang/ast.json']
+            - registerLanguage: ['graphql', '%kernel.project_dir%/resources/lang/graphql.json']
+            - registerLanguage: ['gql', '%kernel.project_dir%/resources/lang/graphql.json']
+            - registerLanguage: ['accord', '%kernel.project_dir%/resources/lang/accord.json']
+
+    App\Sync\MenuUpdater:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@App\Repository\MenuRepository'
+
+    App\Sync\DocsUpdater:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@App\Repository\DocumentationRepository'
+            - '@League\CommonMark\MarkdownConverterInterface'
+            - '@Highlight\Highlighter'
+
+    App\Sync\SearchIndexUpdater:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@App\Repository\SearchIndexRepository'
+            - '@App\Repository\DocumentationRepository'
+
+    App\MathParser\MathParser: ~
+    App\MathParser\AstDumper: ~
+
+    League\CommonMark\MarkdownConverterInterface:
+        class: League\CommonMark\GithubFlavoredMarkdownConverter
+        arguments:
+          - allow_unsafe_links: true

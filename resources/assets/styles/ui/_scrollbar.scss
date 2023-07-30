@@ -1,0 +1,38 @@
+
+/**
+ * --------------------------------------------------------------------------------------
+ *  Scrollbars
+ * --------------------------------------------------------------------------------------
+ */
+
+$scroll-bg-hover: #eff3f5 !default;
+$scroll-track-active: $color-main !default;
+$scroll-track-inactive: $color-dark-white !default;
+
+@mixin scrollbar(
+  $width: 4px,
+  $height: 4px,
+  $scroll-bg: #fff,
+  $scroll-track: $color-light-silver
+) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $height;
+
+    &-track {
+      background: $scroll-bg;
+    }
+
+    &-thumb {
+      background: $scroll-track;
+
+      &:window-inactive {
+        background: $scroll-track-inactive;
+      }
+    }
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $scroll-track-active !important;
+  }
+}

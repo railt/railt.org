@@ -1,5 +1,0 @@
-directive @auth on FIELD_DEFINITION
-
-directive @guest on FIELD_DEFINITION
-
-directive @can(ability: String!) on FIELD_DEFINITION

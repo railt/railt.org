@@ -1,8 +1,0 @@
-App\Entity\User\Avatar:
-    type: embeddable
-    fields:
-        path:
-            column: avatar
-            type: string
-            nullable: true
-            length: 255

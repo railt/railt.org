@@ -1,0 +1,50 @@
+{
+    "contains": [
+        {
+            "className": "comment",
+            "begin": "\/\\*",
+            "end": "\\*\/",
+            "contains": [
+                {
+                    "begin": "\\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\\b"
+                },
+                {
+                    "className": "doctag",
+                    "begin": "(?:TODO|FIXME|NOTE|BUG|XXX):",
+                    "relevance": 0
+                }
+            ]
+        },
+        {
+            "className": "number",
+            "begin": "(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",
+            "relevance": 0,
+            "starts": {
+                "end": "(\\s*\/)?",
+                "relevance": 0
+            }
+        },
+        {
+            "className": "string",
+            "begin": "\"",
+            "end": "\"",
+            "contains": [
+                {
+                    "begin": "\\\\[\\s\\S]",
+                    "relevance": 0
+                }
+            ]
+        },
+        {
+            "className": "keyword",
+            "begin": "(?:\\-|\\+)\\w+",
+            "end": ":",
+            "excludeEnd": true,
+            "invalid": "\\S"
+        },
+        {
+            "className": "title",
+            "begin": "#[A-Za-z0-9_\\-]+"
+        }
+    ]
+}

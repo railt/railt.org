@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+    <main class="documentation">
+        <aside class="documentation-menu" data-vm="MenuViewModel">
+            <section class="documentation-menu-sticky">
+                <div class="documentation-menu-nav">
+                    <a href="/" class="documentation-menu-title documentation-menu-home">Home</a>
+                </div>
+                <div class="documentation-search">
+                    <label>
+                        <input type="text" placeholder="Search..."
+                               data-bind="value: query, valueUpdate: 'input', event: { blur: blur, focus: focus }"
+                               class="documentation-search" />
+                    </label>
+
+                    <!--ko if: results().length > 0 && shown()-->
+                    <div class="documentation-search-results" data-bind="foreach: results">
+                        <a href="#" data-bind="attr: {href: url}" class="documentation-search-item">
+                            <span class="documentation-search-item-title" data-bind="html: title"></span>
+                            <span class="documentation-search-item-page" data-bind="text: page"></span>
+                        </a>
+                    </div>
+                    <!--/ko-->
+                </div>
+                <div class="documentation-menu-nav">
+                    {% for item in menu %}
+                        <a href="#" data-bind="
+                            click: function() { toggle({{ item.id }}) },
+                            css: { active: menu({{ item.id }}) }
+                        " class="documentation-menu-title active">
+                            {{ item.title }}
+                        </a>
+                        <ul class="documentation-menu-child" data-bind="
+                            css: { visible: menu({{ item.id }}) }
+                        ">
+                            {% for child in item.children %}
+                                <li>
+                                    <a href="/docs/{{ child.url }}"
+                                        class="{% if child.url == current %}active{% endif %}">{{ child.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
+            </section>
+        </aside>
+        <section class="documentation-content">
+            {% include "partials/header.html.twig" with {'page': 'docs'} %}
+
+            <article class="documentation-content-text">
+                {{ page.content | raw }}
+            </article>
+
+            {% include "partials/footer.html.twig" %}
+        </section>
+    </main>
+{% endblock %}

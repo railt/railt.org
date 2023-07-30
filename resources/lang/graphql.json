@@ -1,0 +1,68 @@
+{
+  "aliases": [
+    "gql"
+  ],
+  "case_insensitive": false,
+  "keywords": {
+    "keyword": "directive enum extend extends from fragment implements input inputUnion import interface mutation namespace on query scalar schema subscription type union use ...",
+    "literal": "true false null"
+  },
+  "contains": [
+    {
+      "className": "comment",
+      "begin": "#",
+      "end": "$"
+    },
+    {
+      "className": "string",
+      "begin": "\"\"\"(?:\\\\\"\"\"|(?!\"\"\").|\\s)+\"\"\""
+    },
+    {
+      "className": "string",
+      "begin": "\"[^\"\\\\]+(\\\\.[^\"\\\\]*)*\""
+    },
+    {
+      "className": "number",
+      "begin": "[0-9\\.]+"
+    },
+    {
+      "className": "type",
+      "begin": "\\$\\w+"
+    },
+    {
+      "className": "keyword",
+      "begin": "(const|let|directive|enum|extend|extends|from|fragment|implements|input|inputUnion|import|interface|mutation|namespace|on|query|scalar|schema|subscription|type|union|use)\\h",
+      "excludeEnd": true
+    },
+    {
+      "className": "literal",
+      "begin": "[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*\\h*\\b|/"
+    },
+    {
+      "className": "wrapper",
+      "begin": "(!|\\.\\.\\.)"
+    },
+    {
+      "className": "type",
+      "begin": ":\\h+\\[?",
+      "end": "[^\\$][a-zA-Z0-9_\\x7f-\\xff]+\\h*\\b",
+      "excludeBegin": true
+    },
+    {
+      "className": "generic",
+      "begin": "<",
+      "end": ">"
+    },
+    {
+      "className": "meta",
+      "begin": "@\\w+",
+      "end": "\\)"
+    },
+    {
+      "className": "meta",
+      "begin": "@",
+      "end": "\\W",
+      "excludeEnd": true
+    }
+  ]
+}

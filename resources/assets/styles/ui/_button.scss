@@ -1,0 +1,24 @@
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  height: 48px;
+  line-height: 48px;
+  background: $color-main;
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+  padding: 0 30px;
+  font-weight: bold;
+  box-shadow: 0 0 0 4px #fff;
+  font-size: $font-size + 4px;
+
+  &:after {
+    display: none;
+  }
+
+  &:hover {
+    background: $color-main-alter;
+    color: #fff;
+  }
+}

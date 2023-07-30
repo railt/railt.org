@@ -1,8 +1,0 @@
-App\Entity\Article\Image:
-    type: embeddable
-    fields:
-        value:
-            column: preview
-            type: string
-            nullable: false
-            length: 255

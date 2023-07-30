@@ -1,111 +1,111 @@
 {
-    "description": "Website of The Railt GraphQL Framework",
-    "keywords": [
-        "framework",
-        "railt.org",
-        "graphql"
-    ],
-    "license": "MIT",
+    "name": "app/project",
+    "description": "railt.org project",
     "type": "project",
+    "license": "proprietary",
     "repositories": [
-        {
-            "type": "path",
-            "url": "./src/navigation"
-        },
-        {
-            "type": "path",
-            "url": "./src/language-detection"
-        },
-        {
-            "type": "path",
-            "url": "./src/renderer"
-        },
-        {
-            "type": "path",
-            "url": "./src/search"
-        },
-        {
-            "type": "path",
-            "url": "./src/sync"
-        }
+        {"type": "path", "url": "libs/math-parser"},
+        {"type": "path", "url": "libs/twig-highlight-extension"}
     ],
     "require": {
-        "php": ">=7.2",
+        "php": "^8.2",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
         "ext-json": "*",
-        "app/language-detection": "*",
-        "app/navigation": "*",
-        "app/renderer": "*",
-        "app/search": "*",
-        "app/sync": "*",
-        "beberlei/DoctrineExtensions": "~1.0",
-        "doctrine/dbal": "~2.6",
-        "fideloper/proxy": "~4.0",
-        "laravel-doctrine/orm": "~1.4",
-        "laravel/framework": "5.7.*",
-        "laravel/socialite": "^3.0",
-        "lcobucci/jwt": "^3.2",
-        "predis/predis": "~1.1",
-        "railt/railt": "dev-master#fe78d45c0e7246a535698dc31645fa50d983f18b",
-        "railt/carbon-extension": "dev-master#cce3da94983df8fbebe35df0adfd788db069e467",
-        "railt/laravel-provider": "dev-master#2cb0e2269306b838d47cfd2c8c227e19fe45fa09",
-        "rds/hydrogen": "~0.3",
-        "scrivo/highlight.php": "~9.12.0",
-        "sebdesign/laravel-sri": "^1.0",
-        "sentry/sentry-laravel": "^0.10.0",
-        "serafim/laravel-annotations": "~1.0",
-        "symfony/yaml": "~4.1"
+        "app/math-parser": "*",
+        "app/twig-highlight-extension": "*",
+        "doctrine/doctrine-bundle": "^2.6",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.11",
+        "league/commonmark": "^1.6",
+        "scrivo/highlight.php": "^9.18",
+        "symfony/asset": "5.4.*",
+        "symfony/console": "5.4.*",
+        "symfony/dotenv": "5.4.*",
+        "symfony/expression-language": "5.4.*",
+        "symfony/flex": "^2.1",
+        "symfony/framework-bundle": "5.4.*",
+        "symfony/http-client": "5.4.*",
+        "symfony/intl": "5.4.*",
+        "symfony/mime": "5.4.*",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/process": "5.4.*",
+        "symfony/proxy-manager-bridge": "5.4.*",
+        "symfony/security-bundle": "5.4.*",
+        "symfony/serializer": "5.4.*",
+        "symfony/string": "5.4.*",
+        "symfony/translation": "5.4.*",
+        "symfony/twig-bundle": "^5.2",
+        "symfony/validator": "5.4.*",
+        "symfony/webpack-encore-bundle": "^1.14",
+        "symfony/yaml": "5.4.*",
+        "twig/extra-bundle": "^3.3",
+        "twig/twig": "^3.3",
+        "illuminate/support": "^8.83"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "~2.4",
-        "davidbadura/faker-markdown-generator": "^1.0",
-        "filp/whoops": "^2.0",
-        "fzaninotto/faker": "^1.4",
-        "itsgoingd/clockwork": "~3.0",
-        "laravel/tinker": "~1.0",
-        "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0",
-        "beyondcode/laravel-dump-server": "^1.0"
+        "phplrt/phplrt": "^3.2",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "symfony/browser-kit": "^5.4",
+        "symfony/css-selector": "^5.4",
+        "symfony/debug-bundle": "^5.4",
+        "symfony/maker-bundle": "^1.38",
+        "symfony/phpunit-bridge": "^5.4",
+        "symfony/stopwatch": "^5.4",
+        "symfony/var-dumper": "^5.4",
+        "symfony/web-profiler-bundle": "^5.4"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true
+        }
     },
     "autoload": {
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ],
         "psr-4": {
-            "App\\": "app/"
-        },
-        "files": [
-            "app/helpers.php"
-        ]
+            "App\\": "src"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "App\\Tests\\": "tests"
         }
     },
-    "extra": {
-        "laravel": {
-            "dont-discover": [
-            ]
-        }
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
     },
     "scripts": {
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
         ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+        "post-update-cmd": [
+            "@auto-scripts"
         ]
     },
-    "config": {
-        "sort-packages": true,
-        "preferred-install": "dist",
-        "optimize-autoloader": true
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.4.*"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

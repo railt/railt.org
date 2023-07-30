@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1018" height="282" viewBox="0 0 1018 282">
+  <defs>
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="10" height="10">
+      <rect fill="#e5e9f2" width="10" height="10" />
+      <image href="data:image/gif;base64,R0lGODlhCgAKAIABAPn6/P///yH5BAEAAAEALAAAAAAKAAoAAAIPjGGpqNsBomTuHXux3rgAADs="
+             x="0" y="0" width="10" height="10" />
+    </pattern>
+    <style>
+      .bubble {
+        fill: url(#pattern);
+      }
+    </style>
+  </defs>
+  <path class="bubble" d="M844.582-.069c129.061,2.114,225,93.649,142.759,203.58S97.931,296.071,7.7,210.337,715.521-2.183,844.582-.069Z"/>
+</svg>

@@ -1,0 +1,74 @@
+{
+    "contains": [
+        {
+            "className": "literal",
+            "begin": "^\\h*%(token|skip|pragma)",
+            "excludeEnd": true,
+            "end": "\\n",
+            "contains": [
+                {
+                    "className": "attribute",
+                    "begin": "\\w+\\h"
+                },
+                {
+                    "className": "regexp",
+                    "begin": "[^\\s]+"
+                }
+            ]
+        },
+        {
+            "className": "attribute",
+            "begin": "<[\\w\\d_]+>"
+        },
+        {
+            "className": "doctag",
+            "begin": "::[\\w\\d_]+::"
+        },
+        {
+            "className": "title",
+            "begin": "^\\h*#?\\w+\\s*(^\\()",
+            "end": ":|=|\\->",
+            "excludeEnd": true,
+            "contains": [],
+            "illegal": "\\S"
+        },
+        {
+            "className": "keyword",
+            "begin": "\\w+\\h*\\(\\h*\\)"
+        },
+        {
+            "className": "comment",
+            "begin": "\/\/",
+            "end": "$",
+            "contains": [
+                {
+                    "begin": "\\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\\b"
+                },
+                {
+                    "className": "doctag",
+                    "begin": "(?:TODO|FIXME|NOTE|BUG|XXX):",
+                    "relevance": 0
+                }
+            ]
+        },
+        {
+            "className": "comment",
+            "begin": "\/\\*",
+            "end": "\\*\/",
+            "contains": [
+                {
+                    "className": "doctag",
+                    "begin": "(?:TODO|FIXME|NOTE|BUG|XXX):",
+                    "relevance": 0
+                }
+            ]
+        },
+        {
+            "className": "literal",
+            "begin": "->\\s*{",
+            "end": "}\\s*:",
+            "excludeEnd": true,
+            "excludeBegin": true
+        }
+    ]
+}

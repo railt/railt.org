@@ -1,0 +1,27 @@
+
+@mixin full-section($breakpoint: xl) {
+  width: 100%;
+  min-width: map-get($grid-breakpoints, $breakpoint);
+}
+
+@mixin center-section($breakpoint: xl) {
+  width: map-get($grid-breakpoints, $breakpoint);
+  margin: 0 auto;
+}
+
+.container {
+  @include center-section();
+
+  display: block;
+  box-sizing: border-box;
+  padding: 0 32px;
+
+  &-full {
+    @include full-section();
+
+    display: block;
+    box-sizing: border-box;
+  }
+}
+
+

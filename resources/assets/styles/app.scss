@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+@import '~reset-scss';
+
+@import "support/media";
+@import "support/helpers";
+@import "support/container";
+
+@import "ui/colors";
+@import "ui/scrollbar";
+@import "ui/typography";
+@import "ui/button";
+@import "ui/input";
+@import "ui/highlight";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @include font-optimize;
+  font-size: $font-size;
+  font-family: $font-family;
+  color: $color-text;
+  background: $color-bg;
+
+  *::selection {
+    color: #fff;
+    background: $color-main;
+    text-shadow: 0 -1px 0 darken($color-main-alter, 20%);
+  }
+
+  input, textarea {
+    @include font-optimize;
+    font-size: $font-size;
+    font-family: $font-family;
+  }
+
+  @include scrollbar(8px);
+
+  code, pre {
+    @include font-optimize;
+    font-family: $font-family-mono;
+  }
+
+  a {
+    color: $color-main-alter;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      width: 100%;
+      left: 0;
+      height: 1px;
+      background: $color-main-alter;
+      transform-origin: 100% 0;
+      transform: scaleX(0);
+      transition: transform .2s ease;
+    }
+
+    &:hover {
+      color: $color-text;
+      &:after {
+        transform: scaleX(1);
+        transform-origin: 0 0;
+      }
+    }
+  }
+}
+
+
+@import "partials/header";
+@import "partials/footer";
+
+@import "page/home";
+@import "page/docs";

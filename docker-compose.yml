@@ -1,151 +1,21 @@
-version: "2.0"
+version: '3.4'
 
 services:
-    php:
-        image: railt_org
-        container_name: railt_org
-        command: /bootstrap.sh
-        build:
-            context: ./docker/php
-            args:
-                ENABLE_XDEBUG: "true"
-                ENABLE_EV: "true"
-                ENABLE_PCNTL: "true"
-                INSTALL_OPCACHE: "true"
-                INSTALL_INTL: "true"
-                INSTALL_IMAGEMAGICK: "true"
-        volumes:
-            - ./:/var/www/railt.org
-        links:
-            - mysql
-            - redis
-        depends_on:
-            - redis
-            - mysql
+  nginx:
+    image: nginx:alpine
+    container_name: railt-nginx
+    working_dir: /home/railt/railt.org
+    volumes:
+      - .:/home/railt/railt.org
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/data/logs/nginx:/var/log/nginx/
+    ports:
+      - "8080:80"
 
-    cron:
-        image: railt_org_cron
-        container_name: railt_org_cron
-        build:
-            context: ./docker/cron
-        volumes_from:
-            - php
-        depends_on:
-            - php
-
-    nginx:
-        container_name: railt_org_nginx
-        build:
-            context: ./docker/nginx
-            args:
-                PHP_UPSTREAM: php
-        volumes_from: [php]
-        volumes:
-            - ./docker/nginx/sites-available/:/etc/nginx/sites-available
-        ports:
-            - 80:80
-            - 443:443
-        links:
-            - php
-
-    mysql:
-        container_name: railt_org_database
-        build:
-            context: ./docker/mysql
-        environment:
-            MYSQL_DATABASE: railt
-            MYSQL_USER: root
-            MYSQL_PASSWORD: root
-            MYSQL_ROOT_PASSWORD: root
-            TZ: UTC
-        volumes:
-            - mysql:/var/lib/mysql
-            - ./docker/mysql:/docker-entrypoint-initdb.d
-        ports:
-            - 3306:3306
-
-    redis:
-        container_name: railt_org_redis
-        build: ./docker/redis
-        volumes:
-            - redis:/data
-        ports:
-            - 6379:6379
-
-    supervisord:
-        container_name: railt_org_supervisor
-        build: ./docker/supervisord
-        volumes_from:
-            - php
-            - sentry
-        depends_on:
-            - php
-            - sentry
-
-    sentry:
-        image: sentry
-        container_name: railt_org_sentry
-        links:
-            - redis
-            - sentry_postrgres
-        ports:
-            - 9000:9000
-        depends_on:
-            - sentry_postrgres
-        environment:
-            C_FORCE_ROOT: "true"
-            SENTRY_SECRET_KEY: 'IN_GRAPHQL_WE_TRUST'
-            SENTRY_POSTGRES_HOST: sentry_postrgres
-            SENTRY_DB_USER: sentry
-            SENTRY_DB_PASSWORD: sentry
-            SENTRY_REDIS_HOST: redis
-
-    sentry_postrgres:
-        container_name: railt_org_sentry_postgres
-        image: postgres
-        environment:
-            POSTGRES_USER: sentry
-            POSTGRES_PASSWORD: sentry
-            POSTGRES_DB: sentry
-        volumes:
-            - pgdb:/var/lib/postgresql/data
-
-    sentry_cron:
-        image: sentry
-        container_name: railt_org_sentry_cron
-        links:
-            - redis
-            - sentry_postrgres
-        command: "sentry run cron"
-        environment:
-            SENTRY_SECRET_KEY: 'IN_GRAPHQL_WE_TRUST'
-            SENTRY_POSTGRES_HOST: sentry_postrgres
-            SENTRY_DB_USER: sentry
-            SENTRY_DB_PASSWORD: sentry
-            SENTRY_REDIS_HOST: redis
-
-    sentry_worker:
-        image: sentry
-        container_name: railt_org_sentry_worker
-        links:
-            - redis
-            - sentry_postrgres
-        command: "sentry run worker"
-        environment:
-            SENTRY_SECRET_KEY: 'IN_GRAPHQL_WE_TRUST'
-            SENTRY_POSTGRES_HOST: sentry_postrgres
-            SENTRY_DB_USER: sentry
-            SENTRY_DB_PASSWORD: sentry
-            SENTRY_REDIS_HOST: redis
-
-volumes:
-    mysql:
-        driver: local
-    sentry:
-        driver: local
-    pgdb:
-        driver: local
-    redis:
-        driver: local
-    sessions:
-        driver: local
+  php:
+    build: docker/php
+    container_name: railt-php
+    working_dir: /home/railt/railt.org
+    volumes:
+      - .:/home/railt/railt.org
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
