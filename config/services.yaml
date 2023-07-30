@@ -39,10 +39,6 @@ services:
     # --------------------------------------------------------------------------
     #
 
-    App\MathParser\Command\CompileGrammarCommand:
-        tags:
-            - { name: 'console.command' }
-
     App\Command\DocsUpdateCommand:
         autowire: true
         arguments:

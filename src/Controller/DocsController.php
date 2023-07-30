@@ -18,15 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-final class DocsController extends Controller
+final readonly class DocsController
 {
     public function __construct(
-        Environment $view,
-        private readonly MenuRepository $menu,
-        private readonly DocumentationRepository $docs,
-        private readonly UrlGeneratorInterface $routes,
+        private Environment $view,
+        private MenuRepository $menu,
+        private DocumentationRepository $docs,
+        private UrlGeneratorInterface $routes,
     ) {
-        parent::__construct($view);
     }
 
     #[Route(
@@ -69,7 +68,6 @@ final class DocsController extends Controller
     /**
      * @param array<string> $queries
      * @param array<SearchIndex> $indexes
-     * @return array
      */
     private function indexToJson(array $queries, array $indexes): array
     {
