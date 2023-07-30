@@ -7,8 +7,6 @@ namespace App\Sync;
 use App\Entity\Documentation;
 use App\Repository\DocumentationRepository;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Highlight\Highlighter;
 use Illuminate\Support\Str;
 use League\CommonMark\ConverterInterface;

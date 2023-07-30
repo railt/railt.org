@@ -81,7 +81,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@App\Repository\DocumentationRepository'
-            - '@League\CommonMark\MarkdownConverterInterface'
+            - '@League\CommonMark\ConverterInterface'
             - '@Highlight\Highlighter'
 
     App\Sync\SearchIndexUpdater:
@@ -89,9 +89,6 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@App\Repository\SearchIndexRepository'
             - '@App\Repository\DocumentationRepository'
-
-    App\MathParser\MathParser: ~
-    App\MathParser\AstDumper: ~
 
     League\CommonMark\ConverterInterface:
         class: League\CommonMark\GithubFlavoredMarkdownConverter
