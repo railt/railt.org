@@ -14,10 +14,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DocsUpdateCommand extends Command
 {
     public function __construct(
-        private string $directory,
-        private MenuUpdater $menu,
-        private DocsUpdater $docs,
-        private SearchIndexUpdater $search,
+        private readonly string $directory,
+        private readonly MenuUpdater $menu,
+        private readonly DocsUpdater $docs,
+        private readonly SearchIndexUpdater $search,
     ) {
         parent::__construct('docs:update');
     }

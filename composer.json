@@ -58,7 +58,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src"
+            "App\\": "app"
         }
     },
     "autoload-dev": {
@@ -92,8 +92,7 @@
     "config": {
         "bin-compat": "full",
         "allow-plugins": {
-            "symfony/runtime": true,
-            "symfony/flex": false
+            "symfony/runtime": true
         },
         "optimize-autoloader": true,
         "preferred-install": {

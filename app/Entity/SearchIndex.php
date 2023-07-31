@@ -39,7 +39,11 @@ class SearchIndex
      */
     public function getHighlights(array $queries): iterable
     {
-        $queries = \array_map(fn(string $query) => \preg_quote($query, '/'), $queries);
+        $queries = \array_map(static fn(string $query): string =>
+            \preg_quote($query, '/'),
+            $queries,
+        );
+
         $pcre = '/(' . \implode('|', $queries) . ')/isum';
 
         \preg_match_all($pcre, $this->title, $matches);
@@ -47,41 +51,29 @@ class SearchIndex
         return \array_unique($matches[1] ?? []);
     }
 
-    /**
-     * @return positive-int|0
-     */
     public function getLevel(): int
     {
         return $this->level;
     }
 
     /**
-     * @param positive-int|0 $level
+     * @param int<0, max> $level
      */
     public function setLevel(int $level): void
     {
         $this->level = $level;
     }
 
-    /**
-     * @return Documentation
-     */
     public function getPage(): Documentation
     {
         return $this->page;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;

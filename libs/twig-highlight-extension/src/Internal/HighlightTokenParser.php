@@ -18,17 +18,12 @@ use Twig\TokenStream;
  */
 class HighlightTokenParser extends AbstractTokenParser
 {
-    /**
-     * @param Highlighter $hl
-     */
     public function __construct(
         private readonly Highlighter $hl
     ) {
     }
 
     /**
-     * @param Token $token
-     * @return Node
      * @throws SyntaxError
      */
     public function parse(Token $token): Node
@@ -46,8 +41,6 @@ class HighlightTokenParser extends AbstractTokenParser
     }
 
     /**
-     * @param TokenStream $stream
-     * @return string
      * @throws SyntaxError
      */
     private function getCodeLanguage(TokenStream $stream): string
@@ -75,9 +68,6 @@ class HighlightTokenParser extends AbstractTokenParser
         return $token->test('endcode');
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getTag(): string
     {
         return 'code';

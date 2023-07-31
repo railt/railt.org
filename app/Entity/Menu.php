@@ -51,65 +51,44 @@ class Menu
         }
     }
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    /**
-     * @return int
-     */
     public function getPriority(): int
     {
         return $this->priority;
     }
 
-    /**
-     * @param int|null $priority
-     */
     public function setPriority(int $priority = null): void
     {
         $this->priority = $priority ?? 0;
     }
 
-    /**
-     * @return Menu|null
-     */
     public function getParent(): ?Menu
     {
         return $this->parent;
     }
 
-    /**
-     * @param Menu|null $menu
-     */
     public function setParent(Menu $menu = null): void
     {
         $this->parent = $menu;
 
         if ($this->parent) {
-            $menu->children->add($this);
+            $menu?->children->add($this);
         } else {
-            $menu->children->removeElement($this);
+            $menu?->children->removeElement($this);
         }
     }
 

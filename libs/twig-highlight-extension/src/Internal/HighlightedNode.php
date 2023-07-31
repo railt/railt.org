@@ -15,26 +15,17 @@ use Twig\Node\TextNode;
  */
 final class HighlightedNode extends Node
 {
-    /**
-     * @param Highlighter $hl
-     * @param string $lang
-     * @param Node $body
-     * @param int $line
-     * @param string $tag
-     */
     public function __construct(
         private readonly Highlighter $hl,
         string $lang,
         Node $body,
         int $line,
         string $tag = 'highlight'
-    )
-    {
+    ) {
         parent::__construct(['body' => $body], ['lang' => $lang], $line, $tag);
     }
 
     /**
-     * @param Compiler $compiler
      * @throws \Exception
      */
     public function compile(Compiler $compiler): void
@@ -54,9 +45,6 @@ final class HighlightedNode extends Node
     }
 
     /**
-     * @param string $lang
-     * @param string $code
-     * @return string
      * @throws \Exception
      */
     private function render(string $lang, string $code): string
