@@ -11,19 +11,20 @@ final class Version20210331143819 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Creation search_index table';
     }
 
     public function up(Schema $schema) : void
     {
         $this->addSql(<<<'sql'
             CREATE TABLE search_index (
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                page_id INTEGER NOT NULL,
+                id UUID NOT NULL,
+                page_id UUID NOT NULL,
                 level INTEGER NOT NULL DEFAULT 0,
                 title VARCHAR(255) NOT NULL,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+                created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
+                PRIMARY KEY(id)
            )
         sql);
 

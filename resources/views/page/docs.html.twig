@@ -28,13 +28,13 @@
                 <div class="documentation-menu-nav">
                     {% for item in menu %}
                         <a href="#" data-bind="
-                            click: function() { toggle({{ item.id }}) },
-                            css: { active: menu({{ item.id }}) }
+                            click: function() { toggle('{{ item.id }}') },
+                            css: { active: menu('{{ item.id }}') }
                         " class="documentation-menu-title active">
                             {{ item.title }}
                         </a>
                         <ul class="documentation-menu-child" data-bind="
-                            css: { visible: menu({{ item.id }}) }
+                            css: { visible: menu('{{ item.id }}') }
                         ">
                             {% for child in item.children %}
                                 <li>

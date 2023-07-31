@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Domain;
+namespace App\Domain\Search;
 
 use Doctrine\Persistence\ObjectRepository;
 
 /**
- * @template-extends ObjectRepository<SearchIndex>
+ * @template-extends ObjectRepository<Index>
  */
-interface SearchIndexRepositoryInterface extends ObjectRepository
+interface IndexRepositoryInterface extends ObjectRepository
 {
     /**
      * @param string $query
@@ -20,7 +20,7 @@ interface SearchIndexRepositoryInterface extends ObjectRepository
     /**
      * @param list<non-empty-string> $queries
      * @param int<1, max> $limit
-     * @return iterable<SearchIndex>
+     * @return iterable<Index>
      */
     public function searchByWords(array $queries, int $limit): iterable;
 }

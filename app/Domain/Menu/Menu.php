@@ -1,19 +1,29 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Menu;
 
-use App\Infrastructure\Persistence\Repository\MenuRepository;
+use App\Domain\Shared\CreatedDateProvider;
+use App\Domain\Shared\CreatedDateProviderInterface;
+use App\Domain\Shared\IdentifiableInterface;
+use App\Domain\Shared\UpdatedDateProvider;
+use App\Domain\Shared\UpdatedDateProviderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MenuRepository::class)]
-class Menu
+#[ORM\Entity, ORM\Table(name: 'menu')]
+class Menu implements
+    IdentifiableInterface,
+    CreatedDateProviderInterface,
+    UpdatedDateProviderInterface
 {
+    use CreatedDateProvider;
+    use UpdatedDateProvider;
+
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'NONE')]
+    #[ORM\Column(type: MenuId::class)]
+    private MenuId $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $title;
@@ -37,12 +47,9 @@ class Menu
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Menu::class)]
     private Collection $children;
 
-    /**
-     * @param string $title
-     * @param string|null $url
-     */
     public function __construct(string $title, string $url = null)
     {
+        $this->id = MenuId::fromNamespace(static::class);
         $this->children = new ArrayCollection();
         $this->title = $title;
 
@@ -51,7 +58,7 @@ class Menu
         }
     }
 
-    public function getId(): ?int
+    public function getId(): MenuId
     {
         return $this->id;
     }

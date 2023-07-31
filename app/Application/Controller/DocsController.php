@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Controller;
 
-use App\Domain\DocumentationRepositoryInterface;
-use App\Domain\MenuRepositoryInterface;
-use App\Domain\NotFound;
-use App\Domain\SearchIndex;
-use App\Domain\SearchIndexRepositoryInterface;
+use App\Domain\Documentation\PageRepositoryInterface;
+use App\Domain\Menu\MenuRepositoryInterface;
+use App\Domain\Documentation\NotFound;
+use App\Domain\Search\Index;
+use App\Domain\Search\IndexRepositoryInterface;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,7 +23,7 @@ final readonly class DocsController
     public function __construct(
         private Environment $view,
         private MenuRepositoryInterface $menu,
-        private DocumentationRepositoryInterface $docs,
+        private PageRepositoryInterface $docs,
         private UrlGeneratorInterface $routes,
     ) {
     }
@@ -55,7 +55,7 @@ final readonly class DocsController
     }
 
     #[Route(path: '/docs/search.json', methods: ['POST'])]
-    public function search(Request $request, SearchIndexRepositoryInterface $search): JsonResponse
+    public function search(Request $request, IndexRepositoryInterface $search): JsonResponse
     {
         $queries = $search->getQueries((string)$request->get('query', ''));
         $items = $search->searchByWords($queries, 6);
@@ -67,7 +67,7 @@ final readonly class DocsController
 
     /**
      * @param array<string> $queries
-     * @param array<SearchIndex> $indexes
+     * @param array<Index> $indexes
      */
     private function indexToJson(array $queries, array $indexes): array
     {

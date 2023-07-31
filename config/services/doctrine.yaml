@@ -1,0 +1,40 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  #
+  # -----------------------------------------------------------------------------
+  #   Database Repositories
+  # -----------------------------------------------------------------------------
+  #
+
+  App\Domain\Menu\MenuRepositoryInterface:
+    class: App\Infrastructure\Persistence\Repository\MenuDatabaseRepository
+
+  App\Domain\Documentation\PageRepositoryInterface:
+    class: App\Infrastructure\Persistence\Repository\PageDatabaseRepository
+
+  App\Domain\Search\IndexRepositoryInterface:
+    class: App\Infrastructure\Persistence\Repository\IndexDatabaseRepository
+
+  #
+  # ----------------------------------------------------------------------------
+  #  Database Listeners
+  # ----------------------------------------------------------------------------
+  #
+
+  App\Infrastructure\Persistence\Doctrine\Listener\CreatedDateListener:
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+
+  App\Infrastructure\Persistence\Doctrine\Listener\UpdatedDateListener:
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate }
+
+  #
+  # ----------------------------------------------------------------------------
+  #  Database Subscribers
+  # ----------------------------------------------------------------------------
+  #

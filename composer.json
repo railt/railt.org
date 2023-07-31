@@ -15,7 +15,9 @@
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.15",
+        "illuminate/support": "^10.16",
         "league/commonmark": "^2.4",
+        "ramsey/uuid": "^4.6",
         "scrivo/highlight.php": "^9.18",
         "symfony/asset": "6.3.*",
         "symfony/console": "6.3.*",
@@ -38,8 +40,7 @@
         "symfony/webpack-encore-bundle": "^1.17",
         "symfony/yaml": "6.3.*",
         "twig/extra-bundle": "^3.7",
-        "twig/twig": "^3.7",
-        "illuminate/support": "^10.16"
+        "twig/twig": "^3.7"
     },
     "require-dev": {
         "phplrt/phplrt": "^3.2",

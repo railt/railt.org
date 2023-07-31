@@ -2,18 +2,18 @@
 
 namespace App\Infrastructure\Persistence\Repository;
 
-use App\Domain\SearchIndex;
-use App\Domain\SearchIndexRepositoryInterface;
+use App\Domain\Search\Index;
+use App\Domain\Search\IndexRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @template-extends DatabaseRepository<SearchIndex>
+ * @template-extends DatabaseRepository<Index>
  */
-class SearchIndexRepository extends DatabaseRepository implements SearchIndexRepositoryInterface
+class IndexDatabaseRepository extends DatabaseRepository implements IndexRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SearchIndex::class);
+        parent::__construct($registry, Index::class);
     }
 
     /**
@@ -31,7 +31,7 @@ class SearchIndexRepository extends DatabaseRepository implements SearchIndexRep
     /**
      * @param array<string> $queries
      * @param positive-int $limit
-     * @return iterable<SearchIndex>
+     * @return iterable<Index>
      */
     public function searchByWords(array $queries, int $limit): iterable
     {

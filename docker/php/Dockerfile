@@ -14,8 +14,14 @@ RUN apt-get update \
     && apt-get -y --no-install-recommends install \
       libzip-dev \
       libicu-dev \
+      libpq-dev \
+      unzip \
       git \
       curl
+
+# PDO PostgreSQL
+RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-enable pdo_pgsql
 
 # Igbinary
 RUN pecl install igbinary

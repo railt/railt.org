@@ -2,14 +2,14 @@
 
 namespace App\Infrastructure\Persistence\Repository;
 
-use App\Domain\Menu;
-use App\Domain\MenuRepositoryInterface;
+use App\Domain\Menu\Menu;
+use App\Domain\Menu\MenuRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @template-extends DatabaseRepository<Menu>
  */
-class MenuRepository extends DatabaseRepository implements MenuRepositoryInterface
+class MenuDatabaseRepository extends DatabaseRepository implements MenuRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Sync;
 
-use App\Domain\Documentation;
-use App\Domain\DocumentationRepositoryInterface;
+use App\Domain\Documentation\Page;
+use App\Domain\Documentation\PageRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 use Highlight\Highlighter;
 use Illuminate\Support\Str;
@@ -18,7 +18,7 @@ class DocsUpdater extends Updater
 {
     public function __construct(
         EntityManager $em,
-        DocumentationRepositoryInterface $docs,
+        PageRepositoryInterface $docs,
         private readonly ConverterInterface $md,
         private readonly Highlighter $hl,
     ) {
@@ -33,7 +33,7 @@ class DocsUpdater extends Updater
 
             $info = $this->analyze($content->getContent());
 
-            $docs = new Documentation($info['title'], $path, $this->process($content->getContent()));
+            $docs = new Page($info['title'], $path, $this->process($content->getContent()));
 
             $this->em->persist($docs);
         }

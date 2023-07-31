@@ -10,12 +10,47 @@ services:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./docker/data/logs/nginx:/var/log/nginx/
     ports:
-      - "${RAILT_HTTP_PUBLIC_PORT:-8080}:80"
+      - "${RAILT_HTTP_PUBLIC_PORT:-80}:80"
+    depends_on:
+      - php
+    networks:
+      - railt_org
 
   php:
     build: docker/php
     container_name: railt-php
     working_dir: /home/railt/railt.org
     volumes:
-      - .:/home/railt/railt.org
+      - .:/home/railt/railt.org:rw
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - railt_org
+
+  postgres:
+    image: postgres:15.3
+    container_name: railt-postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./docker/data/postgres:/home/db
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-railt}
+      - POSTGRES_USER=${DB_USERNAME:-user}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
+    ports:
+      - "${RAILT_DATABASE_PUBLIC_PORT:-5432}:5432"
+    networks:
+      - railt_org
+
+  node:
+    build: docker/node
+    container_name: railt-node
+    working_dir: /home/railt/railt.org
+    volumes:
+      - .:/home/railt/railt.org:rw
+
+networks:
+  railt_org:
+    driver: bridge
+
+volumes:
+  postgres:

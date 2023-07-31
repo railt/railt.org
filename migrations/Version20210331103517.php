@@ -1,12 +1,5 @@
 <?php
 
-/**
- * This file is part of railt.org package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace DoctrineMigrations;
@@ -18,19 +11,20 @@ final class Version20210331103517 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Creation documentation table';
     }
 
     public function up(Schema $schema) : void
     {
         $this->addSql(<<<'sql'
             CREATE TABLE documentation (
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-                title VARCHAR(255) NOT NULL, 
-                url VARCHAR(255) NOT NULL, 
-                content CLOB NOT NULL,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+                id UUID NOT NULL,
+                title VARCHAR(255) NOT NULL,
+                url VARCHAR(255) NOT NULL,
+                content TEXT NOT NULL DEFAULT '',
+                created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
+                PRIMARY KEY(id)
            )
         sql);
     }

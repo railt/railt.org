@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Sync;
 
-use App\Domain\Documentation;
-use App\Domain\DocumentationRepositoryInterface;
-use App\Domain\SearchIndex;
-use App\Domain\SearchIndexRepositoryInterface;
+use App\Domain\Documentation\Page;
+use App\Domain\Documentation\PageRepositoryInterface;
+use App\Domain\Search\Index;
+use App\Domain\Search\IndexRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -17,8 +17,8 @@ class SearchIndexUpdater extends Updater
 {
     public function __construct(
         EntityManager $em,
-        SearchIndexRepositoryInterface $search,
-        private readonly DocumentationRepositoryInterface $docs,
+        IndexRepositoryInterface $search,
+        private readonly PageRepositoryInterface $docs,
     ) {
         parent::__construct($em, $search);
     }
@@ -32,7 +32,7 @@ class SearchIndexUpdater extends Updater
     {
         foreach ($this->docs->findAll() as $page) {
             foreach ($this->analyze($page) as $level => $title) {
-                $index = new SearchIndex($title, $page);
+                $index = new Index($title, $page);
                 $index->setLevel($level);
 
                 $this->em->persist($index);
@@ -43,10 +43,10 @@ class SearchIndexUpdater extends Updater
     }
 
     /**
-     * @param Documentation $page
+     * @param Page $page
      * @return iterable<string>
      */
-    private function analyze(Documentation $page): iterable
+    private function analyze(Page $page): iterable
     {
         \preg_match_all('/<h(\d)>(.+?)<\/h\d>/isum', $page->getContent(),
             $matches, \PREG_SET_ORDER);

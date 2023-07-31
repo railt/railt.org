@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Sync;
 
-use App\Domain\Menu;
+use App\Domain\Menu\Menu;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\Mapping\MappingException;

@@ -73,11 +73,9 @@ export default class MenuViewModel {
      */
     menu(id) {
         if (! this.#menu[id]) {
-            let defaultValue = localStorage.getItem(`menu-shown-${id}`);
+            let status = localStorage.getItem(`menu-shown-${id}`);
 
-            defaultValue = defaultValue === null || defaultValue === '1';
-
-            this.#menu[id] = ko.observable(!!defaultValue);
+            this.#menu[id] = ko.observable(status === '1');
         }
 
         return this.#menu[id];

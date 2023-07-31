@@ -1,17 +1,28 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Search;
 
-use App\Infrastructure\Persistence\Repository\SearchIndexRepository;
+use App\Domain\Documentation\Page;
+use App\Domain\Shared\CreatedDateProvider;
+use App\Domain\Shared\CreatedDateProviderInterface;
+use App\Domain\Shared\IdentifiableInterface;
+use App\Domain\Shared\UpdatedDateProvider;
+use App\Domain\Shared\UpdatedDateProviderInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SearchIndexRepository::class)]
-class SearchIndex
+#[ORM\Entity, ORM\Table(name: 'search_index')]
+class Index implements
+    IdentifiableInterface,
+    CreatedDateProviderInterface,
+    UpdatedDateProviderInterface
 {
+    use CreatedDateProvider;
+    use UpdatedDateProvider;
+
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'NONE')]
+    #[ORM\Column(type: IndexId::class)]
+    private IndexId $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $title;
@@ -19,18 +30,20 @@ class SearchIndex
     #[ORM\Column(type: 'integer')]
     private int $level;
 
-    #[ORM\ManyToOne(targetEntity: Documentation::class, fetch: 'EAGER', inversedBy: 'searchIndexes')]
+    #[ORM\ManyToOne(targetEntity: Page::class, fetch: 'EAGER', inversedBy: 'searchIndexes')]
     #[ORM\JoinColumn(name: 'page_id', referencedColumnName: 'id', nullable: false)]
-    private Documentation $page;
+    private Page $page;
 
-    /**
-     * @param string $title
-     * @param Documentation $page
-     */
-    public function __construct(string $title, Documentation $page)
+    public function __construct(string $title, Page $page)
     {
+        $this->id = IndexId::fromNamespace(static::class);
         $this->title = $title;
         $this->page = $page;
+    }
+
+    public function getId(): IndexId
+    {
+        return $this->id;
     }
 
     /**
@@ -64,7 +77,7 @@ class SearchIndex
         $this->level = $level;
     }
 
-    public function getPage(): Documentation
+    public function getPage(): Page
     {
         return $this->page;
     }
@@ -72,10 +85,5 @@ class SearchIndex
     public function getTitle(): string
     {
         return $this->title;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Documentation;
 
-class NotFound extends Documentation
+class NotFound extends Page
 {
     public function __construct()
     {
