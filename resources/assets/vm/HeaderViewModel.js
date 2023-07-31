@@ -1,7 +1,7 @@
 
 import ko from "knockout";
 
-const STICKY_TOP = 5;
+const STICKY_TOP = 1;
 
 export default class HeaderViewModel {
     /**

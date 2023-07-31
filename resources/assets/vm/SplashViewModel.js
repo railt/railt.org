@@ -1,15 +1,9 @@
 
 import ko from "knockout";
 
-const SCROLLED_TOP = 200;
-const TITLE = 'Language Recognition Tool';
+const TITLE = 'Railt GraphQL Framework';
 
 export default class SplashViewModel {
-    /**
-     * @type {KnockoutObservable<boolean>}
-     */
-    scrolled = ko.observable(false);
-
     /**
      * @type {KnockoutObservable<number>}
      */
@@ -41,7 +35,7 @@ export default class SplashViewModel {
     #titleAnimationTick(buffer) {
         if (buffer.length === 0) {
             this.ready(true);
-            this.title('Language Recognition Too<span>l</span>');
+            this.title('Railt GraphQL Framewor<span>k</span>');
             return;
         }
 
@@ -70,8 +64,6 @@ export default class SplashViewModel {
     }
 
     #onScroll() {
-        this.scrolled(window.scrollY > SCROLLED_TOP);
-
         this.firstLayerY(window.scrollY / 1.5);
         this.secondLayerY(window.scrollY / 2);
     }

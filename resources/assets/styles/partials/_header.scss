@@ -21,8 +21,8 @@
     display: block;
     height: 48px;
     width: 48px;
-    background: url(../../img/logo.png) center center no-repeat;
-    background-size: 48px 48px;
+    background: url(../../img/logo.svg) center center no-repeat;
+    background-size: auto 48px;
     transition: transform .1s ease;
     &:after {
       display: none;

@@ -7,62 +7,13 @@
 
     <section class="splash container-full" data-vm="SplashViewModel">
         <section class="container">
-            <h1 data-bind="style: { top: `${firstLayerY()}px` }, html: title">Language Recognition Tool</h1>
+            <div class="pc"></div>
+            <h1 data-bind="style: { top: `${firstLayerY()}px` }, html: title">Railt GraphQL Framework</h1>
             <h2 data-bind="style: { top: `${firstLayerY()}px` }, css: { ready: ready }">for PHP</h2>
             <code class="composer" data-bind="style: { top: `${secondLayerY()}px` }">
                 <span></span>
-                $ composer require --dev phplrt/phplrt
+                $ composer require --dev railt/railt
             </code>
         </section>
-
-        <a class="scroll-down" href="#lexer" data-bind="css: { hidden: scrolled }">
-            <span class="scroll-down-icon"></span>
-            <span name="lexer" id="lexer" style="position: absolute; top: 40px;"></span>
-        </a>
     </section>
-
-    <section class="section section-lexer container-full" data-vm="LexerViewModel">
-        <section class="container">
-            <h2>Lexical Analysis</h2>
-            <p class="description">
-                The built-in tools allow you to easily implement a complete and powerful lexer using the
-                PCRE2 regular expression language.
-            </p>
-            <section class="code">
-                {% apply spaceless %}
-                    <pre>$lexer-&gt;lex('<span class="token" data-bind="css: { 'token-hover': tokens[0] }">23</span>
-                        <span class="token" data-bind="css: { 'token-hover': tokens[1] }">+</span>
-                        <span class="token" data-bind="css: { 'token-hover': tokens[2] }">42</span>');</pre>
-                {% endapply %}
-                <div class="lexer-token" data-bind="css: { 'lexer-token-hover': tokens[0] }">23</div>
-                <div class="lexer-token" data-bind="css: { 'lexer-token-hover': tokens[1] }">+</div>
-                <div class="lexer-token" data-bind="css: { 'lexer-token-hover': tokens[2] }">42</div>
-                <div class="code-footer"></div>
-            </section>
-            <a href="/docs/lexer" class="button">Learn More</a>
-        </section>
-    </section>
-
-    <section class="section section-parser container-full" data-vm="ParserViewModel">
-        <section class="container">
-            <h2>Parser</h2>
-            <p class="description">
-                The phplrt toolkit provides an EBNF-like grammar compiler based on the Hoa library, which in turn has
-                been expanded and improved.
-            </p>
-
-            <div class="expr-section">
-                <h3>try it in action:</h3>
-                <input type="text" data-bind="value: expression, valueUpdate: 'input'" />
-            </div>
-
-            <section class="code">
-                <pre class="code-source">{% include "page/home/grammar.html.twig" %}</pre>
-                <pre class="code-output" data-bind="html: output, css: {loading: loading}"></pre>
-            </section>
-            <a href="/docs/parser" class="button">Learn More</a>
-        </section>
-    </section>
-
-    {% include "partials/footer.html.twig" %}
 {% endblock %}

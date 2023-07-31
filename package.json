@@ -22,7 +22,7 @@
     },
     "dependencies": {
         "knockout": "^3.5",
-        "knockout-inview": "^2.5.0",
+        "knockout-inview": "^2.5",
         "reset-scss": "^1.0"
     }
 }

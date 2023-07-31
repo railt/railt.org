@@ -1,15 +1,9 @@
 {
-  "dist/app.css": "/dist/app.2d2c20ca.css",
-  "dist/app.js": "/dist/app.dd477451.js",
-  "dist/runtime.js": "/dist/runtime.9a71ee5d.js",
-  "dist/442.29c1c67d.js": "/dist/442.29c1c67d.js",
-  "dist/images/footer.svg": "/dist/images/footer.afa0dcfa.svg",
-  "dist/images/logo.png": "/dist/images/logo.a4f80bb2.png",
-  "dist/images/splash.svg": "/dist/images/splash.a44ef499.svg",
-  "dist/images/bg.svg": "/dist/images/bg.9c8f97c1.svg",
+  "dist/app.css": "/dist/app.css",
+  "dist/app.js": "/dist/app.js",
+  "dist/runtime.js": "/dist/runtime.js",
+  "dist/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-f2552e.js": "/dist/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-f2552e.js",
+  "dist/images/pc.svg": "/dist/images/pc.5d015e84.svg",
   "dist/images/down-arrow-white.svg": "/dist/images/down-arrow-white.ccb244ca.svg",
-  "dist/images/down-arrow.svg": "/dist/images/down-arrow.1fea5e3e.svg",
-  "dist/images/delimiter-1.svg": "/dist/images/delimiter-1.149d89fe.svg",
-  "dist/images/delimiter-2.svg": "/dist/images/delimiter-2.9d0407e6.svg",
-  "dist/images/scroll.svg": "/dist/images/scroll.0fd21356.svg"
+  "dist/images/logo.svg": "/dist/images/logo.a4915331.svg"
 }
