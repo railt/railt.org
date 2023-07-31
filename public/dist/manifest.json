@@ -4,6 +4,8 @@
   "dist/runtime.js": "/dist/runtime.js",
   "dist/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-f2552e.js": "/dist/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-f2552e.js",
   "dist/images/pc.svg": "/dist/images/pc.5d015e84.svg",
+  "dist/images/logo-white.svg": "/dist/images/logo-white.0eab6b23.svg",
   "dist/images/down-arrow-white.svg": "/dist/images/down-arrow-white.ccb244ca.svg",
-  "dist/images/logo.svg": "/dist/images/logo.a4915331.svg"
+  "dist/images/curve-highlights-purple.svg": "/dist/images/curve-highlights-purple.97c91bc5.svg",
+  "dist/images/curve-highlights-white.svg": "/dist/images/curve-highlights-white.576671fb.svg"
 }

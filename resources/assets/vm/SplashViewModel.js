@@ -1,7 +1,7 @@
 
 import ko from "knockout";
 
-const TITLE = 'Railt GraphQL Framework';
+const TITLE = 'Rail';
 
 export default class SplashViewModel {
     /**
@@ -35,7 +35,7 @@ export default class SplashViewModel {
     #titleAnimationTick(buffer) {
         if (buffer.length === 0) {
             this.ready(true);
-            this.title('Railt GraphQL Framewor<span>k</span>');
+            this.title('Rail<span>t</span>');
             return;
         }
 
@@ -55,7 +55,7 @@ export default class SplashViewModel {
         setTimeout(() => {
             this.title(title);
 
-            if (Math.random() >= 0.5) {
+            if (Math.random() >= 0.2) {
                 this.#letterAnimationTick(buffer);
             } else {
                 this.#titleAnimationTick(buffer);

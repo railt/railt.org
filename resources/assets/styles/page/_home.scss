@@ -3,7 +3,7 @@
 
 .splash {
   box-sizing: border-box;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADZJREFUKFNjZEAC2lK+/68+28yILAZjowhSRyHIFGxWgcSQnUEDq8nyNS63gsSxhhnBcMRnIgCLkBwLo1ACmgAAAABJRU5ErkJggg==') top center repeat fixed;
+  background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADZJREFUKFNjZEAC2lK+/68+28yILAZjowhSRyHIFGxWgcSQnUEDq8nyNS63gsSxhhnBcMRnIgCLkBwLo1ACmgAAAABJRU5ErkJggg==') top center repeat fixed;
   background-color: $color-main-alter;
   background-size: auto;
   min-width: 1200px;
@@ -12,6 +12,45 @@
   overflow: hidden;
   padding-top: 200px;
   color: #fff;
+
+  @keyframes wave-1 {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: -400%;
+    }
+  }
+
+  @keyframes wave-2 {
+    0% {
+      background-position-x: 400%;
+    }
+    100% {
+      background-position-x: 0;
+    }
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    background: url(../../img/section/curve-highlights-purple.svg) bottom center repeat-x;
+    z-index: 3;
+    pointer-events: none;
+    width: 100vw;
+    height: 200px;
+    bottom: 0;
+    content: '';
+    display: block;
+    transform: scaleY(.4);
+    transform-origin: 100% 100%;
+    animation: wave-1 30s infinite ease-in-out;
+  }
+
+  &:before {
+    background: url(../../img/section/curve-highlights-white.svg) bottom center repeat-x;
+    animation: wave-2 10s infinite ease-in-out;
+  }
 
   & > .container {
     display: flex;
