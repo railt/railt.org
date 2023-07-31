@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Application\Controller;
 
 use App\Entity\NotFound;
 use App\Entity\SearchIndex;

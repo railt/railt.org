@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace App\Application\Command;
 
 use App\Sync\DocsUpdater;
 use App\Sync\MenuUpdater;

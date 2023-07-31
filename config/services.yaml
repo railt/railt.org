@@ -29,8 +29,8 @@ services:
     # Controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class.
     #
-    App\Controller\:
-        resource: '../app/Controller/'
+    App\Application\Controller\:
+        resource: '../app/Application/Controller/'
         tags: ['controller.service_arguments']
 
     #
@@ -39,7 +39,7 @@ services:
     # --------------------------------------------------------------------------
     #
 
-    App\Command\DocsUpdateCommand:
+    App\Application\Command\DocsUpdateCommand:
         autowire: true
         arguments:
             - "%kernel.project_dir%/resources/docs"
