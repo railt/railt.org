@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Controller;
 
-use App\Entity\NotFound;
-use App\Entity\SearchIndex;
-use App\Repository\DocumentationRepository;
-use App\Repository\MenuRepository;
-use App\Repository\SearchIndexRepository;
+use App\Domain\DocumentationRepositoryInterface;
+use App\Domain\MenuRepositoryInterface;
+use App\Domain\NotFound;
+use App\Domain\SearchIndex;
+use App\Domain\SearchIndexRepositoryInterface;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,8 +22,8 @@ final readonly class DocsController
 {
     public function __construct(
         private Environment $view,
-        private MenuRepository $menu,
-        private DocumentationRepository $docs,
+        private MenuRepositoryInterface $menu,
+        private DocumentationRepositoryInterface $docs,
         private UrlGeneratorInterface $routes,
     ) {
     }
@@ -55,7 +55,7 @@ final readonly class DocsController
     }
 
     #[Route(path: '/docs/search.json', methods: ['POST'])]
-    public function search(Request $request, SearchIndexRepository $search): JsonResponse
+    public function search(Request $request, SearchIndexRepositoryInterface $search): JsonResponse
     {
         $queries = $search->getQueries((string)$request->get('query', ''));
         $items = $search->searchByWords($queries, 6);

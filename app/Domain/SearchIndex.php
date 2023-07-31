@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain;
 
-use App\Repository\SearchIndexRepository;
+use App\Infrastructure\Persistence\Repository\SearchIndexRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SearchIndexRepository::class)]

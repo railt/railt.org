@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Command;
 
-use App\Sync\DocsUpdater;
-use App\Sync\MenuUpdater;
-use App\Sync\SearchIndexUpdater;
+use App\Domain\Sync\DocsUpdater;
+use App\Domain\Sync\MenuUpdater;
+use App\Domain\Sync\SearchIndexUpdater;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

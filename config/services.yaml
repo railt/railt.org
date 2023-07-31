@@ -17,9 +17,14 @@ services:
     # -----------------------------------------------------------------------------
     #
 
-    App\Repository\MenuRepository: ~
-    App\Repository\DocumentationRepository: ~
-    App\Repository\SearchIndexRepository: ~
+    App\Domain\MenuRepositoryInterface:
+        class: App\Infrastructure\Persistence\Repository\MenuRepository
+
+    App\Domain\DocumentationRepositoryInterface:
+        class: App\Infrastructure\Persistence\Repository\DocumentationRepository
+
+    App\Domain\SearchIndexRepositoryInterface:
+        class: App\Infrastructure\Persistence\Repository\SearchIndexRepository
 
     #
     # --------------------------------------------------------------------------
@@ -72,23 +77,18 @@ services:
             - registerLanguage: ['gql', '%kernel.project_dir%/resources/lang/graphql.json']
             - registerLanguage: ['accord', '%kernel.project_dir%/resources/lang/accord.json']
 
-    App\Sync\MenuUpdater:
+    App\Domain\Sync\MenuUpdater:
         arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@App\Repository\MenuRepository'
+            $em: '@doctrine.orm.entity_manager'
+            $repository: '@App\Domain\MenuRepositoryInterface'
 
-    App\Sync\DocsUpdater:
+    App\Domain\Sync\DocsUpdater:
         arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@App\Repository\DocumentationRepository'
-            - '@League\CommonMark\ConverterInterface'
-            - '@Highlight\Highlighter'
+            $em: '@doctrine.orm.entity_manager'
 
-    App\Sync\SearchIndexUpdater:
+    App\Domain\Sync\SearchIndexUpdater:
         arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@App\Repository\SearchIndexRepository'
-            - '@App\Repository\DocumentationRepository'
+            $em: '@doctrine.orm.entity_manager'
 
     League\CommonMark\ConverterInterface:
         class: League\CommonMark\GithubFlavoredMarkdownConverter

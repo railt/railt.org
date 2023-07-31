@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Sync;
+namespace App\Domain\Sync;
 
-use App\Entity\Documentation;
-use App\Entity\SearchIndex;
-use App\Repository\DocumentationRepository;
-use App\Repository\SearchIndexRepository;
+use App\Domain\Documentation;
+use App\Domain\DocumentationRepositoryInterface;
+use App\Domain\SearchIndex;
+use App\Domain\SearchIndexRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -15,20 +15,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SearchIndexUpdater extends Updater
 {
-    /**
-     * @var DocumentationRepository
-     */
-    private DocumentationRepository $docs;
-
-    /**
-     * @param EntityManager $em
-     * @param SearchIndexRepository $search
-     * @param DocumentationRepository $docs
-     */
-    public function __construct(EntityManager $em, SearchIndexRepository $search, DocumentationRepository $docs)
-    {
+    public function __construct(
+        EntityManager $em,
+        SearchIndexRepositoryInterface $search,
+        private readonly DocumentationRepositoryInterface $docs,
+    ) {
         parent::__construct($em, $search);
-        $this->docs = $docs;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain;
 
 class NotFound extends Documentation
 {

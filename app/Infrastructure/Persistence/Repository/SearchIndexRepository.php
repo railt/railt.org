@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Persistence\Repository;
 
-use App\Entity\SearchIndex;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Domain\SearchIndex;
+use App\Domain\SearchIndexRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SearchIndexRepository extends ServiceEntityRepository
+/**
+ * @template-extends DatabaseRepository<SearchIndex>
+ */
+class SearchIndexRepository extends DatabaseRepository implements SearchIndexRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

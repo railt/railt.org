@@ -13,9 +13,9 @@ doctrine:
             App:
                 is_bundle: false
                 type: attribute
-                dir: '%kernel.project_dir%/app/Entity'
-                prefix: 'App\Entity'
-                alias: App
+                dir: '%kernel.project_dir%/app/Domain'
+                prefix: 'App\Domain'
+                alias: App\Domain
 
 when@prod:
     doctrine:

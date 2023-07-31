@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Sync;
+namespace App\Domain\Sync;
 
-use App\Entity\Documentation;
-use App\Repository\DocumentationRepository;
+use App\Domain\Documentation;
+use App\Domain\DocumentationRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 use Highlight\Highlighter;
 use Illuminate\Support\Str;
@@ -18,9 +18,9 @@ class DocsUpdater extends Updater
 {
     public function __construct(
         EntityManager $em,
-        DocumentationRepository $docs,
-        private ConverterInterface $md,
-        private Highlighter $hl,
+        DocumentationRepositoryInterface $docs,
+        private readonly ConverterInterface $md,
+        private readonly Highlighter $hl,
     ) {
         parent::__construct($em, $docs);
     }
