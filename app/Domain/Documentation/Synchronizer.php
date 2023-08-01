@@ -22,7 +22,7 @@ final class Synchronizer
     ) {
     }
 
-    private function truncate(): void
+    public function truncate(): void
     {
         foreach ($this->menus->findAll() as $menu) {
             $this->em->remove($menu);
@@ -35,23 +35,8 @@ final class Synchronizer
         $this->em->flush();
     }
 
-    protected function getManifest(): array
-    {
-        $pathname = $this->directory . '/manifest.json';
-
-        if (!\is_file($pathname)) {
-            throw new \InvalidArgumentException('Manifest file not found');
-        }
-
-        $contents = \file_get_contents($pathname);
-
-        return (array)\json_decode($contents, true, 512, \JSON_THROW_ON_ERROR);
-    }
-
     public function sync(): void
     {
-        $this->truncate();
-
         $menuPriority = 0;
 
         foreach ($this->getManifest() as $menuTitle => $items) {
@@ -86,6 +71,19 @@ final class Synchronizer
         }
 
         $this->em->flush();
+    }
+
+    private function getManifest(): array
+    {
+        $pathname = $this->directory . '/manifest.json';
+
+        if (!\is_file($pathname)) {
+            throw new \InvalidArgumentException('Manifest file not found');
+        }
+
+        $contents = \file_get_contents($pathname);
+
+        return (array)\json_decode($contents, true, 512, \JSON_THROW_ON_ERROR);
     }
 
     private function fetchPath(string $title, string $path): ?Page

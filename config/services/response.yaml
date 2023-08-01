@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Application\Response\:
+    resource: '%kernel.project_dir%/app/Application/Response'
+
+  App\Application\Response\Compiler\Documentation\SearchItemCompiler:
+    arguments:
+      $slugger: '@App\Infrastructure\Slug\CaseInsensitiveSlugger'

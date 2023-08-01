@@ -15,7 +15,7 @@ services:
   # as action arguments even if you don't extend any base controller class.
   #
   App\Application\Controller\:
-    resource: '../app/Application/Controller/'
+    resource: '%kernel.project_dir%/app/Application/Controller/'
     tags: [ 'controller.service_arguments' ]
 
   #

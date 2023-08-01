@@ -23,7 +23,7 @@ doctrine:
             App\Domain\Documentation\PageId: App\Infrastructure\Persistence\Doctrine\Type\PageIdType
             App\Domain\Documentation\MenuId: App\Infrastructure\Persistence\Doctrine\Type\MenuIdType
             App\Domain\Documentation\Menu\LinkId: App\Infrastructure\Persistence\Doctrine\Type\LinkIdType
-            App\Domain\Search\IndexId: App\Infrastructure\Persistence\Doctrine\Type\IndexIdType
+            App\Domain\Documentation\Search\IndexId: App\Infrastructure\Persistence\Doctrine\Type\IndexIdType
     orm:
         connection: ~
         default_entity_manager: ~

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Search;
+namespace App\Domain\Documentation\Search;
 
 use App\Domain\Shared\UniversalUniqueId;
 

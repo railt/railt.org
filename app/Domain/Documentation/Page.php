@@ -3,6 +3,7 @@
 namespace App\Domain\Documentation;
 
 use App\Domain\Documentation\Menu\PageLink;
+use App\Domain\Documentation\Search\Index;
 use App\Domain\Shared\CreatedDateProvider;
 use App\Domain\Shared\CreatedDateProviderInterface;
 use App\Domain\Shared\IdentifiableInterface;

@@ -2,9 +2,10 @@
 
 namespace App\Infrastructure\Persistence\Repository;
 
-use App\Domain\Search\Index;
-use App\Domain\Search\IndexRepositoryInterface;
+use App\Domain\Documentation\Search\Index;
+use App\Domain\Documentation\Search\IndexRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\String\UnicodeString;
 
 /**
  * @template-extends DatabaseRepository<Index>
@@ -17,29 +18,24 @@ class IndexDatabaseRepository extends DatabaseRepository implements IndexReposit
     }
 
     /**
-     * @param string $query
-     * @return array<string>
-     */
-    public function getQueries(string $query): array
-    {
-        $words = \preg_split('/\s+/isum', $query);
-        $words = \array_filter($words);
-
-        return $words;
-    }
-
-    /**
      * @param array<string> $queries
      * @param positive-int $limit
      * @return iterable<Index>
      */
-    public function searchByWords(array $queries, int $limit): iterable
+    public function searchByWords(array $queries, int $limit = self::DEFAULT_LIMIT): iterable
     {
+        if ($queries === []) {
+            return [];
+        }
+
         $builder = $this->createQueryBuilder('idx');
 
         foreach ($queries as $q => $query) {
-            $builder->orWhere('idx.title LIKE :query' . $q);
-            $builder->setParameter('query' . $q, '%' . $query . '%');
+            $lower = (new UnicodeString($query))
+                ->lower();
+
+            $builder->orWhere('LOWER(idx.title) LIKE :query' . $q);
+            $builder->setParameter('query' . $q, '%' . $lower . '%');
         }
 
         return $builder

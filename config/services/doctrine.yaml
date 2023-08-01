@@ -4,13 +4,16 @@ services:
     autowire: true
     autoconfigure: true
 
+  App\Domain\:
+    resource: '%kernel.project_dir%/app/Domain'
+
   #
   # -----------------------------------------------------------------------------
   #   Database Repositories
   # -----------------------------------------------------------------------------
   #
 
-  App\Domain\Search\IndexRepositoryInterface:
+  App\Domain\Documentation\Search\IndexRepositoryInterface:
     class: App\Infrastructure\Persistence\Repository\IndexDatabaseRepository
 
   App\Domain\Documentation\Menu\LinkRepositoryInterface:

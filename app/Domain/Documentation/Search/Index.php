@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Search;
+namespace App\Domain\Documentation\Search;
 
 use App\Domain\Documentation\Page;
 use App\Domain\Shared\CreatedDateProvider;
@@ -30,38 +30,21 @@ class Index implements
     #[ORM\Column(type: 'integer')]
     private int $level;
 
-    #[ORM\ManyToOne(targetEntity: Page::class, fetch: 'EAGER', inversedBy: 'searchIndexes')]
+    #[ORM\ManyToOne(targetEntity: Page::class, fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'page_id', referencedColumnName: 'id', nullable: false)]
     private Page $page;
 
-    public function __construct(string $title, Page $page)
+    public function __construct(string $title, Page $page, int $level = 0)
     {
         $this->id = IndexId::fromNamespace(static::class);
         $this->title = $title;
         $this->page = $page;
+        $this->level = $level;
     }
 
     public function getId(): IndexId
     {
         return $this->id;
-    }
-
-    /**
-     * @param array $queries
-     * @return iterable<string>
-     */
-    public function getHighlights(array $queries): iterable
-    {
-        $queries = \array_map(static fn(string $query): string =>
-            \preg_quote($query, '/'),
-            $queries,
-        );
-
-        $pcre = '/(' . \implode('|', $queries) . ')/isum';
-
-        \preg_match_all($pcre, $this->title, $matches);
-
-        return \array_unique($matches[1] ?? []);
     }
 
     public function getLevel(): int

@@ -8,3 +8,7 @@ services:
     arguments:
       $directory: "%kernel.project_dir%/resources/docs"
       $em: '@doctrine.orm.default_entity_manager'
+
+  App\Domain\Documentation\Search\IndexGenerator:
+    arguments:
+      $em: '@doctrine.orm.default_entity_manager'
