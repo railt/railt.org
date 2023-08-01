@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Doctrine\Type;
 
-use App\Domain\Documentation\MenuId;
+use App\Domain\Documentation\Menu\LinkId;
 
-final class MenuIdType extends UniversalUniqueIdType
+final class LinkIdType extends UniversalUniqueIdType
 {
     protected static function getClass(): string
     {
-        return MenuId::class;
+        return LinkId::class;
     }
 }

@@ -4,19 +4,18 @@
     "type": "project",
     "license": "proprietary",
     "repositories": [
-        {"type": "path", "url": "libs/twig-highlight-extension"}
+        {"type": "path", "url": "libs/content-renderer"}
     ],
     "require": {
         "php": "^8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
-        "app/twig-highlight-extension": "*",
+        "local/content-renderer": "^1.0",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.15",
         "illuminate/support": "^10.16",
-        "league/commonmark": "^2.4",
         "ramsey/uuid": "^4.6",
         "scrivo/highlight.php": "^9.18",
         "symfony/asset": "6.3.*",
@@ -78,6 +77,14 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
+        "db:refresh": [
+            "@db:down",
+            "@db:up"
+        ],
+        "db:info": "@php bin/console doctrine:mapping:info",
+        "db:diff": "@php bin/console doctrine:migrations:diff -vvv",
+        "db:up": "@php bin/console doctrine:migrations:migrate --no-interaction",
+        "db:down": "@php bin/console doctrine:migrations:migrate first --no-interaction",
         "auto-scripts": [
             "@php -r \"is_file('.env') || copy('.env.example', '.env');\"",
             "@php bin/console cache:clear",

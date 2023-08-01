@@ -1,77 +1,37 @@
-
 imports:
-    - { resource: services/*.yaml }
+  - { resource: services/*.yaml }
 
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
+  _defaults:
+    autowire: true
+    autoconfigure: true
 
-    #
-    # --------------------------------------------------------------------------
-    #   Controllers
-    # --------------------------------------------------------------------------
-    #
-    # Controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class.
-    #
-    App\Application\Controller\:
-        resource: '../app/Application/Controller/'
-        tags: ['controller.service_arguments']
+  #
+  # --------------------------------------------------------------------------
+  #   Controllers
+  # --------------------------------------------------------------------------
+  #
+  # Controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class.
+  #
+  App\Application\Controller\:
+    resource: '../app/Application/Controller/'
+    tags: [ 'controller.service_arguments' ]
 
-    #
-    # --------------------------------------------------------------------------
-    #   Console Commands
-    # --------------------------------------------------------------------------
-    #
+  #
+  # --------------------------------------------------------------------------
+  #   Console Commands
+  # --------------------------------------------------------------------------
+  #
 
-    App\Application\Command\DocsUpdateCommand:
-        autowire: true
-        arguments:
-            - "%kernel.project_dir%/resources/docs"
-        tags:
-            - { name: 'console.command' }
+  App\Application\Command\DocsUpdateCommand:
+    tags:
+      - { name: 'console.command' }
 
-    #
-    # --------------------------------------------------------------------------
-    #   Twig Extensions
-    # --------------------------------------------------------------------------
-    #
+  #
+  # --------------------------------------------------------------------------
+  #   Services
+  # --------------------------------------------------------------------------
+  #
 
-    App\Twig\HighlightExtension\HighlightExtension:
-        tags: ['twig.extension']
-
-    #
-    # --------------------------------------------------------------------------
-    #   Services
-    # --------------------------------------------------------------------------
-    #
-
-    Highlight\Highlighter:
-        calls:
-            - registerLanguage: ['ebnf', '%kernel.project_dir%/resources/lang/pp2.json']
-            - registerLanguage: ['bnf', '%kernel.project_dir%/resources/lang/pp2.json']
-            - registerLanguage: ['pp2', '%kernel.project_dir%/resources/lang/pp2.json']
-            - registerLanguage: ['pp', '%kernel.project_dir%/resources/lang/pp2.json']
-            - registerLanguage: ['ast', '%kernel.project_dir%/resources/lang/ast.json']
-            - registerLanguage: ['graphql', '%kernel.project_dir%/resources/lang/graphql.json']
-            - registerLanguage: ['gql', '%kernel.project_dir%/resources/lang/graphql.json']
-            - registerLanguage: ['accord', '%kernel.project_dir%/resources/lang/accord.json']
-
-    App\Domain\Sync\MenuUpdater:
-        arguments:
-            $em: '@doctrine.orm.entity_manager'
-            $repository: '@App\Domain\Menu\MenuRepositoryInterface'
-
-    App\Domain\Sync\DocsUpdater:
-        arguments:
-            $em: '@doctrine.orm.entity_manager'
-
-    App\Domain\Sync\SearchIndexUpdater:
-        arguments:
-            $em: '@doctrine.orm.entity_manager'
-
-    League\CommonMark\ConverterInterface:
-        class: League\CommonMark\GithubFlavoredMarkdownConverter
-        arguments:
-          - allow_unsafe_links: true
+  App\Infrastructure\Slug\CaseInsensitiveSlugger: ~

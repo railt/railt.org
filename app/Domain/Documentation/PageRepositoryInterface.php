@@ -13,7 +13,6 @@ interface PageRepositoryInterface extends ObjectRepository
 {
     /**
      * @param string $path
-     * @return Page
      */
     public function findByPath(string $path): ?Page;
 }

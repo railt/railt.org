@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Highlight\Highlighter:
+    calls:
+      - registerLanguage: [ 'ebnf', '%kernel.project_dir%/resources/lang/pp2.json' ]
+      - registerLanguage: [ 'bnf', '%kernel.project_dir%/resources/lang/pp2.json' ]
+      - registerLanguage: [ 'pp2', '%kernel.project_dir%/resources/lang/pp2.json' ]
+      - registerLanguage: [ 'pp', '%kernel.project_dir%/resources/lang/pp2.json' ]
+      - registerLanguage: [ 'ast', '%kernel.project_dir%/resources/lang/ast.json' ]
+      - registerLanguage: [ 'graphql', '%kernel.project_dir%/resources/lang/graphql.json' ]
+      - registerLanguage: [ 'gql', '%kernel.project_dir%/resources/lang/graphql.json' ]
+      - registerLanguage: [ 'accord', '%kernel.project_dir%/resources/lang/accord.json' ]
+
+  Local\ContentRenderer\ContentRendererInterface:
+    class: Local\ContentRenderer\DocumentationRenderer
+    arguments:
+      $highlighter: '@Highlight\Highlighter'
+      $slugger: '@App\Infrastructure\Slug\CaseInsensitiveSlugger'

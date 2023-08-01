@@ -10,14 +10,18 @@ services:
   # -----------------------------------------------------------------------------
   #
 
-  App\Domain\Menu\MenuRepositoryInterface:
+  App\Domain\Search\IndexRepositoryInterface:
+    class: App\Infrastructure\Persistence\Repository\IndexDatabaseRepository
+
+  App\Domain\Documentation\Menu\LinkRepositoryInterface:
+    class: App\Infrastructure\Persistence\Repository\LinkDatabaseRepository
+
+  App\Domain\Documentation\MenuRepositoryInterface:
     class: App\Infrastructure\Persistence\Repository\MenuDatabaseRepository
 
   App\Domain\Documentation\PageRepositoryInterface:
     class: App\Infrastructure\Persistence\Repository\PageDatabaseRepository
 
-  App\Domain\Search\IndexRepositoryInterface:
-    class: App\Infrastructure\Persistence\Repository\IndexDatabaseRepository
 
   #
   # ----------------------------------------------------------------------------
@@ -38,3 +42,7 @@ services:
   #  Database Subscribers
   # ----------------------------------------------------------------------------
   #
+
+  App\Infrastructure\Persistence\Doctrine\Subscriber\RenderPageSubscriber:
+    tags:
+      - { name: doctrine.event_subscriber }

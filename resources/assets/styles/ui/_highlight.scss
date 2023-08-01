@@ -1,86 +1,134 @@
 .hljs {
-  display: block;
-  overflow-x: auto;
-}
+  color: $color-gray !important;
+  background: desaturate($color-black, 7%) !important;
 
-.hljs-quote {
-  color: $color-description;
-  font-style: italic;
-}
+  &-doctag,
+  &-keyword,
+  &-meta &-keyword,
+  &-template-tag,
+  &-template-variable,
+  &-variable.language_ {
+    /* prettylights-syntax-keyword */
+    color: lighten($color-main-alter, 24%);
+  }
 
-.hljs-comment {
-  color: $color-silver;
-}
+  &-type {
+    color: #f895d9;
+  }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-section,
-.hljs-title,
-.hljs-name {
-  color: $color-main;
-}
+  &-title,
+  &-title.class_,
+  &-title.class_.inherited__,
+  &-title.function_ {
+    /* prettylights-syntax-entity */
+    color: lighten($color-purple, 23%);
+  }
 
-.hljs-variable,
-.hljs-template-variable {
-  color: $color-text;
-}
+  &-attr,
+  &-attribute,
+  &-literal,
+  &-number,
+  &-operator,
+  &-variable,
+  &-selector-attr,
+  &-selector-class,
+  &-selector-id {
+    /* prettylights-syntax-constant */
+    color: lighten($color-blue, 2%);
+  }
 
-.hljs-string,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-regexp {
-  color: #936adc;
-}
+  &-meta {
+    font-style: italic;
+    color: desaturate(darken($color-blue, 5%), 48%);
+  }
 
-.hljs-literal,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-meta,
-.hljs-number,
-.hljs-link {
-  color: #4992cc;
-  font-weight: bold;
-  font-style: italic;
-}
+  &-regexp,
+  &-string,
+  &-meta &-string {
+    /* prettylights-syntax-string */
+    color: desaturate(lighten($color-green, 35%), 36%);
+  }
 
-.hljs-title {
-  color: #458;
-}
+  &-built_in,
+  &-symbol {
+    /* prettylights-syntax-variable */
+    color: #f69d50;
+  }
 
-.hljs-doctag,
-.hljs-type,
-.hljs-attr,
-.hljs-built_in,
-.hljs-builtin-name {
-  color: #28bc00;
-}
+  &-comment,
+  &-code,
+  &-formula {
+    /* prettylights-syntax-comment */
+    color: #847d90;
+  }
 
-.hljs-formula {
-  background-color: #eee;
-  font-style: italic;
-}
+  &-name,
+  &-quote,
+  &-selector-tag,
+  &-selector-pseudo {
+    /* prettylights-syntax-entity-tag */
+    color: #8ddb8c;
+  }
 
-.hljs-subst,
-.hljs-attribute,
-.hljs-selector-id,
-.hljs-selector-class {
-  color: #d9a910;
-  font-weight: bold;
-}
+  &-subst {
+    /* prettylights-syntax-storage-modifier-import */
+    color: #adbac7;
+  }
 
-.hljs-addition {
-  background-color: #517c51;
-}
+  &-section {
+    /* prettylights-syntax-markup-heading */
+    color: #316dca;
+    font-weight: bold;
+  }
 
-.hljs-deletion {
-  background-color: #ec3515;
-}
+  &-bullet {
+    /* prettylights-syntax-markup-list */
+    color: #eac55f;
+  }
 
-.hljs-doctag,
-.hljs-strong {
-  font-weight: bold;
-}
+  &-emphasis {
+    /* prettylights-syntax-markup-italic */
+    color: #adbac7;
+    font-style: italic;
+  }
 
-.hljs-emphasis {
-  font-style: italic;
+  &-strong {
+    /* prettylights-syntax-markup-bold */
+    color: #adbac7;
+    font-weight: bold;
+  }
+
+  &-addition {
+    /* prettylights-syntax-markup-inserted */
+    color: #b4f1b4;
+    background-color: #1b4721;
+  }
+
+  &-deletion {
+    /* prettylights-syntax-markup-deleted */
+    color: #ffd8d3;
+    background-color: #78191b;
+  }
+
+  &-char.escape_,
+  &-link,
+  &-params,
+  &-property,
+  &-punctuation,
+  &-tag {
+    /* purposely ignored */
+  }
+
+  .loc {
+    display: inline-block;
+    width: 100%;
+
+
+    &.highlighted {
+      background: linear-gradient(to right, rgba($color-main, .2) 0%, rgba($color-main, 0) 100%);
+      border-left: $color-main 8px solid;
+      margin-left: -20px;
+      padding: 0 0 0 10px;
+    }
+  }
 }

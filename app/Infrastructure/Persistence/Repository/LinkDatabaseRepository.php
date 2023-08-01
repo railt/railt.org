@@ -2,18 +2,18 @@
 
 namespace App\Infrastructure\Persistence\Repository;
 
-use App\Domain\Documentation\Menu;
-use App\Domain\Documentation\MenuRepositoryInterface;
+use App\Domain\Documentation\Menu\Link;
+use App\Domain\Documentation\Menu\LinkRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @template-extends DatabaseRepository<Menu>
+ * @template-extends DatabaseRepository<Link>
  */
-class MenuDatabaseRepository extends DatabaseRepository implements MenuRepositoryInterface
+class LinkDatabaseRepository extends DatabaseRepository implements LinkRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Menu::class);
+        parent::__construct($registry, Link::class);
     }
 
     public function findAll(): iterable

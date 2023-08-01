@@ -1,0 +1,37 @@
+{
+    "name": "local/content-renderer",
+    "license": "MIT",
+    "type": "library",
+    "description": "Content polymorphic renderer",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Kirill Nesmeyanov",
+            "email": "nesk@xakep.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-simplexml": "*",
+        "league/commonmark": "^2.3",
+        "scrivo/highlight.php": "^9.18",
+        "spatie/commonmark-highlighter": "^3.0",
+        "symfony/string": "^5.4|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Local\\ContentRenderer\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev",
+            "dev-main": "1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

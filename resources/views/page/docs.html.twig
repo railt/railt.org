@@ -6,9 +6,9 @@
     <main class="documentation">
         <aside class="documentation-menu" data-vm="MenuViewModel">
             <section class="documentation-menu-sticky">
-                <div class="documentation-menu-nav">
-                    <a href="/" class="documentation-menu-title documentation-menu-home">Home</a>
-                </div>
+                <a href="/" class="documentation-menu-home">
+                    <h1>Railt</h1>
+                </a>
                 <div class="documentation-search">
                     <label>
                         <input type="text" placeholder="Search..."
@@ -36,11 +36,17 @@
                         <ul class="documentation-menu-child" data-bind="
                             css: { visible: menu('{{ item.id }}') }
                         ">
-                            {% for child in item.children %}
-                                <li>
-                                    <a href="/docs/{{ child.url }}"
-                                        class="{% if child.url == current %}active{% endif %}">{{ child.title }}</a>
-                                </li>
+                            {% for child in item.links %}
+                                {% if child.isPage %}
+                                    <li>
+                                        <a href="/docs/{{ child.url }}"
+                                            class="{% if child.url == current %}active{% endif %}">{{ child.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{{ child.url }}" target="_blank" rel="nofollow">{{ child.title }}</a>
+                                    </li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     {% endfor %}

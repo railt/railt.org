@@ -1,0 +1,10 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Domain\Documentation\Synchronizer:
+    arguments:
+      $directory: "%kernel.project_dir%/resources/docs"
+      $em: '@doctrine.orm.default_entity_manager'

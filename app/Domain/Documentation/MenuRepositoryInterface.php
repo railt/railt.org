@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Menu;
+namespace App\Domain\Documentation;
 
-use App\Domain\Menu\Menu;
 use Doctrine\Persistence\ObjectRepository;
 
 /**

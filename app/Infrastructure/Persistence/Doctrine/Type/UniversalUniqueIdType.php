@@ -23,6 +23,11 @@ abstract class UniversalUniqueIdType extends Type
      */
     abstract protected static function getClass(): string;
 
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
+    }
+
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'UUID';

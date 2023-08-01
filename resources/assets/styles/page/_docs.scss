@@ -14,6 +14,22 @@
     background: $color-black;
     z-index: 99;
 
+    &-home {
+      margin: 20px 0 5px 0;
+      display: block;
+      height: 48px;
+      background: url(../../img/logo-white.svg) center center no-repeat;
+      background-size: auto 48px;
+
+      &:after {
+        display: none;
+      }
+
+      h1 {
+        display: none;
+      }
+    }
+
     &-sticky {
       position: sticky;
       top: 0;
@@ -259,15 +275,87 @@
       }
 
       pre > code {
+        margin-top: 40px;
         padding: 15px 20px;
         border-radius: 5px;
         display: block;
-        font-size: $font-size - 1px;
         line-height: 26px;
-        overflow: auto;
-        box-shadow: 0 0 0 2px $color-extra-light-gray;
-        background: $color-dark-white;
+        overflow-x: visible !important;
+        position: relative;
+        font-size: 85%;
         @include scrollbar(10px);
+
+        &:after {
+          color: rgba($color-white, .7);
+          content: attr(data-lang);
+          position: absolute;
+          font-size: 11px;
+          line-height: 18px;
+          font-weight: 400;
+          top: 5px;
+          right: 5px;
+          padding: 0 8px;
+          border-radius: 3px;
+          background: rgba($color-white, .1);
+          pointer-events: none;
+          opacity: 1;
+          transition: opacity .1s ease;
+        }
+
+        &:hover:after {
+          opacity: 0;
+          transition: opacity .3s ease;
+        }
+
+        &::-webkit-scrollbar,
+        &::-webkit-scrollbar-corner {
+          width: 4px;
+          height: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgba($color-main, .9);
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
+      }
+
+      table {
+        width: 100%;
+
+        thead {
+          th {
+            background: $color-extra-light-gray;
+            padding: 6px 5px;
+
+            &:first-child {
+              border-top-left-radius: 3px;
+            }
+
+            &:last-child {
+              border-top-right-radius: 3px;
+            }
+          }
+        }
+
+        tbody {
+          box-shadow: inset 0 0 0 2px $color-extra-light-gray;
+          border-radius: 0 0 3px 3px;
+
+          td {
+            padding: 10px 0;
+
+            &:first-child {
+              padding-left: 15px;
+            }
+
+            &:last-child {
+              padding-right: 15px;
+            }
+          }
+        }
       }
 
       ul {
@@ -277,7 +365,7 @@
         margin: 30px 0;
 
         li {
-          margin: 20px 0;
+          margin: 5px 0;
           list-style: none;
           position: relative;
           line-height: 32px;
@@ -322,18 +410,30 @@
       }
 
       blockquote {
-        background: $color-dark-white;
-        color: rgba($color-text, .8);
-        padding: 15px 20px;
-        box-shadow: inset 5px 0 0 $color-main;
+        background: lighten($color-main, 52%);
+        color: rgba(darken($color-main-alter, 20%), .8);
+        padding: 15px 25px;
+        box-shadow: inset 4px 0 0 $color-main;
         display: block;
-        font-size: .9em;
+        font-size: .9rem;
         line-height: 24px;
         margin: 0;
+        border-radius: 0 5px 5px 0;
 
         p {
           margin: 0;
           padding: 0;
+        }
+
+        code {
+          background: $color-white;
+          box-shadow: 0 0 0 1px $color-white;
+        }
+
+        &.quote-tip {
+          box-shadow: inset 4px 0 0 $color-yellow;
+          background: desaturate(lighten($color-yellow, 48%), 20%);
+          color: rgba(darken($color-yellow, 46%), .8);
         }
       }
     }
