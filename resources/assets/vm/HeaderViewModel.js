@@ -4,16 +4,13 @@ import ko from "knockout";
 const STICKY_TOP = 1;
 
 export default class HeaderViewModel {
-    /**
-     * @type {KnockoutObservable<boolean>}
-     */
-    sticky = ko.observable(false);
+    sticky: KnockoutObservable<boolean> = ko.observable(false);
 
     constructor() {
-        window.addEventListener('scroll', (e) => this.#onScroll(e));
+        window.addEventListener('scroll', (e: Event): void => this.#onScroll(e));
     }
 
-    #onScroll() {
+    #onScroll(): void {
         this.sticky(window.scrollY > STICKY_TOP);
     }
 }

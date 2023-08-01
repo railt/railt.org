@@ -16,13 +16,30 @@
                                class="documentation-search" />
                     </label>
 
-                    <!--ko if: results().length > 0 && shown()-->
-                    <div class="documentation-search-results" data-bind="foreach: results">
-                        <a href="#" data-bind="attr: {href: url}" class="documentation-search-item">
-                            <span class="documentation-search-item-title" data-bind="html: title"></span>
-                            <span class="documentation-search-item-page" data-bind="text: page"></span>
-                        </a>
-                    </div>
+
+
+                    <!--ko if: shown()-->
+                        <!--ko if: results().length > 0-->
+                        <div class="documentation-search-results" data-bind="foreach: results">
+                            <a href="#" data-bind="attr: {href: url}" class="documentation-search-item">
+                                <span class="documentation-search-item-title" data-bind="html: title"></span>
+                                <span class="documentation-search-item-page">
+                                    <!--ko if: menu -->
+                                        <span data-bind="text: menu"></span>
+                                        <span> &rarr; </span>
+                                    <!--/ko-->
+                                    <span data-bind="text: page"></span>
+                                </span>
+                            </a>
+                        </div>
+                        <!--/ko-->
+                        <!--ko if: request() === false && (results().length === 0) && (query().length > 0) -->
+                        <div class="documentation-search-results">
+                            <span class="documentation-search-item documentation-search-item-no-results">
+                                No Results
+                            </span>
+                        </div>
+                        <!--/ko-->
                     <!--/ko-->
                 </div>
                 <div class="documentation-menu-nav">

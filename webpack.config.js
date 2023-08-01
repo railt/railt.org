@@ -43,6 +43,7 @@ Encore
     .configureBabel((config) => {
         config.plugins.push('@babel/plugin-proposal-class-properties');
         config.plugins.push('@babel/plugin-proposal-private-methods');
+        config.plugins.push('@babel/plugin-transform-flow-strip-types');
     })
 
     // enables @babel/preset-env polyfills
@@ -53,6 +54,7 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
+    .enablePostCssLoader()
 
     // integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher

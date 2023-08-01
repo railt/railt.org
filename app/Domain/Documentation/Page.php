@@ -64,6 +64,15 @@ class Page implements
         $this->content = $content;
     }
 
+    public function findFirstLink(): ?PageLink
+    {
+        foreach ($this->links as $link) {
+            return $link;
+        }
+
+        return null;
+    }
+
     /**
      * @return iterable<PageLink>
      */

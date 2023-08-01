@@ -4,55 +4,43 @@ import ko from "knockout";
 const TITLE = 'Rail';
 
 export default class SplashViewModel {
-    /**
-     * @type {KnockoutObservable<number>}
-     */
-    firstLayerY = ko.observable(0);
+    firstLayerY: KnockoutObservable<number> = ko.observable(0);
 
-    /**
-     * @type {KnockoutObservable<number>}
-     */
-    secondLayerY = ko.observable(0);
+    secondLayerY: KnockoutObservable<number> = ko.observable(0);
 
-    /**
-     * @type {KnockoutObservable<string>}
-     */
-    title = ko.observable('&nbsp;');
+    title: KnockoutObservable<string> = ko.observable('&nbsp;');
 
-    /**
-     * @type {KnockoutObservable<boolean>}
-     */
-    ready = ko.observable(false);
+    ready: KnockoutObservable<boolean> = ko.observable(false);
 
     constructor() {
         window.addEventListener('scroll', (e) =>
-            requestAnimationFrame(() => this.#onScroll(e))
+            requestAnimationFrame((): void => this.#onScroll(e))
         );
 
-        setTimeout(() => this.#titleAnimationTick(TITLE), 300);
+        setTimeout((): void => this.#titleAnimationTick(TITLE), 300);
     }
 
-    #titleAnimationTick(buffer) {
+    #titleAnimationTick(buffer: string): void {
         if (buffer.length === 0) {
             this.ready(true);
             this.title('Rail<span>t</span>');
             return;
         }
 
-        this.title(this.title() + buffer.substr(0, 1));
+        this.title(this.title() + buffer.substring(0, 1));
 
-        this.#letterAnimationTick(buffer.substr(1));
+        this.#letterAnimationTick(buffer.substring(1));
     }
 
-    #letterAnimationTick(buffer) {
-        const title = this.title();
-        const letter = Math.random()
+    #letterAnimationTick(buffer: string): void {
+        const title: string = this.title();
+        const letter: string = Math.random()
             .toString(36)
-            .substr(2, 1);
+            .substring(2, 1);
 
         this.title(`${title}<span>${letter}</span>`);
 
-        setTimeout(() => {
+        setTimeout((): void => {
             this.title(title);
 
             if (Math.random() >= 0.2) {
@@ -63,7 +51,7 @@ export default class SplashViewModel {
         }, 40);
     }
 
-    #onScroll() {
+    #onScroll(): void {
         this.firstLayerY(window.scrollY / 1.5);
         this.secondLayerY(window.scrollY / 2);
     }

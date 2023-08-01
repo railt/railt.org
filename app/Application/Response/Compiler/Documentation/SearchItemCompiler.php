@@ -31,10 +31,15 @@ final readonly class SearchItemCompiler extends ResponseCompiler
 
         $page = $entry->getPage();
 
+        $menu = $page->findFirstLink()
+            ?->getMenu()
+        ;
+
         return new SearchItemResponseDTO(
             page: $page->getTitle(),
             title: $entry->getTitle(),
             url: $this->getUrl($page, $entry),
+            menu: $menu?->getTitle(),
             found: \array_filter($occurrences),
         );
     }
