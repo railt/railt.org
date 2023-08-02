@@ -1,8 +1,8 @@
 {
-  "dist/app.css": "/dist/app.css",
-  "dist/app.js": "/dist/app.js",
-  "dist/runtime.js": "/dist/runtime.js",
-  "dist/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-f2552e.js": "/dist/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-f2552e.js",
+  "dist/app.css": "/dist/app.6ed05aeb.css",
+  "dist/app.js": "/dist/app.9b356f3e.js",
+  "dist/runtime.js": "/dist/runtime.9a71ee5d.js",
+  "dist/442.ad4700eb.js": "/dist/442.ad4700eb.js",
   "dist/images/pc.svg": "/dist/images/pc.5d015e84.svg",
   "dist/images/logo-white.svg": "/dist/images/logo-white.0eab6b23.svg",
   "dist/images/down-arrow-white.svg": "/dist/images/down-arrow-white.ccb244ca.svg",
