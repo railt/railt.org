@@ -20,7 +20,7 @@ final readonly class IndexController
     public function __invoke(): Response
     {
         return new RedirectResponse($this->routes->generate('docs.show', [
-            'path' => 'guide/introduction',
+            'path' => 'introduction/graphql',
         ]));
     }
 }

@@ -53,7 +53,7 @@ final class Synchronizer
             $this->em->flush();
 
             foreach ($items as $linkTitle => $linkPath) {
-                $page = $this->fetchPath($linkTitle, $linkPath);
+                $page = $this->fetchPage($linkTitle, $linkPath);
 
                 if ($page !== null) {
                     $this->em->persist($page);
@@ -86,7 +86,7 @@ final class Synchronizer
         return (array)\json_decode($contents, true, 512, \JSON_THROW_ON_ERROR);
     }
 
-    private function fetchPath(string $title, string $path): ?Page
+    private function fetchPage(string $title, string $path): ?Page
     {
         $pathname = $this->directory . '/' . $path . '.md';
 

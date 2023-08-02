@@ -13,6 +13,7 @@ services:
       - registerLanguage: [ 'graphql', '%kernel.project_dir%/resources/lang/graphql.json' ]
       - registerLanguage: [ 'gql', '%kernel.project_dir%/resources/lang/graphql.json' ]
       - registerLanguage: [ 'accord', '%kernel.project_dir%/resources/lang/accord.json' ]
+      - registerLanguage: [ 'php', '%kernel.project_dir%/resources/lang/php.json' ]
 
   Local\ContentRenderer\ContentRendererInterface:
     class: Local\ContentRenderer\DocumentationRenderer
