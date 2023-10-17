@@ -26,12 +26,12 @@ class DocsUpdateCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        // Update docs
-        $this->sync->truncate();
-        $this->sync->sync();
-
-        // Update search index
         $this->index->truncate();
+        {
+            // Update docs
+            $this->sync->truncate();
+            $this->sync->sync();
+        }
         $this->index->sync();
 
         return Command::SUCCESS;
